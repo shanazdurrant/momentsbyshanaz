@@ -42,10 +42,10 @@
   --shadow-md:rgba(43,43,43,0.15);
   --shadow-lg:rgba(43,43,43,0.3);
 }
- 
+
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
- 
+
 /* ══════ GRADIENT BACKDROP ══════ */
 body{
   font-family:'Inter',sans-serif;
@@ -59,7 +59,7 @@ body{
     linear-gradient(135deg, var(--cream) 0%, var(--sage-mist) 50%, var(--cream) 100%);
   background-attachment:fixed;
 }
- 
+
 /* Ambient atmosphere */
 body::before{
   content:'';
@@ -71,7 +71,7 @@ body::before{
   pointer-events:none;
   z-index:0;
 }
- 
+
 /* Floating gold motes */
 body::after{
   content:'';
@@ -92,7 +92,7 @@ body::after{
   0%{background-position:0 0, 0 0, 0 0, 0 0, 0 0;}
   100%{background-position:-300px 300px, 250px -250px, -400px 400px, 350px -350px, -280px 280px;}
 }
- 
+
 /* ══════ TOP BAR ══════ */
 .top-bar{
   position:sticky;top:0;z-index:50;
@@ -165,7 +165,7 @@ body::after{
   line-height:0.85;
   letter-spacing:-0.5px;
 }
- 
+
 /* Mobile scaling */
 @media(max-width:640px){
   .brand-moments{font-size:36px;}
@@ -179,13 +179,13 @@ body::after{
   .brand-moments{font-size:32px;}
   .brand-shanaz{font-size:20px;}
 }
- 
+
 .page{
   max-width:1200px;margin:0 auto;
   padding:40px 20px 60px;
   position:relative;z-index:1;
 }
- 
+
 /* ══════ HERO ══════ */
 .hero{text-align:center;margin-bottom:50px;animation:heroIn 0.9s cubic-bezier(.16,1,.3,1) both;}
 @keyframes heroIn{
@@ -225,7 +225,7 @@ body::after{
   font-size:15px;line-height:1.7;
   max-width:520px;margin:0 auto;
 }
- 
+
 .split{
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
@@ -235,7 +235,7 @@ body::after{
   .split{grid-template-columns:1fr;gap:30px;}
   .preview-sticky{position:static!important;}
 }
- 
+
 /* ══════ FORM CARD ══════ */
 .form-card{
   background:linear-gradient(145deg,var(--cream-soft) 0%,var(--cream) 100%);
@@ -260,7 +260,7 @@ body::after{
   border-radius:1px;
   pointer-events:none;
 }
- 
+
 /* ══════ PROGRESSIVE REVEAL ══════ */
 .form-section{
   margin-bottom:36px;
@@ -280,7 +280,7 @@ body::after{
   100%{opacity:1;transform:translateY(0);}
 }
 .form-section:last-of-type{margin-bottom:24px;}
- 
+
 .section-label{
   display:flex;align-items:center;gap:12px;margin-bottom:16px;
 }
@@ -303,7 +303,7 @@ body::after{
   font-style:italic;font-family:'Cormorant Garamond',serif;font-size:14px;
   margin-bottom:16px;line-height:1.5;
 }
- 
+
 /* ══════ FORM FIELDS ══════ */
 .form-row{margin-bottom:18px;}
 .form-row label{
@@ -331,7 +331,7 @@ body::after{
   margin-top:4px;text-align:right;
   font-family:'Inter',sans-serif;letter-spacing:1px;
 }
- 
+
 /* ══════ OCCASION CHIPS — with glow ══════ */
 .occasion-grid{
   display:grid;
@@ -400,7 +400,7 @@ body::after{
   letter-spacing:0.3px;color:var(--ink);
   display:block;line-height:1.2;
 }
- 
+
 /* ══════ GENDER SUB-CHOICE ══════ */
 .gender-subchoice{
   margin-top:20px;
@@ -507,7 +507,7 @@ body::after{
   opacity:0.8;
   letter-spacing:0.3px;
 }
- 
+
 /* ══════ LAYOUT CHIPS ══════ */
 .layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .layout-chip{
@@ -560,7 +560,7 @@ body::after{
   font-size:11px;color:var(--ink-soft);
   font-style:italic;font-family:'Cormorant Garamond',serif;font-size:12px;
 }
- 
+
 /* ══════ TOGGLE ══════ */
 .toggle-row{
   display:flex;align-items:center;justify-content:space-between;
@@ -601,7 +601,7 @@ body::after{
 }
 .toggle.on{background:linear-gradient(135deg,var(--gold),var(--gold-deep));}
 .toggle.on::before{transform:translateX(22px);}
- 
+
 /* ══════ SUBMIT ══════ */
 .submit-btn{
   width:100%;padding:20px;
@@ -627,16 +627,16 @@ body::after{
 }
 .submit-btn:hover::before{transform:translateX(100%);}
 .submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
- 
+
 .required-note{
   display:inline-block;font-size:10px;letter-spacing:2px;
   color:var(--sage-deep);font-weight:500;
   text-transform:uppercase;margin-left:6px;
 }
- 
+
 /* ══════ PREVIEW ══════ */
 .preview-sticky{position:sticky;top:100px;}
- 
+
 .preview-wrap{
   background:linear-gradient(145deg,var(--cream-soft) 0%,var(--cream) 100%);
   border-radius:3px;
@@ -667,7 +667,7 @@ body::after{
   color:var(--ink-soft);font-size:12px;margin-top:4px;
   font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;
 }
- 
+
 /* ══════ THE CARD ══════ */
 .preview-card{
   max-width:360px;margin:0 auto;
@@ -678,7 +678,7 @@ body::after{
   background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
   transition:box-shadow 0.6s;
 }
- 
+
 /* Themed background imagery */
 .theme-bg-layer{
   position:absolute;inset:0;
@@ -690,7 +690,7 @@ body::after{
   transition:opacity 0.8s;
   mix-blend-mode:multiply;
 }
- 
+
 /* WATERMARK */
 .preview-card::after{
   content:'PREVIEW';
@@ -715,7 +715,7 @@ body::after{
   );
   pointer-events:none;z-index:9;
 }
- 
+
 /* REVEAL LAYER — text in foreground, scene as backdrop */
 .reveal-layer{
   position:absolute;inset:0;
@@ -755,7 +755,7 @@ body::after{
   position:relative;z-index:3;
   text-shadow:0 1px 2px rgba(253,250,243,0.7);
 }
- 
+
 /* ══════ SEQUENCED REVEAL ANIMATION ══════ */
 /* When .just-revealed class added, text fades in with delay so scene gets its "payoff" first */
 @keyframes textReveal{
@@ -780,7 +780,7 @@ body::after{
 .preview-card.just-revealed .reveal-signoff{
   animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;
 }
- 
+
 /* ══════ SINGLE SCRATCH ══════ */
 .scratch-single{
   position:absolute;inset:0;z-index:2;
@@ -818,7 +818,7 @@ body::after{
   font-size:12px;color:var(--ink-soft);letter-spacing:1px;
 }
 .scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
- 
+
 /* ══════ ANIMATED SCENE BACKDROP ══════ */
 .scene{
   position:absolute;
@@ -839,7 +839,7 @@ body::after{
   overflow:visible;
   filter:drop-shadow(0 4px 10px rgba(60,40,20,0.2));
 }
- 
+
 /* Gift box opening (birthday / christmas) */
 @keyframes giftLidLift{
   0%{transform:translateY(0) rotate(0deg);}
@@ -877,7 +877,7 @@ body::after{
   0%,100%{opacity:0.3;transform:translateY(0) scale(1);}
   50%{opacity:1;transform:translateY(-4px) scale(1.15);}
 }
- 
+
 /* Ring box opening (proposal) - lid opens DOWNWARD away from text */
 @keyframes ringBoxLidOpenDown{
   0%{transform:rotateX(0deg) translateY(0);}
@@ -903,7 +903,7 @@ body::after{
   transform-origin:center;
   animation:ringGlint 1.5s ease-in-out 1.5s infinite;
 }
- 
+
 /* Champagne flutes clinking (wedding) */
 @keyframes fluteLeftClink{
   0%{transform:translateX(0) rotate(0);}
@@ -948,7 +948,7 @@ body::after{
   transform-origin:center;
   animation:clinkSparkle 0.8s ease-out 1.2s both;
 }
- 
+
 /* Envelope opening (gender / custom / christmas) - flap opens UPWARD away from text */
 @keyframes envelopeFlapOpenUp{
   0%{transform:rotateX(0deg);}
@@ -978,7 +978,7 @@ body::after{
 }
 .scene-gender .puff-2{animation-delay:1s;}
 .scene-gender .puff-3{animation-delay:1.2s;}
- 
+
 /* Gender reveal - boy/girl variants */
 @keyframes genderItemPop{
   0%{transform:scale(0.3);opacity:0;}
@@ -1012,7 +1012,7 @@ body::after{
 }
 .scene-gender-boy .tiny-heart-1,.scene-gender-girl .tiny-heart-1{animation-delay:1.2s;}
 .scene-gender-boy .tiny-heart-2,.scene-gender-girl .tiny-heart-2{animation-delay:1.8s;}
- 
+
 /* Onesie on clothesline (pregnancy) */
 @keyframes onesieSwayGentle{
   0%,100%{transform:rotate(-3deg);}
@@ -1033,7 +1033,7 @@ body::after{
 .scene-pregnancy .tiny-heart-1{animation-delay:1s;}
 .scene-pregnancy .tiny-heart-2{animation-delay:1.6s;}
 .scene-pregnancy .tiny-heart-3{animation-delay:2.2s;}
- 
+
 /* Suitcase opening (holiday) */
 @keyframes suitcaseOpen{
   0%{transform:rotateX(0deg);}
@@ -1067,7 +1067,7 @@ body::after{
 .scene-holiday .little-plane{
   animation:planeCrossing 3s ease-in-out 1.6s infinite;
 }
- 
+
 /* ══════ SIGN-OFF BLOCK ══════ */
 .reveal-signoff{
   margin-top:22px;
@@ -1096,7 +1096,7 @@ body::after{
 .reveal-signoff-leaf .line{
   width:18px;height:1px;background:var(--gold);opacity:0.6;
 }
- 
+
 /* Wedding date display */
 .reveal-date{
   font-family:'Cormorant Garamond',serif;font-style:italic;
@@ -1105,7 +1105,7 @@ body::after{
   margin-top:14px;margin-bottom:4px;
   position:relative;z-index:3;
 }
- 
+
 /* ══════ FLASH ══════ */
 .card-flash{
   position:absolute;inset:0;
@@ -1120,7 +1120,7 @@ body::after{
   30%{opacity:0.7;transform:scale(1);}
   100%{opacity:0;transform:scale(1.3);}
 }
- 
+
 /* ══════ CONFETTI LAYER ══════ */
 .confetti-layer{
   position:absolute;inset:0;
@@ -1145,7 +1145,7 @@ body::after{
   90%{opacity:1;}
   100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}
 }
- 
+
 /* ══════ TRIPLE LAYOUT ══════ */
 .triple-wrap{
   position:absolute;inset:0;z-index:2;
@@ -1167,7 +1167,7 @@ body::after{
   font-size:12px;color:var(--ink-soft);font-style:italic;
   letter-spacing:1px;
 }
- 
+
 .triple-panels{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:14px;margin:auto 0;padding:0 4px;
@@ -1211,7 +1211,7 @@ body::after{
   50%{transform:scale(1.15);box-shadow:0 10px 30px rgba(201,169,97,0.6),0 0 40px rgba(232,212,160,0.8);}
   100%{transform:scale(1);}
 }
- 
+
 /* Ping on each panel reveal */
 .tri-ping{
   position:absolute;top:50%;left:50%;
@@ -1227,7 +1227,7 @@ body::after{
   40%{opacity:0.9;border-width:2px;}
   100%{opacity:0;transform:scale(3);border-width:0.5px;}
 }
- 
+
 .triple-footer{
   margin-top:auto;padding-top:20px;
   text-align:center;min-height:70px;
@@ -1237,7 +1237,7 @@ body::after{
   font-size:13px;color:var(--ink-soft);letter-spacing:1px;
   transition:all .4s;
 }
- 
+
 .triple-wrap.winner .triple-panels{animation:winnerPulse 0.8s cubic-bezier(.16,1,.3,1);}
 @keyframes winnerPulse{
   0%{transform:scale(1);}
@@ -1261,7 +1261,7 @@ body::after{
   z-index:4;
 }
 .winner-message.show{opacity:1;}
- 
+
 /* Reset button */
 .preview-reset{
   margin-top:12px;text-align:center;position:relative;z-index:1;
@@ -1275,7 +1275,7 @@ body::after{
   transition:all .3s;
 }
 .preview-reset button:hover{color:var(--ink);transform:translateY(-1px);}
- 
+
 /* ══════ OCCASION THEMES ══════ */
 .theme-proposal{
   --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c4cc 100%);
@@ -1327,7 +1327,7 @@ body::after{
   --theme-text:#2b2b2b;
   --theme-text-soft:#4a4a4a;
 }
- 
+
 /* MODAL */
 .modal-backdrop{
   position:fixed;inset:0;
@@ -1382,7 +1382,7 @@ body::after{
 </style>
 </head>
 <body>
- 
+
 <header class="top-bar">
   <div class="top-bar-inner">
     <div class="brand-logo">
@@ -1399,19 +1399,19 @@ body::after{
     </div>
   </div>
 </header>
- 
+
 <div class="page">
- 
+
   <div class="hero">
     <div class="hero-ornament"><span>✦</span></div>
     <h1 class="hero-title">Design your <em>scratchcard</em></h1>
     <p class="hero-sub">Fill in the moment on the left. Try scratching it on the right. When you're ready, send it to me and I'll craft your final card by hand.</p>
   </div>
- 
+
   <div class="split">
- 
+
     <div class="form-card">
- 
+
       <!-- Section 1: Occasion (always visible) -->
       <div class="form-section" id="section-1">
         <div class="section-label">
@@ -1419,7 +1419,7 @@ body::after{
         </div>
         <div class="section-title">Pick the <em>occasion</em></div>
         <div class="section-hint">We'll tailor the colours, icon and tone to match.</div>
- 
+
         <div class="occasion-grid" id="occasionGrid">
           <div class="occasion-chip selected" data-occ="proposal" data-icon="💍" data-headline="Will you marry me?"><span class="occasion-icon">💍</span><span class="occasion-label">Proposal</span></div>
           <div class="occasion-chip" data-occ="gender" data-icon="👶" data-headline="It's a…"><span class="occasion-icon">👶</span><span class="occasion-label">Gender Reveal</span></div>
@@ -1430,7 +1430,7 @@ body::after{
           <div class="occasion-chip" data-occ="christmas" data-icon="🎄" data-headline="A Christmas surprise"><span class="occasion-icon">🎄</span><span class="occasion-label">Christmas</span></div>
           <div class="occasion-chip" data-occ="custom" data-icon="✨" data-headline="A little something for you"><span class="occasion-icon">✨</span><span class="occasion-label">Other</span></div>
         </div>
- 
+
         <!-- Gender sub-choice (only visible when Gender Reveal is selected) -->
         <div class="gender-subchoice" id="genderSubchoice" style="display:none;">
           <div class="subchoice-label">
@@ -1457,7 +1457,7 @@ body::after{
           </div>
         </div>
       </div>
- 
+
       <!-- Section 2: Layout -->
       <div class="form-section locked" id="section-2">
         <div class="section-label">
@@ -1465,7 +1465,7 @@ body::after{
         </div>
         <div class="section-title">Choose your <em>layout</em></div>
         <div class="section-hint">One grand reveal, or a little lottery-style mini-game?</div>
- 
+
         <div class="layout-grid">
           <div class="layout-chip selected" data-layout="single">
             <div class="layout-visual"><div class="panel"></div></div>
@@ -1479,7 +1479,7 @@ body::after{
           </div>
         </div>
       </div>
- 
+
       <!-- Section 3: Message -->
       <div class="form-section locked" id="section-3">
         <div class="section-label">
@@ -1488,11 +1488,6 @@ body::after{
         <div class="section-title">Write <em>the message</em></div>
         <div class="section-hint">The details that make it theirs.</div>
 
-<div class="form-row">
-  <label>Etsy Order Number</label>
-  <input type="text" id="orderNumber" placeholder="e.g. #123456789">
-</div>
- 
         <div class="form-row">
           <label>Who is it for?</label>
           <input type="text" id="recipientName" placeholder="e.g. Amelia" maxlength="30">
@@ -1517,7 +1512,7 @@ body::after{
           <input type="text" id="signature" placeholder="e.g. James" maxlength="30">
         </div>
       </div>
- 
+
       <!-- Section 4: Finishing touches -->
       <div class="form-section locked" id="section-4">
         <div class="section-label">
@@ -1525,7 +1520,7 @@ body::after{
         </div>
         <div class="section-title">Finishing <em>touches</em></div>
         <div class="section-hint">A little magic when they reveal.</div>
- 
+
         <div class="toggle-row">
           <div class="toggle-label">
             Confetti on reveal
@@ -1534,7 +1529,7 @@ body::after{
           <div class="toggle on" id="confettiToggle" onclick="this.classList.toggle('on');"></div>
         </div>
       </div>
- 
+
       <!-- Section 5: Contact -->
       <div class="form-section locked" id="section-5">
         <div class="section-label">
@@ -1542,7 +1537,7 @@ body::after{
         </div>
         <div class="section-title">Your <em>contact</em></div>
         <div class="section-hint">So I can send your final card back to you.</div>
- 
+
         <div class="form-row">
           <label>Your name</label>
           <input type="text" id="yourName" placeholder="What should I call you?" maxlength="50" required>
@@ -1556,20 +1551,20 @@ body::after{
           <input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50">
         </div>
       </div>
- 
+
       <button class="submit-btn" onclick="submitOrder()" id="submitBtn">Send my order to Shanaz</button>
     </div>
- 
+
     <div class="preview-sticky">
       <div class="preview-wrap">
         <div class="preview-header">
           <div class="preview-label">✦ Try it out ✦</div>
           <div class="preview-sublabel">Scratch it yourself — this is exactly what they'll see</div>
         </div>
- 
+
         <div class="preview-card theme-proposal" id="previewCard">
           <div class="theme-bg-layer"></div>
- 
+
           <div class="reveal-layer" id="revealLayer">
             <div class="reveal-greeting" id="rGreeting">For Amelia</div>
             <div class="scene" id="rScene"></div>
@@ -1591,7 +1586,7 @@ body::after{
               </div>
             </div>
           </div>
- 
+
           <div class="scratch-single" id="scratchSingle">
             <canvas id="singleCanvas"></canvas>
             <div class="scratch-single-hint" id="singleHint">
@@ -1600,7 +1595,7 @@ body::after{
               <div class="sub">Use your finger or mouse</div>
             </div>
           </div>
- 
+
           <div class="triple-wrap" id="tripleWrap" style="display:none;">
             <div class="triple-header">
               <div class="title">✦ Scratch &amp; Match ✦</div>
@@ -1627,7 +1622,7 @@ body::after{
               <div class="triple-status" id="tripleStatus">0 of 3 matched</div>
             </div>
           </div>
- 
+
           <div class="winner-message" id="winnerMessage">
             <div class="reveal-greeting" id="wGreeting">For Amelia</div>
             <div class="scene" id="wScene"></div>
@@ -1649,18 +1644,18 @@ body::after{
               </div>
             </div>
           </div>
- 
+
           <!-- Themed shaped confetti -->
           <div class="confetti-layer" id="confettiLayer"></div>
- 
+
           <!-- Flash for full reveal celebration (kept as subtle backdrop) -->
           <div class="card-flash" id="cardFlash"></div>
         </div>
- 
+
         <div class="preview-reset">
           <button onclick="resetScratch()">↺ Reset scratch</button>
         </div>
- 
+
         <div style="margin-top:14px;padding:14px;background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.2);border-radius:2px;text-align:center;position:relative;z-index:1;">
           <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);line-height:1.6;">
             The watermark is removed on your final card — fully scratchable &amp; shareable.
@@ -1668,10 +1663,10 @@ body::after{
         </div>
       </div>
     </div>
- 
+
   </div>
 </div>
- 
+
 <div class="modal-backdrop" id="successModal">
   <div class="modal">
     <div class="modal-ornament">✦</div>
@@ -1682,7 +1677,7 @@ body::after{
     <div class="signature">Shanaz</div>
   </div>
 </div>
- 
+
 <script>
 const state = {
   occasion:'proposal',
@@ -1700,11 +1695,11 @@ const state = {
   yourEmail:'',
   orderNumber:''
 };
- 
+
 let panelsRevealed = [false,false,false];
 let winnerShown = false;
 let unlockedSections = new Set([1]);
- 
+
 function unlockSection(n){
   if(unlockedSections.has(n)) return;
   unlockedSections.add(n);
@@ -1718,7 +1713,7 @@ function unlockSection(n){
     section.scrollIntoView({behavior:'smooth',block:'center'});
   },100);
 }
- 
+
 document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.occasion-chip').forEach(chip=>{
     chip.addEventListener('click',()=>{
@@ -1735,7 +1730,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         updateCounts();
       }
       hInput.placeholder = chip.dataset.headline;
- 
+
       // Show wedding date field only for wedding occasion
       const weddingRow = document.getElementById('weddingDateRow');
       if(state.occasion === 'wedding'){
@@ -1743,7 +1738,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       }else{
         weddingRow.style.display = 'none';
       }
- 
+
       // Show gender sub-choice only for gender reveal
       const genderSub = document.getElementById('genderSubchoice');
       if(state.occasion === 'gender'){
@@ -1753,13 +1748,13 @@ document.addEventListener('DOMContentLoaded',()=>{
         // Reset gender sub-state when switching away
         state.genderChoice = 'surprise';
       }
- 
+
       updatePreview();
       resetScratch();
       unlockSection(2);
     });
   });
- 
+
   // Gender sub-choice handler
   document.querySelectorAll('.subchoice-chip').forEach(chip=>{
     chip.addEventListener('click',()=>{
@@ -1781,7 +1776,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       resetScratch();
     });
   });
- 
+
   document.querySelectorAll('.layout-chip').forEach(chip=>{
     chip.addEventListener('click',()=>{
       document.querySelectorAll('.layout-chip').forEach(c=>c.classList.remove('selected'));
@@ -1792,7 +1787,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       unlockSection(3);
     });
   });
- 
+
   ['recipientName','headline','message','signature','weddingDate','yourName','yourEmail','orderNumber'].forEach(id=>{
     const el = document.getElementById(id);
     if(!el) return;
@@ -1815,27 +1810,27 @@ document.addEventListener('DOMContentLoaded',()=>{
       el.addEventListener('focus',()=>unlockSection(5));
     }
   });
- 
+
   // Section 4 unlocks as soon as user clicks into it
   document.getElementById('section-4').addEventListener('click',()=>unlockSection(5));
- 
+
   // Confetti toggle click also unlocks section 5
   document.getElementById('confettiToggle').addEventListener('click',()=>unlockSection(5));
- 
+
   document.getElementById('headline').value = state.defaultHeadline;
   document.getElementById('headline').dataset.autoset = 'true';
   state.headline = state.defaultHeadline;
   updateCounts();
   updatePreview();
   setTimeout(()=>initCanvases(),100);
- 
+
   let resizeTimer;
   window.addEventListener('resize',()=>{
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(()=>resetScratch(),200);
   });
 });
- 
+
 function updatePreview(){
   const card = document.getElementById('previewCard');
   // Theme: for gender, use sub-variant if not 'surprise'
@@ -1844,27 +1839,27 @@ function updatePreview(){
     themeClass = 'theme-gender-' + state.genderChoice;
   }
   card.className = 'preview-card ' + themeClass;
- 
+
   // Use actual values if filled, otherwise show themed example text
   const displayName = state.recipient || 'Amelia';
   const displayHeadline = state.headline || state.defaultHeadline;
   const displayMessage = state.message || getExampleMessage(state.occasion);
   const displaySig = state.signature || '';
- 
+
   const greetingEl = document.getElementById('rGreeting');
   const headlineEl = document.getElementById('rHeadline');
   const messageEl = document.getElementById('rMessage');
- 
+
   greetingEl.textContent = 'For ' + displayName;
   greetingEl.style.opacity = state.recipient ? '0.9' : '0.5';
   headlineEl.textContent = displayHeadline;
   headlineEl.style.opacity = state.headline ? '1' : '0.6';
   messageEl.textContent = displayMessage;
   messageEl.style.opacity = state.message ? '1' : '0.55';
- 
+
   // Render animated scene
   renderScene(state.occasion,'rScene');
- 
+
   // Wedding date (only shown for wedding occasion)
   const rDate = document.getElementById('rDate');
   if(state.occasion === 'wedding' && state.weddingDate){
@@ -1873,7 +1868,7 @@ function updatePreview(){
   }else{
     rDate.style.display = 'none';
   }
- 
+
   // Signoff block - only show if signature is filled
   const rSignoff = document.getElementById('rSignoff');
   if(displaySig){
@@ -1882,7 +1877,7 @@ function updatePreview(){
   }else{
     rSignoff.style.display = 'none';
   }
- 
+
   // Same for winner layer
   const wGreetingEl = document.getElementById('wGreeting');
   const wHeadlineEl = document.getElementById('wHeadline');
@@ -1893,9 +1888,9 @@ function updatePreview(){
   wHeadlineEl.style.opacity = state.headline ? '1' : '0.6';
   wMessageEl.textContent = displayMessage;
   wMessageEl.style.opacity = state.message ? '1' : '0.55';
- 
+
   renderScene(state.occasion,'wScene');
- 
+
   // Wedding date on winner layer
   const wDate = document.getElementById('wDate');
   if(state.occasion === 'wedding' && state.weddingDate){
@@ -1904,7 +1899,7 @@ function updatePreview(){
   }else{
     wDate.style.display = 'none';
   }
- 
+
   const wSignoff = document.getElementById('wSignoff');
   if(displaySig){
     wSignoff.style.display = 'flex';
@@ -1912,11 +1907,11 @@ function updatePreview(){
   }else{
     wSignoff.style.display = 'none';
   }
- 
+
   const scratchSingle = document.getElementById('scratchSingle');
   const tripleWrap = document.getElementById('tripleWrap');
   const revealLayer = document.getElementById('revealLayer');
- 
+
   if(state.layout === 'triple'){
     scratchSingle.style.display = 'none';
     tripleWrap.style.display = 'flex';
@@ -1930,7 +1925,7 @@ function updatePreview(){
     revealLayer.style.display = 'flex';
   }
 }
- 
+
 function getExampleMessage(occ){
   const examples = {
     proposal:'Your message will appear here.',
@@ -1944,19 +1939,19 @@ function getExampleMessage(occ){
   };
   return examples[occ] || 'Your message will appear here.';
 }
- 
+
 function updateCounts(){
   const hv = document.getElementById('headline').value;
   const mv = document.getElementById('message').value;
   document.getElementById('headlineCount').textContent = `${hv.length} / 50`;
   document.getElementById('messageCount').textContent = `${mv.length} / 180`;
 }
- 
+
 function initCanvases(){
   setupSingleCanvas();
   setupTripleCanvases();
 }
- 
+
 function paintGoldOverlay(ctx,w,h){
   const grad = ctx.createLinearGradient(0,0,w,h);
   grad.addColorStop(0,'#a88843');
@@ -1966,20 +1961,20 @@ function paintGoldOverlay(ctx,w,h){
   grad.addColorStop(1,'#a88843');
   ctx.fillStyle = grad;
   ctx.fillRect(0,0,w,h);
- 
+
   const hg1 = ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
   hg1.addColorStop(0,'rgba(255,255,255,0.25)');
   hg1.addColorStop(1,'rgba(255,255,255,0)');
   ctx.fillStyle = hg1;
   ctx.fillRect(0,0,w,h);
- 
+
   const hg2 = ctx.createRadialGradient(w*0.7,h*0.8,0,w*0.7,h*0.8,w*0.4);
   hg2.addColorStop(0,'rgba(255,255,255,0.15)');
   hg2.addColorStop(1,'rgba(255,255,255,0)');
   ctx.fillStyle = hg2;
   ctx.fillRect(0,0,w,h);
 }
- 
+
 // ══════ THEMED CONFETTI SHAPES ══════
 const CONFETTI_SHAPES = {
   proposal:[
@@ -2060,7 +2055,7 @@ const CONFETTI_SHAPES = {
     `<svg viewBox="0 0 24 24"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="#a8b89f"/></svg>`
   ]
 };
- 
+
 // ══════ ANIMATED SCENES (8 occasion-specific illustrations) ══════
 const SCENES = {
   proposal: `
@@ -2106,7 +2101,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   wedding: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2155,7 +2150,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   birthday: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2191,7 +2186,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   christmas: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2232,7 +2227,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   // NEUTRAL / SURPRISE - shown when user hasn't picked boy or girl, or picks surprise
   gender: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -2272,7 +2267,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   // BOY variant - blue dummy + rattle
   'gender-boy': `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -2326,7 +2321,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   // GIRL variant - pink dummy + rattle
   'gender-girl': `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -2374,7 +2369,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   pregnancy: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2404,7 +2399,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   holiday: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2446,7 +2441,7 @@ const SCENES = {
       </g>
     </svg>
   `,
- 
+
   custom: `
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -2476,7 +2471,7 @@ const SCENES = {
     </svg>
   `
 };
- 
+
 function renderScene(occasion,elementId){
   const container = document.getElementById(elementId);
   if(!container) return;
@@ -2490,39 +2485,39 @@ function renderScene(occasion,elementId){
   container.className = 'scene scene-' + sceneKey;
   container.innerHTML = svg;
 }
- 
+
 function replayScene(occasion,elementId){
   // Remove and re-insert to restart CSS animations
   renderScene(occasion,elementId);
 }
- 
+
 function fireConfetti(){
   // Only fire if confetti is enabled
   if(!document.getElementById('confettiToggle').classList.contains('on')) return;
- 
+
   const container = document.getElementById('confettiLayer');
   if(!container) return;
   const shapes = CONFETTI_SHAPES[state.occasion] || CONFETTI_SHAPES.custom;
   const cardRect = document.getElementById('previewCard').getBoundingClientRect();
   const cardWidth = cardRect.width;
- 
+
   // Clear any previous confetti
   container.innerHTML = '';
- 
+
   // Generate 40 confetti pieces
   for(let i=0;i<40;i++){
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     const shape = shapes[Math.floor(Math.random() * shapes.length)];
     piece.innerHTML = shape;
- 
+
     const size = 16 + Math.random() * 16; // 16-32px
     const startX = Math.random() * 100; // % across
     const drift = (Math.random() - 0.5) * 120; // -60 to +60px drift
     const spin = (Math.random() > 0.5 ? 1 : -1) * (360 + Math.random() * 720);
     const duration = 2.5 + Math.random() * 2; // 2.5-4.5s
     const delay = Math.random() * 0.4; // stagger start
- 
+
     piece.style.left = startX + '%';
     piece.style.width = size + 'px';
     piece.style.height = size + 'px';
@@ -2530,29 +2525,29 @@ function fireConfetti(){
     piece.style.setProperty('--spin',spin + 'deg');
     piece.style.animationDuration = duration + 's';
     piece.style.animationDelay = delay + 's';
- 
+
     container.appendChild(piece);
- 
+
     // Remove after animation
     setTimeout(()=>piece.remove(),(duration + delay) * 1000 + 100);
   }
 }
- 
+
 function triggerFullReveal(){
   // Subtle gold flash backdrop
   const flash = document.getElementById('cardFlash');
   flash.classList.remove('active');
   void flash.offsetWidth;
   flash.classList.add('active');
- 
+
   // Replay the scene animation so the reveal feels dynamic
   replayScene(state.occasion,'rScene');
   replayScene(state.occasion,'wScene');
- 
+
   // Themed confetti
   fireConfetti();
 }
- 
+
 function setupSingleCanvas(){
   const canvas = document.getElementById('singleCanvas');
   if(!canvas) return;
@@ -2563,18 +2558,18 @@ function setupSingleCanvas(){
   canvas.height = rect.height * dpr;
   ctx.scale(dpr,dpr);
   paintGoldOverlay(ctx,rect.width,rect.height);
- 
+
   let isDrawing = false;
   let lastX, lastY;
   let revealed = false;
- 
+
   const getPos = (e)=>{
     const r = canvas.getBoundingClientRect();
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
     return {x,y};
   };
- 
+
   const scratch = (e)=>{
     if(!isDrawing) return;
     e.preventDefault();
@@ -2592,7 +2587,7 @@ function setupSingleCanvas(){
     document.getElementById('singleHint').classList.add('faded');
     checkSingleProgress(canvas,ctx);
   };
- 
+
   const start = (e)=>{
     isDrawing = true;
     const {x,y} = getPos(e);
@@ -2601,7 +2596,7 @@ function setupSingleCanvas(){
     scratch(e);
   };
   const end = ()=>{ isDrawing = false; };
- 
+
   canvas.addEventListener('mousedown',start);
   canvas.addEventListener('mousemove',scratch);
   canvas.addEventListener('mouseup',end);
@@ -2609,7 +2604,7 @@ function setupSingleCanvas(){
   canvas.addEventListener('touchstart',start,{passive:false});
   canvas.addEventListener('touchmove',scratch,{passive:false});
   canvas.addEventListener('touchend',end);
- 
+
   function checkSingleProgress(cv,context){
     if(revealed) return;
     const img = context.getImageData(0,0,cv.width,cv.height);
@@ -2627,7 +2622,7 @@ function setupSingleCanvas(){
     }
   }
 }
- 
+
 function setupTripleCanvases(){
   const panels = document.querySelectorAll('.tri-panel');
   panels.forEach((panel,idx)=>{
@@ -2639,23 +2634,23 @@ function setupTripleCanvases(){
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     ctx.scale(dpr,dpr);
- 
+
     ctx.beginPath();
     ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2);
     ctx.clip();
     paintGoldOverlay(ctx,rect.width,rect.height);
- 
+
     let isDrawing = false;
     let lastX, lastY;
     let revealed = false;
- 
+
     const getPos = (e)=>{
       const r = canvas.getBoundingClientRect();
       const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
       const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
       return {x,y};
     };
- 
+
     const scratch = (e)=>{
       if(!isDrawing) return;
       e.preventDefault();
@@ -2670,7 +2665,7 @@ function setupTripleCanvases(){
       ctx.stroke();
       lastX = x;
       lastY = y;
- 
+
       if(!revealed){
         const img = ctx.getImageData(0,0,canvas.width,canvas.height);
         let transparent = 0;
@@ -2693,7 +2688,7 @@ function setupTripleCanvases(){
         }
       }
     };
- 
+
     const start = (e)=>{
       isDrawing = true;
       const {x,y} = getPos(e);
@@ -2702,7 +2697,7 @@ function setupTripleCanvases(){
       scratch(e);
     };
     const end = ()=>{ isDrawing = false; };
- 
+
     canvas.addEventListener('mousedown',start);
     canvas.addEventListener('mousemove',scratch);
     canvas.addEventListener('mouseup',end);
@@ -2711,10 +2706,10 @@ function setupTripleCanvases(){
     canvas.addEventListener('touchmove',scratch,{passive:false});
     canvas.addEventListener('touchend',end);
   });
- 
+
   updateTripleStatus();
 }
- 
+
 function checkWinner(){
   const count = panelsRevealed.filter(Boolean).length;
   updateTripleStatus();
@@ -2729,7 +2724,7 @@ function checkWinner(){
     },300);
   }
 }
- 
+
 function updateTripleStatus(){
   const count = panelsRevealed.filter(Boolean).length;
   const status = document.getElementById('tripleStatus');
@@ -2737,7 +2732,7 @@ function updateTripleStatus(){
   else if(count < 3) status.textContent = `${count} of 3 matched…`;
   else status.textContent = '✦ A perfect match ✦';
 }
- 
+
 function resetScratch(){
   panelsRevealed = [false,false,false];
   winnerShown = false;
@@ -2757,10 +2752,10 @@ function resetScratch(){
   document.getElementById('singleHint').style.display = 'flex';
   setTimeout(()=>initCanvases(),50);
 }
- 
+
 async function submitOrder(){
   state.confetti = document.getElementById('confettiToggle').classList.contains('on');
- 
+
   if(!state.yourName.trim()){
     alert('Please add your name in section five so I know who to reply to.');
     document.getElementById('yourName').focus();return;
@@ -2773,11 +2768,11 @@ async function submitOrder(){
     alert('Please write a headline for the reveal in section three.');
     document.getElementById('headline').focus();return;
   }
- 
+
   const btn = document.getElementById('submitBtn');
   btn.textContent = 'Sending…';
   btn.disabled = true;
- 
+
   const payload = {
     timestamp:new Date().toISOString(),
     occasion:state.occasion,layout:state.layout,
@@ -2796,7 +2791,6 @@ try {
 } catch (error) {
   console.error("Error sending to Google Sheets:", error);
 }
- 
   setTimeout(()=>{
     document.getElementById('successModal').classList.add('active');
     btn.textContent = 'Send my order to Shanaz';
@@ -2804,7 +2798,6 @@ try {
   },800);
 }
 </script>
- 
+
 </body>
 </html>
- 
