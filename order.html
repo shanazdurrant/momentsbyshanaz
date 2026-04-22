@@ -2784,10 +2784,13 @@ async function submitOrder(){
   };
   console.log(payload);
 try {
-  await fetch("https://script.google.com/macros/s/AKfycbzceJiKgp2ZPlM6aG8F6jtg2yDEcbBPLfq5Qru9DCx69FTnRxiibbQ7raVEQB9-CpE86A/exec", {
-    method: "POST",
-    body: JSON.stringify(payload)
-  });
+ await fetch("https://script.google.com/macros/s/AKfycbxKu0Aowry-auK-rElkVWelRPi3nx3QiMzYBFYZMpJA187GkttkPFWP1R1bV9jDdWXS1Q/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(payload)
+});
 } catch (error) {
   console.error("Error sending to Google Sheets:", error);
 }
