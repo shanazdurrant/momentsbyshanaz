@@ -2782,7 +2782,7 @@ async function submitOrder(){
     yourEmail:state.yourEmail,orderNumber:state.orderNumber,
     status:'pending'
   };
-  console.log('Order payload (ready for Google Sheets):',payload);
+  console.log(payload);
 try {
   await fetch("https://script.google.com/macros/s/AKfycbzceJiKgp2ZPlM6aG8F6jtg2yDEcbBPLfq5Qru9DCx69FTnRxiibbQ7raVEQB9-CpE86A/exec", {
     method: "POST",
