@@ -3,100 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Your Scratchcard · Moments by Shanaz</title>
 
-data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23faf6f0'/%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%231f4538' stroke-width='2'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='%23c9a961' font-family='Georgia' font-size='46' font-style='italic' font-weight='500'%3EM%3C/text%3E%3C/svg%3E
+<title>Create Your Moment · Moments by Shanaz</title>
 
-https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Allura&display=swap
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
 
 <style>
-/* ===================================================== */
-/* ================== EXISTING CSS ===================== */
-/* ===================================================== */
 
-/* ---------- (UNCHANGED STYLES OMITTED FOR BREvITY IN COMMENT) ---------- */
-/* Everything before .theme-bg-layer is unchanged from your original file */
-
-/* ══════ THE CARD ══════ */
-.preview-card{
-  max-width:360px;margin:0 auto;
-  aspect-ratio:3/4;
-  border-radius:6px;
-  position:relative;overflow:hidden;
-  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
-  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
-  transition:box-shadow 0.6s;
+/* ===== BASE ===== */
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:#faf6f0;
+  color:#2b2b2b;
+  display:flex;
+  justify-content:center;
+  padding:40px 20px;
 }
 
-/* Themed background imagery */
+/* ===== LAYOUT ===== */
+.container{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:40px;
+  max-width:1100px;
+  width:100%;
+}
+
+/* ===== FORM ===== */
+.form{
+  background:white;
+  padding:30px;
+  border-radius:6px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+input, textarea, select{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  font-family:'Inter';
+}
+
+button{
+  background:#6B1E3F;
+  color:white;
+  border:none;
+  padding:14px;
+  width:100%;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#C9A961;
+  color:#2b2b2b;
+}
+
+/* ===== CARD ===== */
+.preview-card{
+  aspect-ratio:3/4;
+  border-radius:6px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 25px 60px rgba(0,0,0,0.2);
+}
+
+/* BACKGROUND IMAGE */
 .theme-bg-layer{
   position:absolute;
   inset:0;
-  background-position:center;
   background-size:cover;
-  background-repeat:no-repeat;
-  opacity:0.35;
+  background-position:center;
+  opacity:0.4;
   filter:brightness(0.85) contrast(1.05);
-  z-index:0;
-  transition:opacity 0.8s;
-  mix-blend-mode:multiply;
+  transition:all 0.8s ease;
 }
 
-/* 🎨 OCCASION BACKGROUNDS */
-
-.theme-proposal .theme-bg-layer{
-  background-image:url('Proposal.jpg');
+/* SOFT LUXURY OVERLAY */
+.preview-card::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(250,246,240,0.2),
+    rgba(250,246,240,0.45)
+  );
 }
 
-.theme-gender .theme-bg-layer{
-  background-image:url('gender.jpg');
+/* CONTENT */
+.card-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:40px 25px;
 }
 
-.theme-gender-boy .theme-bg-layer{
-  background-image:url('gender.jpg');
+.card-content h1{
+  font-family:'Cormorant Garamond';
+  font-size:28px;
+  margin-bottom:10px;
 }
 
-.theme-gender-girl .theme-bg-layer{
-  background-image:url('gender.jpg');
+.card-content p{
+  font-size:14px;
+  opacity:0.8;
 }
 
-.theme-holiday .theme-bg-layer{
-  background-image:url('Holiday.jpg');
+.signature{
+  font-family:'Allura';
+  font-size:28px;
+  color:#1F4538;
+  margin-top:20px;
 }
 
-.theme-pregnancy .theme-bg-layer{
-  background-image:url('image.png');
+/* ===== BACKGROUNDS ===== */
+.theme-proposal .theme-bg-layer{background-image:url('Proposal.jpg');}
+.theme-gender .theme-bg-layer{background-image:url('gender.jpg');}
+.theme-holiday .theme-bg-layer{background-image:url('Holiday.jpg');}
+.theme-pregnancy .theme-bg-layer{background-image:url('image.png');}
+.theme-wedding .theme-bg-layer{background-image:url('Wedding.jpg');}
+.theme-birthday .theme-bg-layer{background-image:url('birthday.jpg');}
+.theme-christmas .theme-bg-layer{background-image:url('christmas.jpg');}
+.theme-custom .theme-bg-layer{background-image:url('Other.jpg');}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+  }
 }
 
-.theme-wedding .theme-bg-layer{
-  background-image:url('Wedding.jpg');
-}
-
-.theme-birthday .theme-bg-layer{
-  background-image:url('birthday.jpg');
-}
-
-.theme-christmas .theme-bg-layer{
-  background-image:url('christmas.jpg');
-}
-
-.theme-custom .theme-bg-layer{
-  background-image:url('Other.jpg');
-}
-
-/* ---------- Everything AFTER this point remains IDENTICAL ---------- */
-/* All animations, scenes, confetti, JS, layout, etc are unchanged */
-
-/* ===================================================== */
-/* ================= END OF CSS ========================= */
-/* ===================================================== */
 </style>
 </head>
 
 <body>
 
-<!-- ✅ Your FULL original body + scripts remain unchanged ✅ -->
-<!-- (No functional or visual regressions) -->
+<div class="container">
+
+  <!-- FORM -->
+  <div class="form">
+    <h2>Create your moment</h2>
+
+    <select id="occasion">
+      <option value="proposal">Proposal</option>
+      <option value="gender">Gender Reveal</option>
+      <option value="holiday">Holiday</option>
+      <option value="pregnancy">Pregnancy</option>
+      <option value="wedding">Wedding</option>
+      <option value="birthday">Birthday</option>
+      <option value="christmas">Christmas</option>
+      <option value="custom">Custom</option>
+    </select>
+
+    <input type="text" id="recipient" placeholder="Recipient name">
+    <input type="text" id="headline" placeholder="Headline">
+    <textarea id="message" placeholder="Message"></textarea>
+    <input type="text" id="signature" placeholder="Your name">
+    <input type="email" id="email" placeholder="Your email">
+
+    <button onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-card theme-proposal" id="card">
+
+    <div class="theme-bg-layer"></div>
+
+    <div class="card-content">
+      <h1 id="previewHeadline">Your message here</h1>
+      <p id="previewMessage">A beautiful moment is being created...</p>
+      <div class="signature" id="previewSignature">Shanaz</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* LIVE PREVIEW */
+const card = document.getElementById("card");
+
+function updatePreview(){
+  const occasion = document.getElementById("occasion").value;
+  const headline = document.getElementById("headline").value;
+  const message = document.getElementById("message").value;
+  const signature = document.getElementById("signature").value;
+
+  card.className = "preview-card theme-" + occasion;
+
+  document.getElementById("previewHeadline").innerText = headline || "Your message here";
+  document.getElementById("previewMessage").innerText = message || "A beautiful moment is being created...";
+  document.getElementById("previewSignature").innerText = signature || "Shanaz";
+}
+
+/* LISTENERS */
+document.querySelectorAll("input, textarea, select").forEach(el=>{
+  el.addEventListener("input", updatePreview);
+});
+
+/* SUBMIT */
+function submitOrder(){
+  const data = {
+    occasion: document.getElementById("occasion").value,
+    recipient: document.getElementById("recipient").value,
+    headline: document.getElementById("headline").value,
+    message: document.getElementById("message").value,
+    signature: document.getElementById("signature").value,
+    email: document.getElementById("email").value
+  };
+
+  console.log("Order:", data);
+
+  alert("✨ Order received — I’ll be notified!");
+}
+
+</script>
 
 </body>
 </html>
