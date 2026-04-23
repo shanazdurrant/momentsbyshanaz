@@ -5,30 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Your Scratchcard · Moments by Shanaz</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23faf6f0'/%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%231f4538' stroke-width='2'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='%23c9a961' font-family='Georgia' font-size='46' font-style='italic' font-weight='500'%3EM%3C/text%3E%3C/svg%3E">
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
 
 <style>
-/* ===================================================== */
-/* ================== EXISTING CSS ===================== */
-/* ===================================================== */
+/* ================= BASE ================= */
 
-/* ---------- (UNCHANGED STYLES OMITTED FOR BREvITY IN COMMENT) ---------- */
-/* Everything before .theme-bg-layer is unchanged from your original file */
-
-/* ══════ THE CARD ══════ */
-.preview-card{
-  max-width:360px;margin:0 auto;
-  aspect-ratio:3/4;
-  border-radius:6px;
-  position:relative;overflow:hidden;
-  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
-  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
-  transition:box-shadow 0.6s;
+:root{
+  --ivory:#faf6f0;
+  --gold:#c9a961;
+  --gold-deep:#a88843;
+  --ink:#2b2b2b;
+  --ink-soft:#4a4a4a;
 }
 
-/* Themed background imagery */
+body{
+  margin:0;
+  background:var(--ivory);
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+}
+
+/* ================= PREVIEW CARD ================= */
+
+.preview-card{
+  max-width:360px;
+  margin:auto;
+  aspect-ratio:3/4;
+  position:relative;
+  overflow:hidden;
+  border-radius:6px;
+  background:var(--theme-bg,linear-gradient(145deg,#fff,#f2ecdf));
+  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
+}
+
+/* Background image layer */
 .theme-bg-layer{
   position:absolute;
   inset:0;
@@ -37,66 +47,240 @@
   background-repeat:no-repeat;
   opacity:0.35;
   filter:brightness(0.85) contrast(1.05);
-  z-index:0;
-  transition:opacity 0.8s;
   mix-blend-mode:multiply;
+  z-index:0;
 }
 
 /* 🎨 OCCASION BACKGROUNDS */
+.theme-proposal .theme-bg-layer{background-image:url('Proposal.jpg');}
+.theme-gender .theme-bg-layer{background-image:url('gender.jpg');}
+.theme-gender-boy .theme-bg-layer{background-image:url('gender.jpg');}
+.theme-gender-girl .theme-bg-layer{background-image:url('gender.jpg');}
+.theme-holiday .theme-bg-layer{background-image:url('Holiday.jpg');}
+.theme-pregnancy .theme-bg-layer{background-image:url('image.png');}
+.theme-wedding .theme-bg-layer{background-image:url('Wedding.jpg');}
+.theme-birthday .theme-bg-layer{background-image:url('birthday.jpg');}
+.theme-christmas .theme-bg-layer{background-image:url('christmas.jpg');}
+.theme-custom .theme-bg-layer{background-image:url('Other.jpg');}
 
-.theme-proposal .theme-bg-layer{
-  background-image:url('Proposal.jpg');
+/* ================= REVEAL ================= */
+
+.reveal-layer{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  padding:32px 24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
 
-.theme-gender .theme-bg-layer{
-  background-image:url('gender.jpg');
+.reveal-greeting{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:18px;
+  color:var(--gold-deep);
 }
 
-.theme-gender-boy .theme-bg-layer{
-  background-image:url('gender.jpg');
+.reveal-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;
+  margin:12px 0;
 }
 
-.theme-gender-girl .theme-bg-layer{
-  background-image:url('gender.jpg');
+.reveal-text{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:18px;
+  color:var(--ink-soft);
 }
 
-.theme-holiday .theme-bg-layer{
-  background-image:url('Holiday.jpg');
+/* ================= FOIL ICON ================= */
+
+.theme-icon{
+  font-size:64px;
+  margin:16px 0;
+  opacity:0;
+  transform:scale(0.85);
+  position:relative;
+  transition:
+    opacity 0.6s cubic-bezier(.16,1,.3,1),
+    transform 0.6s cubic-bezier(.16,1,.3,1);
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,0.18));
 }
 
-.theme-pregnancy .theme-bg-layer{
-  background-image:url('image.png');
+/* Shimmer overlay */
+.theme-icon::after{
+  content:'';
+  position:absolute;
+  inset:-20%;
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,0.75) 48%,
+    transparent 65%
+  );
+  transform:translateX(-120%);
+  opacity:0;
 }
 
-.theme-wedding .theme-bg-layer{
-  background-image:url('Wedding.jpg');
+/* Reveal trigger */
+.preview-card.just-revealed .theme-icon{
+  opacity:0.95;
+  transform:scale(1);
 }
 
-.theme-birthday .theme-bg-layer{
-  background-image:url('birthday.jpg');
+.preview-card.just-revealed .theme-icon::after{
+  opacity:1;
+  animation:foilShimmer 1.6s cubic-bezier(.4,0,.2,1) forwards 0.2s;
 }
 
-.theme-christmas .theme-bg-layer{
-  background-image:url('christmas.jpg');
+@keyframes foilShimmer{
+  to{transform:translateX(120%);}
 }
 
-.theme-custom .theme-bg-layer{
-  background-image:url('Other.jpg');
+/* ================= SCRATCH ================= */
+
+.scratch-single{
+  position:absolute;
+  inset:0;
+  z-index:3;
 }
 
-/* ---------- Everything AFTER this point remains IDENTICAL ---------- */
-/* All animations, scenes, confetti, JS, layout, etc are unchanged */
+.scratch-single canvas{
+  width:100%;
+  height:100%;
+}
 
-/* ===================================================== */
-/* ================= END OF CSS ========================= */
-/* ===================================================== */
+.scratch-hint{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  font-family:'Cormorant Garamond',serif;
+  opacity:0.85;
+}
+
+.scratch-hint span:first-child{
+  font-size:28px;
+}
+
+/* ================= RESET ================= */
+
+.preview-reset{
+  text-align:center;
+  margin-top:12px;
+}
+
+.preview-reset button{
+  background:none;
+  border:none;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--gold-deep);
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ✅ Your FULL original body + scripts remain unchanged ✅ -->
-<!-- (No functional or visual regressions) -->
+<div class="preview-card theme-proposal" id="previewCard">
+  <div class="theme-bg-layer"></div>
+
+  <div class="reveal-layer">
+    <div class="reveal-greeting">For Amelia</div>
+    <div class="theme-icon" id="themeIcon">💍</div>
+    <div class="reveal-headline">Will you marry me?</div>
+    <div class="reveal-text">Your message will appear here.</div>
+  </div>
+
+  <div class="scratch-single">
+    <canvas id="scratchCanvas"></canvas>
+    <div class="scratch-hint">
+      <span>✨</span>
+      <span>Scratch to reveal</span>
+    </div>
+  </div>
+</div>
+
+<div class="preview-reset">
+  <button onclick="resetScratch()">↺ Reset scratch</button>
+</div>
+
+<script>
+const ICONS = {
+  proposal:'💍',
+  gender:'🍼',
+  'gender-boy':'💙🍼',
+  'gender-girl':'💗🍼',
+  holiday:'✈️',
+  pregnancy:'👶',
+  wedding:'💐',
+  birthday:'🎁',
+  christmas:'🎄',
+  custom:'✨'
+};
+
+const card = document.getElementById('previewCard');
+const icon = document.getElementById('themeIcon');
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d');
+
+function setupCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr,dpr);
+  const g = ctx.createLinearGradient(0,0,rect.width,rect.height);
+  g.addColorStop(0,'#a88843');
+  g.addColorStop(0.5,'#c9a961');
+  g.addColorStop(1,'#a88843');
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,rect.width,rect.height);
+}
+
+let drawing=false;
+
+canvas.addEventListener('mousedown',()=>drawing=true);
+canvas.addEventListener('mouseup',()=>drawing=false);
+canvas.addEventListener('mousemove',scratch);
+
+function scratch(e){
+  if(!drawing) return;
+  const r = canvas.getBoundingClientRect();
+  ctx.globalCompositeOperation='destination-out';
+  ctx.beginPath();
+  ctx.arc(e.clientX-r.left,e.clientY-r.top,18,0,2*Math.PI);
+  ctx.fill();
+  checkReveal();
+}
+
+function checkReveal(){
+  const img = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  let clear=0;
+  for(let i=3;i<img.length;i+=40){
+    if(img[i]<50) clear++;
+  }
+  if(clear/(img.length/40)>0.4){
+    card.classList.add('just-revealed');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+}
+
+function resetScratch(){
+  card.classList.remove('just-revealed');
+  setupCanvas();
+}
+
+setupCanvas();
+</script>
 
 </body>
 </html>
