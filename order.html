@@ -100,90 +100,60 @@ body::after{
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
   border-bottom:1px solid rgba(201,169,97,0.25);
-  padding:12px 20px;
+  padding:16px 20px;
   box-shadow:0 4px 20px -10px rgba(43,43,43,0.08);
 }
+
 .top-bar-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:center;
-}
-.brand-logo{
+  max-width:1200px;
+  margin:0 auto;
   display:flex;
-  align-items:center;
-  gap:16px;
-  padding:4px 0;
-}
-.brand-moments{
-  font-family:'Pinyon Script',cursive;
-  font-size:46px;
-  color:var(--gold);
-  line-height:0.9;
-  letter-spacing:-1px;
-  /* Adds depth mimicking the hand-drawn character of the logo */
-  text-shadow:0 1px 2px rgba(201,169,97,0.15);
-}
-.brand-rule{
-  width:1.5px;
-  height:54px;
-  background:linear-gradient(180deg,transparent 5%,var(--emerald) 20%,var(--emerald) 80%,transparent 95%);
-  flex-shrink:0;
-}
-.brand-right{
-  display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:2px;
 }
-.brand-tagline-top,.brand-tagline-bot{
-  font-family:'Inter',sans-serif;
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:3px;
-  color:var(--charcoal);
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-.brand-by-line{
+
+/* NEW IMAGE LOGO */
+.brand-logo{
   display:flex;
+  justify-content:center;
   align-items:center;
-  gap:6px;
-  margin:1px 0;
-}
-.brand-by{
-  font-family:'Inter',sans-serif;
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:2px;
-  color:var(--charcoal);
-  text-transform:uppercase;
-}
-.brand-shanaz{
-  font-family:'Allura',cursive;
-  font-size:26px;
-  color:var(--emerald);
-  line-height:0.85;
-  letter-spacing:-0.5px;
 }
 
-/* Mobile scaling */
+.brand-logo-img{
+  height:70px;        /* 👈 adjust this for size */
+  max-width:100%;
+  object-fit:contain;
+
+  /* subtle blend */
+  mix-blend-mode:multiply;
+
+  transition:transform 0.3s ease;
+}
+
+.brand-logo-img:hover{
+  transform:scale(1.03);
+}
+
+/* MOBILE */
 @media(max-width:640px){
-  .brand-moments{font-size:36px;}
-  .brand-rule{height:42px;}
-  .brand-shanaz{font-size:22px;}
-  .brand-tagline-top,.brand-tagline-bot,.brand-by{font-size:8px;letter-spacing:2px;}
-}
-@media(max-width:420px){
-  .brand-tagline-top,.brand-tagline-bot{display:none;}
-  .brand-rule{height:36px;}
-  .brand-moments{font-size:32px;}
-  .brand-shanaz{font-size:20px;}
+  .brand-logo-img{
+    height:55px;
+  }
 }
 
+@media(max-width:420px){
+  .brand-logo-img{
+    height:45px;
+  }
+}
+
+/* PAGE */
 .page{
-  max-width:1200px;margin:0 auto;
+  max-width:1200px;
+  margin:0 auto;
   padding:40px 20px 60px;
-  position:relative;z-index:1;
+  position:relative;
+  z-index:1;
 }
 
 /* ══════ HERO ══════ */
