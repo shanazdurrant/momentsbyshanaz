@@ -2745,11 +2745,9 @@ async function submitOrder(){
   };
   console.log(payload);
 try {
- await fetch("https://script.google.com/macros/library/d/1-fU3W9FJ52B0raI7_TLjuuAnkDRN7t4pPExaDvW6CNRDtiAg2W6YrNeU/4", {
+ await fetch("https://script.google.com/macros/s/AKfycbz3qWtroGTK5-wWF-fSYOax7RWRUGg_t8Z0klwYF3gohtjnzzjvJlQIDspo9R1MR1e1/exec", {
   method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
+  mode: "no-cors",
   body: JSON.stringify(payload)
 });
 } catch (error) {
