@@ -48,21 +48,46 @@ body{
   top:0;
   left:0;
   width:100%;
-  padding:40px 20px 25px;
-  background:rgba(250,246,240,0.88);
-  backdrop-filter:blur(12px) saturate(140%);
-  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  padding:50px 20px 30px;
+  background:rgba(250,246,240,0.75);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
   z-index:1000;
   text-align:center;
-  border-bottom:1px solid rgba(201,169,97,0.18);
+  border-bottom:1px solid rgba(201,169,97,0.15);
+  transition:all 0.4s ease;
 }
- 
+
+/* Smaller header when scrolling */
+.header.scrolled{
+  padding:18px 20px;
+  background:rgba(250,246,240,0.95);
+  border-bottom:1px solid rgba(201,169,97,0.25);
+}
+
+/* Logo styling */
 .logo{
-  height:200px;
+  height:160px;
+  max-width:90%;
+  display:block;
+  margin:auto;
   opacity:0;
-  transition:opacity 1.5s ease,transform 0.3s ease;
+  transform:translateY(-10px);
+  transition:opacity 1.2s ease, transform 0.5s ease, height 0.4s ease;
 }
- 
+
+/* Logo visible on load */
+.logo.loaded{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Shrink logo on scroll */
+.header.scrolled .logo{
+  height:70px;
+}
+
+/* Subtle hover */
 .logo:hover{
   transform:scale(1.04);
 }
