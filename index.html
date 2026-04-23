@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Moments by Shanaz · Luxury Digital Keepsakes</title>
-<meta name="description" content="Personalised digital scratchcards, love letters and keepsakes for life's biggest moments.">
+<meta name="description" content="Personalised digital scratchcards, love letters and keepsakes for life's biggest moments. Made with care in the UK.">
 
-<link rel="icon" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -18,75 +18,89 @@
   --gold:#C9A961;
   --emerald:#1F4538;
   --charcoal:#2B2B2B;
+  --charcoal-soft:#555;
 }
 
 body{
   margin:0;
   padding-top:150px;
   font-family:'Inter',sans-serif;
+  background:var(--ivory);
   color:var(--charcoal);
-  overflow-x:hidden;
-
-  /* ✨ Animated luxury background */
-  background:linear-gradient(120deg,#FAF6F0,#FDFBF6,#F4E3D7);
-  background-size:200% 200%;
-  animation:bgMove 15s ease infinite;
-}
-
-@keyframes bgMove{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
 }
 
 /* HEADER */
 .header{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
   padding:50px 20px 30px;
-  background:rgba(250,246,240,0.7);
+  background:rgba(250,246,240,0.75);
   backdrop-filter:blur(14px);
+  z-index:1000;
   text-align:center;
   transition:all 0.4s ease;
-  z-index:1000;
 }
 
+/* shrink on scroll */
 .header.scrolled{
-  padding:15px 20px;
+  padding:18px 20px;
   background:rgba(250,246,240,0.95);
 }
 
 /* LOGO */
 .logo{
   height:160px;
+  max-width:90%;
+  display:block;
+  margin:auto;
+
   opacity:0;
   transform:translateY(-10px);
   transition:all 0.6s ease;
 
+  /* blending effect */
   mix-blend-mode:multiply;
 }
 
+/* fade in */
 .logo.loaded{
   opacity:1;
   transform:translateY(0);
 }
 
+/* shrink logo */
 .header.scrolled .logo{
   height:70px;
+}
+
+.logo:hover{
+  transform:scale(1.04);
+}
+
+/* tagline */
+.brand-tagline{
+  font-size:11px;
+  letter-spacing:3px;
+  margin-top:8px;
+  color:var(--charcoal-soft);
+  opacity:0;
+  transition:opacity 1s ease;
 }
 
 /* HERO */
 .hero{
   text-align:center;
-  max-width:900px;
+  padding:70px 20px 40px;
+  max-width:920px;
   margin:auto;
-  padding:60px 20px;
 }
 
 .hero h1{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(38px,6vw,60px);
+  font-size:clamp(38px,6.5vw,60px);
+  font-weight:400;
 }
 
 .hero em{
@@ -94,9 +108,8 @@ body{
 }
 
 .hero p{
-  max-width:600px;
-  margin:auto;
   margin-top:20px;
+  color:var(--charcoal-soft);
 }
 
 /* BUTTON */
@@ -110,33 +123,13 @@ body{
   text-decoration:none;
 }
 
-/* FLOATING CTA */
-.floating-cta{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--burgundy);
-  color:white;
-  padding:14px 22px;
-  border-radius:40px;
-  opacity:0;
-  transform:translateY(20px);
-  transition:all 0.4s ease;
-  z-index:999;
-}
-
-.floating-cta.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
 /* SECTIONS */
 .section{
   padding:60px 20px;
   text-align:center;
 }
 
-/* REVEAL ANIMATION */
+/* subtle scroll reveal */
 .reveal{
   opacity:0;
   transform:translateY(30px);
@@ -146,20 +139,6 @@ body{
 .reveal.visible{
   opacity:1;
   transform:translateY(0);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
-  max-width:900px;
-  margin:auto;
-}
-
-.card{
-  background:white;
-  padding:30px;
-  border-radius:10px;
 }
 
 /* FOOTER */
@@ -174,10 +153,11 @@ footer{
 
 <header class="header">
   <img src="logo-horizontal.png" class="logo">
+  <p class="brand-tagline">DIGITAL KEEPSAKES • MADE WITH CARE</p>
 </header>
 
 <section class="hero reveal">
-  <h1>Turn life’s biggest moments into <em>something unforgettable</em></h1>
+  <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
   <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
 
   <a href="order.html" class="btn">Create Your First Moment</a>
@@ -185,29 +165,20 @@ footer{
 
 <section class="section reveal">
   <h2>Designed for every moment</h2>
-
-  <div class="grid">
-    <div class="card">✨ Scratchcards</div>
-    <div class="card">💍 Weddings (Coming Soon)</div>
-    <div class="card">🎉 Birthdays (Coming Soon)</div>
-    <div class="card">🎄 Advent (Coming Soon)</div>
-  </div>
 </section>
 
 <footer>
   © Moments by Shanaz
 </footer>
 
-<!-- FLOATING CTA -->
-<a href="order.html" class="floating-cta">Create Moment</a>
-
 <script>
-// Fade logo in
+// fade-in logo
 window.addEventListener("load", ()=>{
   document.querySelector(".logo").classList.add("loaded");
+  document.querySelector(".brand-tagline").style.opacity = 1;
 });
 
-// Shrink header
+// scroll header shrink
 window.addEventListener("scroll", ()=>{
   const header = document.querySelector(".header");
   if(window.scrollY > 50){
@@ -217,23 +188,13 @@ window.addEventListener("scroll", ()=>{
   }
 });
 
-// Floating CTA
-window.addEventListener("scroll", ()=>{
-  const btn = document.querySelector(".floating-cta");
-  if(window.scrollY > 300){
-    btn.classList.add("show");
-  } else {
-    btn.classList.remove("show");
-  }
-});
-
-// Scroll reveal
+// scroll reveal (very subtle)
 const reveals = document.querySelectorAll(".reveal");
 
 window.addEventListener("scroll", ()=>{
   reveals.forEach(el=>{
     const top = el.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
+    if(top < window.innerHeight - 80){
       el.classList.add("visible");
     }
   });
