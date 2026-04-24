@@ -6,46 +6,57 @@
 
 <title>Invitation · Moments by Shanaz</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Allura&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
   --ivory:#FAF6F0;
+  --ivory-soft:#FDFBF6;
   --blush:#F4E3D7;
   --burgundy:#6B1E3F;
   --gold:#C9A961;
+  --gold-light:#E8D4A0;
+  --emerald:#1F4538;
   --charcoal:#2B2B2B;
+  --charcoal-soft:#555;
 }
+
+*{box-sizing:border-box;}
 
 body{
   margin:0;
   font-family:'Inter',sans-serif;
   background:var(--ivory);
+  color:var(--charcoal);
   display:flex;
   align-items:center;
   justify-content:center;
   min-height:100vh;
-}
-
-/* ───────── LOGO ───────── */
-.inv-logo{
-  height:70px;
-  display:block;
-  margin:0 auto 20px;
-  opacity:0.95;
+  padding:20px;
 }
 
 /* ───────── INVITATION CARD ───────── */
 .invitation-card{
-  width:90%;
-  max-width:420px;
-  background:white;
-  padding:40px 30px;
-  text-align:center;
-  border-radius:6px;
   position:relative;
-  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+  width:100%;
+  max-width:420px;
+  background:var(--ivory-soft);
+  padding:40px 30px;
+  border-radius:6px;
+  border:1px solid rgba(201,169,97,0.25);
+  box-shadow:0 30px 60px -20px rgba(43,43,43,0.25);
+  text-align:center;
+  overflow:hidden;
+}
+
+/* ───────── LOGO (replaces text) ───────── */
+.inv-logo{
+  height:75px;
+  width:auto;
+  display:block;
+  margin:0 auto 10px;
+  opacity:0.95;
 }
 
 /* ───────── WATERMARK ───────── */
@@ -64,7 +75,7 @@ body{
 .headline{
   font-family:'Cormorant Garamond',serif;
   font-size:32px;
-  margin-bottom:10px;
+  margin:10px 0;
 }
 
 .names{
@@ -74,14 +85,14 @@ body{
 
 .details{
   font-size:15px;
-  color:#555;
+  color:var(--charcoal-soft);
   line-height:1.6;
 }
 
-/* ───────── RSVP ───────── */
+/* ───────── RSVP BUTTON ───────── */
 .rsvp-btn{
-  margin-top:30px;
   display:inline-block;
+  margin-top:25px;
   padding:12px 28px;
   background:var(--burgundy);
   color:white;
@@ -89,31 +100,42 @@ body{
   border-radius:30px;
   font-size:13px;
   letter-spacing:1px;
+  transition:all 0.3s ease;
+}
+
+.rsvp-btn:hover{
+  background:var(--gold);
+  color:var(--charcoal);
 }
 
 /* ───────── PREVIEW NOTE ───────── */
 .preview-note{
-  margin-top:20px;
+  margin-top:18px;
   font-size:12px;
-  color:#777;
+  color:rgba(0,0,0,0.5);
 }
 
 /* ───────── BESPOKE OPTION ───────── */
-.form-group{
-  margin-top:20px;
+.bespoke-section{
+  margin-top:25px;
   text-align:left;
 }
 
+.form-group{
+  margin-bottom:14px;
+}
+
 .form-group label{
-  font-size:12px;
+  font-size:11px;
+  color:rgba(0,0,0,0.6);
   display:block;
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
 
 select, textarea{
   width:100%;
   padding:10px;
-  border:1px solid #ddd;
+  border:1px solid rgba(0,0,0,0.1);
   border-radius:6px;
   font-family:inherit;
 }
@@ -129,19 +151,19 @@ textarea{
 
 <div class="invitation-card">
 
-  <!-- LOGO -->
-  <img src="logo-horizontal.png" class="inv-logo" alt="Moments by Shanaz">
-
   <!-- WATERMARK -->
   <div class="watermark">Moments</div>
+
+  <!-- LOGO -->
+  <img src="logo-horizontal.png" alt="Moments by Shanaz" class="inv-logo">
 
   <!-- CONTENT -->
   <div class="headline" id="headline">You're Invited</div>
   <div class="names" id="names">Sophie & James</div>
 
   <div class="details">
-    <div id="date">Saturday, 14th September 2025</div>
-    <div id="time">at 2:00 PM</div>
+    <div id="date">Saturday, 14 September 2025</div>
+    <div id="time">2:00 PM</div>
     <div id="venue">The Grand Manor, Birmingham</div>
   </div>
 
@@ -149,21 +171,23 @@ textarea{
 
   <!-- PREVIEW NOTE -->
   <div class="preview-note">
-    ✦ Your invitation will be designed and a preview will be sent before final delivery
+    ✦ A preview will be sent for approval before final delivery
   </div>
 
   <!-- BESPOKE OPTION -->
-  <div class="form-group">
-    <label>Invitation Style</label>
-    <select id="inv-style">
-      <option value="standard">Standard Template</option>
-      <option value="bespoke">✨ Bespoke Design (Preview Provided)</option>
-    </select>
-  </div>
+  <div class="bespoke-section">
+    <div class="form-group">
+      <label>Invitation Style</label>
+      <select id="inv-style">
+        <option value="standard">Standard Invitation</option>
+        <option value="bespoke">✨ Bespoke Design (Preview Provided)</option>
+      </select>
+    </div>
 
-  <div class="form-group" id="theme-box" style="display:none;">
-    <label>Theme / Vision</label>
-    <textarea placeholder="e.g. pink bows, minimalist black & gold, cartoon theme"></textarea>
+    <div class="form-group" id="theme-box" style="display:none;">
+      <label>Your Theme / Vision</label>
+      <textarea placeholder="e.g. pink bows, minimalist black & gold, cartoon theme"></textarea>
+    </div>
   </div>
 
 </div>
@@ -176,7 +200,7 @@ document.getElementById('inv-style').addEventListener('change', function(){
     this.value === 'bespoke' ? 'block' : 'none';
 });
 
-/* ───────── LOAD FROM URL PARAMS (from admin) ───────── */
+/* ───────── LOAD DATA FROM ADMIN LINK ───────── */
 const params = new URLSearchParams(window.location.search);
 
 if(params.get('h')) document.getElementById('headline').textContent = params.get('h');
