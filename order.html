@@ -282,10 +282,10 @@ body::after{
 .theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
 .theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
 
-/* ══════ BACKGROUND IMAGE LAYER — dark overlay over the bg image ══════ */
+/* ══════ BACKGROUND IMAGE LAYER — very light warm tint only ══════ */
 .theme-bg-layer{
   position:absolute;inset:0;
-  background:rgba(15,10,5,0.52);
+  background:rgba(250,246,240,0.15);
   z-index:0;
 }
 
@@ -339,17 +339,15 @@ body::after{
 }
 .reveal-greeting{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:16px;color:var(--gold-shimmer);
+  font-size:16px;color:var(--gold-deep);
   letter-spacing:1.5px;margin-bottom:10px;opacity:0.9;
-  text-shadow:0 1px 6px rgba(0,0,0,0.5);
 }
 .reveal-headline{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(22px,5vw,30px);
   font-weight:500;line-height:1.2;
   margin-bottom:14px;letter-spacing:-0.3px;
-  color:#ffffff;
-  text-shadow:0 2px 10px rgba(0,0,0,0.6);
+  color:var(--theme-text,var(--ink));
 }
 .reveal-divider-wrap{
   display:flex;align-items:center;justify-content:center;
@@ -359,23 +357,21 @@ body::after{
 .reveal-text{
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:15px;line-height:1.5;
-  color:rgba(255,255,255,0.88);
-  text-shadow:0 1px 6px rgba(0,0,0,0.5);
+  color:var(--theme-text-soft,var(--ink-soft));
   max-width:260px;
 }
 .reveal-date{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:14px;color:var(--gold-shimmer);
+  font-size:14px;color:var(--gold-deep);
   letter-spacing:2px;text-transform:uppercase;
   margin-top:12px;margin-bottom:4px;
-  text-shadow:0 1px 6px rgba(0,0,0,0.5);
 }
 .reveal-signoff{
   margin-top:20px;
   display:flex;flex-direction:column;align-items:center;gap:4px;
 }
-.reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,0.75);letter-spacing:1.5px;text-shadow:0 1px 4px rgba(0,0,0,0.5);}
-.reveal-signoff-name{font-family:'Allura',cursive;font-size:36px;color:var(--gold-shimmer);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
+.reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
+.reveal-signoff-name{font-family:'Allura',cursive;font-size:36px;color:var(--gold-deep);line-height:1;}
 .reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:4px;}
 .reveal-signoff-leaf .line{width:18px;height:1px;background:var(--gold);opacity:0.6;}
 
@@ -389,9 +385,9 @@ body::after{
 .preview-card.just-revealed .reveal-date{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
 .preview-card.just-revealed .reveal-signoff{animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;}
 
-/* Headline after reveal — solid readable colour with subtle gold shimmer */
+/* Headline after reveal */
 .preview-card.just-revealed .reveal-headline{
-  color:#ffffff;
+  color:var(--theme-text,var(--ink));
   animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both;
 }
 
@@ -467,15 +463,15 @@ body::after{
 }
 .scratch-single-hint .icon-big{font-size:28px;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));animation:gentleBob 2s ease-in-out infinite;}
 @keyframes gentleBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
-.scratch-single-hint .title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#ffffff;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,0.6);}
-.scratch-single-hint .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:1px;text-shadow:0 1px 4px rgba(0,0,0,0.5);}
+.scratch-single-hint .title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.scratch-single-hint .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--ink-soft);letter-spacing:1px;}
 .scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
 
 /* ══════ TRIPLE LAYOUT ══════ */
 .triple-wrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:30px 24px 24px;}
 .triple-header{text-align:center;margin-bottom:auto;padding-bottom:16px;}
-.triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-shimmer);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
-.triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(255,255,255,0.75);font-style:italic;letter-spacing:1px;}
+.triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--ink-soft);font-style:italic;letter-spacing:1px;}
 .triple-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:auto 0;padding:0 4px;}
 .tri-panel{
   aspect-ratio:1;border-radius:50%;position:relative;
@@ -527,17 +523,17 @@ body::after{
 .preview-reset button{background:transparent;border:none;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-deep);font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:8px 16px;transition:all .3s;}
 .preview-reset button:hover{color:var(--ink);transform:translateY(-1px);}
 
-/* ══════ OCCASION THEMES — text colours only, bg image set above ══════ */
-.theme-proposal{--theme-text:#faf0f2;--theme-text-soft:#e8d4d8;}
-.theme-gender{--theme-text:#faf0f2;--theme-text-soft:#e8d4d8;}
-.theme-gender-boy{--theme-text:#e8f0f8;--theme-text-soft:#c8dcea;}
-.theme-gender-girl{--theme-text:#faf0f4;--theme-text-soft:#f0d8e0;}
-.theme-holiday{--theme-text:#f0f8f4;--theme-text-soft:#d0e8dc;}
-.theme-pregnancy{--theme-text:#faf0ec;--theme-text-soft:#e8d8d0;}
-.theme-wedding{--theme-text:#fdfbf6;--theme-text-soft:#ece8dc;}
-.theme-birthday{--theme-text:#faf0f2;--theme-text-soft:#f0d8e0;}
-.theme-christmas{--theme-text:#fdfbf6;--theme-text-soft:#ece8dc;}
-.theme-custom{--theme-text:#fdfbf6;--theme-text-soft:#e8e4dc;}
+/* ══════ OCCASION THEMES — text colours ══════ */
+.theme-proposal{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
+.theme-gender{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
+.theme-gender-boy{--theme-text:#1a3855;--theme-text-soft:#3e5b7a;}
+.theme-gender-girl{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
+.theme-holiday{--theme-text:#143028;--theme-text-soft:#2d5a48;}
+.theme-pregnancy{--theme-text:#4a2018;--theme-text-soft:#6b3828;}
+.theme-wedding{--theme-text:#2b2b2b;--theme-text-soft:#4a3a20;}
+.theme-birthday{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
+.theme-christmas{--theme-text:#2b2b2b;--theme-text-soft:#4a2018;}
+.theme-custom{--theme-text:#2b2b2b;--theme-text-soft:#4a4a4a;}
 
 /* ══════ MODAL ══════ */
 .modal-backdrop{position:fixed;inset:0;background:rgba(20,14,8,0.75);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;opacity:0;transition:opacity .5s;}
