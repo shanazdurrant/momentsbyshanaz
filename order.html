@@ -301,7 +301,37 @@ body::after{
   position:relative;
   z-index:1;
 }
+  
+.card-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+  z-index:2;
+}
 
+.card-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  margin:10px 0;
+}
+
+.card-message{
+  font-size:14px;
+  opacity:0.85;
+}
+
+.card-signature{
+  font-family:'Allura',cursive;
+  font-size:26px;
+  color:#1F4538;
+  margin-top:20px;
+}
+  
 .preview-card::after{
   content:'';
   position:absolute;
@@ -1109,238 +1139,6 @@ body::after{
 .winner-message .reveal-text{order:6;font-size:16px;}
 .winner-message .reveal-signoff{order:7;}
 
-/* Gift box opening (birthday / christmas) */
-@keyframes giftLidLift{
-  0%{transform:translateY(0) rotate(0deg);}
-  50%{transform:translateY(-8px) rotate(-5deg);}
-  100%{transform:translateY(-26px) rotate(-12deg);}
-}
-@keyframes giftContentsRise{
-  0%,30%{transform:translateY(20px) scale(0.4);opacity:0;}
-  100%{transform:translateY(-8px) scale(1);opacity:1;}
-}
-@keyframes giftBoxShake{
-  0%,100%{transform:translateX(0) rotate(0);}
-  10%{transform:translateX(-2px) rotate(-1deg);}
-  20%{transform:translateX(2px) rotate(1deg);}
-  30%{transform:translateX(-1px) rotate(-0.5deg);}
-  40%{transform:translateX(1px) rotate(0.5deg);}
-  50%{transform:translateX(0);}
-}
-.scene-birthday .gift-lid{
-  transform-origin:center bottom;
-  animation:giftLidLift 1.4s cubic-bezier(.16,1,.3,1) 0.4s both;
-}
-.scene-birthday .gift-box{
-  transform-origin:center;
-  animation:giftBoxShake 0.5s ease-in-out 0.1s;
-}
-.scene-birthday .gift-contents{
-  transform-origin:center bottom;
-  animation:giftContentsRise 1.2s cubic-bezier(.34,1.56,.64,1) 0.8s both;
-}
-.scene-birthday .gift-sparkle{
-  animation:sparkleFloat 2.5s ease-in-out 1.2s infinite;
-}
-@keyframes sparkleFloat{
-  0%,100%{opacity:0.3;transform:translateY(0) scale(1);}
-  50%{opacity:1;transform:translateY(-4px) scale(1.15);}
-}
-
-/* Proposal - just a ring, gently bobbing with sparkles */
-@keyframes ringBobGentle{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-3px);}
-}
-@keyframes proposalGlint{
-  0%,100%{opacity:0;transform:scale(0.6);}
-  50%{opacity:1;transform:scale(1.15);}
-}
-@keyframes proposalSparkle{
-  0%,100%{opacity:0.3;transform:scale(0.7) rotate(0deg);}
-  50%{opacity:1;transform:scale(1.3) rotate(180deg);}
-}
-.scene-proposal .proposal-ring{
-  transform-origin:center;
-  animation:ringBobGentle 3s ease-in-out 0.3s infinite;
-}
-.scene-proposal .proposal-glint{
-  transform-origin:center;
-  animation:proposalGlint 2s ease-in-out 0.5s infinite;
-}
-.scene-proposal .proposal-sparkle{
-  transform-origin:center;
-  animation:proposalSparkle 2.5s ease-in-out infinite;
-}
-.scene-proposal .proposal-sparkle-1{animation-delay:0.3s;}
-.scene-proposal .proposal-sparkle-2{animation-delay:0.9s;}
-.scene-proposal .proposal-sparkle-3{animation-delay:1.5s;}
-.scene-proposal .proposal-sparkle-4{animation-delay:2.1s;}
-
-/* Champagne flutes clinking (wedding) */
-@keyframes fluteLeftClink{
-  0%{transform:translateX(0) rotate(0);}
-  30%{transform:translateX(8px) rotate(10deg);}
-  45%{transform:translateX(4px) rotate(5deg);}
-  60%{transform:translateX(6px) rotate(7deg);}
-  100%{transform:translateX(6px) rotate(7deg);}
-}
-@keyframes fluteRightClink{
-  0%{transform:translateX(0) rotate(0);}
-  30%{transform:translateX(-8px) rotate(-10deg);}
-  45%{transform:translateX(-4px) rotate(-5deg);}
-  60%{transform:translateX(-6px) rotate(-7deg);}
-  100%{transform:translateX(-6px) rotate(-7deg);}
-}
-@keyframes bubbleRise{
-  0%{transform:translateY(8px);opacity:0;}
-  30%{opacity:1;}
-  100%{transform:translateY(-20px);opacity:0;}
-}
-@keyframes clinkSparkle{
-  0%{opacity:0;transform:scale(0);}
-  30%{opacity:1;transform:scale(1);}
-  100%{opacity:0;transform:scale(1.8);}
-}
-.scene-wedding .flute-left{
-  transform-origin:bottom center;
-  animation:fluteLeftClink 1.2s cubic-bezier(.34,1.56,.64,1) 0.4s both;
-}
-.scene-wedding .flute-right{
-  transform-origin:bottom center;
-  animation:fluteRightClink 1.2s cubic-bezier(.34,1.56,.64,1) 0.4s both;
-}
-.scene-wedding .bubble{
-  animation:bubbleRise 2s ease-out infinite;
-}
-.scene-wedding .bubble-1{animation-delay:1.3s;}
-.scene-wedding .bubble-2{animation-delay:1.6s;}
-.scene-wedding .bubble-3{animation-delay:1.9s;}
-.scene-wedding .bubble-4{animation-delay:2.2s;}
-.scene-wedding .clink-burst{
-  transform-origin:center;
-  animation:clinkSparkle 0.8s ease-out 1.2s both;
-}
-
-/* Envelope opening (gender / custom / christmas) - flap opens UPWARD away from text */
-@keyframes envelopeFlapOpenUp{
-  0%{transform:rotateX(0deg);}
-  100%{transform:rotateX(-180deg);}
-}
-@keyframes letterRise{
-  0%,40%{transform:translateY(15px) scale(0.9);opacity:0;}
-  100%{transform:translateY(-4px) scale(1);opacity:1;}
-}
-@keyframes puffOut{
-  0%{transform:scale(0);opacity:0;}
-  30%{opacity:1;}
-  100%{transform:scale(2.5);opacity:0;}
-}
-.scene-gender .env-flap,.scene-custom .env-flap,.scene-christmas .xmas-env-flap{
-  transform-origin:center top;
-  transform-style:preserve-3d;
-  animation:envelopeFlapOpenUp 0.9s cubic-bezier(.16,1,.3,1) 0.3s both;
-}
-.scene-gender .env-letter,.scene-custom .env-letter,.scene-christmas .env-letter{
-  transform-origin:center;
-  animation:letterRise 1s cubic-bezier(.34,1.56,.64,1) 0.9s both;
-}
-.scene-gender .puff{
-  transform-origin:center;
-  animation:puffOut 1.2s ease-out 0.8s forwards;
-}
-.scene-gender .puff-2{animation-delay:1s;}
-.scene-gender .puff-3{animation-delay:1.2s;}
-
-/* Gender reveal - boy/girl variants */
-@keyframes genderItemPop{
-  0%{transform:scale(0.3);opacity:0;}
-  60%{transform:scale(1.15);opacity:1;}
-  100%{transform:scale(1);opacity:1;}
-}
-@keyframes gentleSway{
-  0%,100%{transform:rotate(-2deg);}
-  50%{transform:rotate(2deg);}
-}
-@keyframes tinyFloat{
-  0%,100%{transform:translateY(0);opacity:0.7;}
-  50%{transform:translateY(-3px);opacity:1;}
-}
-.scene-gender-boy .gender-item-main,.scene-gender-girl .gender-item-main{
-  transform-origin:center;
-  animation:genderItemPop 0.9s cubic-bezier(.34,1.56,.64,1) 0.3s both,
-            gentleSway 4s ease-in-out 1.2s infinite;
-}
-.scene-gender-boy .gender-item-side,.scene-gender-girl .gender-item-side{
-  transform-origin:center;
-  animation:genderItemPop 0.8s cubic-bezier(.34,1.56,.64,1) 0.6s both;
-}
-.scene-gender-boy .gender-item-accent,.scene-gender-girl .gender-item-accent{
-  transform-origin:center;
-  animation:genderItemPop 0.6s cubic-bezier(.34,1.56,.64,1) 0.9s both,
-            tinyFloat 2.5s ease-in-out 1.5s infinite;
-}
-.scene-gender-boy .tiny-heart,.scene-gender-girl .tiny-heart{
-  animation:heartFloat 2.2s ease-out infinite;
-}
-.scene-gender-boy .tiny-heart-1,.scene-gender-girl .tiny-heart-1{animation-delay:1.2s;}
-.scene-gender-boy .tiny-heart-2,.scene-gender-girl .tiny-heart-2{animation-delay:1.8s;}
-
-/* Onesie on clothesline (pregnancy) */
-@keyframes onesieSwayGentle{
-  0%,100%{transform:rotate(-3deg);}
-  50%{transform:rotate(3deg);}
-}
-@keyframes heartFloat{
-  0%{transform:translateY(0) scale(0.8);opacity:0;}
-  20%{opacity:1;}
-  100%{transform:translateY(-30px) scale(1);opacity:0;}
-}
-.scene-pregnancy .onesie{
-  transform-origin:top center;
-  animation:onesieSwayGentle 3s ease-in-out 0.6s infinite;
-}
-.scene-pregnancy .tiny-heart{
-  animation:heartFloat 2.2s ease-out infinite;
-}
-.scene-pregnancy .tiny-heart-1{animation-delay:1s;}
-.scene-pregnancy .tiny-heart-2{animation-delay:1.6s;}
-.scene-pregnancy .tiny-heart-3{animation-delay:2.2s;}
-
-/* Suitcase opening (holiday) */
-@keyframes suitcaseOpen{
-  0%{transform:rotateX(0deg);}
-  100%{transform:rotateX(-100deg);}
-}
-@keyframes ticketRise{
-  0%,30%{transform:translateY(12px) rotate(-3deg) scale(0.5);opacity:0;}
-  100%{transform:translateY(-6px) rotate(-3deg) scale(1);opacity:1;}
-}
-@keyframes passportRise{
-  0%,35%{transform:translateY(12px) rotate(4deg) scale(0.5);opacity:0;}
-  100%{transform:translateY(-4px) rotate(4deg) scale(1);opacity:1;}
-}
-@keyframes planeCrossing{
-  0%{transform:translateX(-30px) translateY(0) rotate(-8deg);opacity:0;}
-  15%,85%{opacity:1;}
-  100%{transform:translateX(35px) translateY(-8px) rotate(-8deg);opacity:0;}
-}
-.scene-holiday .suitcase-lid{
-  transform-origin:center top;
-  animation:suitcaseOpen 1s cubic-bezier(.16,1,.3,1) 0.3s both;
-}
-.scene-holiday .holiday-ticket{
-  transform-origin:center bottom;
-  animation:ticketRise 1.1s cubic-bezier(.34,1.56,.64,1) 0.8s both;
-}
-.scene-holiday .holiday-passport{
-  transform-origin:center bottom;
-  animation:passportRise 1.1s cubic-bezier(.34,1.56,.64,1) 1s both;
-}
-.scene-holiday .little-plane{
-  animation:planeCrossing 3s ease-in-out 1.6s infinite;
-}
-
 /* ══════ SIGN-OFF BLOCK ══════ */
 .reveal-signoff{
   margin-top:22px;
@@ -1839,27 +1637,12 @@ body::after{
 
         <div class="preview-card theme-proposal" id="previewCard">
           <div class="theme-bg-layer"></div>
-
-          <div class="reveal-layer" id="revealLayer">
-            <div class="reveal-greeting" id="rGreeting">For Amelia</div>
-            <div class="scene" id="rScene"></div>
-            <div class="reveal-headline" id="rHeadline">Will you marry me?</div>
-            <div class="reveal-date" id="rDate" style="display:none;"></div>
-            <div class="reveal-divider-wrap">
-              <span class="line"></span>
-              <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
-              <span class="line"></span>
-            </div>
-            <div class="reveal-text" id="rMessage">I've been waiting for the right moment. This is it.</div>
-            <div class="reveal-signoff" id="rSignoff" style="display:none;">
-              <div class="reveal-signoff-prefix">with love,</div>
-              <div class="reveal-signoff-name" id="rSig"></div>
-              <div class="reveal-signoff-leaf">
-                <span class="line"></span>
-                <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
-                <span class="line"></span>
-              </div>
-            </div>
+          <div class="card-content">
+  <div class="card-greeting" id="previewGreeting">For Amelia</div>
+  <div class="card-headline" id="previewHeadline">Will you marry me?</div>
+  <div class="card-message" id="previewMessage">I've been waiting for the right moment. This is it.</div>
+  <div class="card-signature" id="previewSignature">Shanaz</div>
+</div>
           </div>
 
           <div class="scratch-single" id="scratchSingle">
