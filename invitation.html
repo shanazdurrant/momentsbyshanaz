@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Invited</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  font-family:'Cormorant Garamond', serif;
+  position:relative;
+  background:#000;
+}
+
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:0;
+}
+
+.card{
+  position:relative;
+  z-index:1;
+  max-width:520px;
+  padding:40px 30px;
+}
+
+.headline{
+  font-family:'Pinyon Script', cursive;
+  font-size:48px;
+}
+
+.names{
+  font-size:28px;
+  margin:10px 0;
+}
+
+.details{
+  font-family:'Montserrat', sans-serif;
+  font-size:14px;
+  opacity:0.85;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 28px;
+  background:#C9A961;
+  border:none;
+  color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+
+#rsvp-box{
+  display:none;
+  margin-top:20px;
+}
+
+input, textarea{
+  width:100%;
+  margin-bottom:10px;
+  padding:10px;
+}
+
+.countdown{
+  margin-top:15px;
+  font-size:18px;
+}
+
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:8px;
+  height:8px;
+  background:gold;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{ transform:translateY(100vh) rotate(360deg); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="headline" id="headline"></div>
+  <div class="names" id="names"></div>
+  <div class="details" id="details"></div>
+
+  <div class="countdown" id="countdown"></div>
+
+  <button onclick="openRSVP()">RSVP</button>
+
+  <div id="rsvp-box">
+    <input id="guest" placeholder="Your name">
+    <input id="count" placeholder="Number of guests">
+    <textarea id="dietary" placeholder="Dietary requirements"></textarea>
+    <textarea id="msg" placeholder="Message"></textarea>
+    <button id="sendBtn" onclick="sendRSVP()">Send RSVP</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+
+emailjs.init("G-xIu-91hlxKB5cT_");
+
+const p = new URLSearchParams(window.location.search);
+
+const headline = p.get('h');
+const names    = p.get('n');
+const date     = p.get('d');
+const venue    = p.get('v');
+const bg       = p.get('bg');
+const countdownOn = p.get('cd');
+const confettiOn  = p.get('co');
+const emailTo     = p.get('re');
+
+document.getElementById('headline').innerText = headline || "You're Invited";
+document.getElementById('names').innerText    = names || "";
+document.getElementById('details').innerText  = `${date || ''} ${venue || ''}`;
+
+if(bg === 'romantic'){
+  document.body.style.background="url('bg-romantic.jpg') center/cover";
+}
+if(bg === 'luxury'){
+  document.body.style.background="url('bg-gold.jpg') center/cover";
+}
+
+if(countdownOn === 'yes' && date){
+  const el = document.getElementById('countdown');
+
+  function update(){
+    const diff = new Date(date) - new Date();
+    if(diff <= 0){
+      el.innerText = "Today 🎉";
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    el.innerText = `${days} days to go`;
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+if(confettiOn === 'yes'){
+  for(let i=0;i<40;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.animationDuration=2+Math.random()*3+"s";
+    document.body.appendChild(c);
+  }
+}
+
+function openRSVP(){
+  document.getElementById('rsvp-box').style.display = "block";
+}
+
+function sendRSVP(){
+
+  const btn = document.getElementById('sendBtn');
+  btn.innerText = "Sending...";
+  btn.disabled = true;
+
+  const data = {
+    guest_name: guest.value,
+    guest_count: count.value || "Not specified",
+    dietary: dietary.value || "None",
+    message: msg.value || "No message",
+    to_email: emailTo,
+    host_name: names
+  };
+
+  if(!data.guest_name){
+    alert("Please enter your name");
+    btn.innerText = "Send RSVP";
+    btn.disabled = false;
+    return;
+  }
+
+  emailjs.send("service_q7cy9mq","template_3o0vnf5",data)
+  .then(()=>{
+    document.getElementById('rsvp-box').innerHTML =
+      "<p>✨ Thank you! Your RSVP has been sent 💌</p>";
+  })
+  .catch(()=>{
+    alert("Something went wrong — try again.");
+    btn.innerText = "Send RSVP";
+    btn.disabled = false;
+  });
+
+}
+
+</script>
+
+</body>
+</html>
