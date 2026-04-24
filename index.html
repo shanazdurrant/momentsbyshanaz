@@ -1,23 +1,295 @@
-<!-- EXPERIENCE TILES -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Moments by Shanaz · Luxury Digital Keepsakes</title>
+<meta name="description" content="Personalised digital scratchcards, love letters and keepsakes for life's biggest moments. Made with care in the UK.">
+
+<link rel="icon" type="image/png" href="favicon-m.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Allura&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ivory:#FAF6F0;
+  --ivory-soft:#FDFBF6;
+  --blush:#F4E3D7;
+  --burgundy:#6B1E3F;
+  --burgundy-deep:#4A1229;
+  --gold:#C9A961;
+  --gold-light:#E8D4A0;
+  --emerald:#1F4538;
+  --charcoal:#2B2B2B;
+  --charcoal-soft:#555;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  padding-top:145px;
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  background:var(--ivory);
+  color:var(--charcoal);
+  line-height:1.6;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(201,169,97,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 40%, rgba(31,69,56,0.05) 0%, transparent 50%);
+  background-attachment:fixed;
+}
+
+/* HEADER */
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:20px 20px 14px;
+  background:rgba(250,246,240,0.88);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  z-index:1000;
+  text-align:center;
+  border-bottom:1px solid rgba(201,169,97,0.18);
+}
+
+.logo{
+  height:160px;
+  opacity:0;
+  transition:opacity 1.5s ease,transform 0.3s ease;
+}
+
+.logo:hover{ transform:scale(1.04); }
+
+.brand-tagline{
+  font-size:11px;
+  letter-spacing:3px;
+  margin:6px 0 0;
+  color:var(--charcoal-soft);
+  text-transform:uppercase;
+  font-weight:500;
+  opacity:0;
+  transition:opacity 1.5s ease 0.3s;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:70px 20px 40px;
+  max-width:920px;
+  margin:auto;
+}
+
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,6.5vw,60px);
+  font-weight:400;
+  letter-spacing:-1px;
+  line-height:1.1;
+  margin:0 0 20px;
+  color:var(--charcoal);
+}
+
+.hero h1 em{
+  color:var(--gold);
+  font-style:italic;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+
+.hero p{
+  font-size:18px;
+  max-width:600px;
+  margin:0 auto 30px;
+  color:var(--charcoal-soft);
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:16px 36px;
+  background:var(--burgundy);
+  color:white;
+  text-decoration:none;
+  border-radius:40px;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:all 0.3s ease;
+  box-shadow:0 6px 20px -6px rgba(107,30,63,0.4);
+}
+
+.btn:hover{
+  background:var(--gold);
+  color:var(--charcoal);
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px -6px rgba(201,169,97,0.5);
+}
+
+/* ORNAMENT */
+.ornament{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:40px auto;
+  max-width:300px;
+}
+
+.ornament::before,.ornament::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.ornament span{
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:4px;
+}
+
+/* SECTIONS */
+.section{
+  padding:60px 20px;
+  text-align:center;
+  max-width:1000px;
+  margin:auto;
+}
+
+.section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4vw,36px);
+  margin:0 0 14px;
+}
+
+.section > p{
+  font-size:16px;
+  color:var(--charcoal-soft);
+  max-width:560px;
+  margin:0 auto 40px;
+}
+
+/* TILE GRID */
+.tile-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  max-width:900px;
+  margin:30px auto 0;
+}
+
+.tile{
+  background:var(--ivory-soft);
+  padding:32px 20px;
+  border-radius:4px;
+  position:relative;
+  transition:all 0.4s cubic-bezier(.16,1,.3,1);
+  border:1px solid rgba(201,169,97,0.2);
+  text-align:center;
+}
+
+.tile::before{
+  content:'';
+  position:absolute;
+  top:10px;left:10px;right:10px;bottom:10px;
+  border:1px solid rgba(201,169,97,0.12);
+}
+
+.tile:hover{
+  transform:translateY(-4px);
+  border-color:rgba(201,169,97,0.45);
+}
+
+/* ✨ SAFE HOVER ADD */
+.tile-overlay{
+  position:absolute;
+  bottom:12px;
+  left:0;
+  right:0;
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--gold);
+  opacity:0;
+  transition:0.3s;
+}
+
+.tile:hover .tile-overlay{
+  opacity:1;
+}
+
+.tile-icon{font-size:32px;}
+.tile-name{font-family:'Cormorant Garamond',serif;}
+
+.badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:9px;
+  padding:4px 10px;
+}
+
+.badge.live{
+  background:var(--burgundy);
+  color:white;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:50px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <img src="logo-horizontal.png" class="logo">
+  <p class="brand-tagline">Digital Keepsakes • Made With Care</p>
+</header>
+
+<section class="hero">
+  <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
+  <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
+  <a href="order.html" class="btn">Create Your First Moment</a>
+</section>
+
+<div class="ornament"><span>✦</span></div>
+
 <section class="section">
   <h2>Designed for every <em>special moment</em></h2>
-  <p>From intimate announcements to seasonal celebrations — each experience is crafted to create reactions worth remembering.</p>
 
   <div class="tile-grid">
+
     <div class="tile live">
       <span class="badge live">Available</span>
       <span class="tile-icon">✨</span>
       <p class="tile-name">Scratchcard Reveals</p>
     </div>
 
-    <!-- ✅ ONLY CHANGE IS HERE -->
-    <a href="invitation.html" style="text-decoration:none;color:inherit;">
-      <div class="tile">
-        <span class="badge live">Available</span>
-        <span class="tile-icon">💌</span>
-        <p class="tile-name">Digital Invitations</p>
-      </div>
-    </a>
+    <!-- UPDATED ONLY THIS TILE -->
+    <div class="tile" onclick="window.location.href='invitation.html'" style="cursor:pointer;">
+      <span class="badge live">Available</span>
+      <span class="tile-icon">💌</span>
+      <p class="tile-name">Digital Invitations</p>
+      <div class="tile-overlay">View Experience →</div>
+    </div>
 
     <div class="tile">
       <span class="badge">Coming Soon</span>
@@ -36,5 +308,20 @@
       <span class="tile-icon">⏳</span>
       <p class="tile-name">Countdown Reveals</p>
     </div>
+
   </div>
 </section>
+
+<footer>
+  © Moments by Shanaz — Made with care
+</footer>
+
+<script>
+window.addEventListener("load", () => {
+  document.querySelector(".logo").style.opacity = 1;
+  document.querySelector(".brand-tagline").style.opacity = 1;
+});
+</script>
+
+</body>
+</html>
