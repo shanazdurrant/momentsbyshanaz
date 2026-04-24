@@ -6,7 +6,7 @@
 <title>Save the Date — Moments by Shanaz</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700;800&family=Allura&display=swap" rel="stylesheet">
 <style>
- 
+
 /* ═══════════════════════════════════════════
    MOMENTS BY SHANAZ — BRAND PALETTE
 ═══════════════════════════════════════════ */
@@ -26,11 +26,11 @@
   --charcoal: #2B2B2B;
   --charcoal-soft: #5a5a5a;
 }
- 
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 html { scroll-behavior: smooth; }
- 
+
 body {
   font-family: 'Cormorant Garamond', serif;
   background: var(--ivory);
@@ -38,7 +38,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
- 
+
 /* ═══════════════════════════════════════════
    LOADING VEIL
 ═══════════════════════════════════════════ */
@@ -51,7 +51,7 @@ body {
   transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 #veil.gone { opacity: 0; visibility: hidden; pointer-events: none; }
- 
+
 .veil-brand {
   font-family: 'Pinyon Script', cursive;
   font-size: 52px;
@@ -81,7 +81,7 @@ body {
 }
 @keyframes veilFadeIn { to { opacity: 1; } }
 @keyframes veilBar { to { width: 100%; } }
- 
+
 /* ═══════════════════════════════════════════
    EDITOR PANEL (top)
 ═══════════════════════════════════════════ */
@@ -91,7 +91,7 @@ body {
   padding: 28px 24px 24px;
   position: relative;
 }
- 
+
 .editor-top {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 20px;
@@ -121,7 +121,7 @@ body {
   border: 1px solid rgba(201,169,97,0.2);
   padding: 5px 12px; border-radius: 20px;
 }
- 
+
 /* Tabs */
 .editor-tabs {
   display: flex; gap: 4px;
@@ -142,12 +142,12 @@ body {
 .tab-btn.active {
   background: var(--gold); color: var(--charcoal);
 }
- 
+
 /* Panels */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; animation: panelIn 0.3s ease; }
 @keyframes panelIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
- 
+
 /* Form rows */
 .form-grid {
   display: grid;
@@ -178,7 +178,7 @@ body {
 .form-group select:focus { border-color: var(--gold); }
 .form-group textarea { resize: vertical; min-height: 70px; }
 .form-group select option { background: var(--charcoal); }
- 
+
 /* Colour swatches */
 .swatch-row {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -197,7 +197,7 @@ body {
   color: rgba(255,255,255,0.4); letter-spacing: 1px;
   text-transform: uppercase; margin-bottom: 6px;
 }
- 
+
 /* Occasion chips */
 .occasion-chips {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -213,7 +213,7 @@ body {
 }
 .occ-chip:hover { border-color: var(--gold); color: var(--gold); }
 .occ-chip.active { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
- 
+
 /* Update button */
 .update-btn {
   width: 100%; margin-top: 18px;
@@ -228,7 +228,7 @@ body {
 }
 .update-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(107,30,63,0.4); }
 .update-btn:active { transform: none; }
- 
+
 /* ═══════════════════════════════════════════
    CARD PREVIEW WRAP
 ═══════════════════════════════════════════ */
@@ -246,7 +246,7 @@ body {
   background-size: 40px 40px;
   opacity: 0.08;
 }
- 
+
 /* ═══════════════════════════════════════════
    THE CARD ITSELF
 ═══════════════════════════════════════════ */
@@ -267,7 +267,7 @@ body {
   from { opacity: 0; transform: translateY(30px) scale(0.96); }
   to { opacity: 1; transform: none; }
 }
- 
+
 /* Gold border frame */
 #invitation-card::before {
   content: '';
@@ -276,7 +276,7 @@ body {
   pointer-events: none;
   border-radius: 2px;
 }
- 
+
 /* ── CARD HEADER ── */
 .card-header {
   padding: 36px 40px 28px;
@@ -291,14 +291,14 @@ body {
   background: var(--ivory);
   clip-path: ellipse(55% 100% at 50% 100%);
 }
- 
+
 /* Decorative corner flourishes */
 .corner { position: absolute; font-size: 18px; color: rgba(201,169,97,0.4); line-height: 1; }
 .corner.tl { top: 14px; left: 18px; }
 .corner.tr { top: 14px; right: 18px; transform: scaleX(-1); }
 .corner.bl { bottom: 28px; left: 18px; transform: scaleY(-1); }
 .corner.br { bottom: 28px; right: 18px; transform: scale(-1,-1); }
- 
+
 .card-occasion-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px; font-weight: 700; letter-spacing: 3px;
@@ -321,13 +321,13 @@ body {
 }
 .card-divider-line { flex: 1; height: 1px; background: rgba(201,169,97,0.3); }
 .card-divider-icon { color: var(--gold); font-size: 12px; }
- 
+
 /* ── CARD BODY ── */
 .card-body {
   padding: 32px 40px;
   text-align: center;
 }
- 
+
 .card-names {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(26px, 5vw, 36px);
@@ -349,7 +349,7 @@ body {
   margin-bottom: 24px;
   opacity: 0; animation: fadeUp 0.6s ease 2.45s forwards;
 }
- 
+
 /* Details strip */
 .card-details {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
@@ -378,7 +378,7 @@ body {
   font-size: 14px; font-weight: 600; color: var(--burgundy);
   line-height: 1.2;
 }
- 
+
 /* Message area */
 .card-message {
   font-family: 'Cormorant Garamond', serif;
@@ -392,7 +392,7 @@ body {
   opacity: 0; animation: fadeUp 0.6s ease 2.55s forwards;
 }
 #card-message-wrap { display: none; }
- 
+
 /* RSVP button */
 .card-rsvp-wrap {
   margin-top: 24px;
@@ -415,7 +415,7 @@ body {
   box-shadow: 0 8px 30px rgba(107,30,63,0.35);
 }
 #card-rsvp-wrap { display: none; }
- 
+
 /* Countdown */
 .card-countdown {
   display: flex; justify-content: center; gap: 16px;
@@ -439,7 +439,7 @@ body {
   text-transform: uppercase; color: rgba(201,169,97,0.6); margin-top: 4px;
 }
 #card-countdown-wrap { display: none; }
- 
+
 /* ── CARD FOOTER ── */
 .card-footer {
   background: var(--charcoal); padding: 18px 40px;
@@ -460,7 +460,7 @@ body {
   font-size: 9px; letter-spacing: 1.5px;
   text-transform: uppercase; color: rgba(255,255,255,0.3);
 }
- 
+
 /* ═══════════════════════════════════════════
    SHARE TOOLBAR
 ═══════════════════════════════════════════ */
@@ -486,7 +486,7 @@ body {
 .share-btn:hover { background: rgba(201,169,97,0.15); border-color: var(--gold); }
 .share-btn.primary { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
 .share-btn.primary:hover { background: var(--gold-light); }
- 
+
 /* Copy feedback */
 .copy-flash {
   position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
@@ -498,7 +498,7 @@ body {
   display: flex; align-items: center; gap: 8px;
 }
 .copy-flash.show { opacity: 1; }
- 
+
 /* ═══════════════════════════════════════════
    ANIMATIONS
 ═══════════════════════════════════════════ */
@@ -510,7 +510,7 @@ body {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
- 
+
 /* ═══════════════════════════════════════════
    MOBILE
 ═══════════════════════════════════════════ */
@@ -525,7 +525,7 @@ body {
   .editor-tabs { gap: 2px; }
   .tab-btn { font-size: 10px; padding: 7px 8px; }
 }
- 
+
 /* Responsive card */
 @media (max-width: 400px) {
   .card-details { grid-template-columns: 1fr; border-left: none; border-right: none; }
@@ -535,14 +535,14 @@ body {
 </style>
 </head>
 <body>
- 
+
 <!-- ── LOADING VEIL ── -->
 <div id="veil">
   <div class="veil-brand">Moments</div>
   <div class="veil-sub">by Shanaz</div>
   <div class="veil-bar"><div class="veil-bar-fill"></div></div>
 </div>
- 
+
 <!-- ══════════════════════════════════════════
      EDITOR PANEL
 ══════════════════════════════════════════ -->
@@ -554,7 +554,7 @@ body {
     </div>
     <div class="editor-badge">✦ Save the Date Builder</div>
   </div>
- 
+
   <!-- TABS -->
   <div class="editor-tabs">
     <button class="tab-btn active" onclick="switchTab('occasion')">✦ Occasion</button>
@@ -562,7 +562,7 @@ body {
     <button class="tab-btn" onclick="switchTab('message')">Message</button>
     <button class="tab-btn" onclick="switchTab('theme')">Theme</button>
   </div>
- 
+
   <!-- TAB: OCCASION -->
   <div class="tab-panel active" id="tab-occasion">
     <div class="swatch-label">Choose an occasion</div>
@@ -578,7 +578,7 @@ body {
       <span class="occ-chip" data-occ="other" onclick="setOccasion(this)">✨ Other</span>
     </div>
   </div>
- 
+
   <!-- TAB: DETAILS -->
   <div class="tab-panel" id="tab-details">
     <div class="form-grid">
@@ -612,7 +612,7 @@ body {
       </div>
     </div>
   </div>
- 
+
   <!-- TAB: MESSAGE -->
   <div class="tab-panel" id="tab-message">
     <div class="form-group">
@@ -631,7 +631,7 @@ body {
       </select>
     </div>
   </div>
- 
+
   <!-- TAB: THEME -->
   <div class="tab-panel" id="tab-theme">
     <div class="swatch-label">Card theme</div>
@@ -647,35 +647,35 @@ body {
       <input type="text" id="inp-icon" placeholder="e.g. 💍 or ✦" maxlength="4" oninput="liveUpdate()" style="max-width:100px">
     </div>
   </div>
- 
+
   <button class="update-btn" onclick="liveUpdate()">
     ✦ Update Preview
   </button>
 </div>
- 
+
 <!-- ══════════════════════════════════════════
      INVITATION CARD
 ══════════════════════════════════════════ -->
 <div id="preview-wrap">
   <div id="invitation-card">
- 
+
     <!-- HEADER -->
     <div class="card-header" id="card-header">
       <div class="corner tl">❧</div>
       <div class="corner tr">❧</div>
       <div class="corner bl">❧</div>
       <div class="corner br">❧</div>
- 
+
       <div class="card-occasion-label" id="card-occasion-label">— Save the Date —</div>
       <div class="card-headline" id="card-headline">Save the Date</div>
- 
+
       <div class="card-divider">
         <div class="card-divider-line"></div>
         <div class="card-divider-icon" id="card-icon">💌</div>
         <div class="card-divider-line"></div>
       </div>
     </div>
- 
+
     <!-- BODY -->
     <div class="card-body">
       <div class="card-names" id="card-names">
@@ -684,7 +684,7 @@ body {
         <span id="card-name2">James</span>
       </div>
       <div class="card-tagline" id="card-tagline">Please join us to celebrate</div>
- 
+
       <!-- Details strip -->
       <div class="card-details" id="card-details">
         <div class="detail-block">
@@ -703,7 +703,7 @@ body {
           <div class="detail-value" id="card-venue">To be confirmed</div>
         </div>
       </div>
- 
+
       <!-- Countdown -->
       <div id="card-countdown-wrap">
         <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal-soft);margin-bottom:10px;text-align:center">Counting down</div>
@@ -714,17 +714,17 @@ body {
           <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><div class="countdown-lbl">Secs</div></div>
         </div>
       </div>
- 
+
       <!-- Dress code -->
       <div id="card-dress-wrap" style="display:none;margin:10px 0;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal-soft);text-align:center">
         Dress code: <span id="card-dress" style="color:var(--burgundy)"></span>
       </div>
- 
+
       <!-- Message -->
       <div id="card-message-wrap">
         <div class="card-message" id="card-message"></div>
       </div>
- 
+
       <!-- RSVP -->
       <div id="card-rsvp-wrap" class="card-rsvp-wrap">
         <a id="card-rsvp-btn" class="card-rsvp-btn" href="#" target="_blank">
@@ -732,7 +732,7 @@ body {
         </a>
       </div>
     </div>
- 
+
     <!-- FOOTER -->
     <div class="card-footer">
       <div>
@@ -742,10 +742,10 @@ body {
       <div class="card-footer-divider"></div>
       <div class="card-footer-note">Digital Invitation</div>
     </div>
- 
+
   </div><!-- /invitation-card -->
 </div><!-- /preview-wrap -->
- 
+
 <!-- SHARE BAR -->
 <div id="share-bar">
   <span class="share-label">Share this invitation</span>
@@ -753,15 +753,15 @@ body {
   <button class="share-btn" onclick="shareWhatsApp()">💬 WhatsApp</button>
   <button class="share-btn primary" onclick="window.print()">🖨️ Print / Save PDF</button>
 </div>
- 
+
 <!-- Copy feedback -->
 <div class="copy-flash" id="copy-flash">✓ Link copied to clipboard!</div>
- 
+
 <!-- ══════════════════════════════════════════
      JAVASCRIPT
 ══════════════════════════════════════════ -->
 <script>
- 
+
 // ── STATE ──────────────────────────────────
 let state = {
   headline: 'Save the Date',
@@ -778,7 +778,7 @@ let state = {
   theme: 'classic',
   countdown: 'yes'
 };
- 
+
 // ── OCCASION PRESETS ────────────────────────
 const occasionPresets = {
   save:        { label: '— Save the Date —', icon: '💌', headline: 'Save the Date',   tagline: 'Please mark your calendars' },
@@ -791,7 +791,7 @@ const occasionPresets = {
   hen:         { label: '— Hen Do —', icon: '🥂', headline: 'Last Night of Freedom!', tagline: 'Come celebrate the bride-to-be' },
   other:       { label: '— You\'re Invited —', icon: '✨', headline: 'You\'re Invited', tagline: 'We\'d love you to join us' }
 };
- 
+
 // ── THEME CONFIGS ───────────────────────────
 const themes = {
   classic: {
@@ -835,7 +835,7 @@ const themes = {
     previewBg: 'linear-gradient(160deg, #2B2B2B 0%, #1a1a1a 60%)'
   }
 };
- 
+
 // ── VEIL ────────────────────────────────────
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('veil').classList.add('gone'), 1700);
@@ -843,7 +843,7 @@ window.addEventListener('load', () => {
   liveUpdate();
   startCountdown();
 });
- 
+
 // ── TAB SWITCH ──────────────────────────────
 function switchTab(id) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => {
@@ -853,7 +853,7 @@ function switchTab(id) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
 }
- 
+
 // ── SET OCCASION ─────────────────────────────
 function setOccasion(el) {
   document.querySelectorAll('.occ-chip').forEach(c => c.classList.remove('active'));
@@ -866,7 +866,7 @@ function setOccasion(el) {
   document.getElementById('inp-icon').value = preset.icon;
   liveUpdate();
 }
- 
+
 // ── SET THEME ─────────────────────────────────
 function setTheme(el) {
   document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
@@ -874,7 +874,7 @@ function setTheme(el) {
   state.theme = el.dataset.theme;
   liveUpdate();
 }
- 
+
 // ── LIVE UPDATE ──────────────────────────────
 function liveUpdate() {
   // Read inputs
@@ -889,7 +889,7 @@ function liveUpdate() {
   state.rsvp     = document.getElementById('inp-rsvp').value || '';
   state.icon     = document.getElementById('inp-icon').value || occasionPresets[state.occasion].icon;
   state.countdown= document.getElementById('inp-countdown').value;
- 
+
   // Apply theme
   const t = themes[state.theme];
   document.getElementById('card-header').style.background = t.headerBg;
@@ -897,7 +897,7 @@ function liveUpdate() {
   document.getElementById('preview-wrap').style.background = t.previewBg;
   document.querySelector('.card-headline').style.color = t.headlineColor;
   document.querySelector('.card-divider-icon').style.color = t.accentColor;
- 
+
   // Names — handle single vs couple
   const names = state.names;
   const amp = names.includes('&') ? names.split('&') : (names.includes(' and ') ? names.split(' and ') : null);
@@ -908,15 +908,15 @@ function liveUpdate() {
     namesEl.innerHTML = `<span>${names}</span>`;
   }
   namesEl.style.color = t.nameColor;
- 
+
   // Other text
   document.getElementById('card-headline').textContent = state.headline;
   document.getElementById('card-tagline').textContent = state.tagline;
   document.getElementById('card-icon').textContent = state.icon;
- 
+
   // Occasion label
   document.getElementById('card-occasion-label').textContent = occasionPresets[state.occasion].label;
- 
+
   // Date
   if (state.date) {
     const d = new Date(state.date + 'T00:00:00');
@@ -924,7 +924,7 @@ function liveUpdate() {
   } else {
     document.getElementById('card-date').textContent = 'TBC';
   }
- 
+
   // Time
   if (state.time) {
     const [h,m] = state.time.split(':');
@@ -933,34 +933,34 @@ function liveUpdate() {
   } else {
     document.getElementById('card-time').textContent = 'TBC';
   }
- 
+
   // Venue
   document.getElementById('card-venue').textContent = state.venue || 'To be confirmed';
   const words = (state.venue || '').length;
   document.getElementById('card-venue').style.fontSize = words > 25 ? '11px' : '14px';
- 
+
   // Dress code
   const dressWrap = document.getElementById('card-dress-wrap');
   dressWrap.style.display = state.dress ? 'block' : 'none';
   document.getElementById('card-dress').textContent = state.dress;
- 
+
   // Message
   const msgWrap = document.getElementById('card-message-wrap');
   msgWrap.style.display = state.message ? 'block' : 'none';
   document.getElementById('card-message').textContent = state.message;
- 
+
   // RSVP
   const rsvpWrap = document.getElementById('card-rsvp-wrap');
   rsvpWrap.style.display = state.rsvp ? 'block' : 'none';
   document.getElementById('card-rsvp-btn').href = state.rsvp;
   document.getElementById('card-rsvp-btn').style.background = `linear-gradient(135deg, ${t.nameColor}, ${t.accentColor})`;
   document.getElementById('card-rsvp-btn').style.color = state.theme === 'ivory' ? '#fff' : t.headlineColor;
- 
+
   // Countdown
   const cdWrap = document.getElementById('card-countdown-wrap');
   cdWrap.style.display = (state.countdown === 'yes' && state.date) ? 'block' : 'none';
 }
- 
+
 // ── COUNTDOWN TIMER ──────────────────────────
 function startCountdown() {
   setInterval(() => {
@@ -982,7 +982,7 @@ function startCountdown() {
     document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
   }, 1000);
 }
- 
+
 // ── URL ENCODE / DECODE ──────────────────────
 function buildShareURL() {
   const p = new URLSearchParams({
@@ -1002,11 +1002,11 @@ function buildShareURL() {
   });
   return window.location.href.split('?')[0] + '?' + p.toString();
 }
- 
+
 function loadFromURL() {
   const p = new URLSearchParams(window.location.search);
   if (!p.has('h')) return; // no params
- 
+
   // Populate inputs
   if (p.get('h'))  document.getElementById('inp-headline').value = p.get('h');
   if (p.get('n'))  document.getElementById('inp-names').value    = p.get('n');
@@ -1019,7 +1019,7 @@ function loadFromURL() {
   if (p.get('r'))  document.getElementById('inp-rsvp').value     = p.get('r');
   if (p.get('ic')) document.getElementById('inp-icon').value     = p.get('ic');
   if (p.get('cd')) document.getElementById('inp-countdown').value= p.get('cd');
- 
+
   // Theme
   if (p.get('th')) {
     state.theme = p.get('th');
@@ -1027,7 +1027,7 @@ function loadFromURL() {
       s.classList.toggle('active', s.dataset.theme === state.theme);
     });
   }
- 
+
   // Occasion
   if (p.get('occ')) {
     state.occasion = p.get('occ');
@@ -1036,7 +1036,7 @@ function loadFromURL() {
     });
   }
 }
- 
+
 // ── SHARING ───────────────────────────────────
 function copyLink() {
   navigator.clipboard.writeText(buildShareURL()).then(() => {
@@ -1045,13 +1045,13 @@ function copyLink() {
     setTimeout(() => f.classList.remove('show'), 2500);
   });
 }
- 
+
 function shareWhatsApp() {
   const url = encodeURIComponent(buildShareURL());
   const msg = encodeURIComponent('You\'re invited! 🎉 Click to view your invitation: ');
   window.open('https://wa.me/?text=' + msg + url, '_blank');
 }
- 
+
 // ── PRINT STYLES ──────────────────────────────
 const printCSS = `
   @media print {
@@ -1064,8 +1064,7 @@ const printCSS = `
 const style = document.createElement('style');
 style.textContent = printCSS;
 document.head.appendChild(style);
- 
+
 </script>
 </body>
 </html>
- 
