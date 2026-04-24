@@ -4,147 +4,2762 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Your Scratchcard · Moments by Shanaz</title>
-
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23faf6f0'/%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%231f4538' stroke-width='2'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='%23c9a961' font-family='Georgia' font-size='46' font-style='italic' font-weight='500'%3EM%3C/text%3E%3C/svg%3E">
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Pinyon+Script&family=Allura&display=swap" rel="stylesheet">
-
 <style>
-/* ===================================================== */
-/* =============== ORIGINAL CSS (UNCHANGED) ============ */
-/* ===================================================== */
+:root{
+  /* Moments by Shanaz — Brand Palette */
+  --ivory:#faf6f0;
+  --ivory-soft:#fdfbf6;
+  --ivory-deep:#f2ecdf;
+  --blush:#f4e3d7;
+  --blush-soft:#f9eee4;
+  --blush-deep:#e8d0bc;
+  --burgundy:#6b1e3f;
+  --burgundy-light:#8a2e54;
+  --burgundy-deep:#4a1229;
+  --burgundy-wine:#5a1835;
+  --gold:#c9a961;
+  --gold-light:#e8d4a0;
+  --gold-shimmer:#f0dca8;
+  --gold-deep:#a88843;
+  --emerald:#1f4538;
+  --emerald-light:#2d5a48;
+  --emerald-soft:#3a6b58;
+  --emerald-deep:#143028;
+  --charcoal:#2b2b2b;
+  --charcoal-soft:#4a4a4a;
+  --ink:#2b2b2b;
+  --ink-soft:#4a4a4a;
+  /* Aliases for backwards-compat with existing rules */
+  --cream:#faf6f0;
+  --cream-soft:#fdfbf6;
+  --cream-deep:#f2ecdf;
+  --sage:#a8b89f;
+  --sage-light:#c8d2c3;
+  --sage-deep:#1f4538;
+  --shadow-sm:rgba(43,43,43,0.08);
+  --shadow-md:rgba(43,43,43,0.15);
+  --shadow-lg:rgba(43,43,43,0.3);
+}
 
-/* ........ ALL YOUR ORIGINAL CSS HERE ........ */
-/* NOTHING removed, NOTHING altered above       */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+/* ══════ GRADIENT BACKDROP ══════ */
+body{
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+  font-weight:300;
+  letter-spacing:0.01em;
+  position:relative;
+  overflow-x:hidden;
+  background:
+    linear-gradient(135deg, var(--cream) 0%, var(--sage-mist) 50%, var(--cream) 100%);
+  background-attachment:fixed;
+}
+
+/* Ambient atmosphere */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(232,212,160,0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(168,184,159,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(232,212,160,0.2) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Floating gold motes */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(201,169,97,0.3) 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, rgba(201,169,97,0.25) 1px, transparent 1.5px),
+    radial-gradient(circle at 85% 20%, rgba(201,169,97,0.2) 1px, transparent 1.5px),
+    radial-gradient(circle at 30% 80%, rgba(201,169,97,0.25) 1px, transparent 1.5px),
+    radial-gradient(circle at 55% 45%, rgba(201,169,97,0.2) 1px, transparent 1.5px);
+  background-size:300px 300px, 250px 250px, 400px 400px, 350px 350px, 280px 280px;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.6;
+  animation:drift 40s linear infinite;
+}
+@keyframes drift{
+  0%{background-position:0 0, 0 0, 0 0, 0 0, 0 0;}
+  100%{background-position:-300px 300px, 250px -250px, -400px 400px, 350px -350px, -280px 280px;}
+}
+
+/* ══════ TOP BAR ══════ */
+.top-bar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,246,240,0.92);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid rgba(201,169,97,0.25);
+  padding:16px 20px;
+  box-shadow:0 4px 20px -10px rgba(43,43,43,0.08);
+}
+
+.top-bar-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* NEW IMAGE LOGO */
+.brand-logo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.brand-logo-img{
+  height:160px;        /* 👈 adjust this for size */
+  max-width:100%;
+  object-fit:contain;
+
+  /* subtle blend */
+  mix-blend-mode:multiply;
+
+  transition:transform 0.3s ease;
+}
+
+.brand-logo-img:hover{
+  transform:scale(1.03);
+}
+
+/* MOBILE */
+@media(max-width:640px){
+  .brand-logo-img{
+    height:55px;
+  }
+}
+
+@media(max-width:420px){
+  .brand-logo-img{
+    height:45px;
+  }
+}
+
+/* PAGE */
+.page{
+  max-width:1200px;
+  margin:0 auto;
+  padding:40px 20px 60px;
+  position:relative;
+  z-index:1;
+}
+
+/* ══════ HERO ══════ */
+.hero{text-align:center;margin-bottom:50px;animation:heroIn 0.9s cubic-bezier(.16,1,.3,1) both;}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(-20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.hero-ornament{
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;margin-bottom:14px;
+}
+.hero-ornament span{color:var(--gold);font-size:10px;letter-spacing:4px;}
+.hero-ornament::before,.hero-ornament::after{
+  content:'';width:40px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold));
+}
+.hero-ornament::after{background:linear-gradient(90deg,var(--gold),transparent);}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,54px);
+  font-weight:400;line-height:1.05;
+  letter-spacing:-0.5px;margin-bottom:14px;
+}
+.hero-title em{
+  font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,var(--gold-deep) 0%,var(--gold) 50%,var(--gold-deep) 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+.hero-sub{
+  color:var(--ink-soft);
+  font-size:15px;line-height:1.7;
+  max-width:520px;margin:0 auto;
+}
+
+.split{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:40px;align-items:flex-start;
+}
+@media(max-width:960px){
+  .split{grid-template-columns:1fr;gap:30px;}
+  .preview-sticky{position:static!important;}
+}
+
+/* ══════ FORM CARD ══════ */
+.form-card{
+  background:linear-gradient(145deg,var(--cream-soft) 0%,var(--cream) 100%);
+  border-radius:3px;
+  padding:40px 36px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 30px 80px -20px var(--shadow-md),
+    0 0 0 1.5px rgba(201,169,97,0.4),
+    0 0 0 3px rgba(201,169,97,0.1);
+  position:relative;
+  animation:cardIn 0.9s cubic-bezier(.16,1,.3,1) 0.1s both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.form-card::before{
+  content:'';position:absolute;
+  top:14px;left:14px;right:14px;bottom:14px;
+  border:1px solid rgba(201,169,97,0.25);
+  border-radius:1px;
+  pointer-events:none;
+}
+
+/* ══════ PROGRESSIVE REVEAL ══════ */
+.form-section{
+  margin-bottom:36px;
+  position:relative;z-index:1;
+  opacity:1;
+  transition:opacity 0.6s ease;
+}
+.form-section.locked{
+  opacity:0.35;pointer-events:none;
+  filter:blur(0.5px);
+}
+.form-section.newly-unlocked{
+  animation:sectionReveal 0.8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes sectionReveal{
+  0%{opacity:0;transform:translateY(15px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+.form-section:last-of-type{margin-bottom:24px;}
+
+.section-label{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.section-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-deep);font-size:13px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:400;
+}
+.section-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(201,169,97,0.4),transparent);
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:500;letter-spacing:-0.3px;margin-bottom:4px;
+}
+.section-title em{font-style:italic;color:var(--gold-deep);}
+.section-hint{
+  color:var(--ink-soft);font-size:13px;
+  font-style:italic;font-family:'Cormorant Garamond',serif;font-size:14px;
+  margin-bottom:16px;line-height:1.5;
+}
+
+/* ══════ FORM FIELDS ══════ */
+.form-row{margin-bottom:18px;}
+.form-row label{
+  display:block;font-size:10px;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold-deep);margin-bottom:8px;
+}
+.form-row input,.form-row textarea{
+  width:100%;padding:12px 0;border:none;
+  border-bottom:1px solid rgba(201,169,97,0.35);
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;
+  background:transparent;color:var(--ink);
+  transition:border-color .3s ease;
+}
+.form-row input:focus,.form-row textarea:focus{
+  outline:none;border-bottom-color:var(--gold-deep);
+}
+.form-row input::placeholder,.form-row textarea::placeholder{
+  color:rgba(90,79,66,0.4);font-style:italic;
+}
+.form-row textarea{resize:vertical;min-height:60px;font-size:16px;}
+.char-count{
+  font-size:10px;color:var(--ink-soft);opacity:0.6;
+  margin-top:4px;text-align:right;
+  font-family:'Inter',sans-serif;letter-spacing:1px;
+}
+
+/* ══════ OCCASION CHIPS — with glow ══════ */
+.occasion-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+}
+.occasion-chip{
+  padding:20px 10px 16px;
+  border:1px solid rgba(201,169,97,0.25);
+  cursor:pointer;text-align:center;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  position:relative;background:var(--cream-soft);
+  overflow:hidden;border-radius:2px;
+}
+.occasion-chip::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-shimmer));
+  opacity:0;transition:opacity .4s;
+}
+.occasion-chip > *{position:relative;z-index:1;}
+.occasion-chip:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px -6px rgba(201,169,97,0.35);
+  border-color:rgba(201,169,97,0.5);
+}
+.occasion-chip:hover::before{opacity:0.25;}
+.occasion-chip.selected{
+  border-color:var(--gold-deep);
+  transform:translateY(-2px);
+  box-shadow:
+    0 10px 24px -6px rgba(201,169,97,0.5),
+    0 0 0 3px rgba(201,169,97,0.15),
+    0 0 30px -4px rgba(232,212,160,0.6);
+}
+.occasion-chip.selected::before{opacity:0.55;}
+.occasion-chip.selected::after{
+  content:'✓';position:absolute;top:5px;right:7px;
+  color:var(--gold-deep);font-size:11px;z-index:2;
+  font-weight:600;
+  animation:tickPop 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes tickPop{
+  0%{transform:scale(0);}
+  60%{transform:scale(1.4);}
+  100%{transform:scale(1);}
+}
+.occasion-chip.selected{
+  animation:selectedGlow 2.5s ease-in-out infinite;
+}
+@keyframes selectedGlow{
+  0%,100%{box-shadow:
+    0 10px 24px -6px rgba(201,169,97,0.5),
+    0 0 0 3px rgba(201,169,97,0.15),
+    0 0 30px -4px rgba(232,212,160,0.6);}
+  50%{box-shadow:
+    0 10px 28px -6px rgba(201,169,97,0.6),
+    0 0 0 3px rgba(201,169,97,0.25),
+    0 0 40px -2px rgba(232,212,160,0.8);}
+}
+.occasion-icon{font-size:24px;line-height:1;display:block;margin-bottom:4px;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.occasion-chip:hover .occasion-icon{transform:scale(1.15) rotate(-5deg);}
+.occasion-chip.selected .occasion-icon{transform:scale(1.2);}
+.occasion-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;font-weight:500;
+  letter-spacing:0.3px;color:var(--ink);
+  display:block;line-height:1.2;
+}
+
+/* ══════ GENDER SUB-CHOICE ══════ */
+.gender-subchoice{
+  margin-top:20px;
+  padding:20px 18px;
+  background:linear-gradient(145deg,var(--ivory) 0%,var(--blush) 100%);
+  border:1px solid rgba(201,169,97,0.3);
+  border-radius:3px;
+  position:relative;
+  animation:subchoiceIn 0.6s cubic-bezier(.16,1,.3,1) both;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 4px 14px -4px rgba(107,30,63,0.1);
+}
+@keyframes subchoiceIn{
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.subchoice-label{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--burgundy);
+  letter-spacing:1.5px;
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.subchoice-ornament{
+  color:var(--gold);
+  font-size:10px;
+}
+.subchoice-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.subchoice-chip{
+  padding:14px 8px;
+  background:var(--ivory-soft);
+  border:1px solid rgba(201,169,97,0.25);
+  border-radius:2px;
+  cursor:pointer;
+  text-align:center;
+  transition:all .35s cubic-bezier(.16,1,.3,1);
+  position:relative;
+  overflow:hidden;
+}
+.subchoice-chip::before{
+  content:'';
+  position:absolute;inset:0;
+  opacity:0;
+  transition:opacity .35s;
+}
+.subchoice-chip[data-gender="boy"]::before{
+  background:linear-gradient(135deg,#d6e4f0,#b8ccdf);
+}
+.subchoice-chip[data-gender="girl"]::before{
+  background:linear-gradient(135deg,#f4d4dc,#e8b4c0);
+}
+.subchoice-chip[data-gender="surprise"]::before{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-shimmer));
+}
+.subchoice-chip > *{position:relative;z-index:1;}
+.subchoice-chip:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px -4px rgba(107,30,63,0.2);
+}
+.subchoice-chip:hover::before{opacity:0.3;}
+.subchoice-chip.selected{
+  border-color:var(--burgundy);
+  box-shadow:0 8px 18px -4px rgba(107,30,63,0.35),0 0 0 3px rgba(107,30,63,0.12);
+  transform:translateY(-2px);
+}
+.subchoice-chip.selected::before{opacity:0.45;}
+.subchoice-chip.selected::after{
+  content:'✓';
+  position:absolute;top:5px;right:7px;
+  color:var(--burgundy);font-size:11px;z-index:2;font-weight:600;
+  animation:tickPop 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+.subchoice-bubble{
+  width:36px;height:36px;margin:0 auto 6px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;line-height:1;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.boy-bubble{background:linear-gradient(135deg,#d6e4f0,#a0c0df);}
+.girl-bubble{background:linear-gradient(135deg,#f4d4dc,#e8a0b4);}
+.surprise-bubble{background:linear-gradient(135deg,var(--gold-light),var(--gold));}
+.subchoice-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;font-weight:500;
+  color:var(--ink);
+  margin-bottom:2px;
+  line-height:1.1;
+}
+.subchoice-hint{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:11px;
+  color:var(--ink-soft);
+  opacity:0.8;
+  letter-spacing:0.3px;
+}
+
+/* ══════ LAYOUT CHIPS ══════ */
+.layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.layout-chip{
+  padding:18px 14px;
+  border:1px solid rgba(201,169,97,0.25);
+  cursor:pointer;text-align:center;border-radius:2px;
+  background:var(--cream-soft);
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  position:relative;overflow:hidden;
+}
+.layout-chip::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-shimmer));
+  opacity:0;transition:opacity .4s;
+}
+.layout-chip > *{position:relative;z-index:1;}
+.layout-chip:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px -6px rgba(201,169,97,0.35);
+}
+.layout-chip:hover::before{opacity:0.2;}
+.layout-chip.selected{
+  border-color:var(--gold-deep);
+  transform:translateY(-2px);
+  box-shadow:
+    0 10px 24px -6px rgba(201,169,97,0.5),
+    0 0 0 3px rgba(201,169,97,0.15),
+    0 0 30px -4px rgba(232,212,160,0.6);
+  animation:selectedGlow 2.5s ease-in-out infinite;
+}
+.layout-chip.selected::before{opacity:0.5;}
+.layout-visual{
+  display:flex;gap:4px;justify-content:center;
+  margin-bottom:10px;height:44px;align-items:center;
+}
+.layout-visual .panel{
+  background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+  box-shadow:0 2px 6px rgba(201,169,97,0.3);
+  transition:transform .4s;
+}
+.layout-chip:hover .layout-visual .panel{transform:scale(1.05);}
+.layout-chip[data-layout="single"] .panel{width:60px;height:40px;border-radius:2px;}
+.layout-chip[data-layout="triple"] .panel{width:22px;height:22px;border-radius:50%;}
+.layout-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;font-weight:500;
+  color:var(--ink);margin-bottom:2px;
+}
+.layout-desc{
+  font-size:11px;color:var(--ink-soft);
+  font-style:italic;font-family:'Cormorant Garamond',serif;font-size:12px;
+}
+
+/* ══════ TOGGLE ══════ */
+.toggle-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:linear-gradient(145deg,var(--cream),var(--cream-deep));
+  border:1px solid rgba(201,169,97,0.25);
+  border-radius:2px;
+  margin-bottom:10px;
+  transition:all .3s;
+}
+.toggle-row:hover{
+  border-color:rgba(201,169,97,0.45);
+  box-shadow:0 4px 14px -4px rgba(201,169,97,0.25);
+}
+.toggle-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:500;color:var(--ink);
+}
+.toggle-label em{
+  font-style:italic;font-size:13px;
+  color:var(--ink-soft);display:block;margin-top:2px;font-weight:400;
+}
+.toggle{
+  width:46px;height:24px;
+  background:var(--cream-deep);
+  border-radius:100px;position:relative;
+  cursor:pointer;transition:background .3s;
+  border:1px solid rgba(201,169,97,0.3);
+  flex-shrink:0;
+}
+.toggle::before{
+  content:'';position:absolute;
+  top:2px;left:2px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--cream-soft);
+  box-shadow:0 2px 4px rgba(0,0,0,0.15);
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.toggle.on{background:linear-gradient(135deg,var(--gold),var(--gold-deep));}
+.toggle.on::before{transform:translateX(22px);}
+
+/* ══════ SUBMIT ══════ */
+.submit-btn{
+  width:100%;padding:20px;
+  background:linear-gradient(135deg,var(--ink) 0%,#2a2018 100%);
+  color:var(--cream);
+  border:none;border-radius:2px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;margin-top:10px;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  position:relative;overflow:hidden;
+  box-shadow:0 1px 0 rgba(255,255,255,0.1) inset, 0 10px 24px -8px rgba(26,22,18,0.4);
+}
+.submit-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(232,212,160,0.4),transparent);
+  transform:translateX(-100%);transition:transform .8s;
+}
+.submit-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 1px 0 rgba(255,255,255,0.1) inset, 0 20px 40px -10px rgba(26,22,18,0.5);
+}
+.submit-btn:hover::before{transform:translateX(100%);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+.required-note{
+  display:inline-block;font-size:10px;letter-spacing:2px;
+  color:var(--sage-deep);font-weight:500;
+  text-transform:uppercase;margin-left:6px;
+}
+
+/* ══════ PREVIEW ══════ */
+.preview-sticky{position:sticky;top:100px;}
+
+.preview-wrap{
+  background:linear-gradient(145deg,var(--cream-soft) 0%,var(--cream) 100%);
+  border-radius:3px;
+  padding:40px 30px 32px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 30px 80px -20px var(--shadow-md),
+    0 0 0 1.5px rgba(201,169,97,0.4),
+    0 0 0 3px rgba(201,169,97,0.1);
+  position:relative;
+  animation:cardIn 0.9s cubic-bezier(.16,1,.3,1) 0.2s both;
+}
+.preview-wrap::before{
+  content:'';position:absolute;
+  top:14px;left:14px;right:14px;bottom:14px;
+  border:1px solid rgba(201,169,97,0.25);
+  border-radius:1px;
+  pointer-events:none;
+}
+.preview-header{text-align:center;margin-bottom:24px;position:relative;z-index:1;}
+.preview-label{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-deep);font-size:13px;
+  letter-spacing:3px;text-transform:uppercase;
+  font-weight:400;
+}
+.preview-sublabel{
+  color:var(--ink-soft);font-size:12px;margin-top:4px;
+  font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;
+}
 
 /* ══════ THE CARD ══════ */
 .preview-card{
-  max-width:360px;
-  margin:0 auto;
+  max-width:360px;margin:0 auto;
   aspect-ratio:3/4;
   border-radius:6px;
-  position:relative;
-  overflow:hidden;
+  position:relative;overflow:hidden;
   box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
   background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
   transition:box-shadow 0.6s;
 }
 
-/* ✅ UPDATED: Themed background imagery */
+/* Themed background imagery */
 .theme-bg-layer{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
-
-  /* ✅ VISIBILITY FIX */
-  opacity:0.35;
-  filter:brightness(0.85) contrast(1.05);
-
+  opacity:0.25;
   z-index:0;
   transition:opacity 0.8s;
   mix-blend-mode:multiply;
 }
 
-/* ✅ ADDED: Occasion background images */
-.theme-proposal .theme-bg-layer{
-  background-image:url('Proposal.jpg');
+/* WATERMARK */
+.preview-card::after{
+  content:'PREVIEW';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,10vw,72px);
+  font-weight:500;letter-spacing:14px;
+  color:rgba(168,136,67,0.28);
+  transform:rotate(-22deg);
+  pointer-events:none;
+  z-index:10;
+  text-shadow:0 2px 4px rgba(255,255,255,0.5);
+}
+.preview-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    -22deg,
+    transparent 0,transparent 50px,
+    rgba(168,136,67,0.05) 50px,rgba(168,136,67,0.05) 52px
+  );
+  pointer-events:none;z-index:9;
 }
 
-.theme-gender .theme-bg-layer{
-  background-image:url('gender.jpg');
+/* REVEAL LAYER — text in foreground, scene as backdrop */
+.reveal-layer{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:36px 28px;text-align:center;
+  color:var(--theme-text,var(--ink));
+  z-index:1;
+}
+.reveal-greeting{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:18px;color:var(--gold-deep);
+  letter-spacing:1.5px;margin-bottom:14px;opacity:0.9;
+  position:relative;z-index:3;
+}
+.reveal-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,6vw,40px);
+  font-weight:500;line-height:1.15;
+  margin-bottom:16px;letter-spacing:-0.3px;
+  color:var(--theme-text,var(--ink));
+  position:relative;z-index:3;
+  /* subtle halo so text stays readable over backdrop */
+  text-shadow:0 1px 2px rgba(253,250,243,0.8),0 0 20px rgba(253,250,243,0.6);
+}
+.reveal-divider-wrap{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;margin:12px 0;
+  position:relative;z-index:3;
+}
+.reveal-divider-wrap .line{width:30px;height:1px;background:var(--gold);}
+.reveal-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:18px;line-height:1.5;
+  color:var(--theme-text-soft,var(--ink-soft));
+  max-width:280px;
+  position:relative;z-index:3;
+  text-shadow:0 1px 2px rgba(253,250,243,0.7);
 }
 
-.theme-gender-boy .theme-bg-layer{
-  background-image:url('gender.jpg');
+/* ══════ SEQUENCED REVEAL ANIMATION ══════ */
+/* When .just-revealed class added, text fades in with delay so scene gets its "payoff" first */
+@keyframes textReveal{
+  0%{opacity:0;transform:translateY(6px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+.preview-card.just-revealed .reveal-greeting{
+  animation:textReveal 0.45s cubic-bezier(.16,1,.3,1) 0.35s both;
+}
+.preview-card.just-revealed .reveal-headline{
+  animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both;
+}
+.preview-card.just-revealed .reveal-divider-wrap{
+  animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;
+}
+.preview-card.just-revealed .reveal-text{
+  animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.75s both;
+}
+.preview-card.just-revealed .reveal-date{
+  animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;
+}
+.preview-card.just-revealed .reveal-signoff{
+  animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;
 }
 
-.theme-gender-girl .theme-bg-layer{
-  background-image:url('gender.jpg');
+/* ══════ SINGLE SCRATCH ══════ */
+.scratch-single{
+  position:absolute;inset:0;z-index:2;
+  touch-action:none;cursor:grab;
+}
+.scratch-single:active{cursor:grabbing;}
+.scratch-single canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  display:block;
+}
+.scratch-single-hint{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  pointer-events:none;z-index:3;
+  color:var(--ink-soft);text-align:center;
+}
+.scratch-single-hint .icon-big{
+  font-size:28px;margin-bottom:8px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  animation:gentleBob 2s ease-in-out infinite;
+}
+@keyframes gentleBob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-4px);}
+}
+.scratch-single-hint .title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:500;color:var(--ink);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;
+}
+.scratch-single-hint .sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:12px;color:var(--ink-soft);letter-spacing:1px;
+}
+.scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
+
+/* ══════ ANIMATED SCENE BACKDROP ══════ */
+.scene{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  margin:0;
+  pointer-events:none;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0.55;
+}
+.scene svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+  filter:drop-shadow(0 4px 10px rgba(60,40,20,0.2));
 }
 
-.theme-holiday .theme-bg-layer{
-  background-image:url('Holiday.jpg');
+/* Gift box opening (birthday / christmas) */
+@keyframes giftLidLift{
+  0%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-8px) rotate(-5deg);}
+  100%{transform:translateY(-26px) rotate(-12deg);}
+}
+@keyframes giftContentsRise{
+  0%,30%{transform:translateY(20px) scale(0.4);opacity:0;}
+  100%{transform:translateY(-8px) scale(1);opacity:1;}
+}
+@keyframes giftBoxShake{
+  0%,100%{transform:translateX(0) rotate(0);}
+  10%{transform:translateX(-2px) rotate(-1deg);}
+  20%{transform:translateX(2px) rotate(1deg);}
+  30%{transform:translateX(-1px) rotate(-0.5deg);}
+  40%{transform:translateX(1px) rotate(0.5deg);}
+  50%{transform:translateX(0);}
+}
+.scene-birthday .gift-lid{
+  transform-origin:center bottom;
+  animation:giftLidLift 1.4s cubic-bezier(.16,1,.3,1) 0.4s both;
+}
+.scene-birthday .gift-box{
+  transform-origin:center;
+  animation:giftBoxShake 0.5s ease-in-out 0.1s;
+}
+.scene-birthday .gift-contents{
+  transform-origin:center bottom;
+  animation:giftContentsRise 1.2s cubic-bezier(.34,1.56,.64,1) 0.8s both;
+}
+.scene-birthday .gift-sparkle{
+  animation:sparkleFloat 2.5s ease-in-out 1.2s infinite;
+}
+@keyframes sparkleFloat{
+  0%,100%{opacity:0.3;transform:translateY(0) scale(1);}
+  50%{opacity:1;transform:translateY(-4px) scale(1.15);}
 }
 
-.theme-pregnancy .theme-bg-layer{
-  background-image:url('image.png');
+/* Ring box opening (proposal) - lid opens DOWNWARD away from text */
+@keyframes ringBoxLidOpenDown{
+  0%{transform:rotateX(0deg) translateY(0);}
+  100%{transform:rotateX(110deg) translateY(4px);}
+}
+@keyframes ringRise{
+  0%,30%{transform:translateY(15px) scale(0.3);opacity:0;}
+  100%{transform:translateY(-10px) scale(1);opacity:1;}
+}
+@keyframes ringGlint{
+  0%,100%{opacity:0;transform:scale(0.5) rotate(0deg);}
+  50%{opacity:1;transform:scale(1.2) rotate(180deg);}
+}
+.scene-proposal .ring-box-lid-prop{
+  transform-origin:center bottom;
+  animation:ringBoxLidOpenDown 1s cubic-bezier(.34,1.56,.64,1) 0.3s both;
+}
+.scene-proposal .ring-band{
+  transform-origin:center bottom;
+  animation:ringRise 1.3s cubic-bezier(.34,1.56,.64,1) 0.9s both;
+}
+.scene-proposal .ring-glint{
+  transform-origin:center;
+  animation:ringGlint 1.5s ease-in-out 1.5s infinite;
 }
 
-.theme-wedding .theme-bg-layer{
-  background-image:url('Wedding.jpg');
+/* Champagne flutes clinking (wedding) */
+@keyframes fluteLeftClink{
+  0%{transform:translateX(0) rotate(0);}
+  30%{transform:translateX(8px) rotate(10deg);}
+  45%{transform:translateX(4px) rotate(5deg);}
+  60%{transform:translateX(6px) rotate(7deg);}
+  100%{transform:translateX(6px) rotate(7deg);}
+}
+@keyframes fluteRightClink{
+  0%{transform:translateX(0) rotate(0);}
+  30%{transform:translateX(-8px) rotate(-10deg);}
+  45%{transform:translateX(-4px) rotate(-5deg);}
+  60%{transform:translateX(-6px) rotate(-7deg);}
+  100%{transform:translateX(-6px) rotate(-7deg);}
+}
+@keyframes bubbleRise{
+  0%{transform:translateY(8px);opacity:0;}
+  30%{opacity:1;}
+  100%{transform:translateY(-20px);opacity:0;}
+}
+@keyframes clinkSparkle{
+  0%{opacity:0;transform:scale(0);}
+  30%{opacity:1;transform:scale(1);}
+  100%{opacity:0;transform:scale(1.8);}
+}
+.scene-wedding .flute-left{
+  transform-origin:bottom center;
+  animation:fluteLeftClink 1.2s cubic-bezier(.34,1.56,.64,1) 0.4s both;
+}
+.scene-wedding .flute-right{
+  transform-origin:bottom center;
+  animation:fluteRightClink 1.2s cubic-bezier(.34,1.56,.64,1) 0.4s both;
+}
+.scene-wedding .bubble{
+  animation:bubbleRise 2s ease-out infinite;
+}
+.scene-wedding .bubble-1{animation-delay:1.3s;}
+.scene-wedding .bubble-2{animation-delay:1.6s;}
+.scene-wedding .bubble-3{animation-delay:1.9s;}
+.scene-wedding .bubble-4{animation-delay:2.2s;}
+.scene-wedding .clink-burst{
+  transform-origin:center;
+  animation:clinkSparkle 0.8s ease-out 1.2s both;
 }
 
-.theme-birthday .theme-bg-layer{
-  background-image:url('birthday.jpg');
+/* Envelope opening (gender / custom / christmas) - flap opens UPWARD away from text */
+@keyframes envelopeFlapOpenUp{
+  0%{transform:rotateX(0deg);}
+  100%{transform:rotateX(-180deg);}
+}
+@keyframes letterRise{
+  0%,40%{transform:translateY(15px) scale(0.9);opacity:0;}
+  100%{transform:translateY(-4px) scale(1);opacity:1;}
+}
+@keyframes puffOut{
+  0%{transform:scale(0);opacity:0;}
+  30%{opacity:1;}
+  100%{transform:scale(2.5);opacity:0;}
+}
+.scene-gender .env-flap,.scene-custom .env-flap,.scene-christmas .xmas-env-flap{
+  transform-origin:center top;
+  transform-style:preserve-3d;
+  animation:envelopeFlapOpenUp 0.9s cubic-bezier(.16,1,.3,1) 0.3s both;
+}
+.scene-gender .env-letter,.scene-custom .env-letter,.scene-christmas .env-letter{
+  transform-origin:center;
+  animation:letterRise 1s cubic-bezier(.34,1.56,.64,1) 0.9s both;
+}
+.scene-gender .puff{
+  transform-origin:center;
+  animation:puffOut 1.2s ease-out 0.8s forwards;
+}
+.scene-gender .puff-2{animation-delay:1s;}
+.scene-gender .puff-3{animation-delay:1.2s;}
+
+/* Gender reveal - boy/girl variants */
+@keyframes genderItemPop{
+  0%{transform:scale(0.3);opacity:0;}
+  60%{transform:scale(1.15);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
+}
+@keyframes gentleSway{
+  0%,100%{transform:rotate(-2deg);}
+  50%{transform:rotate(2deg);}
+}
+@keyframes tinyFloat{
+  0%,100%{transform:translateY(0);opacity:0.7;}
+  50%{transform:translateY(-3px);opacity:1;}
+}
+.scene-gender-boy .gender-item-main,.scene-gender-girl .gender-item-main{
+  transform-origin:center;
+  animation:genderItemPop 0.9s cubic-bezier(.34,1.56,.64,1) 0.3s both,
+            gentleSway 4s ease-in-out 1.2s infinite;
+}
+.scene-gender-boy .gender-item-side,.scene-gender-girl .gender-item-side{
+  transform-origin:center;
+  animation:genderItemPop 0.8s cubic-bezier(.34,1.56,.64,1) 0.6s both;
+}
+.scene-gender-boy .gender-item-accent,.scene-gender-girl .gender-item-accent{
+  transform-origin:center;
+  animation:genderItemPop 0.6s cubic-bezier(.34,1.56,.64,1) 0.9s both,
+            tinyFloat 2.5s ease-in-out 1.5s infinite;
+}
+.scene-gender-boy .tiny-heart,.scene-gender-girl .tiny-heart{
+  animation:heartFloat 2.2s ease-out infinite;
+}
+.scene-gender-boy .tiny-heart-1,.scene-gender-girl .tiny-heart-1{animation-delay:1.2s;}
+.scene-gender-boy .tiny-heart-2,.scene-gender-girl .tiny-heart-2{animation-delay:1.8s;}
+
+/* Onesie on clothesline (pregnancy) */
+@keyframes onesieSwayGentle{
+  0%,100%{transform:rotate(-3deg);}
+  50%{transform:rotate(3deg);}
+}
+@keyframes heartFloat{
+  0%{transform:translateY(0) scale(0.8);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-30px) scale(1);opacity:0;}
+}
+.scene-pregnancy .onesie{
+  transform-origin:top center;
+  animation:onesieSwayGentle 3s ease-in-out 0.6s infinite;
+}
+.scene-pregnancy .tiny-heart{
+  animation:heartFloat 2.2s ease-out infinite;
+}
+.scene-pregnancy .tiny-heart-1{animation-delay:1s;}
+.scene-pregnancy .tiny-heart-2{animation-delay:1.6s;}
+.scene-pregnancy .tiny-heart-3{animation-delay:2.2s;}
+
+/* Suitcase opening (holiday) */
+@keyframes suitcaseOpen{
+  0%{transform:rotateX(0deg);}
+  100%{transform:rotateX(-100deg);}
+}
+@keyframes ticketRise{
+  0%,30%{transform:translateY(12px) rotate(-3deg) scale(0.5);opacity:0;}
+  100%{transform:translateY(-6px) rotate(-3deg) scale(1);opacity:1;}
+}
+@keyframes passportRise{
+  0%,35%{transform:translateY(12px) rotate(4deg) scale(0.5);opacity:0;}
+  100%{transform:translateY(-4px) rotate(4deg) scale(1);opacity:1;}
+}
+@keyframes planeCrossing{
+  0%{transform:translateX(-30px) translateY(0) rotate(-8deg);opacity:0;}
+  15%,85%{opacity:1;}
+  100%{transform:translateX(35px) translateY(-8px) rotate(-8deg);opacity:0;}
+}
+.scene-holiday .suitcase-lid{
+  transform-origin:center top;
+  animation:suitcaseOpen 1s cubic-bezier(.16,1,.3,1) 0.3s both;
+}
+.scene-holiday .holiday-ticket{
+  transform-origin:center bottom;
+  animation:ticketRise 1.1s cubic-bezier(.34,1.56,.64,1) 0.8s both;
+}
+.scene-holiday .holiday-passport{
+  transform-origin:center bottom;
+  animation:passportRise 1.1s cubic-bezier(.34,1.56,.64,1) 1s both;
+}
+.scene-holiday .little-plane{
+  animation:planeCrossing 3s ease-in-out 1.6s infinite;
 }
 
-.theme-christmas .theme-bg-layer{
-  background-image:url('christmas.jpg');
+/* ══════ SIGN-OFF BLOCK ══════ */
+.reveal-signoff{
+  margin-top:22px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:6px;
+  position:relative;z-index:3;
+}
+.reveal-signoff-prefix{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-soft);
+  letter-spacing:2px;
+  opacity:0.8;
+}
+.reveal-signoff-name{
+  font-family:'Allura',cursive;
+  font-size:38px;
+  color:var(--gold-deep);
+  line-height:1;
+}
+.reveal-signoff-leaf{
+  display:flex;align-items:center;gap:8px;
+  margin-top:4px;
+}
+.reveal-signoff-leaf .line{
+  width:18px;height:1px;background:var(--gold);opacity:0.6;
 }
 
-.theme-custom .theme-bg-layer{
-  background-image:url('Other.jpg');
+/* Wedding date display */
+.reveal-date{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:15px;color:var(--gold-deep);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-top:14px;margin-bottom:4px;
+  position:relative;z-index:3;
 }
 
-/* ........ ALL REMAINING ORIGINAL CSS CONTINUES ........ */
-/* (scratch animations, scenes, watermark, confetti etc) */
+/* ══════ FLASH ══════ */
+.card-flash{
+  position:absolute;inset:0;
+  background:radial-gradient(circle at center,var(--gold-shimmer) 0%,var(--gold-light) 30%,transparent 70%);
+  opacity:0;pointer-events:none;z-index:8;
+}
+.card-flash.active{
+  animation:flashBurst 1.2s cubic-bezier(.16,1,.3,1);
+}
+@keyframes flashBurst{
+  0%{opacity:0;transform:scale(0.5);}
+  30%{opacity:0.7;transform:scale(1);}
+  100%{opacity:0;transform:scale(1.3);}
+}
 
+/* ══════ CONFETTI LAYER ══════ */
+.confetti-layer{
+  position:absolute;inset:0;
+  pointer-events:none;
+  z-index:12;
+  overflow:hidden;
+}
+.confetti-piece{
+  position:absolute;
+  top:-40px;
+  will-change:transform;
+  animation:confettiFall linear forwards;
+}
+.confetti-piece svg{
+  width:100%;height:100%;
+  display:block;
+  filter:drop-shadow(0 2px 3px rgba(60,40,20,0.25));
+}
+@keyframes confettiFall{
+  0%{transform:translate(0,0) rotate(0deg);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}
+}
+
+/* ══════ TRIPLE LAYOUT ══════ */
+.triple-wrap{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;
+  padding:30px 24px 24px;
+}
+.triple-header{
+  text-align:center;
+  margin-bottom:auto;padding-bottom:16px;
+}
+.triple-header .title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:14px;color:var(--gold-deep);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:4px;
+}
+.triple-header .sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:12px;color:var(--ink-soft);font-style:italic;
+  letter-spacing:1px;
+}
+
+.triple-panels{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin:auto 0;padding:0 4px;
+}
+.tri-panel{
+  aspect-ratio:1;border-radius:50%;
+  position:relative;
+  background:
+    radial-gradient(circle at 30% 25%,rgba(255,255,255,0.3) 0%,transparent 45%),
+    radial-gradient(circle at 70% 75%,rgba(255,255,255,0.1) 0%,transparent 45%),
+    linear-gradient(135deg,var(--gold-deep) 0%,var(--gold) 40%,var(--gold-light) 55%,var(--gold) 70%,var(--gold-deep) 100%);
+  background-size:150% 150%;
+  animation:shimmer 8s ease-in-out infinite;
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.35),
+    inset 0 -2px 4px rgba(0,0,0,0.1),
+    0 6px 14px rgba(201,169,97,0.35);
+  cursor:grab;touch-action:none;
+  overflow:hidden;
+}
+.tri-panel:active{cursor:grabbing;}
+.tri-panel:nth-child(2){animation-delay:-2.5s;}
+.tri-panel:nth-child(3){animation-delay:-5s;}
+.tri-panel canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  display:block;border-radius:50%;
+}
+.tri-panel-content{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;line-height:1;
+  z-index:0;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+.tri-panel.just-revealed{
+  animation:panelReveal 0.6s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes panelReveal{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.15);box-shadow:0 10px 30px rgba(201,169,97,0.6),0 0 40px rgba(232,212,160,0.8);}
+  100%{transform:scale(1);}
+}
+
+/* Ping on each panel reveal */
+.tri-ping{
+  position:absolute;top:50%;left:50%;
+  width:40px;height:40px;
+  margin-left:-20px;margin-top:-20px;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  opacity:0;pointer-events:none;z-index:5;
+}
+.tri-ping.active{animation:triPingExpand 1s cubic-bezier(.16,1,.3,1);}
+@keyframes triPingExpand{
+  0%{opacity:0;transform:scale(0.3);border-width:3px;}
+  40%{opacity:0.9;border-width:2px;}
+  100%{opacity:0;transform:scale(3);border-width:0.5px;}
+}
+
+.triple-footer{
+  margin-top:auto;padding-top:20px;
+  text-align:center;min-height:70px;
+}
+.triple-status{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:13px;color:var(--ink-soft);letter-spacing:1px;
+  transition:all .4s;
+}
+
+.triple-wrap.winner .triple-panels{animation:winnerPulse 0.8s cubic-bezier(.16,1,.3,1);}
+@keyframes winnerPulse{
+  0%{transform:scale(1);}
+  30%{transform:scale(1.08);}
+  60%{transform:scale(0.98);}
+  100%{transform:scale(1);}
+}
+.triple-wrap.winner .triple-status{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px;color:var(--gold-deep);
+  font-weight:500;letter-spacing:2px;text-transform:uppercase;
+}
+.winner-message{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:30px 24px;text-align:center;
+  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
+  opacity:0;pointer-events:none;
+  transition:opacity .8s cubic-bezier(.16,1,.3,1) .3s;
+  z-index:4;
+}
+.winner-message.show{opacity:1;}
+
+/* Reset button */
+.preview-reset{
+  margin-top:12px;text-align:center;position:relative;z-index:1;
+}
+.preview-reset button{
+  background:transparent;border:none;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-deep);font-size:13px;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;padding:8px 16px;
+  transition:all .3s;
+}
+.preview-reset button:hover{color:var(--ink);transform:translateY(-1px);}
+
+/* ══════ OCCASION THEMES ══════ */
+.theme-proposal{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c4cc 100%);
+  --theme-text:#4a1229;
+  --theme-text-soft:#6b1e3f;
+}
+.theme-gender{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);
+  --theme-text:#4a1229;
+  --theme-text-soft:#6b1e3f;
+}
+.theme-gender-boy{
+  --theme-bg:linear-gradient(145deg,#eef5fa 0%,#d6e4f0 60%,#b8ccdf 100%);
+  --theme-text:#1a3855;
+  --theme-text-soft:#3e5b7a;
+}
+.theme-gender-girl{
+  --theme-bg:linear-gradient(145deg,#fdf0f4 0%,#f4d4dc 60%,#e8b4c0 100%);
+  --theme-text:#5a1835;
+  --theme-text-soft:#7a3a52;
+}
+.theme-holiday{
+  --theme-bg:linear-gradient(145deg,#eef3f0 0%,#c8d8ce 60%,#a0c0af 100%);
+  --theme-text:#143028;
+  --theme-text-soft:#2d5a48;
+}
+.theme-pregnancy{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c0a8 100%);
+  --theme-text:#4a2018;
+  --theme-text-soft:#6b3828;
+}
+.theme-wedding{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f2ecdf 60%,#e8d4a0 100%);
+  --theme-text:#2b2b2b;
+  --theme-text-soft:#4a3a20;
+}
+.theme-birthday{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c0c8 100%);
+  --theme-text:#5a1835;
+  --theme-text-soft:#7a3a52;
+}
+.theme-christmas{
+  --theme-bg:linear-gradient(145deg,#f4ecdf 0%,#e8d0bc 40%,#8a2e54 100%);
+  --theme-text:#2b2b2b;
+  --theme-text-soft:#4a2018;
+}
+.theme-custom{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);
+  --theme-text:#2b2b2b;
+  --theme-text-soft:#4a4a4a;
+}
+
+/* MODAL */
+.modal-backdrop{
+  position:fixed;inset:0;
+  background:rgba(20,14,8,0.75);
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:20px;
+  opacity:0;transition:opacity .5s;
+}
+.modal-backdrop.active{display:flex;opacity:1;}
+.modal{
+  background:var(--cream-soft);border-radius:2px;
+  padding:60px 40px 40px;max-width:460px;width:100%;
+  text-align:center;position:relative;
+  box-shadow:0 40px 80px -10px rgba(0,0,0,0.5),0 0 0 1px rgba(201,169,97,0.3);
+  transform:scale(0.9);transition:all .7s cubic-bezier(.16,1,.3,1);
+}
+.modal-backdrop.active .modal{transform:scale(1);}
+.modal::before{
+  content:'';position:absolute;
+  top:16px;left:16px;right:16px;bottom:16px;
+  border:1px solid rgba(201,169,97,0.2);pointer-events:none;
+}
+.modal-ornament{
+  position:absolute;top:-28px;left:50%;
+  transform:translateX(-50%);
+  width:56px;height:56px;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  border-radius:50%;display:flex;
+  align-items:center;justify-content:center;
+  box-shadow:0 10px 30px -5px rgba(201,169,97,0.5);
+  font-size:24px;
+}
+.modal h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:500;margin-bottom:12px;
+  line-height:1.2;letter-spacing:-0.3px;
+}
+.modal h2 em{font-style:italic;color:var(--gold-deep);}
+.modal p{
+  color:var(--ink-soft);
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;line-height:1.6;
+  margin-bottom:22px;font-style:italic;
+}
+.modal .signature{
+  font-family:'Allura',cursive;
+  font-size:32px;color:var(--gold-deep);
+  line-height:1;margin-top:10px;
+}
 </style>
 </head>
-
 <body>
 
-<!-- ✅ ORIGINAL HEADER -->
 <header class="top-bar">
   <div class="top-bar-inner">
     <div class="brand-logo">
-      <img src="logo-horizontal.png" alt="Moments by Shanaz" class="brand-logo-img">
+  <img src="logo-horizontal.png" alt="Moments by Shanaz" class="brand-logo-img">
     </div>
   </div>
 </header>
 
-<!-- ✅ ORIGINAL PAGE -->
 <div class="page">
 
-  <!-- ✅ ORIGINAL HERO -->
   <div class="hero">
     <div class="hero-ornament"><span>✦</span></div>
     <h1 class="hero-title">Design your <em>scratchcard</em></h1>
-    <p class="hero-sub">
-      Fill in the moment on the left. Try scratching it on the right.
-      When you're ready, send it to me and I'll craft your final card by hand.
-    </p>
+    <p class="hero-sub">Fill in the moment on the left. Try scratching it on the right. When you're ready, send it to me and I'll craft your final card by hand.</p>
   </div>
 
-  <!-- ✅ ORIGINAL SPLIT LAYOUT -->
   <div class="split">
 
-    <!-- ✅ ORIGINAL FORM CARD (Sections 1–5 UNCHANGED) -->
     <div class="form-card">
 
-      <!-- (Your full original form content is unchanged and stays here exactly) -->
+      <!-- Section 1: Occasion (always visible) -->
+      <div class="form-section" id="section-1">
+        <div class="section-label">
+          <span class="section-num">— One —</span><span class="section-line"></span>
+        </div>
+        <div class="section-title">Pick the <em>occasion</em></div>
+        <div class="section-hint">We'll tailor the colours, icon and tone to match.</div>
 
-      <button class="submit-btn" onclick="submitOrder()" id="submitBtn">
-        Send my order to Shanaz
-      </button>
+        <div class="occasion-grid" id="occasionGrid">
+          <div class="occasion-chip selected" data-occ="proposal" data-icon="💍" data-headline="Will you marry me?"><span class="occasion-icon">💍</span><span class="occasion-label">Proposal</span></div>
+          <div class="occasion-chip" data-occ="gender" data-icon="👶" data-headline="It's a…"><span class="occasion-icon">👶</span><span class="occasion-label">Gender Reveal</span></div>
+          <div class="occasion-chip" data-occ="holiday" data-icon="✈️" data-headline="Pack your bags"><span class="occasion-icon">✈️</span><span class="occasion-label">Holiday</span></div>
+          <div class="occasion-chip" data-occ="pregnancy" data-icon="🤰" data-headline="You're going to be grandparents"><span class="occasion-icon">🤰</span><span class="occasion-label">Pregnancy</span></div>
+          <div class="occasion-chip" data-occ="wedding" data-icon="💐" data-headline="Save the date"><span class="occasion-icon">💐</span><span class="occasion-label">Wedding</span></div>
+          <div class="occasion-chip" data-occ="birthday" data-icon="🎁" data-headline="Happy birthday!"><span class="occasion-icon">🎁</span><span class="occasion-label">Birthday</span></div>
+          <div class="occasion-chip" data-occ="christmas" data-icon="🎄" data-headline="A Christmas surprise"><span class="occasion-icon">🎄</span><span class="occasion-label">Christmas</span></div>
+          <div class="occasion-chip" data-occ="custom" data-icon="✨" data-headline="A little something for you"><span class="occasion-icon">✨</span><span class="occasion-label">Other</span></div>
+        </div>
 
+        <!-- Gender sub-choice (only visible when Gender Reveal is selected) -->
+        <div class="gender-subchoice" id="genderSubchoice" style="display:none;">
+          <div class="subchoice-label">
+            <span class="subchoice-ornament">✦</span>
+            <span>Which are you revealing?</span>
+            <span class="subchoice-ornament">✦</span>
+          </div>
+          <div class="subchoice-grid">
+            <div class="subchoice-chip" data-gender="boy" data-icon="👶🏻" data-headline="It's a boy!">
+              <div class="subchoice-bubble boy-bubble">💙</div>
+              <div class="subchoice-name">It's a boy</div>
+              <div class="subchoice-hint">Soft blue palette</div>
+            </div>
+            <div class="subchoice-chip" data-gender="girl" data-icon="👶🏻" data-headline="It's a girl!">
+              <div class="subchoice-bubble girl-bubble">💗</div>
+              <div class="subchoice-name">It's a girl</div>
+              <div class="subchoice-hint">Soft pink palette</div>
+            </div>
+            <div class="subchoice-chip selected" data-gender="surprise" data-icon="👶" data-headline="It's a…">
+              <div class="subchoice-bubble surprise-bubble">💚</div>
+              <div class="subchoice-name">Surprise</div>
+              <div class="subchoice-hint">Reveal at open</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Layout -->
+      <div class="form-section locked" id="section-2">
+        <div class="section-label">
+          <span class="section-num">— Two —</span><span class="section-line"></span>
+        </div>
+        <div class="section-title">Choose your <em>layout</em></div>
+        <div class="section-hint">One grand reveal, or a little lottery-style mini-game?</div>
+
+        <div class="layout-grid">
+          <div class="layout-chip selected" data-layout="single">
+            <div class="layout-visual"><div class="panel"></div></div>
+            <div class="layout-name">One Big Reveal</div>
+            <div class="layout-desc">A single moment, all at once</div>
+          </div>
+          <div class="layout-chip" data-layout="triple">
+            <div class="layout-visual"><div class="panel"></div><div class="panel"></div><div class="panel"></div></div>
+            <div class="layout-name">Three Matches</div>
+            <div class="layout-desc">Scratch all three — match &amp; win!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Message -->
+      <div class="form-section locked" id="section-3">
+        <div class="section-label">
+          <span class="section-num">— Three —</span><span class="section-line"></span>
+        </div>
+        <div class="section-title">Write <em>the message</em></div>
+        <div class="section-hint">The details that make it theirs.</div>
+
+        <div class="form-row">
+          <label>Who is it for?</label>
+          <input type="text" id="recipientName" placeholder="e.g. Amelia" maxlength="30">
+        </div>
+        <div class="form-row">
+          <label>Headline — the big reveal</label>
+          <input type="text" id="headline" placeholder="e.g. Will you marry me?" maxlength="50">
+          <div class="char-count" id="headlineCount">0 / 50</div>
+        </div>
+        <div class="form-row" id="weddingDateRow" style="display:none;">
+          <label>Wedding date</label>
+          <input type="text" id="weddingDate" placeholder="e.g. 14th June 2026" maxlength="40">
+          <div class="hint" style="margin-top:6px;color:rgba(90,79,66,0.6);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;">Shown beautifully on the reveal.</div>
+        </div>
+        <div class="form-row">
+          <label>Your message</label>
+          <textarea id="message" placeholder="e.g. I've been waiting for the right moment. This is it." maxlength="180"></textarea>
+          <div class="char-count" id="messageCount">0 / 180</div>
+        </div>
+        <div class="form-row">
+          <label>Signed from (optional)</label>
+          <input type="text" id="signature" placeholder="e.g. James" maxlength="30">
+        </div>
+      </div>
+
+      <!-- Section 4: Finishing touches -->
+      <div class="form-section locked" id="section-4">
+        <div class="section-label">
+          <span class="section-num">— Four —</span><span class="section-line"></span>
+        </div>
+        <div class="section-title">Finishing <em>touches</em></div>
+        <div class="section-hint">A little magic when they reveal.</div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            Confetti on reveal
+            <em>Gold, sage &amp; themed colours</em>
+          </div>
+          <div class="toggle on" id="confettiToggle" onclick="this.classList.toggle('on');"></div>
+        </div>
+      </div>
+
+      <!-- Section 5: Contact -->
+      <div class="form-section locked" id="section-5">
+        <div class="section-label">
+          <span class="section-num">— Five —</span><span class="section-line"></span>
+        </div>
+        <div class="section-title">Your <em>contact</em></div>
+        <div class="section-hint">So I can send your final card back to you.</div>
+
+        <div class="form-row">
+          <label>Your name</label>
+          <input type="text" id="yourName" placeholder="What should I call you?" maxlength="50" required>
+        </div>
+        <div class="form-row">
+          <label>Your email</label>
+          <input type="email" id="yourEmail" placeholder="you@example.com" required>
+        </div>
+        <div class="form-row">
+          <label>Etsy order number <span class="required-note">If applicable</span></label>
+          <input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50">
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="submitOrder()" id="submitBtn">Send my order to Shanaz</button>
     </div>
 
-    <!-- ✅ ORIGINAL PREVIEW -->
     <div class="preview-sticky">
       <div class="preview-wrap">
-
         <div class="preview-header">
           <div class="preview-label">✦ Try it out ✦</div>
-          <div class="preview-sublabel">
-            Scratch it yourself — this is exactly what they'll see
-          </div>
+          <div class="preview-sublabel">Scratch it yourself — this is exactly what they'll see</div>
         </div>
 
         <div class="preview-card theme-proposal" id="previewCard">
-
-          <!-- ✅ BACKGROUND IMAGE LAYER -->
           <div class="theme-bg-layer"></div>
 
+          <div class="reveal-layer" id="revealLayer">
+            <div class="reveal-greeting" id="rGreeting">For Amelia</div>
+            <div class="scene" id="rScene"></div>
+            <div class="reveal-headline" id="rHeadline">Will you marry me?</div>
+            <div class="reveal-date" id="rDate" style="display:none;"></div>
+            <div class="reveal-divider-wrap">
+              <span class="line"></span>
+              <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
+              <span class="line"></span>
+            </div>
+            <div class="reveal-text" id="rMessage">I've been waiting for the right moment. This is it.</div>
+            <div class="reveal-signoff" id="rSignoff" style="display:none;">
+              <div class="reveal-signoff-prefix">with love,</div>
+              <div class="reveal-signoff-name" id="rSig"></div>
+              <div class="reveal-signoff-leaf">
+                <span class="line"></span>
+                <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
+                <span class="line"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scratch-single" id="scratchSingle">
+            <canvas id="singleCanvas"></canvas>
+            <div class="scratch-single-hint" id="singleHint">
+              <div class="icon-big">✨</div>
+              <div class="title">Scratch to Reveal</div>
+              <div class="sub">Use your finger or mouse</div>
+            </div>
+          </div>
+
+          <div class="triple-wrap" id="tripleWrap" style="display:none;">
+            <div class="triple-header">
+              <div class="title">✦ Scratch &amp; Match ✦</div>
+              <div class="sub">Scratch all three to reveal</div>
+            </div>
+            <div class="triple-panels" id="triplePanels">
+              <div class="tri-panel" data-idx="0">
+                <div class="tri-panel-content">💍</div>
+                <canvas></canvas>
+                <div class="tri-ping"></div>
+              </div>
+              <div class="tri-panel" data-idx="1">
+                <div class="tri-panel-content">💍</div>
+                <canvas></canvas>
+                <div class="tri-ping"></div>
+              </div>
+              <div class="tri-panel" data-idx="2">
+                <div class="tri-panel-content">💍</div>
+                <canvas></canvas>
+                <div class="tri-ping"></div>
+              </div>
+            </div>
+            <div class="triple-footer">
+              <div class="triple-status" id="tripleStatus">0 of 3 matched</div>
+            </div>
+          </div>
+
+          <div class="winner-message" id="winnerMessage">
+            <div class="reveal-greeting" id="wGreeting">For Amelia</div>
+            <div class="scene" id="wScene"></div>
+            <div class="reveal-headline" id="wHeadline">Will you marry me?</div>
+            <div class="reveal-date" id="wDate" style="display:none;"></div>
+            <div class="reveal-divider-wrap">
+              <span class="line"></span>
+              <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
+              <span class="line"></span>
+            </div>
+            <div class="reveal-text" id="wMessage">I've been waiting for the right moment.</div>
+            <div class="reveal-signoff" id="wSignoff" style="display:none;">
+              <div class="reveal-signoff-prefix">with love,</div>
+              <div class="reveal-signoff-name" id="wSig"></div>
+              <div class="reveal-signoff-leaf">
+                <span class="line"></span>
+                <svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg>
+                <span class="line"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Themed shaped confetti -->
+          <div class="confetti-layer" id="confettiLayer"></div>
+
+          <!-- Flash for full reveal celebration (kept as subtle backdrop) -->
+          <div class="card-flash" id="cardFlash"></div>
+        </div>
+
+        <div class="preview-reset">
+          <button onclick="resetScratch()">↺ Reset scratch</button>
+        </div>
+
+        <div style="margin-top:14px;padding:14px;background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.2);border-radius:2px;text-align:center;position:relative;z-index:1;">
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);line-height:1.6;">
+            The watermark is removed on your final card — fully scratchable &amp; shareable.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-backdrop" id="successModal">
+  <div class="modal">
+    <div class="modal-ornament">✦</div>
+    <h2>Your order is on its <em>way to me</em></h2>
+    <p>I'll craft your scratchcard by hand and send the final link to your email within a few hours.</p>
+    <p style="font-size:13px;">Want to include a photo? Just reply to the confirmation email with it attached.</p>
+    <button class="submit-btn" style="margin-top:10px;" onclick="document.getElementById('successModal').classList.remove('active');">Close</button>
+    <div class="signature">Shanaz</div>
+  </div>
+</div>
+
+<script>
+const state = {
+  occasion:'proposal',
+  icon:'💍',
+  defaultHeadline:'Will you marry me?',
+  layout:'single',
+  recipient:'',
+  headline:"",
+  message:"",
+  signature:'',
+  weddingDate:'',
+  genderChoice:'surprise',
+  confetti:true,
+  yourName:'',
+  yourEmail:'',
+  orderNumber:''
+};
+
+let panelsRevealed = [false,false,false];
+let winnerShown = false;
+let unlockedSections = new Set([1]);
+
+function unlockSection(n){
+  if(unlockedSections.has(n)) return;
+  unlockedSections.add(n);
+  const section = document.getElementById('section-' + n);
+  if(!section) return;
+  section.classList.remove('locked');
+  section.classList.add('newly-unlocked');
+  setTimeout(()=>{
+    section.classList.remove('newly-unlocked');
+    // Gently scroll the newly unlocked section into view
+    section.scrollIntoView({behavior:'smooth',block:'center'});
+  },100);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.occasion-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll('.occasion-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.occasion = chip.dataset.occ;
+      state.icon = chip.dataset.icon;
+      state.defaultHeadline = chip.dataset.headline;
+      const hInput = document.getElementById('headline');
+      if(!hInput.value.trim() || hInput.dataset.autoset){
+        hInput.value = chip.dataset.headline;
+        hInput.dataset.autoset = 'true';
+        state.headline = chip.dataset.headline;
+        updateCounts();
+      }
+      hInput.placeholder = chip.dataset.headline;
+
+      // Show wedding date field only for wedding occasion
+      const weddingRow = document.getElementById('weddingDateRow');
+      if(state.occasion === 'wedding'){
+        weddingRow.style.display = 'block';
+      }else{
+        weddingRow.style.display = 'none';
+      }
+
+      // Show gender sub-choice only for gender reveal
+      const genderSub = document.getElementById('genderSubchoice');
+      if(state.occasion === 'gender'){
+        genderSub.style.display = 'block';
+      }else{
+        genderSub.style.display = 'none';
+        // Reset gender sub-state when switching away
+        state.genderChoice = 'surprise';
+      }
+
+      updatePreview();
+      resetScratch();
+      unlockSection(2);
+    });
+  });
+
+  // Gender sub-choice handler
+  document.querySelectorAll('.subchoice-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll('.subchoice-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.genderChoice = chip.dataset.gender;
+      // Update icon + default headline based on choice
+      state.icon = chip.dataset.icon;
+      state.defaultHeadline = chip.dataset.headline;
+      const hInput = document.getElementById('headline');
+      if(!hInput.value.trim() || hInput.dataset.autoset){
+        hInput.value = chip.dataset.headline;
+        hInput.dataset.autoset = 'true';
+        state.headline = chip.dataset.headline;
+        updateCounts();
+      }
+      hInput.placeholder = chip.dataset.headline;
+      updatePreview();
+      resetScratch();
+    });
+  });
+
+  document.querySelectorAll('.layout-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll('.layout-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.layout = chip.dataset.layout;
+      updatePreview();
+      resetScratch();
+      unlockSection(3);
+    });
+  });
+
+  ['recipientName','headline','message','signature','weddingDate','yourName','yourEmail','orderNumber'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('input',e=>{
+      const map = {
+        recipientName:'recipient',headline:'headline',message:'message',
+        signature:'signature',weddingDate:'weddingDate',
+        yourName:'yourName',yourEmail:'yourEmail',orderNumber:'orderNumber'
+      };
+      state[map[id]] = e.target.value;
+      if(id === 'headline') delete e.target.dataset.autoset;
+      updateCounts();
+      updatePreview();
+      if(['recipientName','headline','message'].includes(id) && state.recipient && state.headline){
+        unlockSection(4);
+      }
+    });
+    // Unlock section 5 when the user interacts with section 4
+    if(id === 'yourName' || id === 'yourEmail'){
+      el.addEventListener('focus',()=>unlockSection(5));
+    }
+  });
+
+  // Section 4 unlocks as soon as user clicks into it
+  document.getElementById('section-4').addEventListener('click',()=>unlockSection(5));
+
+  // Confetti toggle click also unlocks section 5
+  document.getElementById('confettiToggle').addEventListener('click',()=>unlockSection(5));
+
+  document.getElementById('headline').value = state.defaultHeadline;
+  document.getElementById('headline').dataset.autoset = 'true';
+  state.headline = state.defaultHeadline;
+  updateCounts();
+  updatePreview();
+  setTimeout(()=>initCanvases(),100);
+
+  let resizeTimer;
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(()=>resetScratch(),200);
+  });
+});
+
+function updatePreview(){
+  const card = document.getElementById('previewCard');
+  // Theme: for gender, use sub-variant if not 'surprise'
+  let themeClass = 'theme-' + state.occasion;
+  if(state.occasion === 'gender' && state.genderChoice && state.genderChoice !== 'surprise'){
+    themeClass = 'theme-gender-' + state.genderChoice;
+  }
+  card.className = 'preview-card ' + themeClass;
+
+  // Use actual values if filled, otherwise show themed example text
+  const displayName = state.recipient || 'Amelia';
+  const displayHeadline = state.headline || state.defaultHeadline;
+  const displayMessage = state.message || getExampleMessage(state.occasion);
+  const displaySig = state.signature || '';
+
+  const greetingEl = document.getElementById('rGreeting');
+  const headlineEl = document.getElementById('rHeadline');
+  const messageEl = document.getElementById('rMessage');
+
+  greetingEl.textContent = 'For ' + displayName;
+  greetingEl.style.opacity = state.recipient ? '0.9' : '0.5';
+  headlineEl.textContent = displayHeadline;
+  headlineEl.style.opacity = state.headline ? '1' : '0.6';
+  messageEl.textContent = displayMessage;
+  messageEl.style.opacity = state.message ? '1' : '0.55';
+
+  // Render animated scene
+  renderScene(state.occasion,'rScene');
+
+  // Wedding date (only shown for wedding occasion)
+  const rDate = document.getElementById('rDate');
+  if(state.occasion === 'wedding' && state.weddingDate){
+    rDate.textContent = state.weddingDate;
+    rDate.style.display = 'block';
+  }else{
+    rDate.style.display = 'none';
+  }
+
+  // Signoff block - only show if signature is filled
+  const rSignoff = document.getElementById('rSignoff');
+  if(displaySig){
+    rSignoff.style.display = 'flex';
+    document.getElementById('rSig').textContent = displaySig;
+  }else{
+    rSignoff.style.display = 'none';
+  }
+
+  // Same for winner layer
+  const wGreetingEl = document.getElementById('wGreeting');
+  const wHeadlineEl = document.getElementById('wHeadline');
+  const wMessageEl = document.getElementById('wMessage');
+  wGreetingEl.textContent = 'For ' + displayName;
+  wGreetingEl.style.opacity = state.recipient ? '0.9' : '0.5';
+  wHeadlineEl.textContent = displayHeadline;
+  wHeadlineEl.style.opacity = state.headline ? '1' : '0.6';
+  wMessageEl.textContent = displayMessage;
+  wMessageEl.style.opacity = state.message ? '1' : '0.55';
+
+  renderScene(state.occasion,'wScene');
+
+  // Wedding date on winner layer
+  const wDate = document.getElementById('wDate');
+  if(state.occasion === 'wedding' && state.weddingDate){
+    wDate.textContent = state.weddingDate;
+    wDate.style.display = 'block';
+  }else{
+    wDate.style.display = 'none';
+  }
+
+  const wSignoff = document.getElementById('wSignoff');
+  if(displaySig){
+    wSignoff.style.display = 'flex';
+    document.getElementById('wSig').textContent = displaySig;
+  }else{
+    wSignoff.style.display = 'none';
+  }
+
+  const scratchSingle = document.getElementById('scratchSingle');
+  const tripleWrap = document.getElementById('tripleWrap');
+  const revealLayer = document.getElementById('revealLayer');
+
+  if(state.layout === 'triple'){
+    scratchSingle.style.display = 'none';
+    tripleWrap.style.display = 'flex';
+    revealLayer.style.display = 'none';
+    document.querySelectorAll('.tri-panel-content').forEach(el=>{
+      el.textContent = state.icon;
+    });
+  }else{
+    scratchSingle.style.display = 'block';
+    tripleWrap.style.display = 'none';
+    revealLayer.style.display = 'flex';
+  }
+}
+
+function getExampleMessage(occ){
+  const examples = {
+    proposal:'Your message will appear here.',
+    gender:'Your message will appear here.',
+    holiday:'Your message will appear here.',
+    pregnancy:'Your message will appear here.',
+    wedding:'Your message will appear here.',
+    birthday:'Your message will appear here.',
+    christmas:'Your message will appear here.',
+    custom:'Your message will appear here.'
+  };
+  return examples[occ] || 'Your message will appear here.';
+}
+
+function updateCounts(){
+  const hv = document.getElementById('headline').value;
+  const mv = document.getElementById('message').value;
+  document.getElementById('headlineCount').textContent = `${hv.length} / 50`;
+  document.getElementById('messageCount').textContent = `${mv.length} / 180`;
+}
+
+function initCanvases(){
+  setupSingleCanvas();
+  setupTripleCanvases();
+}
+
+function paintGoldOverlay(ctx,w,h){
+  const grad = ctx.createLinearGradient(0,0,w,h);
+  grad.addColorStop(0,'#a88843');
+  grad.addColorStop(0.3,'#c9a961');
+  grad.addColorStop(0.5,'#e8d4a0');
+  grad.addColorStop(0.7,'#c9a961');
+  grad.addColorStop(1,'#a88843');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,w,h);
+
+  const hg1 = ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
+  hg1.addColorStop(0,'rgba(255,255,255,0.25)');
+  hg1.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle = hg1;
+  ctx.fillRect(0,0,w,h);
+
+  const hg2 = ctx.createRadialGradient(w*0.7,h*0.8,0,w*0.7,h*0.8,w*0.4);
+  hg2.addColorStop(0,'rgba(255,255,255,0.15)');
+  hg2.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle = hg2;
+  ctx.fillRect(0,0,w,h);
+}
+
+// ══════ THEMED CONFETTI SHAPES ══════
+const CONFETTI_SHAPES = {
+  proposal:[
+    // Gold ring
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="11" cy="6" r="2" fill="#e8d4a0"/><path d="M11 6 L9 10 L13 10 Z" fill="#f0dca8"/></svg>`,
+    // Heart
+    `<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,
+    // Rose
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5" fill="#e8c4cc"/><circle cx="12" cy="10" r="3" fill="#d4a0ac"/><circle cx="12" cy="10" r="1.5" fill="#a88843"/><path d="M12 15 L10 22 M12 15 L14 22" stroke="#7d8f74" stroke-width="1" fill="none"/><ellipse cx="9" cy="19" rx="3" ry="1.5" fill="#a8b89f" transform="rotate(-20 9 19)"/></svg>`,
+    // Sparkle/star
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`
+  ],
+  gender:[
+    // Pacifier
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="#e8c4cc" stroke="#a88843" stroke-width="1"/><circle cx="12" cy="10" r="3" fill="#f0dca8"/><rect x="10" y="16" width="4" height="6" rx="2" fill="#c9a961"/></svg>`,
+    // Rattle
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5" fill="#a8b89f" stroke="#7d8f74" stroke-width="0.5"/><circle cx="10" cy="7" r="1" fill="#7d8f74"/><circle cx="14" cy="7" r="1" fill="#7d8f74"/><rect x="11" y="12" width="2" height="8" fill="#a88843"/><circle cx="12" cy="21" r="2" fill="#a88843"/></svg>`,
+    // Baby bottle
+    `<svg viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="12" rx="2" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><rect x="9" y="4" width="6" height="4" rx="1" fill="#a88843"/><rect x="10" y="2" width="4" height="2" rx="1" fill="#e8c4cc"/><line x1="9" y1="13" x2="15" y2="13" stroke="#a88843" stroke-width="0.5" opacity="0.5"/></svg>`,
+    // Bootie
+    `<svg viewBox="0 0 24 24"><path d="M4 14 Q4 8 10 8 Q14 8 14 12 L14 16 L20 16 Q20 20 16 20 L6 20 Q4 20 4 18 Z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><path d="M8 12 Q10 11 12 12" stroke="#a88843" stroke-width="0.5" fill="none"/></svg>`
+  ],
+  holiday:[
+    // Paper plane
+    `<svg viewBox="0 0 24 24"><path d="M2 12 L22 4 L18 22 L14 14 L6 12 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/><path d="M6 12 L14 14 L14 20" fill="none" stroke="#a88843" stroke-width="0.8"/></svg>`,
+    // Sun
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/><g stroke="#c9a961" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="7" y2="7"/><line x1="17" y1="17" x2="19" y2="19"/><line x1="19" y1="5" x2="17" y2="7"/><line x1="5" y1="19" x2="7" y2="17"/></g></svg>`,
+    // Suitcase
+    `<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="1" fill="#a88843" stroke="#5c3e30" stroke-width="0.5"/><rect x="4" y="8" width="16" height="2" fill="#c9a961"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#a88843" stroke-width="1.2"/><line x1="12" y1="10" x2="12" y2="20" stroke="#5c3e30" stroke-width="0.5"/></svg>`,
+    // Palm leaf
+    `<svg viewBox="0 0 24 24"><path d="M12 22 Q12 14 8 6 Q10 10 12 10 Q14 10 16 6 Q12 14 12 22" fill="#7d8f74" stroke="#5c6d54" stroke-width="0.3"/><path d="M12 22 Q12 18 6 14 Q10 17 12 16" fill="#a8b89f" opacity="0.7"/><path d="M12 22 Q12 18 18 14 Q14 17 12 16" fill="#a8b89f" opacity="0.7"/></svg>`
+  ],
+  pregnancy:[
+    // Baby footprint
+    `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="5" ry="7" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><circle cx="8" cy="5" r="1.5" fill="#e8c4cc"/><circle cx="10" cy="3" r="1.2" fill="#e8c4cc"/><circle cx="13" cy="3" r="1.2" fill="#e8c4cc"/><circle cx="16" cy="5" r="1.5" fill="#e8c4cc"/></svg>`,
+    // Heart
+    `<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,
+    // Baby bottle
+    `<svg viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="12" rx="2" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><rect x="9" y="4" width="6" height="4" rx="1" fill="#a88843"/></svg>`,
+    // Star
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/></svg>`
+  ],
+  wedding:[
+    // Rings intertwined
+    `<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="15" cy="12" r="6" fill="none" stroke="#a88843" stroke-width="2"/></svg>`,
+    // Rose
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5" fill="#e8c4cc"/><circle cx="12" cy="10" r="3" fill="#d4a0ac"/><circle cx="12" cy="10" r="1.5" fill="#a88843"/><path d="M12 15 L10 22 M12 15 L14 22" stroke="#7d8f74" stroke-width="1" fill="none"/><ellipse cx="9" cy="19" rx="3" ry="1.5" fill="#a8b89f" transform="rotate(-20 9 19)"/></svg>`,
+    // Champagne flute
+    `<svg viewBox="0 0 24 24"><path d="M8 4 L16 4 L14 12 Q14 14 12 14 Q10 14 10 12 Z" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><line x1="12" y1="14" x2="12" y2="20" stroke="#a88843" stroke-width="0.8"/><ellipse cx="12" cy="21" rx="4" ry="1" fill="#a88843"/><circle cx="11" cy="7" r="0.8" fill="#fff" opacity="0.8"/><circle cx="13" cy="9" r="0.5" fill="#fff" opacity="0.6"/></svg>`,
+    // Dove
+    `<svg viewBox="0 0 24 24"><path d="M4 14 Q8 10 14 12 Q18 8 20 10 Q18 14 14 14 Q12 18 4 14 Z" fill="#faf6ed" stroke="#a88843" stroke-width="0.8"/><circle cx="17" cy="11" r="0.8" fill="#a88843"/></svg>`
+  ],
+  birthday:[
+    // Balloon
+    `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="6" ry="7" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><path d="M11 16 Q12 18 13 16" fill="#a88843"/><line x1="12" y1="17" x2="10" y2="24" stroke="#a88843" stroke-width="0.8"/></svg>`,
+    // Gift box
+    `<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="12" rx="1" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/><rect x="4" y="8" width="16" height="3" fill="#a88843"/><rect x="11" y="8" width="2" height="14" fill="#e8c4cc"/><path d="M12 8 Q8 4 10 2 Q13 3 12 8 Q16 4 14 2 Q11 3 12 8" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,
+    // Star
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/></svg>`,
+    // Cake slice
+    `<svg viewBox="0 0 24 24"><path d="M4 20 L12 6 L20 20 Z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><path d="M5 17 L19 17" stroke="#a88843" stroke-width="0.5"/><circle cx="12" cy="4" r="1.5" fill="#c9a961"/><line x1="12" y1="4" x2="12" y2="6" stroke="#a88843" stroke-width="0.8"/></svg>`
+  ],
+  christmas:[
+    // Snowflake
+    `<svg viewBox="0 0 24 24"><g stroke="#a88843" stroke-width="1.2" fill="none" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/><path d="M12 5 L10 7 M12 5 L14 7 M12 19 L10 17 M12 19 L14 17 M5 12 L7 10 M5 12 L7 14 M19 12 L17 10 M19 12 L17 14"/></g><circle cx="12" cy="12" r="1.5" fill="#e8d4a0"/></svg>`,
+    // Christmas tree
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L7 9 L9 9 L5 14 L8 14 L3 20 L21 20 L16 14 L19 14 L15 9 L17 9 Z" fill="#7d8f74" stroke="#5c6d54" stroke-width="0.5"/><rect x="10" y="20" width="4" height="3" fill="#5c3e30"/><circle cx="10" cy="12" r="1" fill="#e8d4a0"/><circle cx="14" cy="16" r="1" fill="#e8c4cc"/><circle cx="12" cy="7" r="1" fill="#c9a961"/></svg>`,
+    // Holly berries
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#8a1e1e"/><circle cx="8" cy="13" r="3" fill="#8a1e1e"/><circle cx="10" cy="9" r="3" fill="#8a1e1e"/><path d="M14 10 Q20 6 22 12 Q16 14 14 10" fill="#7d8f74"/><path d="M15 13 Q22 18 20 22 Q15 19 15 13" fill="#7d8f74"/></svg>`,
+    // Gold star
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`
+  ],
+  custom:[
+    // Generic stars and sparkles
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`,
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="#c9a961"/><g stroke="#a88843" stroke-width="1" stroke-linecap="round"><line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/></g></svg>`,
+    `<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,
+    `<svg viewBox="0 0 24 24"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="#a8b89f"/></svg>`
+  ]
+};
+
+// ══════ ANIMATED SCENES (8 occasion-specific illustrations) ══════
+const SCENES = {
+  proposal: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8a2e54"/>
+          <stop offset="50%" stop-color="#6b1e3f"/>
+          <stop offset="100%" stop-color="#4a1229"/>
+        </linearGradient>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f0dca8"/>
+          <stop offset="50%" stop-color="#c9a961"/>
+          <stop offset="100%" stop-color="#a88843"/>
+        </linearGradient>
+        <radialGradient id="diamondGrad">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="50%" stop-color="#e8f0f5"/>
+          <stop offset="100%" stop-color="#a8c0d0"/>
+        </radialGradient>
+      </defs>
+      <!-- Ring box anchored at bottom, burgundy (brand colour) -->
+      <rect x="30" y="95" width="60" height="22" rx="3" fill="url(#boxGrad)" stroke="#3a0a1e" stroke-width="0.8"/>
+      <rect x="32" y="97" width="56" height="3" fill="#4a1229" opacity="0.6"/>
+      <rect x="34" y="99" width="52" height="10" rx="1" fill="#faf6f0"/>
+      <rect x="36" y="101" width="48" height="3" rx="1" fill="#c9a961" opacity="0.2"/>
+      <!-- Ring rising out -->
+      <g class="ring-band">
+        <ellipse cx="60" cy="92" rx="14" ry="4" fill="none" stroke="url(#ringGrad)" stroke-width="3.5"/>
+        <ellipse cx="60" cy="92" rx="14" ry="4" fill="none" stroke="#f0dca8" stroke-width="0.8" opacity="0.8"/>
+        <polygon points="60,78 54,87 60,91 66,87" fill="url(#diamondGrad)" stroke="#8a9aa8" stroke-width="0.5"/>
+        <polygon points="60,78 54,87 60,85" fill="#ffffff" opacity="0.6"/>
+        <g class="ring-glint">
+          <path d="M 60 74 L 62 80 L 60 78 L 58 80 Z" fill="#ffffff" opacity="0.9"/>
+          <path d="M 56 80 L 60 78 L 64 80 L 60 76 Z" fill="#ffffff" opacity="0.7"/>
+        </g>
+      </g>
+      <!-- Lid swings DOWN away from text -->
+      <g class="ring-box-lid-prop">
+        <rect x="28" y="88" width="64" height="12" rx="3" fill="url(#boxGrad)" stroke="#3a0a1e" stroke-width="0.8"/>
+        <rect x="28" y="88" width="64" height="3" fill="#c9a961" opacity="0.3"/>
+        <circle cx="60" cy="94" r="2" fill="#c9a961" opacity="0.7"/>
+      </g>
+    </svg>
+  `,
+
+  wedding: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="fluteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f0dca8" stop-opacity="0.95"/>
+          <stop offset="40%" stop-color="#e8d4a0" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0.8"/>
+        </linearGradient>
+        <linearGradient id="fluteStem" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#a88843"/>
+          <stop offset="100%" stop-color="#c9a961"/>
+        </linearGradient>
+      </defs>
+      <!-- Clink sparkle burst -->
+      <g class="clink-burst">
+        <g transform="translate(60,22)">
+          <line x1="0" y1="-16" x2="0" y2="-8" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="0" y1="16" x2="0" y2="8" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-16" y1="0" x2="-8" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="16" y1="0" x2="8" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-12" y1="-12" x2="-6" y2="-6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="6" y2="6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="12" y1="-12" x2="6" y2="-6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-12" y1="12" x2="-6" y2="6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="4" fill="#f0dca8"/>
+        </g>
+      </g>
+      <!-- Two flutes - left starts outward, clinks in the middle -->
+      <g class="flute-left" transform="translate(30,0)">
+        <path d="M 10 28 L 30 28 L 25 58 Q 25 63 20 63 Q 15 63 15 58 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.7"/>
+        <ellipse cx="20" cy="30" rx="10" ry="2" fill="#faf6f0" opacity="0.6"/>
+        <line x1="20" y1="63" x2="20" y2="100" stroke="url(#fluteStem)" stroke-width="1.4"/>
+        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="#a88843"/>
+        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="none" stroke="#8a6a33" stroke-width="0.5"/>
+        <circle class="bubble bubble-1" cx="17" cy="46" r="1.4" fill="#ffffff" opacity="0.85"/>
+        <circle class="bubble bubble-2" cx="23" cy="44" r="1" fill="#ffffff" opacity="0.75"/>
+      </g>
+      <g class="flute-right" transform="translate(60,0)">
+        <path d="M 10 28 L 30 28 L 25 58 Q 25 63 20 63 Q 15 63 15 58 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.7"/>
+        <ellipse cx="20" cy="30" rx="10" ry="2" fill="#faf6f0" opacity="0.6"/>
+        <line x1="20" y1="63" x2="20" y2="100" stroke="url(#fluteStem)" stroke-width="1.4"/>
+        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="#a88843"/>
+        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="none" stroke="#8a6a33" stroke-width="0.5"/>
+        <circle class="bubble bubble-3" cx="18" cy="47" r="1.2" fill="#ffffff" opacity="0.85"/>
+        <circle class="bubble bubble-4" cx="24" cy="45" r="1.4" fill="#ffffff" opacity="0.75"/>
+      </g>
+    </svg>
+  `,
+
+  birthday: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="bdayBox" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f7d0dc"/>
+          <stop offset="50%" stop-color="#e8b4c0"/>
+          <stop offset="100%" stop-color="#c88090"/>
+        </linearGradient>
+        <linearGradient id="bdayRibbon" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8d4a0"/>
+          <stop offset="50%" stop-color="#c9a961"/>
+          <stop offset="100%" stop-color="#a88843"/>
+        </linearGradient>
+      </defs>
+      <g class="gift-contents">
+        <circle cx="60" cy="75" r="5" fill="#c9a961"/>
+        <circle cx="50" cy="78" r="4" fill="#f4e3d7"/>
+        <circle cx="70" cy="78" r="4" fill="#1f4538"/>
+        <g class="gift-sparkle">
+          <path d="M 60 62 L 62 70 L 60 68 L 58 70 Z" fill="#e8d4a0"/>
+        </g>
+      </g>
+      <g class="gift-box">
+        <rect x="30" y="85" width="60" height="30" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
+        <rect x="55" y="85" width="10" height="30" fill="url(#bdayRibbon)"/>
+        <rect x="30" y="94" width="60" height="7" fill="url(#bdayRibbon)"/>
+      </g>
+      <g class="gift-lid">
+        <rect x="27" y="78" width="66" height="10" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
+        <rect x="27" y="78" width="66" height="3" fill="#ffffff" opacity="0.35"/>
+        <path d="M 60 72 Q 49 66 49 76 Q 54 78 60 79 Q 66 78 71 76 Q 71 66 60 72" fill="url(#bdayRibbon)" stroke="#a88843" stroke-width="0.5"/>
+        <circle cx="60" cy="75" r="2.5" fill="#a88843"/>
+      </g>
+    </svg>
+  `,
+
+  christmas: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="xmasEnvBase" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#8a2e54"/>
+          <stop offset="100%" stop-color="#4a1229"/>
+        </linearGradient>
+        <linearGradient id="xmasEnvFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#a23e5e"/>
+          <stop offset="100%" stop-color="#6b1e3f"/>
+        </linearGradient>
+        <linearGradient id="xmasLetter" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#fdfbf6"/>
+          <stop offset="100%" stop-color="#f4e3d7"/>
+        </linearGradient>
+      </defs>
+      <!-- Burgundy Christmas envelope - anchored bottom -->
+      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#xmasEnvBase)" stroke="#2a0a14" stroke-width="0.8"/>
+      <g class="env-letter">
+        <rect x="32" y="60" width="56" height="30" rx="1" fill="url(#xmasLetter)" stroke="#c9a961" stroke-width="0.6"/>
+        <g transform="translate(60,70)">
+          <path d="M 0 -4 L -5 3 L -2 3 L -6 8 L -3 8 L -7 12 L 7 12 L 3 8 L 6 8 L 2 3 L 5 3 Z" fill="#1f4538" opacity="0.75"/>
+          <path d="M 0 -6 L 1 -3 L 3 -2 L 1 -2 L 0 1 L -1 -2 L -3 -2 L -1 -3 Z" fill="#c9a961" opacity="0.8"/>
+        </g>
+        <line x1="38" y1="82" x2="82" y2="82" stroke="#c9a961" stroke-width="0.5" opacity="0.4"/>
+      </g>
+      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#2a0a14" stroke-width="0.4" opacity="0.5"/>
+      <!-- Flap opens up -->
+      <g class="xmas-env-flap">
+        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#xmasEnvFlap)" stroke="#2a0a14" stroke-width="0.8"/>
+        <g transform="translate(60,82)">
+          <circle cx="-2" cy="0" r="2.5" fill="#c9a961"/>
+          <circle cx="2" cy="0" r="2.5" fill="#c9a961"/>
+          <circle cx="0" cy="-2" r="2.5" fill="#c9a961"/>
+          <path d="M 4 -1 Q 10 -3 10 3 Q 6 5 4 1" fill="#1f4538"/>
+          <path d="M 5 2 Q 11 7 9 11 Q 4 8 5 2" fill="#1f4538"/>
+        </g>
+      </g>
+    </svg>
+  `,
+
+  // NEUTRAL / SURPRISE - shown when user hasn't picked boy or girl, or picks surprise
+  gender: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="envBase" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#fdfbf6"/>
+          <stop offset="100%" stop-color="#f4e3d7"/>
+        </linearGradient>
+        <linearGradient id="envFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#faf6f0"/>
+          <stop offset="100%" stop-color="#e8d4a0"/>
+        </linearGradient>
+      </defs>
+      <!-- Coloured puffs emerging - mix of blush, emerald, gold -->
+      <circle class="puff puff-1" cx="45" cy="68" r="8" fill="#f4e3d7" opacity="0.8"/>
+      <circle class="puff puff-2" cx="75" cy="70" r="7" fill="#1f4538" opacity="0.5"/>
+      <circle class="puff puff-3" cx="60" cy="60" r="9" fill="#c9a961" opacity="0.6"/>
+      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#envBase)" stroke="#a88843" stroke-width="0.8"/>
+      <g class="env-letter">
+        <rect x="32" y="60" width="56" height="30" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
+        <!-- Mixed dots -->
+        <circle cx="42" cy="68" r="2" fill="#f4e3d7"/>
+        <circle cx="48" cy="68" r="2" fill="#1f4538"/>
+        <circle cx="54" cy="68" r="2" fill="#f4e3d7"/>
+        <circle cx="60" cy="68" r="2" fill="#c9a961"/>
+        <circle cx="66" cy="68" r="2" fill="#f4e3d7"/>
+        <circle cx="72" cy="68" r="2" fill="#1f4538"/>
+        <circle cx="78" cy="68" r="2" fill="#f4e3d7"/>
+        <line x1="38" y1="78" x2="82" y2="78" stroke="#c9a961" stroke-width="0.4" opacity="0.4"/>
+        <text x="60" y="86" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="8" fill="#6b1e3f">✦ surprise ✦</text>
+      </g>
+      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
+      <g class="env-flap">
+        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#envFlap)" stroke="#a88843" stroke-width="0.8"/>
+        <circle cx="60" cy="82" r="4.5" fill="#c9a961" stroke="#a88843" stroke-width="0.5" opacity="0.95"/>
+        <text x="60" y="85" text-anchor="middle" font-size="7" fill="#faf6f0">?</text>
+      </g>
+    </svg>
+  `,
+
+  // BOY variant - blue dummy + rattle
+  'gender-boy': `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="boyBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#b8ccdf"/>
+          <stop offset="100%" stop-color="#7a9dbf"/>
+        </linearGradient>
+        <linearGradient id="boyBlueDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a0b8cf"/>
+          <stop offset="100%" stop-color="#5a7d9f"/>
+        </linearGradient>
+      </defs>
+      <!-- Small hearts floating -->
+      <g class="tiny-heart tiny-heart-1">
+        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(5 0) scale(0.5)" opacity="0.8"/>
+      </g>
+      <g class="tiny-heart tiny-heart-2">
+        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(-5 0) scale(0.45)" opacity="0.7"/>
+      </g>
+      <!-- Big central dummy/pacifier - pops up -->
+      <g class="gender-item-main">
+        <g transform="translate(60,60)">
+          <!-- Outer shield -->
+          <circle cx="0" cy="0" r="20" fill="url(#boyBlue)" stroke="#5a7d9f" stroke-width="1"/>
+          <!-- Inner ring -->
+          <circle cx="0" cy="0" r="16" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+          <!-- Button centre -->
+          <circle cx="0" cy="0" r="11" fill="#faf6f0" stroke="#c9a961" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="7" fill="url(#boyBlue)"/>
+          <circle cx="-2" cy="-2" r="2" fill="#ffffff" opacity="0.6"/>
+          <!-- Teat -->
+          <rect x="-4" y="20" width="8" height="10" rx="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+          <ellipse cx="0" cy="32" rx="5" ry="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+        </g>
+      </g>
+      <!-- Rattle on the side -->
+      <g class="gender-item-side">
+        <g transform="translate(95,95) rotate(25)">
+          <circle cx="0" cy="0" r="9" fill="url(#boyBlueDeep)" stroke="#5a7d9f" stroke-width="0.6"/>
+          <circle cx="-3" cy="-2" r="1.2" fill="#5a7d9f"/>
+          <circle cx="3" cy="-1" r="1.2" fill="#5a7d9f"/>
+          <circle cx="0" cy="3" r="1.5" fill="#5a7d9f"/>
+          <rect x="-1.5" y="8" width="3" height="14" fill="#c9a961"/>
+          <circle cx="0" cy="24" r="3.5" fill="#c9a961"/>
+        </g>
+      </g>
+      <!-- Small decorative star -->
+      <g class="gender-item-accent" transform="translate(22,95)">
+        <path d="M 0 -5 L 1.5 -1.5 L 5 -1 L 2 1.5 L 3 5 L 0 3 L -3 5 L -2 1.5 L -5 -1 L -1.5 -1.5 Z" fill="#c9a961"/>
+      </g>
+    </svg>
+  `,
+
+  // GIRL variant - pink dummy + rattle
+  'gender-girl': `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="girlPink" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f4d4dc"/>
+          <stop offset="100%" stop-color="#d48a9c"/>
+        </linearGradient>
+        <linearGradient id="girlPinkDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8b4c0"/>
+          <stop offset="100%" stop-color="#b8607a"/>
+        </linearGradient>
+      </defs>
+      <g class="tiny-heart tiny-heart-1">
+        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.5)" opacity="0.85"/>
+      </g>
+      <g class="tiny-heart tiny-heart-2">
+        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.45)" opacity="0.75"/>
+      </g>
+      <!-- Big central pink dummy -->
+      <g class="gender-item-main">
+        <g transform="translate(60,60)">
+          <circle cx="0" cy="0" r="20" fill="url(#girlPink)" stroke="#b8607a" stroke-width="1"/>
+          <circle cx="0" cy="0" r="16" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+          <circle cx="0" cy="0" r="11" fill="#faf6f0" stroke="#c9a961" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="7" fill="url(#girlPink)"/>
+          <circle cx="-2" cy="-2" r="2" fill="#ffffff" opacity="0.6"/>
+          <rect x="-4" y="20" width="8" height="10" rx="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+          <ellipse cx="0" cy="32" rx="5" ry="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+        </g>
+      </g>
+      <!-- Pink rattle on side -->
+      <g class="gender-item-side">
+        <g transform="translate(95,95) rotate(25)">
+          <circle cx="0" cy="0" r="9" fill="url(#girlPinkDeep)" stroke="#b8607a" stroke-width="0.6"/>
+          <circle cx="-3" cy="-2" r="1.2" fill="#b8607a"/>
+          <circle cx="3" cy="-1" r="1.2" fill="#b8607a"/>
+          <path d="M -2 3 Q 0 5 2 3" stroke="#b8607a" stroke-width="0.8" fill="none"/>
+          <rect x="-1.5" y="8" width="3" height="14" fill="#c9a961"/>
+          <circle cx="0" cy="24" r="3.5" fill="#c9a961"/>
+        </g>
+      </g>
+      <g class="gender-item-accent" transform="translate(22,95)">
+        <path d="M 0 -5 L 1.5 -1.5 L 5 -1 L 2 1.5 L 3 5 L 0 3 L -3 5 L -2 1.5 L -5 -1 L -1.5 -1.5 Z" fill="#c9a961"/>
+      </g>
+    </svg>
+  `,
+
+  pregnancy: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="onesieGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#faf6f0"/>
+          <stop offset="100%" stop-color="#f4e3d7"/>
+        </linearGradient>
+      </defs>
+      <line x1="10" y1="18" x2="110" y2="18" stroke="#a88843" stroke-width="0.8" opacity="0.7"/>
+      <g class="tiny-heart tiny-heart-1">
+        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.45)" opacity="0.75"/>
+      </g>
+      <g class="tiny-heart tiny-heart-2">
+        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.5)" opacity="0.7"/>
+      </g>
+      <g class="tiny-heart tiny-heart-3">
+        <path d="M 60 112 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="scale(0.4)" opacity="0.65"/>
+      </g>
+      <g class="onesie">
+        <rect x="57" y="15" width="2" height="6" rx="0.5" fill="#a88843"/>
+        <rect x="61" y="15" width="2" height="6" rx="0.5" fill="#a88843"/>
+        <path d="M 42 28 Q 42 24 45 23 L 52 21 Q 54 19 60 19 Q 66 19 68 21 L 75 23 Q 78 24 78 28 L 74 36 L 78 68 Q 78 73 73 73 L 68 73 L 66 63 L 54 63 L 52 73 L 47 73 Q 42 73 42 68 L 46 36 Z" fill="url(#onesieGrad)" stroke="#a88843" stroke-width="0.8"/>
+        <path d="M 54 21 Q 60 24 66 21" fill="none" stroke="#a88843" stroke-width="0.8"/>
+        <path d="M 60 36 c -2 -3 -7 -4 -7 -10 a 3.5 3.5 0 0 1 7 -2 a 3.5 3.5 0 0 1 7 2 c 0 6 -5 7 -7 10 z" fill="#f4d4dc" stroke="#a88843" stroke-width="0.4"/>
+        <circle cx="60" cy="52" r="1" fill="#a88843"/>
+        <circle cx="60" cy="57" r="1" fill="#a88843"/>
+      </g>
+    </svg>
+  `,
+
+  holiday: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="suitcaseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#c9a961"/>
+          <stop offset="50%" stop-color="#a88843"/>
+          <stop offset="100%" stop-color="#8a6a33"/>
+        </linearGradient>
+      </defs>
+      <g class="little-plane" transform="translate(20, 12)">
+        <path d="M 0 0 Q 5 -4 14 -3 L 24 -2 L 28 0 L 24 2 L 14 3 Q 5 4 0 0 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.6"/>
+        <circle cx="20" cy="0" r="1.2" fill="#faf6f0" opacity="0.8"/>
+        <path d="M 8 -2 L 6 -8 L 14 -3 Z" fill="#a88843"/>
+        <path d="M 8 2 L 6 8 L 14 3 Z" fill="#a88843"/>
+        <path d="M 2 -1 L -2 -6 L 0 -1 Z" fill="#a88843"/>
+        <path d="M -5 0 L -14 0" stroke="#a88843" stroke-width="0.5" stroke-dasharray="1.5,1.5" opacity="0.5"/>
+      </g>
+      <g class="holiday-passport">
+        <rect x="38" y="75" width="26" height="36" rx="2" fill="#1f4538" stroke="#143028" stroke-width="0.8" transform="rotate(4 51 93)"/>
+        <text x="51" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-size="5" fill="#e8d4a0" transform="rotate(4 51 85)">✦</text>
+        <rect x="43" y="92" width="16" height="4" rx="0.5" fill="#e8d4a0" opacity="0.7" transform="rotate(4 51 94)"/>
+        <text x="51" y="102" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="4" fill="#e8d4a0" transform="rotate(4 51 102)">PASSPORT</text>
+      </g>
+      <g class="holiday-ticket">
+        <rect x="56" y="78" width="32" height="14" rx="2" fill="#faf6f0" stroke="#a88843" stroke-width="0.8" transform="rotate(-3 72 85)"/>
+        <line x1="64" y1="78" x2="64" y2="92" stroke="#a88843" stroke-width="0.5" stroke-dasharray="1,1" transform="rotate(-3 72 85)"/>
+        <text x="74" y="88" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="5" fill="#6b1e3f" transform="rotate(-3 72 85)">✈ BOARDING</text>
+      </g>
+      <rect x="30" y="92" width="60" height="24" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.8"/>
+      <rect x="30" y="92" width="60" height="3" fill="#e8d4a0" opacity="0.5"/>
+      <line x1="60" y1="97" x2="60" y2="115" stroke="#5c3e30" stroke-width="0.6"/>
+      <rect x="50" y="89" width="20" height="4" rx="1" fill="#5c3e30" opacity="0.6"/>
+      <g class="suitcase-lid">
+        <rect x="30" y="84" width="60" height="12" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.8"/>
+        <rect x="30" y="84" width="60" height="3" fill="#e8d4a0" opacity="0.5"/>
+        <rect x="50" y="80" width="20" height="4" rx="2" fill="none" stroke="#5c3e30" stroke-width="1.2"/>
+        <rect x="36" y="91" width="6" height="3" rx="0.5" fill="#e8d4a0"/>
+        <rect x="78" y="91" width="6" height="3" rx="0.5" fill="#e8d4a0"/>
+      </g>
+    </svg>
+  `,
+
+  custom: `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="cEnvBase" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#fdfbf6"/>
+          <stop offset="100%" stop-color="#f4e3d7"/>
+        </linearGradient>
+        <linearGradient id="cEnvFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#faf6f0"/>
+          <stop offset="100%" stop-color="#e8d4a0"/>
+        </linearGradient>
+      </defs>
+      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#cEnvBase)" stroke="#a88843" stroke-width="0.8"/>
+      <g class="env-letter">
+        <rect x="32" y="60" width="56" height="30" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
+        <line x1="38" y1="70" x2="82" y2="70" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
+        <line x1="38" y1="76" x2="76" y2="76" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
+        <line x1="38" y1="82" x2="80" y2="82" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
+        <text x="60" y="87" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="9" fill="#6b1e3f">✦</text>
+      </g>
+      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
+      <g class="env-flap">
+        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#cEnvFlap)" stroke="#a88843" stroke-width="0.8"/>
+        <circle cx="60" cy="82" r="5" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/>
+        <text x="60" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-size="7" fill="#6b1e3f">✦</text>
+      </g>
+    </svg>
+  `
+};
+
+function renderScene(occasion,elementId){
+  const container = document.getElementById(elementId);
+  if(!container) return;
+  // For gender with a sub-choice, use the variant scene
+  let sceneKey = occasion;
+  if(occasion === 'gender' && state.genderChoice && state.genderChoice !== 'surprise'){
+    sceneKey = 'gender-' + state.genderChoice;
+  }
+  const svg = SCENES[sceneKey] || SCENES.custom;
+  // Set class for occasion-specific animations + add key to force re-animation
+  container.className = 'scene scene-' + sceneKey;
+  container.innerHTML = svg;
+}
+
+function replayScene(occasion,elementId){
+  // Remove and re-insert to restart CSS animations
+  renderScene(occasion,elementId);
+}
+
+function fireConfetti(){
+  // Only fire if confetti is enabled
+  if(!document.getElementById('confettiToggle').classList.contains('on')) return;
+
+  const container = document.getElementById('confettiLayer');
+  if(!container) return;
+  const shapes = CONFETTI_SHAPES[state.occasion] || CONFETTI_SHAPES.custom;
+  const cardRect = document.getElementById('previewCard').getBoundingClientRect();
+  const cardWidth = cardRect.width;
+
+  // Clear any previous confetti
+  container.innerHTML = '';
+
+  // Generate 40 confetti pieces
+  for(let i=0;i<40;i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    piece.innerHTML = shape;
+
+    const size = 16 + Math.random() * 16; // 16-32px
+    const startX = Math.random() * 100; // % across
+    const drift = (Math.random() - 0.5) * 120; // -60 to +60px drift
+    const spin = (Math.random() > 0.5 ? 1 : -1) * (360 + Math.random() * 720);
+    const duration = 2.5 + Math.random() * 2; // 2.5-4.5s
+    const delay = Math.random() * 0.4; // stagger start
+
+    piece.style.left = startX + '%';
+    piece.style.width = size + 'px';
+    piece.style.height = size + 'px';
+    piece.style.setProperty('--drift',drift + 'px');
+    piece.style.setProperty('--spin',spin + 'deg');
+    piece.style.animationDuration = duration + 's';
+    piece.style.animationDelay = delay + 's';
+
+    container.appendChild(piece);
+
+    // Remove after animation
+    setTimeout(()=>piece.remove(),(duration + delay) * 1000 + 100);
+  }
+}
+
+function triggerFullReveal(){
+  // Subtle gold flash backdrop
+  const flash = document.getElementById('cardFlash');
+  flash.classList.remove('active');
+  void flash.offsetWidth;
+  flash.classList.add('active');
+
+  // Replay the scene animation so the reveal feels dynamic
+  replayScene(state.occasion,'rScene');
+  replayScene(state.occasion,'wScene');
+
+  // Themed confetti
+  fireConfetti();
+}
+
+function setupSingleCanvas(){
+  const canvas = document.getElementById('singleCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr,dpr);
+  paintGoldOverlay(ctx,rect.width,rect.height);
+
+  let isDrawing = false;
+  let lastX, lastY;
+  let revealed = false;
+
+  const getPos = (e)=>{
+    const r = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    return {x,y};
+  };
+
+  const scratch = (e)=>{
+    if(!isDrawing) return;
+    e.preventDefault();
+    const {x,y} = getPos(e);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 30;
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(x,y);
+    ctx.stroke();
+    lastX = x;
+    lastY = y;
+    document.getElementById('singleHint').classList.add('faded');
+    checkSingleProgress(canvas,ctx);
+  };
+
+  const start = (e)=>{
+    isDrawing = true;
+    const {x,y} = getPos(e);
+    lastX = x;
+    lastY = y;
+    scratch(e);
+  };
+  const end = ()=>{ isDrawing = false; };
+
+  canvas.addEventListener('mousedown',start);
+  canvas.addEventListener('mousemove',scratch);
+  canvas.addEventListener('mouseup',end);
+  canvas.addEventListener('mouseleave',end);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',scratch,{passive:false});
+  canvas.addEventListener('touchend',end);
+
+  function checkSingleProgress(cv,context){
+    if(revealed) return;
+    const img = context.getImageData(0,0,cv.width,cv.height);
+    let transparent = 0;
+    for(let i=3;i<img.data.length;i+=40){
+      if(img.data[i] < 64) transparent++;
+    }
+    const pct = transparent / (img.data.length / 40);
+    if(pct > 0.4){
+      revealed = true;
+      cv.style.transition = 'opacity 0.6s';
+      cv.style.opacity = '0';
+      document.getElementById('singleHint').style.display = 'none';
+      triggerFullReveal();
+    }
+  }
+}
+
+function setupTripleCanvases(){
+  const panels = document.querySelectorAll('.tri-panel');
+  panels.forEach((panel,idx)=>{
+    const canvas = panel.querySelector('canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const rect = panel.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr,dpr);
+
+    ctx.beginPath();
+    ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2);
+    ctx.clip();
+    paintGoldOverlay(ctx,rect.width,rect.height);
+
+    let isDrawing = false;
+    let lastX, lastY;
+    let revealed = false;
+
+    const getPos = (e)=>{
+      const r = canvas.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      return {x,y};
+    };
+
+    const scratch = (e)=>{
+      if(!isDrawing) return;
+      e.preventDefault();
+      const {x,y} = getPos(e);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = 22;
+      ctx.beginPath();
+      ctx.moveTo(lastX,lastY);
+      ctx.lineTo(x,y);
+      ctx.stroke();
+      lastX = x;
+      lastY = y;
+
+      if(!revealed){
+        const img = ctx.getImageData(0,0,canvas.width,canvas.height);
+        let transparent = 0;
+        for(let i=3;i<img.data.length;i+=40){
+          if(img.data[i] < 64) transparent++;
+        }
+        const pct = transparent / (img.data.length / 40);
+        if(pct > 0.5){
+          revealed = true;
+          canvas.style.transition = 'opacity 0.5s';
+          canvas.style.opacity = '0';
+          panel.classList.add('just-revealed');
+          // Ping on this panel
+          const ping = panel.querySelector('.tri-ping');
+          ping.classList.remove('active');
+          void ping.offsetWidth;
+          ping.classList.add('active');
+          panelsRevealed[idx] = true;
+          checkWinner();
+        }
+      }
+    };
+
+    const start = (e)=>{
+      isDrawing = true;
+      const {x,y} = getPos(e);
+      lastX = x;
+      lastY = y;
+      scratch(e);
+    };
+    const end = ()=>{ isDrawing = false; };
+
+    canvas.addEventListener('mousedown',start);
+    canvas.addEventListener('mousemove',scratch);
+    canvas.addEventListener('mouseup',end);
+    canvas.addEventListener('mouseleave',end);
+    canvas.addEventListener('touchstart',start,{passive:false});
+    canvas.addEventListener('touchmove',scratch,{passive:false});
+    canvas.addEventListener('touchend',end);
+  });
+
+  updateTripleStatus();
+}
+
+function checkWinner(){
+  const count = panelsRevealed.filter(Boolean).length;
+  updateTripleStatus();
+  if(count === 3 && !winnerShown){
+    winnerShown = true;
+    setTimeout(()=>{
+      document.getElementById('tripleWrap').classList.add('winner');
+      setTimeout(()=>{
+        document.getElementById('winnerMessage').classList.add('show');
+        triggerFullReveal();
+      },400);
+    },300);
+  }
+}
+
+function updateTripleStatus(){
+  const count = panelsRevealed.filter(Boolean).length;
+  const status = document.getElementById('tripleStatus');
+  if(count === 0) status.textContent = '0 of 3 matched';
+  else if(count < 3) status.textContent = `${count} of 3 matched…`;
+  else status.textContent = '✦ A perfect match ✦';
+}
+
+function resetScratch(){
+  panelsRevealed = [false,false,false];
+  winnerShown = false;
+  document.getElementById('tripleWrap').classList.remove('winner');
+  document.getElementById('winnerMessage').classList.remove('show');
+  document.querySelectorAll('.tri-panel').forEach(p=>{
+    p.classList.remove('just-revealed');
+    const c = p.querySelector('canvas');
+    if(c){ c.style.opacity = '1'; c.style.transition = 'none'; }
+  });
+  document.querySelectorAll('.tri-ping').forEach(p=>p.classList.remove('active'));
+  document.getElementById('cardFlash').classList.remove('active');
+  document.getElementById('confettiLayer').innerHTML = '';
+  const single = document.getElementById('singleCanvas');
+  if(single){ single.style.opacity = '1'; single.style.transition = 'none'; }
+  document.getElementById('singleHint').classList.remove('faded');
+  document.getElementById('singleHint').style.display = 'flex';
+  setTimeout(()=>initCanvases(),50);
+}
+
+async function submitOrder(){
+  state.confetti = document.getElementById('confettiToggle').classList.contains('on');
+
+  if(!state.yourName.trim()){
+    alert('Please add your name in section five so I know who to reply to.');
+    document.getElementById('yourName').focus();return;
+  }
+  if(!state.yourEmail.trim() || !state.yourEmail.includes('@')){
+    alert('Please add a valid email in section five so I can send your final card.');
+    document.getElementById('yourEmail').focus();return;
+  }
+  if(!state.headline.trim()){
+    alert('Please write a headline for the reveal in section three.');
+    document.getElementById('headline').focus();return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const payload = {
+    timestamp:new Date().toISOString(),
+    occasion:state.occasion,layout:state.layout,
+    recipient:state.recipient,headline:state.headline,
+    message:state.message,signature:state.signature,
+    confetti:state.confetti,yourName:state.yourName,
+    yourEmail:state.yourEmail,orderNumber:state.orderNumber,
+    status:'pending'
+  };
+  console.log(payload);
+try {
+ await fetch("https://script.google.com/macros/s/AKfycbxWI-tXcQxCysAKfXrj8L7yT2z0rhJSdLJ0djDK5NiMo47wV679z4cxpYlCtLdrNc2goA/exec", {
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify(payload)
+});
+} catch (error) {
+  console.error("Error sending to Google Sheets:", error);
+}
+  setTimeout(()=>{
+    document.getElementById('successModal').classList.add('active');
+    btn.textContent = 'Submit my order';
+    btn.disabled = false;
+  },800);
+}
+</script>
+
+</body>
+</html>
