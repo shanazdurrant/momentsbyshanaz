@@ -56,7 +56,7 @@ body{
   position:relative;
   overflow-x:hidden;
   background:
-    linear-gradient(135deg, var(--cream) 0%, var(--sage-mist) 50%, var(--cream) 100%);
+    linear-gradient(135deg, var(--ivory) 0%, var(--blush) 50%, var(--ivory) 100%);
   background-attachment:fixed;
 }
 
@@ -100,60 +100,35 @@ body::after{
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
   border-bottom:1px solid rgba(201,169,97,0.25);
-  padding:16px 20px;
+  padding:12px 20px;
   box-shadow:0 4px 20px -10px rgba(43,43,43,0.08);
 }
-
 .top-bar-inner{
-  max-width:1200px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
 }
-
-/* NEW IMAGE LOGO */
-.brand-logo{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.brand-logo-img{
-  height:160px;        /* 👈 adjust this for size */
-  max-width:100%;
-  object-fit:contain;
-
-  /* subtle blend */
-  mix-blend-mode:multiply;
-
+.top-bar-logo{
+  height:50px;
+  width:auto;
+  display:block;
   transition:transform 0.3s ease;
 }
-
-.brand-logo-img:hover{
+.top-bar-logo:hover{
   transform:scale(1.03);
 }
 
-/* MOBILE */
+/* Mobile scaling */
 @media(max-width:640px){
-  .brand-logo-img{
-    height:55px;
-  }
+  .top-bar-logo{height:42px;}
 }
-
 @media(max-width:420px){
-  .brand-logo-img{
-    height:45px;
-  }
+  .top-bar-logo{height:36px;}
 }
 
-/* PAGE */
 .page{
-  max-width:1200px;
-  margin:0 auto;
+  max-width:1200px;margin:0 auto;
   padding:40px 20px 60px;
-  position:relative;
-  z-index:1;
+  position:relative;z-index:1;
 }
 
 /* ══════ HERO ══════ */
@@ -646,7 +621,8 @@ body::after{
   position:relative;overflow:hidden;
   box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
   background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
-  transition:box-shadow 0.6s;
+  /* Smooth transition when gender reveal shifts the card background */
+  transition:box-shadow 0.6s,background 0.8s ease;
 }
 
 /* Themed background imagery */
@@ -686,45 +662,219 @@ body::after{
   pointer-events:none;z-index:9;
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   PREMIUM REVEAL ELEVATION — everything below here only activates
+   on .just-revealed so the pre-scratch card stays clean and
+   suspenseful. Post-scratch, the card gains ornamental framing,
+   ambient afterglow, headline shimmer, and a replay invitation.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Ornamental gold filigree corners — appear on reveal */
+.frame-corner{
+  position:absolute;
+  width:42px;
+  height:42px;
+  pointer-events:none;
+  z-index:6;
+  opacity:0;
+  transition:opacity 0.8s ease 0.6s;
+}
+.preview-card.just-revealed .frame-corner{opacity:0.9;}
+.frame-corner.tl{top:8px;left:8px;}
+.frame-corner.tr{top:8px;right:8px;transform:scaleX(-1);}
+.frame-corner.bl{bottom:8px;left:8px;transform:scaleY(-1);}
+.frame-corner.br{bottom:8px;right:8px;transform:scale(-1,-1);}
+
+/* "M" monogram wax seal — bottom centre-ish after reveal */
+.frame-seal{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%) scale(0.4) rotate(-12deg);
+  width:44px;
+  height:44px;
+  opacity:0;
+  pointer-events:none;
+  z-index:7;
+  filter:drop-shadow(0 3px 6px rgba(74,18,41,0.35));
+  transition:opacity 0.6s ease 1.2s, transform 0.8s cubic-bezier(.34,1.56,.64,1) 1.2s;
+}
+.preview-card.just-revealed .frame-seal{
+  opacity:1;
+  transform:translateX(-50%) scale(1) rotate(-6deg);
+}
+
+/* Ambient gold dust motes — drift slowly across card after reveal */
+.ambient-motes{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:5;
+  opacity:0;
+  overflow:hidden;
+  transition:opacity 1s ease 1.2s;
+}
+.preview-card.just-revealed .ambient-motes{opacity:1;}
+.ambient-motes .mote{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--gold-shimmer) 0%,var(--gold) 55%,transparent 100%);
+  box-shadow:0 0 5px rgba(232,212,160,0.8);
+  animation:moteDrift var(--mote-duration,16s) linear var(--mote-delay,0s) infinite;
+}
+@keyframes moteDrift{
+  0%{
+    transform:translate(0,110%);
+    opacity:0;
+  }
+  8%{opacity:0.7;}
+  92%{opacity:0.7;}
+  100%{
+    transform:translate(var(--mote-drift,20px),-10%);
+    opacity:0;
+  }
+}
+
+/* Headline gets subtle gold shimmer after reveal (like the logo) */
+.preview-card.just-revealed .reveal-headline{
+  background:linear-gradient(
+    100deg,
+    var(--theme-text) 0%,
+    var(--theme-text) 40%,
+    var(--gold) 50%,
+    var(--theme-text) 60%,
+    var(--theme-text) 100%
+  );
+  background-size:200% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both,
+            headlineShimmer 6s ease-in-out 2.5s infinite;
+}
+@keyframes headlineShimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+
+/* Replay invitation — elegant CTA that appears after reveal settles */
+.replay-invitation{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%) translateY(8px);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 18px;
+  background:rgba(250,246,240,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(201,169,97,0.35);
+  border-radius:100px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:13px;
+  letter-spacing:1.5px;
+  color:var(--gold-deep);
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.6s ease 1.8s, transform 0.6s cubic-bezier(.34,1.56,.64,1) 1.8s, background 0.3s, color 0.3s, border-color 0.3s;
+  z-index:8;
+  white-space:nowrap;
+  user-select:none;
+}
+.replay-invitation .replay-arrow{
+  font-size:15px;
+  display:inline-block;
+  transition:transform 0.5s;
+}
+.replay-invitation:hover{
+  background:var(--gold);
+  color:var(--ivory);
+  border-color:var(--gold);
+}
+.replay-invitation:hover .replay-arrow{transform:rotate(-360deg);}
+.preview-card.just-revealed .replay-invitation{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* When replay is present, push the seal further up */
+.preview-card.just-revealed .frame-seal{
+  bottom:62px;
+}
+
 /* REVEAL LAYER — text in foreground, scene as backdrop */
 .reveal-layer{
   position:absolute;inset:0;
   display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:36px 28px;text-align:center;
+  align-items:center;
+  /* Text content sits BELOW the scene — no more overlap */
+  justify-content:flex-start;
+  padding:24px 24px 20px;text-align:center;
   color:var(--theme-text,var(--ink));
   z-index:1;
 }
 .reveal-greeting{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:18px;color:var(--gold-deep);
-  letter-spacing:1.5px;margin-bottom:14px;opacity:0.9;
+  font-size:17px;color:var(--gold-deep);
+  letter-spacing:1.5px;
+  margin-bottom:4px;
+  opacity:0.9;
   position:relative;z-index:3;
+  order:1;
+}
+/* Scene slot: fixed 110px height block AFTER greeting, BEFORE headline */
+.reveal-layer .scene{
+  order:2;
+  position:relative;
+  inset:auto;
+  width:100%;
+  height:110px;
+  margin:0 0 12px;
+  flex-shrink:0;
+  z-index:1;
+  opacity:1;
+}
+.reveal-layer .scene svg{
+  width:140px;
+  height:110px;
+  overflow:visible;
+  filter:drop-shadow(0 4px 10px rgba(60,40,20,0.18));
 }
 .reveal-headline{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(28px,6vw,40px);
+  font-size:clamp(24px,5vw,32px);
   font-weight:500;line-height:1.15;
-  margin-bottom:16px;letter-spacing:-0.3px;
+  margin-bottom:10px;letter-spacing:-0.3px;
   color:var(--theme-text,var(--ink));
   position:relative;z-index:3;
-  /* subtle halo so text stays readable over backdrop */
-  text-shadow:0 1px 2px rgba(253,250,243,0.8),0 0 20px rgba(253,250,243,0.6);
+  order:3;
 }
 .reveal-divider-wrap{
   display:flex;align-items:center;justify-content:center;
-  gap:8px;margin:12px 0;
+  gap:8px;margin:8px 0;
   position:relative;z-index:3;
+  order:4;
 }
 .reveal-divider-wrap .line{width:30px;height:1px;background:var(--gold);}
 .reveal-text{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:18px;line-height:1.5;
+  font-size:16px;line-height:1.45;
   color:var(--theme-text-soft,var(--ink-soft));
   max-width:280px;
   position:relative;z-index:3;
-  text-shadow:0 1px 2px rgba(253,250,243,0.7);
+  order:5;
 }
+
+/* Signoff + date stay in flow below message */
+.reveal-signoff{order:7;}
+.reveal-date{order:4;}
 
 /* ══════ SEQUENCED REVEAL ANIMATION ══════ */
 /* When .just-revealed class added, text fades in with delay so scene gets its "payoff" first */
@@ -749,6 +899,71 @@ body::after{
 }
 .preview-card.just-revealed .reveal-signoff{
   animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;
+}
+
+/* ══════ AMBIENT AFTERGLOW (post-reveal ongoing) ══════ */
+
+/* Gold dust motes drifting continuously */
+.ambient-motes{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:11;
+  opacity:0;
+  transition:opacity 1.2s ease;
+  overflow:hidden;
+}
+.preview-card.just-revealed .ambient-motes{
+  opacity:1;
+  transition-delay:1.8s;
+}
+.mote{
+  position:absolute;
+  width:3px;height:3px;
+  background:radial-gradient(circle,rgba(232,212,160,0.95) 0%,rgba(201,169,97,0.6) 40%,transparent 70%);
+  border-radius:50%;
+  filter:blur(0.3px);
+  animation:moteDrift linear infinite;
+  will-change:transform,opacity;
+}
+@keyframes moteDrift{
+  0%{transform:translate(0,100%) scale(0.6);opacity:0;}
+  15%{opacity:1;}
+  85%{opacity:1;}
+  100%{transform:translate(var(--mx,20px),-20%) scale(1);opacity:0;}
+}
+
+/* Continuous headline shimmer after reveal */
+.preview-card.just-revealed .reveal-headline{
+  background:linear-gradient(
+    100deg,
+    var(--theme-text,var(--ink)) 0%,
+    var(--theme-text,var(--ink)) 40%,
+    var(--gold) 50%,
+    var(--theme-text,var(--ink)) 60%,
+    var(--theme-text,var(--ink)) 100%
+  );
+  background-size:300% 100%;
+  background-position:0% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:
+    textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both,
+    headlineShimmer 7s ease-in-out 2.5s infinite;
+}
+@keyframes headlineShimmer{
+  0%,90%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+
+/* Signature heartbeat - gentle breathing */
+.preview-card.just-revealed .reveal-signoff-name{
+  animation:signatureBreath 5s ease-in-out 2s infinite;
+}
+@keyframes signatureBreath{
+  0%,100%{opacity:0.85;text-shadow:0 2px 8px rgba(201,169,97,0.15);}
+  50%{opacity:1;text-shadow:0 2px 14px rgba(201,169,97,0.45);}
 }
 
 /* ══════ SINGLE SCRATCH ══════ */
@@ -789,26 +1004,45 @@ body::after{
 }
 .scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
 
-/* ══════ ANIMATED SCENE BACKDROP ══════ */
+/* ══════ ANIMATED SCENE (default fallback) ══════ */
+/* In reveal layer, scene uses .reveal-layer .scene rules above instead */
 .scene{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  margin:0;
   pointer-events:none;
-  z-index:1;
   display:flex;
   align-items:center;
   justify-content:center;
-  opacity:0.55;
 }
 .scene svg{
-  width:100%;
-  height:100%;
   overflow:visible;
   filter:drop-shadow(0 4px 10px rgba(60,40,20,0.2));
 }
+
+/* Winner-message (triple layout) uses same top-anchored scene layout as reveal-layer */
+.winner-message{
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:24px 24px 20px;
+  text-align:center;
+}
+.winner-message .scene{
+  position:relative;
+  width:100%;
+  height:110px;
+  margin:0 0 12px;
+  z-index:1;
+}
+.winner-message .scene svg{
+  width:140px;
+  height:110px;
+}
+.winner-message .reveal-greeting{order:1;margin-bottom:4px;}
+.winner-message .scene{order:2;}
+.winner-message .reveal-headline{order:3;font-size:clamp(24px,5vw,32px);margin-bottom:10px;}
+.winner-message .reveal-date{order:4;}
+.winner-message .reveal-divider-wrap{order:5;}
+.winner-message .reveal-text{order:6;font-size:16px;}
+.winner-message .reveal-signoff{order:7;}
 
 /* Gift box opening (birthday / christmas) */
 @keyframes giftLidLift{
@@ -848,31 +1082,35 @@ body::after{
   50%{opacity:1;transform:translateY(-4px) scale(1.15);}
 }
 
-/* Ring box opening (proposal) - lid opens DOWNWARD away from text */
-@keyframes ringBoxLidOpenDown{
-  0%{transform:rotateX(0deg) translateY(0);}
-  100%{transform:rotateX(110deg) translateY(4px);}
+/* Proposal - just a ring, gently bobbing with sparkles */
+@keyframes ringBobGentle{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-3px);}
 }
-@keyframes ringRise{
-  0%,30%{transform:translateY(15px) scale(0.3);opacity:0;}
-  100%{transform:translateY(-10px) scale(1);opacity:1;}
+@keyframes proposalGlint{
+  0%,100%{opacity:0;transform:scale(0.6);}
+  50%{opacity:1;transform:scale(1.15);}
 }
-@keyframes ringGlint{
-  0%,100%{opacity:0;transform:scale(0.5) rotate(0deg);}
-  50%{opacity:1;transform:scale(1.2) rotate(180deg);}
+@keyframes proposalSparkle{
+  0%,100%{opacity:0.3;transform:scale(0.7) rotate(0deg);}
+  50%{opacity:1;transform:scale(1.3) rotate(180deg);}
 }
-.scene-proposal .ring-box-lid-prop{
-  transform-origin:center bottom;
-  animation:ringBoxLidOpenDown 1s cubic-bezier(.34,1.56,.64,1) 0.3s both;
-}
-.scene-proposal .ring-band{
-  transform-origin:center bottom;
-  animation:ringRise 1.3s cubic-bezier(.34,1.56,.64,1) 0.9s both;
-}
-.scene-proposal .ring-glint{
+.scene-proposal .proposal-ring{
   transform-origin:center;
-  animation:ringGlint 1.5s ease-in-out 1.5s infinite;
+  animation:ringBobGentle 3s ease-in-out 0.3s infinite;
 }
+.scene-proposal .proposal-glint{
+  transform-origin:center;
+  animation:proposalGlint 2s ease-in-out 0.5s infinite;
+}
+.scene-proposal .proposal-sparkle{
+  transform-origin:center;
+  animation:proposalSparkle 2.5s ease-in-out infinite;
+}
+.scene-proposal .proposal-sparkle-1{animation-delay:0.3s;}
+.scene-proposal .proposal-sparkle-2{animation-delay:0.9s;}
+.scene-proposal .proposal-sparkle-3{animation-delay:1.5s;}
+.scene-proposal .proposal-sparkle-4{animation-delay:2.1s;}
 
 /* Champagne flutes clinking (wedding) */
 @keyframes fluteLeftClink{
@@ -1257,12 +1495,25 @@ body::after{
   --theme-text:#4a1229;
   --theme-text-soft:#6b1e3f;
 }
+/* Boy and girl stay NEUTRAL until scratched — then reveal their colour */
 .theme-gender-boy{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);
+  --theme-text:#4a1229;
+  --theme-text-soft:#6b1e3f;
+  transition:--theme-bg 0.8s ease;
+}
+.theme-gender-girl{
+  --theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);
+  --theme-text:#4a1229;
+  --theme-text-soft:#6b1e3f;
+}
+/* On reveal, blue/pink gradient activates — smooth 0.8s transition via background transition on card */
+.theme-gender-boy.just-revealed{
   --theme-bg:linear-gradient(145deg,#eef5fa 0%,#d6e4f0 60%,#b8ccdf 100%);
   --theme-text:#1a3855;
   --theme-text-soft:#3e5b7a;
 }
-.theme-gender-girl{
+.theme-gender-girl.just-revealed{
   --theme-bg:linear-gradient(145deg,#fdf0f4 0%,#f4d4dc 60%,#e8b4c0 100%);
   --theme-text:#5a1835;
   --theme-text-soft:#7a3a52;
@@ -1355,9 +1606,7 @@ body::after{
 
 <header class="top-bar">
   <div class="top-bar-inner">
-    <div class="brand-logo">
-  <img src="logo-horizontal.png" alt="Moments by Shanaz" class="brand-logo-img">
-    </div>
+    <img src="logo-horizontal.png" alt="Moments by Shanaz" class="top-bar-logo">
   </div>
 </header>
 
@@ -1611,6 +1860,49 @@ body::after{
 
           <!-- Flash for full reveal celebration (kept as subtle backdrop) -->
           <div class="card-flash" id="cardFlash"></div>
+
+          <!-- Ambient gold dust motes (post-reveal) -->
+          <div class="ambient-motes" id="ambientMotes"></div>
+
+          <!-- Ornamental gold filigree corners (post-reveal) -->
+          <svg class="frame-corner tl" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 6 16 Q 7 9 14 7 L 18 6" stroke="#c9a961" stroke-width="0.7" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="8" cy="8" r="1.2" fill="#c9a961"/>
+            <path d="M 14 4 Q 17 4 18 7 M 4 14 Q 4 17 7 18" stroke="#c9a961" stroke-width="0.5" opacity="0.6"/>
+          </svg>
+          <svg class="frame-corner tr" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 6 16 Q 7 9 14 7 L 18 6" stroke="#c9a961" stroke-width="0.7" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="8" cy="8" r="1.2" fill="#c9a961"/>
+            <path d="M 14 4 Q 17 4 18 7 M 4 14 Q 4 17 7 18" stroke="#c9a961" stroke-width="0.5" opacity="0.6"/>
+          </svg>
+          <svg class="frame-corner bl" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 6 16 Q 7 9 14 7 L 18 6" stroke="#c9a961" stroke-width="0.7" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="8" cy="8" r="1.2" fill="#c9a961"/>
+            <path d="M 14 4 Q 17 4 18 7 M 4 14 Q 4 17 7 18" stroke="#c9a961" stroke-width="0.5" opacity="0.6"/>
+          </svg>
+          <svg class="frame-corner br" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 6 16 Q 7 9 14 7 L 18 6" stroke="#c9a961" stroke-width="0.7" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="8" cy="8" r="1.2" fill="#c9a961"/>
+            <path d="M 14 4 Q 17 4 18 7 M 4 14 Q 4 17 7 18" stroke="#c9a961" stroke-width="0.5" opacity="0.6"/>
+          </svg>
+
+          <!-- "M" monogram wax seal (bottom-right flourish, post-reveal) -->
+          <svg class="frame-seal" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1.2"/>
+            <circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/>
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/>
+            <text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text>
+          </svg>
+
+          <!-- Replay invitation -->
+          <div class="replay-invitation" id="replayBtn" onclick="replayRevealFromButton()">
+            <span class="replay-arrow">↺</span>
+            <span>Replay the reveal</span>
+          </div>
         </div>
 
         <div class="preview-reset">
@@ -1704,10 +1996,19 @@ document.addEventListener('DOMContentLoaded',()=>{
       const genderSub = document.getElementById('genderSubchoice');
       if(state.occasion === 'gender'){
         genderSub.style.display = 'block';
+        // Force re-animation if already visible
+        genderSub.style.animation = 'none';
+        void genderSub.offsetWidth;
+        genderSub.style.animation = '';
+        // Scroll into view gently so it's obvious it appeared
+        setTimeout(()=>genderSub.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
       }else{
         genderSub.style.display = 'none';
         // Reset gender sub-state when switching away
         state.genderChoice = 'surprise';
+        document.querySelectorAll('.subchoice-chip').forEach(c=>c.classList.remove('selected'));
+        const surpriseChip = document.querySelector('.subchoice-chip[data-gender="surprise"]');
+        if(surpriseChip) surpriseChip.classList.add('selected');
       }
 
       updatePreview();
@@ -2019,52 +2320,59 @@ const CONFETTI_SHAPES = {
 
 // ══════ ANIMATED SCENES (8 occasion-specific illustrations) ══════
 const SCENES = {
+  // PROPOSAL: Just a ring. No box. Clean and elegant.
   proposal: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
-        <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#8a2e54"/>
-          <stop offset="50%" stop-color="#6b1e3f"/>
-          <stop offset="100%" stop-color="#4a1229"/>
-        </linearGradient>
         <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#f0dca8"/>
-          <stop offset="50%" stop-color="#c9a961"/>
+          <stop offset="40%" stop-color="#e8d4a0"/>
+          <stop offset="60%" stop-color="#c9a961"/>
           <stop offset="100%" stop-color="#a88843"/>
         </linearGradient>
         <radialGradient id="diamondGrad">
           <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="50%" stop-color="#e8f0f5"/>
-          <stop offset="100%" stop-color="#a8c0d0"/>
+          <stop offset="40%" stop-color="#f0f6fa"/>
+          <stop offset="80%" stop-color="#c0d4e0"/>
+          <stop offset="100%" stop-color="#8aa8bd"/>
         </radialGradient>
       </defs>
-      <!-- Ring box anchored at bottom, burgundy (brand colour) -->
-      <rect x="30" y="95" width="60" height="22" rx="3" fill="url(#boxGrad)" stroke="#3a0a1e" stroke-width="0.8"/>
-      <rect x="32" y="97" width="56" height="3" fill="#4a1229" opacity="0.6"/>
-      <rect x="34" y="99" width="52" height="10" rx="1" fill="#faf6f0"/>
-      <rect x="36" y="101" width="48" height="3" rx="1" fill="#c9a961" opacity="0.2"/>
-      <!-- Ring rising out -->
-      <g class="ring-band">
-        <ellipse cx="60" cy="92" rx="14" ry="4" fill="none" stroke="url(#ringGrad)" stroke-width="3.5"/>
-        <ellipse cx="60" cy="92" rx="14" ry="4" fill="none" stroke="#f0dca8" stroke-width="0.8" opacity="0.8"/>
-        <polygon points="60,78 54,87 60,91 66,87" fill="url(#diamondGrad)" stroke="#8a9aa8" stroke-width="0.5"/>
-        <polygon points="60,78 54,87 60,85" fill="#ffffff" opacity="0.6"/>
-        <g class="ring-glint">
-          <path d="M 60 74 L 62 80 L 60 78 L 58 80 Z" fill="#ffffff" opacity="0.9"/>
-          <path d="M 56 80 L 60 78 L 64 80 L 60 76 Z" fill="#ffffff" opacity="0.7"/>
+      <!-- Simply a gold ring with solitaire diamond, centred in top third -->
+      <g class="proposal-ring" transform="translate(60,52)">
+        <!-- Ring band -->
+        <ellipse cx="0" cy="8" rx="22" ry="6" fill="none" stroke="url(#ringGrad)" stroke-width="5"/>
+        <ellipse cx="0" cy="8" rx="22" ry="6" fill="none" stroke="#f0dca8" stroke-width="1" opacity="0.7"/>
+        <!-- Prong setting -->
+        <path d="M -6 -2 L -4 3 M 6 -2 L 4 3 M 0 -4 L 0 3" stroke="#c9a961" stroke-width="1.2" fill="none"/>
+        <!-- Diamond -->
+        <polygon points="0,-16 -7,-4 0,2 7,-4" fill="url(#diamondGrad)" stroke="#6b8a9f" stroke-width="0.6"/>
+        <polygon points="0,-16 -7,-4 0,-6" fill="#ffffff" opacity="0.7"/>
+        <polygon points="0,-16 7,-4 0,-6" fill="#ffffff" opacity="0.4"/>
+        <!-- Diamond sparkle glint -->
+        <g class="proposal-glint">
+          <path d="M 0 -22 L 1.5 -17 L 0 -16 L -1.5 -17 Z" fill="#ffffff" opacity="0.95"/>
+          <path d="M -4 -12 L 0 -14 L 4 -12 L 0 -10 Z" fill="#ffffff" opacity="0.8"/>
         </g>
       </g>
-      <!-- Lid swings DOWN away from text -->
-      <g class="ring-box-lid-prop">
-        <rect x="28" y="88" width="64" height="12" rx="3" fill="url(#boxGrad)" stroke="#3a0a1e" stroke-width="0.8"/>
-        <rect x="28" y="88" width="64" height="3" fill="#c9a961" opacity="0.3"/>
-        <circle cx="60" cy="94" r="2" fill="#c9a961" opacity="0.7"/>
+      <!-- Floating sparkle stars around the ring -->
+      <g class="proposal-sparkle proposal-sparkle-1" transform="translate(28,42)">
+        <path d="M 0 -3 L 0.8 -1 L 3 0 L 0.8 1 L 0 3 L -0.8 1 L -3 0 L -0.8 -1 Z" fill="#c9a961"/>
+      </g>
+      <g class="proposal-sparkle proposal-sparkle-2" transform="translate(92,38)">
+        <path d="M 0 -3 L 0.8 -1 L 3 0 L 0.8 1 L 0 3 L -0.8 1 L -3 0 L -0.8 -1 Z" fill="#c9a961"/>
+      </g>
+      <g class="proposal-sparkle proposal-sparkle-3" transform="translate(85,72)">
+        <path d="M 0 -2.5 L 0.6 -0.8 L 2.5 0 L 0.6 0.8 L 0 2.5 L -0.6 0.8 L -2.5 0 L -0.6 -0.8 Z" fill="#c9a961"/>
+      </g>
+      <g class="proposal-sparkle proposal-sparkle-4" transform="translate(32,68)">
+        <path d="M 0 -2.5 L 0.6 -0.8 L 2.5 0 L 0.6 0.8 L 0 2.5 L -0.6 0.8 L -2.5 0 L -0.6 -0.8 Z" fill="#c9a961"/>
       </g>
     </svg>
   `,
 
+  // WEDDING: Your "perfect" scene — compact flutes clinking in top third
   wedding: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="fluteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#f0dca8" stop-opacity="0.95"/>
@@ -2076,44 +2384,46 @@ const SCENES = {
           <stop offset="100%" stop-color="#c9a961"/>
         </linearGradient>
       </defs>
-      <!-- Clink sparkle burst -->
+      <!-- Clink sparkle at centre -->
       <g class="clink-burst">
-        <g transform="translate(60,22)">
-          <line x1="0" y1="-16" x2="0" y2="-8" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
-          <line x1="0" y1="16" x2="0" y2="8" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
-          <line x1="-16" y1="0" x2="-8" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
-          <line x1="16" y1="0" x2="8" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
-          <line x1="-12" y1="-12" x2="-6" y2="-6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="12" y1="12" x2="6" y2="6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="12" y1="-12" x2="6" y2="-6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="-12" y1="12" x2="-6" y2="6" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="0" cy="0" r="4" fill="#f0dca8"/>
+        <g transform="translate(60,28)">
+          <line x1="0" y1="-14" x2="0" y2="-6" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="0" y1="14" x2="0" y2="6" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-14" y1="0" x2="-6" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="0" x2="6" y2="0" stroke="#c9a961" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-10" y1="-10" x2="-5" y2="-5" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="10" y1="10" x2="5" y2="5" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="10" y1="-10" x2="5" y2="-5" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-10" y1="10" x2="-5" y2="5" stroke="#e8d4a0" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="3.5" fill="#f0dca8"/>
         </g>
       </g>
-      <!-- Two flutes - left starts outward, clinks in the middle -->
-      <g class="flute-left" transform="translate(30,0)">
-        <path d="M 10 28 L 30 28 L 25 58 Q 25 63 20 63 Q 15 63 15 58 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.7"/>
-        <ellipse cx="20" cy="30" rx="10" ry="2" fill="#faf6f0" opacity="0.6"/>
-        <line x1="20" y1="63" x2="20" y2="100" stroke="url(#fluteStem)" stroke-width="1.4"/>
-        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="#a88843"/>
-        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="none" stroke="#8a6a33" stroke-width="0.5"/>
-        <circle class="bubble bubble-1" cx="17" cy="46" r="1.4" fill="#ffffff" opacity="0.85"/>
-        <circle class="bubble bubble-2" cx="23" cy="44" r="1" fill="#ffffff" opacity="0.75"/>
+      <!-- Left flute -->
+      <g class="flute-left" transform="translate(38,0)">
+        <path d="M 4 10 L 20 10 L 16 34 Q 16 38 12 38 Q 8 38 8 34 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.6"/>
+        <ellipse cx="12" cy="12" rx="7" ry="1.5" fill="#faf6f0" opacity="0.6"/>
+        <line x1="12" y1="38" x2="12" y2="70" stroke="url(#fluteStem)" stroke-width="1.3"/>
+        <ellipse cx="12" cy="72" rx="9" ry="2" fill="#a88843"/>
+        <ellipse cx="12" cy="72" rx="9" ry="2" fill="none" stroke="#8a6a33" stroke-width="0.4"/>
+        <circle class="bubble bubble-1" cx="10" cy="24" r="1.2" fill="#ffffff" opacity="0.85"/>
+        <circle class="bubble bubble-2" cx="14" cy="22" r="0.9" fill="#ffffff" opacity="0.75"/>
       </g>
+      <!-- Right flute -->
       <g class="flute-right" transform="translate(60,0)">
-        <path d="M 10 28 L 30 28 L 25 58 Q 25 63 20 63 Q 15 63 15 58 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.7"/>
-        <ellipse cx="20" cy="30" rx="10" ry="2" fill="#faf6f0" opacity="0.6"/>
-        <line x1="20" y1="63" x2="20" y2="100" stroke="url(#fluteStem)" stroke-width="1.4"/>
-        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="#a88843"/>
-        <ellipse cx="20" cy="102" rx="12" ry="2.5" fill="none" stroke="#8a6a33" stroke-width="0.5"/>
-        <circle class="bubble bubble-3" cx="18" cy="47" r="1.2" fill="#ffffff" opacity="0.85"/>
-        <circle class="bubble bubble-4" cx="24" cy="45" r="1.4" fill="#ffffff" opacity="0.75"/>
+        <path d="M 4 10 L 20 10 L 16 34 Q 16 38 12 38 Q 8 38 8 34 Z" fill="url(#fluteGrad)" stroke="#a88843" stroke-width="0.6"/>
+        <ellipse cx="12" cy="12" rx="7" ry="1.5" fill="#faf6f0" opacity="0.6"/>
+        <line x1="12" y1="38" x2="12" y2="70" stroke="url(#fluteStem)" stroke-width="1.3"/>
+        <ellipse cx="12" cy="72" rx="9" ry="2" fill="#a88843"/>
+        <ellipse cx="12" cy="72" rx="9" ry="2" fill="none" stroke="#8a6a33" stroke-width="0.4"/>
+        <circle class="bubble bubble-3" cx="11" cy="25" r="1" fill="#ffffff" opacity="0.85"/>
+        <circle class="bubble bubble-4" cx="15" cy="23" r="1.2" fill="#ffffff" opacity="0.75"/>
       </g>
     </svg>
   `,
 
+  // BIRTHDAY: Your "perfect" scene — kept as-is but sized to top area
   birthday: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="bdayBox" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#f7d0dc"/>
@@ -2127,71 +2437,72 @@ const SCENES = {
         </linearGradient>
       </defs>
       <g class="gift-contents">
-        <circle cx="60" cy="75" r="5" fill="#c9a961"/>
-        <circle cx="50" cy="78" r="4" fill="#f4e3d7"/>
-        <circle cx="70" cy="78" r="4" fill="#1f4538"/>
+        <circle cx="60" cy="32" r="4" fill="#c9a961"/>
+        <circle cx="52" cy="35" r="3.2" fill="#f4e3d7"/>
+        <circle cx="68" cy="35" r="3.2" fill="#1f4538"/>
         <g class="gift-sparkle">
-          <path d="M 60 62 L 62 70 L 60 68 L 58 70 Z" fill="#e8d4a0"/>
+          <path d="M 60 22 L 62 28 L 60 27 L 58 28 Z" fill="#e8d4a0"/>
         </g>
       </g>
       <g class="gift-box">
-        <rect x="30" y="85" width="60" height="30" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
-        <rect x="55" y="85" width="10" height="30" fill="url(#bdayRibbon)"/>
-        <rect x="30" y="94" width="60" height="7" fill="url(#bdayRibbon)"/>
+        <rect x="35" y="45" width="50" height="26" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
+        <rect x="55" y="45" width="10" height="26" fill="url(#bdayRibbon)"/>
+        <rect x="35" y="53" width="50" height="7" fill="url(#bdayRibbon)"/>
       </g>
       <g class="gift-lid">
-        <rect x="27" y="78" width="66" height="10" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
-        <rect x="27" y="78" width="66" height="3" fill="#ffffff" opacity="0.35"/>
-        <path d="M 60 72 Q 49 66 49 76 Q 54 78 60 79 Q 66 78 71 76 Q 71 66 60 72" fill="url(#bdayRibbon)" stroke="#a88843" stroke-width="0.5"/>
-        <circle cx="60" cy="75" r="2.5" fill="#a88843"/>
+        <rect x="32" y="38" width="56" height="9" rx="2" fill="url(#bdayBox)" stroke="#8a4050" stroke-width="0.6"/>
+        <rect x="32" y="38" width="56" height="3" fill="#ffffff" opacity="0.35"/>
+        <path d="M 60 33 Q 51 28 51 36 Q 55 38 60 38 Q 65 38 69 36 Q 69 28 60 33" fill="url(#bdayRibbon)" stroke="#a88843" stroke-width="0.5"/>
+        <circle cx="60" cy="35.5" r="2" fill="#a88843"/>
       </g>
     </svg>
   `,
 
+  // CHRISTMAS: GREEN (emerald) now instead of burgundy
   christmas: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="xmasEnvBase" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#8a2e54"/>
-          <stop offset="100%" stop-color="#4a1229"/>
+          <stop offset="0%" stop-color="#2d5a48"/>
+          <stop offset="100%" stop-color="#143028"/>
         </linearGradient>
         <linearGradient id="xmasEnvFlap" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#a23e5e"/>
-          <stop offset="100%" stop-color="#6b1e3f"/>
+          <stop offset="0%" stop-color="#3a6b58"/>
+          <stop offset="100%" stop-color="#1f4538"/>
         </linearGradient>
         <linearGradient id="xmasLetter" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#fdfbf6"/>
           <stop offset="100%" stop-color="#f4e3d7"/>
         </linearGradient>
       </defs>
-      <!-- Burgundy Christmas envelope - anchored bottom -->
-      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#xmasEnvBase)" stroke="#2a0a14" stroke-width="0.8"/>
+      <!-- Compact emerald Christmas envelope in top area -->
+      <rect x="28" y="40" width="64" height="36" rx="2" fill="url(#xmasEnvBase)" stroke="#0a1f18" stroke-width="0.8"/>
+      <!-- Letter emerges from top -->
       <g class="env-letter">
-        <rect x="32" y="60" width="56" height="30" rx="1" fill="url(#xmasLetter)" stroke="#c9a961" stroke-width="0.6"/>
-        <g transform="translate(60,70)">
+        <rect x="34" y="28" width="52" height="26" rx="1" fill="url(#xmasLetter)" stroke="#c9a961" stroke-width="0.6"/>
+        <g transform="translate(60,38)">
           <path d="M 0 -4 L -5 3 L -2 3 L -6 8 L -3 8 L -7 12 L 7 12 L 3 8 L 6 8 L 2 3 L 5 3 Z" fill="#1f4538" opacity="0.75"/>
-          <path d="M 0 -6 L 1 -3 L 3 -2 L 1 -2 L 0 1 L -1 -2 L -3 -2 L -1 -3 Z" fill="#c9a961" opacity="0.8"/>
+          <path d="M 0 -6 L 1 -3 L 3 -2 L 1 -2 L 0 1 L -1 -2 L -3 -2 L -1 -3 Z" fill="#c9a961" opacity="0.85"/>
         </g>
-        <line x1="38" y1="82" x2="82" y2="82" stroke="#c9a961" stroke-width="0.5" opacity="0.4"/>
+        <line x1="40" y1="48" x2="80" y2="48" stroke="#c9a961" stroke-width="0.4" opacity="0.4"/>
       </g>
-      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#2a0a14" stroke-width="0.4" opacity="0.5"/>
-      <!-- Flap opens up -->
+      <path d="M 28 40 L 60 64 L 92 40" fill="none" stroke="#0a1f18" stroke-width="0.4" opacity="0.5"/>
+      <!-- Emerald envelope flap -->
       <g class="xmas-env-flap">
-        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#xmasEnvFlap)" stroke="#2a0a14" stroke-width="0.8"/>
-        <g transform="translate(60,82)">
-          <circle cx="-2" cy="0" r="2.5" fill="#c9a961"/>
-          <circle cx="2" cy="0" r="2.5" fill="#c9a961"/>
-          <circle cx="0" cy="-2" r="2.5" fill="#c9a961"/>
-          <path d="M 4 -1 Q 10 -3 10 3 Q 6 5 4 1" fill="#1f4538"/>
-          <path d="M 5 2 Q 11 7 9 11 Q 4 8 5 2" fill="#1f4538"/>
+        <path d="M 28 40 L 60 64 L 92 40 L 60 23 Z" fill="url(#xmasEnvFlap)" stroke="#0a1f18" stroke-width="0.8"/>
+        <g transform="translate(60,46)">
+          <circle cx="-2" cy="0" r="2.2" fill="#c9a961"/>
+          <circle cx="2" cy="0" r="2.2" fill="#c9a961"/>
+          <circle cx="0" cy="-2" r="2.2" fill="#c9a961"/>
+          <path d="M 3 -1 Q 9 -3 9 3 Q 5 5 3 1" fill="#faf6f0" opacity="0.3"/>
         </g>
       </g>
     </svg>
   `,
 
-  // NEUTRAL / SURPRISE - shown when user hasn't picked boy or girl, or picks surprise
+  // GENDER: pre-scratch neutral state — simple envelope with question mark
   gender: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="envBase" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#fdfbf6"/>
@@ -2202,36 +2513,35 @@ const SCENES = {
           <stop offset="100%" stop-color="#e8d4a0"/>
         </linearGradient>
       </defs>
-      <!-- Coloured puffs emerging - mix of blush, emerald, gold -->
-      <circle class="puff puff-1" cx="45" cy="68" r="8" fill="#f4e3d7" opacity="0.8"/>
-      <circle class="puff puff-2" cx="75" cy="70" r="7" fill="#1f4538" opacity="0.5"/>
-      <circle class="puff puff-3" cx="60" cy="60" r="9" fill="#c9a961" opacity="0.6"/>
-      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#envBase)" stroke="#a88843" stroke-width="0.8"/>
+      <!-- Neutral puffs emerging -->
+      <circle class="puff puff-1" cx="45" cy="38" r="7" fill="#f4e3d7" opacity="0.8"/>
+      <circle class="puff puff-2" cx="75" cy="40" r="6" fill="#1f4538" opacity="0.45"/>
+      <circle class="puff puff-3" cx="60" cy="30" r="8" fill="#c9a961" opacity="0.55"/>
+      <!-- Envelope anchored top third -->
+      <rect x="28" y="40" width="64" height="36" rx="2" fill="url(#envBase)" stroke="#a88843" stroke-width="0.8"/>
       <g class="env-letter">
-        <rect x="32" y="60" width="56" height="30" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
-        <!-- Mixed dots -->
-        <circle cx="42" cy="68" r="2" fill="#f4e3d7"/>
-        <circle cx="48" cy="68" r="2" fill="#1f4538"/>
-        <circle cx="54" cy="68" r="2" fill="#f4e3d7"/>
-        <circle cx="60" cy="68" r="2" fill="#c9a961"/>
-        <circle cx="66" cy="68" r="2" fill="#f4e3d7"/>
-        <circle cx="72" cy="68" r="2" fill="#1f4538"/>
-        <circle cx="78" cy="68" r="2" fill="#f4e3d7"/>
-        <line x1="38" y1="78" x2="82" y2="78" stroke="#c9a961" stroke-width="0.4" opacity="0.4"/>
-        <text x="60" y="86" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="8" fill="#6b1e3f">✦ surprise ✦</text>
+        <rect x="34" y="28" width="52" height="26" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
+        <!-- Neutral mixed dots -->
+        <circle cx="44" cy="38" r="1.8" fill="#f4e3d7"/>
+        <circle cx="50" cy="38" r="1.8" fill="#1f4538" opacity="0.7"/>
+        <circle cx="56" cy="38" r="1.8" fill="#c9a961"/>
+        <circle cx="62" cy="38" r="1.8" fill="#f4e3d7"/>
+        <circle cx="68" cy="38" r="1.8" fill="#1f4538" opacity="0.7"/>
+        <circle cx="74" cy="38" r="1.8" fill="#c9a961"/>
+        <text x="60" y="50" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="7" fill="#6b1e3f">✦ surprise ✦</text>
       </g>
-      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
+      <path d="M 28 40 L 60 64 L 92 40" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
       <g class="env-flap">
-        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#envFlap)" stroke="#a88843" stroke-width="0.8"/>
-        <circle cx="60" cy="82" r="4.5" fill="#c9a961" stroke="#a88843" stroke-width="0.5" opacity="0.95"/>
-        <text x="60" y="85" text-anchor="middle" font-size="7" fill="#faf6f0">?</text>
+        <path d="M 28 40 L 60 64 L 92 40 L 60 23 Z" fill="url(#envFlap)" stroke="#a88843" stroke-width="0.8"/>
+        <circle cx="60" cy="46" r="4" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/>
+        <text x="60" y="48.5" text-anchor="middle" font-size="6" font-weight="600" fill="#faf6f0">?</text>
       </g>
     </svg>
   `,
 
-  // BOY variant - blue dummy + rattle
+  // GENDER BOY: blue dummy + rattle, compact top placement
   'gender-boy': `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="boyBlue" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#b8ccdf"/>
@@ -2242,50 +2552,45 @@ const SCENES = {
           <stop offset="100%" stop-color="#5a7d9f"/>
         </linearGradient>
       </defs>
-      <!-- Small hearts floating -->
+      <!-- Tiny hearts floating at edges -->
       <g class="tiny-heart tiny-heart-1">
-        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(5 0) scale(0.5)" opacity="0.8"/>
+        <path d="M 25 75 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(5 0) scale(0.4)" opacity="0.8"/>
       </g>
       <g class="tiny-heart tiny-heart-2">
-        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(-5 0) scale(0.45)" opacity="0.7"/>
+        <path d="M 95 78 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#b8ccdf" transform="translate(-5 0) scale(0.35)" opacity="0.7"/>
       </g>
-      <!-- Big central dummy/pacifier - pops up -->
+      <!-- Blue dummy/pacifier - centred top area -->
       <g class="gender-item-main">
-        <g transform="translate(60,60)">
-          <!-- Outer shield -->
-          <circle cx="0" cy="0" r="20" fill="url(#boyBlue)" stroke="#5a7d9f" stroke-width="1"/>
-          <!-- Inner ring -->
-          <circle cx="0" cy="0" r="16" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
-          <!-- Button centre -->
-          <circle cx="0" cy="0" r="11" fill="#faf6f0" stroke="#c9a961" stroke-width="0.8"/>
-          <circle cx="0" cy="0" r="7" fill="url(#boyBlue)"/>
-          <circle cx="-2" cy="-2" r="2" fill="#ffffff" opacity="0.6"/>
-          <!-- Teat -->
-          <rect x="-4" y="20" width="8" height="10" rx="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
-          <ellipse cx="0" cy="32" rx="5" ry="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+        <g transform="translate(60,42)">
+          <circle cx="0" cy="0" r="15" fill="url(#boyBlue)" stroke="#5a7d9f" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="12" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="0" cy="0" r="8" fill="#faf6f0" stroke="#c9a961" stroke-width="0.6"/>
+          <circle cx="0" cy="0" r="5" fill="url(#boyBlue)"/>
+          <circle cx="-1.5" cy="-1.5" r="1.5" fill="#ffffff" opacity="0.7"/>
+          <rect x="-3" y="15" width="6" height="8" rx="2" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.4"/>
+          <ellipse cx="0" cy="24" rx="4" ry="2.5" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.4"/>
         </g>
       </g>
-      <!-- Rattle on the side -->
+      <!-- Blue rattle -->
       <g class="gender-item-side">
-        <g transform="translate(95,95) rotate(25)">
-          <circle cx="0" cy="0" r="9" fill="url(#boyBlueDeep)" stroke="#5a7d9f" stroke-width="0.6"/>
-          <circle cx="-3" cy="-2" r="1.2" fill="#5a7d9f"/>
-          <circle cx="3" cy="-1" r="1.2" fill="#5a7d9f"/>
-          <circle cx="0" cy="3" r="1.5" fill="#5a7d9f"/>
-          <rect x="-1.5" y="8" width="3" height="14" fill="#c9a961"/>
-          <circle cx="0" cy="24" r="3.5" fill="#c9a961"/>
+        <g transform="translate(90,70) rotate(25)">
+          <circle cx="0" cy="0" r="7" fill="url(#boyBlueDeep)" stroke="#5a7d9f" stroke-width="0.5"/>
+          <circle cx="-2.5" cy="-1.5" r="1" fill="#5a7d9f"/>
+          <circle cx="2.5" cy="-1" r="1" fill="#5a7d9f"/>
+          <circle cx="0" cy="2.5" r="1.2" fill="#5a7d9f"/>
+          <rect x="-1" y="6" width="2" height="10" fill="#c9a961"/>
+          <circle cx="0" cy="17" r="2.5" fill="#c9a961"/>
         </g>
       </g>
-      <!-- Small decorative star -->
-      <g class="gender-item-accent" transform="translate(22,95)">
-        <path d="M 0 -5 L 1.5 -1.5 L 5 -1 L 2 1.5 L 3 5 L 0 3 L -3 5 L -2 1.5 L -5 -1 L -1.5 -1.5 Z" fill="#c9a961"/>
+      <g class="gender-item-accent" transform="translate(24,72)">
+        <path d="M 0 -4 L 1.2 -1.2 L 4 -0.8 L 1.6 1.2 L 2.4 4 L 0 2.4 L -2.4 4 L -1.6 1.2 L -4 -0.8 L -1.2 -1.2 Z" fill="#c9a961"/>
       </g>
     </svg>
   `,
 
-  // GIRL variant - pink dummy + rattle
+  // GENDER GIRL: pink dummy + rattle, compact top
   'gender-girl': `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="girlPink" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#f4d4dc"/>
@@ -2297,72 +2602,69 @@ const SCENES = {
         </linearGradient>
       </defs>
       <g class="tiny-heart tiny-heart-1">
-        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.5)" opacity="0.85"/>
+        <path d="M 25 75 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.4)" opacity="0.85"/>
       </g>
       <g class="tiny-heart tiny-heart-2">
-        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.45)" opacity="0.75"/>
+        <path d="M 95 78 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.35)" opacity="0.75"/>
       </g>
-      <!-- Big central pink dummy -->
       <g class="gender-item-main">
-        <g transform="translate(60,60)">
-          <circle cx="0" cy="0" r="20" fill="url(#girlPink)" stroke="#b8607a" stroke-width="1"/>
-          <circle cx="0" cy="0" r="16" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
-          <circle cx="0" cy="0" r="11" fill="#faf6f0" stroke="#c9a961" stroke-width="0.8"/>
-          <circle cx="0" cy="0" r="7" fill="url(#girlPink)"/>
-          <circle cx="-2" cy="-2" r="2" fill="#ffffff" opacity="0.6"/>
-          <rect x="-4" y="20" width="8" height="10" rx="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
-          <ellipse cx="0" cy="32" rx="5" ry="3" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.5"/>
+        <g transform="translate(60,42)">
+          <circle cx="0" cy="0" r="15" fill="url(#girlPink)" stroke="#b8607a" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="12" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="0" cy="0" r="8" fill="#faf6f0" stroke="#c9a961" stroke-width="0.6"/>
+          <circle cx="0" cy="0" r="5" fill="url(#girlPink)"/>
+          <circle cx="-1.5" cy="-1.5" r="1.5" fill="#ffffff" opacity="0.7"/>
+          <rect x="-3" y="15" width="6" height="8" rx="2" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.4"/>
+          <ellipse cx="0" cy="24" rx="4" ry="2.5" fill="#f4e3d7" stroke="#c9a961" stroke-width="0.4"/>
         </g>
       </g>
-      <!-- Pink rattle on side -->
       <g class="gender-item-side">
-        <g transform="translate(95,95) rotate(25)">
-          <circle cx="0" cy="0" r="9" fill="url(#girlPinkDeep)" stroke="#b8607a" stroke-width="0.6"/>
-          <circle cx="-3" cy="-2" r="1.2" fill="#b8607a"/>
-          <circle cx="3" cy="-1" r="1.2" fill="#b8607a"/>
-          <path d="M -2 3 Q 0 5 2 3" stroke="#b8607a" stroke-width="0.8" fill="none"/>
-          <rect x="-1.5" y="8" width="3" height="14" fill="#c9a961"/>
-          <circle cx="0" cy="24" r="3.5" fill="#c9a961"/>
+        <g transform="translate(90,70) rotate(25)">
+          <circle cx="0" cy="0" r="7" fill="url(#girlPinkDeep)" stroke="#b8607a" stroke-width="0.5"/>
+          <circle cx="-2.5" cy="-1.5" r="1" fill="#b8607a"/>
+          <circle cx="2.5" cy="-1" r="1" fill="#b8607a"/>
+          <path d="M -1.5 2 Q 0 3.5 1.5 2" stroke="#b8607a" stroke-width="0.6" fill="none"/>
+          <rect x="-1" y="6" width="2" height="10" fill="#c9a961"/>
+          <circle cx="0" cy="17" r="2.5" fill="#c9a961"/>
         </g>
       </g>
-      <g class="gender-item-accent" transform="translate(22,95)">
-        <path d="M 0 -5 L 1.5 -1.5 L 5 -1 L 2 1.5 L 3 5 L 0 3 L -3 5 L -2 1.5 L -5 -1 L -1.5 -1.5 Z" fill="#c9a961"/>
+      <g class="gender-item-accent" transform="translate(24,72)">
+        <path d="M 0 -4 L 1.2 -1.2 L 4 -0.8 L 1.6 1.2 L 2.4 4 L 0 2.4 L -2.4 4 L -1.6 1.2 L -4 -0.8 L -1.2 -1.2 Z" fill="#c9a961"/>
       </g>
     </svg>
   `,
 
+  // PREGNANCY: your "perfect" scene, kept
   pregnancy: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="onesieGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#faf6f0"/>
           <stop offset="100%" stop-color="#f4e3d7"/>
         </linearGradient>
       </defs>
-      <line x1="10" y1="18" x2="110" y2="18" stroke="#a88843" stroke-width="0.8" opacity="0.7"/>
+      <line x1="15" y1="14" x2="105" y2="14" stroke="#a88843" stroke-width="0.8" opacity="0.7"/>
       <g class="tiny-heart tiny-heart-1">
-        <path d="M 25 105 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.45)" opacity="0.75"/>
+        <path d="M 30 72 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(5 0) scale(0.4)" opacity="0.75"/>
       </g>
       <g class="tiny-heart tiny-heart-2">
-        <path d="M 95 108 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.5)" opacity="0.7"/>
-      </g>
-      <g class="tiny-heart tiny-heart-3">
-        <path d="M 60 112 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="scale(0.4)" opacity="0.65"/>
+        <path d="M 90 76 c -3 -4 -10 -6 -10 -14 a 5 5 0 0 1 10 -3 a 5 5 0 0 1 10 3 c 0 8 -7 10 -10 14 z" fill="#f4d4dc" transform="translate(-5 0) scale(0.42)" opacity="0.7"/>
       </g>
       <g class="onesie">
-        <rect x="57" y="15" width="2" height="6" rx="0.5" fill="#a88843"/>
-        <rect x="61" y="15" width="2" height="6" rx="0.5" fill="#a88843"/>
-        <path d="M 42 28 Q 42 24 45 23 L 52 21 Q 54 19 60 19 Q 66 19 68 21 L 75 23 Q 78 24 78 28 L 74 36 L 78 68 Q 78 73 73 73 L 68 73 L 66 63 L 54 63 L 52 73 L 47 73 Q 42 73 42 68 L 46 36 Z" fill="url(#onesieGrad)" stroke="#a88843" stroke-width="0.8"/>
-        <path d="M 54 21 Q 60 24 66 21" fill="none" stroke="#a88843" stroke-width="0.8"/>
-        <path d="M 60 36 c -2 -3 -7 -4 -7 -10 a 3.5 3.5 0 0 1 7 -2 a 3.5 3.5 0 0 1 7 2 c 0 6 -5 7 -7 10 z" fill="#f4d4dc" stroke="#a88843" stroke-width="0.4"/>
-        <circle cx="60" cy="52" r="1" fill="#a88843"/>
-        <circle cx="60" cy="57" r="1" fill="#a88843"/>
+        <rect x="57" y="11" width="2" height="5" rx="0.5" fill="#a88843"/>
+        <rect x="61" y="11" width="2" height="5" rx="0.5" fill="#a88843"/>
+        <path d="M 44 22 Q 44 19 46 18 L 52 17 Q 54 15 60 15 Q 66 15 68 17 L 74 18 Q 76 19 76 22 L 73 28 L 76 56 Q 76 60 72 60 L 67 60 L 66 52 L 54 52 L 53 60 L 48 60 Q 44 60 44 56 L 47 28 Z" fill="url(#onesieGrad)" stroke="#a88843" stroke-width="0.8"/>
+        <path d="M 54 17 Q 60 20 66 17" fill="none" stroke="#a88843" stroke-width="0.8"/>
+        <path d="M 60 28 c -1.5 -2.5 -6 -3.5 -6 -8 a 3 3 0 0 1 6 -2 a 3 3 0 0 1 6 2 c 0 4.5 -4.5 5.5 -6 8 z" fill="#f4d4dc" stroke="#a88843" stroke-width="0.4"/>
+        <circle cx="60" cy="42" r="0.8" fill="#a88843"/>
+        <circle cx="60" cy="46" r="0.8" fill="#a88843"/>
       </g>
     </svg>
   `,
 
+  // HOLIDAY: compact top band — plane flying across at top, suitcase below it
   holiday: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="suitcaseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#c9a961"/>
@@ -2370,7 +2672,8 @@ const SCENES = {
           <stop offset="100%" stop-color="#8a6a33"/>
         </linearGradient>
       </defs>
-      <g class="little-plane" transform="translate(20, 12)">
+      <!-- Plane at top strip -->
+      <g class="little-plane" transform="translate(20, 14)">
         <path d="M 0 0 Q 5 -4 14 -3 L 24 -2 L 28 0 L 24 2 L 14 3 Q 5 4 0 0 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.6"/>
         <circle cx="20" cy="0" r="1.2" fill="#faf6f0" opacity="0.8"/>
         <path d="M 8 -2 L 6 -8 L 14 -3 Z" fill="#a88843"/>
@@ -2378,33 +2681,38 @@ const SCENES = {
         <path d="M 2 -1 L -2 -6 L 0 -1 Z" fill="#a88843"/>
         <path d="M -5 0 L -14 0" stroke="#a88843" stroke-width="0.5" stroke-dasharray="1.5,1.5" opacity="0.5"/>
       </g>
-      <g class="holiday-passport">
-        <rect x="38" y="75" width="26" height="36" rx="2" fill="#1f4538" stroke="#143028" stroke-width="0.8" transform="rotate(4 51 93)"/>
-        <text x="51" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-size="5" fill="#e8d4a0" transform="rotate(4 51 85)">✦</text>
-        <rect x="43" y="92" width="16" height="4" rx="0.5" fill="#e8d4a0" opacity="0.7" transform="rotate(4 51 94)"/>
-        <text x="51" y="102" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="4" fill="#e8d4a0" transform="rotate(4 51 102)">PASSPORT</text>
-      </g>
+      <!-- Ticket (rises from suitcase) -->
       <g class="holiday-ticket">
-        <rect x="56" y="78" width="32" height="14" rx="2" fill="#faf6f0" stroke="#a88843" stroke-width="0.8" transform="rotate(-3 72 85)"/>
-        <line x1="64" y1="78" x2="64" y2="92" stroke="#a88843" stroke-width="0.5" stroke-dasharray="1,1" transform="rotate(-3 72 85)"/>
-        <text x="74" y="88" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="5" fill="#6b1e3f" transform="rotate(-3 72 85)">✈ BOARDING</text>
+        <rect x="58" y="34" width="28" height="12" rx="2" fill="#faf6f0" stroke="#a88843" stroke-width="0.7" transform="rotate(-4 72 40)"/>
+        <line x1="65" y1="34" x2="65" y2="46" stroke="#a88843" stroke-width="0.4" stroke-dasharray="1,1" transform="rotate(-4 72 40)"/>
+        <text x="75" y="42" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="4.5" fill="#6b1e3f" transform="rotate(-4 72 40)">✈ BOARDING</text>
       </g>
-      <rect x="30" y="92" width="60" height="24" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.8"/>
-      <rect x="30" y="92" width="60" height="3" fill="#e8d4a0" opacity="0.5"/>
-      <line x1="60" y1="97" x2="60" y2="115" stroke="#5c3e30" stroke-width="0.6"/>
-      <rect x="50" y="89" width="20" height="4" rx="1" fill="#5c3e30" opacity="0.6"/>
+      <!-- Passport (rises from suitcase) -->
+      <g class="holiday-passport">
+        <rect x="36" y="32" width="22" height="28" rx="2" fill="#1f4538" stroke="#143028" stroke-width="0.7" transform="rotate(5 47 46)"/>
+        <text x="47" y="41" text-anchor="middle" font-family="Cormorant Garamond" font-size="5" fill="#c9a961" transform="rotate(5 47 41)">✦</text>
+        <rect x="40" y="46" width="14" height="3" rx="0.4" fill="#c9a961" opacity="0.7" transform="rotate(5 47 47)"/>
+        <text x="47" y="55" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="3.5" fill="#c9a961" transform="rotate(5 47 55)">PASSPORT</text>
+      </g>
+      <!-- Suitcase base -->
+      <rect x="34" y="58" width="52" height="22" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.7"/>
+      <rect x="34" y="58" width="52" height="2.5" fill="#e8d4a0" opacity="0.5"/>
+      <line x1="60" y1="62" x2="60" y2="80" stroke="#5c3e30" stroke-width="0.5"/>
+      <rect x="52" y="55" width="16" height="3" rx="1" fill="#5c3e30" opacity="0.6"/>
+      <!-- Lid (opens up and back) -->
       <g class="suitcase-lid">
-        <rect x="30" y="84" width="60" height="12" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.8"/>
-        <rect x="30" y="84" width="60" height="3" fill="#e8d4a0" opacity="0.5"/>
-        <rect x="50" y="80" width="20" height="4" rx="2" fill="none" stroke="#5c3e30" stroke-width="1.2"/>
-        <rect x="36" y="91" width="6" height="3" rx="0.5" fill="#e8d4a0"/>
-        <rect x="78" y="91" width="6" height="3" rx="0.5" fill="#e8d4a0"/>
+        <rect x="34" y="48" width="52" height="12" rx="2" fill="url(#suitcaseGrad)" stroke="#5c3e30" stroke-width="0.7"/>
+        <rect x="34" y="48" width="52" height="2.5" fill="#e8d4a0" opacity="0.5"/>
+        <rect x="52" y="44" width="16" height="4" rx="2" fill="none" stroke="#5c3e30" stroke-width="1"/>
+        <rect x="39" y="55" width="5" height="2.5" rx="0.4" fill="#e8d4a0"/>
+        <rect x="76" y="55" width="5" height="2.5" rx="0.4" fill="#e8d4a0"/>
       </g>
     </svg>
   `,
 
+  // CUSTOM/OTHER: compressed envelope in top third, no longer filling card
   custom: `
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="cEnvBase" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#fdfbf6"/>
@@ -2415,41 +2723,44 @@ const SCENES = {
           <stop offset="100%" stop-color="#e8d4a0"/>
         </linearGradient>
       </defs>
-      <rect x="25" y="75" width="70" height="40" rx="2" fill="url(#cEnvBase)" stroke="#a88843" stroke-width="0.8"/>
+      <!-- Compact envelope in top area -->
+      <rect x="32" y="42" width="56" height="32" rx="2" fill="url(#cEnvBase)" stroke="#a88843" stroke-width="0.7"/>
       <g class="env-letter">
-        <rect x="32" y="60" width="56" height="30" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
-        <line x1="38" y1="70" x2="82" y2="70" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
-        <line x1="38" y1="76" x2="76" y2="76" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
-        <line x1="38" y1="82" x2="80" y2="82" stroke="#c9a961" stroke-width="0.6" opacity="0.5"/>
-        <text x="60" y="87" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="9" fill="#6b1e3f">✦</text>
+        <rect x="36" y="30" width="48" height="24" rx="1" fill="#fdfbf6" stroke="#c9a961" stroke-width="0.5"/>
+        <line x1="42" y1="38" x2="78" y2="38" stroke="#c9a961" stroke-width="0.5" opacity="0.5"/>
+        <line x1="42" y1="43" x2="72" y2="43" stroke="#c9a961" stroke-width="0.5" opacity="0.5"/>
+        <line x1="42" y1="48" x2="76" y2="48" stroke="#c9a961" stroke-width="0.5" opacity="0.5"/>
+        <text x="60" y="53" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="7" fill="#6b1e3f">✦</text>
       </g>
-      <path d="M 25 75 L 60 100 L 95 75" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
+      <path d="M 32 42 L 60 64 L 88 42" fill="none" stroke="#c9a961" stroke-width="0.4" opacity="0.5"/>
       <g class="env-flap">
-        <path d="M 25 75 L 60 100 L 95 75 L 60 57 Z" fill="url(#cEnvFlap)" stroke="#a88843" stroke-width="0.8"/>
-        <circle cx="60" cy="82" r="5" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/>
-        <text x="60" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-size="7" fill="#6b1e3f">✦</text>
+        <path d="M 32 42 L 60 64 L 88 42 L 60 26 Z" fill="url(#cEnvFlap)" stroke="#a88843" stroke-width="0.7"/>
+        <circle cx="60" cy="48" r="4" fill="#c9a961" stroke="#a88843" stroke-width="0.4"/>
+        <text x="60" y="50.5" text-anchor="middle" font-family="Cormorant Garamond" font-size="6" fill="#6b1e3f">✦</text>
       </g>
     </svg>
   `
 };
 
-function renderScene(occasion,elementId){
+function renderScene(occasion,elementId,revealed){
   const container = document.getElementById(elementId);
   if(!container) return;
-  // For gender with a sub-choice, use the variant scene
   let sceneKey = occasion;
+  // For gender: only show boy/girl scene AFTER scratching. Before, stay neutral.
   if(occasion === 'gender' && state.genderChoice && state.genderChoice !== 'surprise'){
-    sceneKey = 'gender-' + state.genderChoice;
+    if(revealed){
+      sceneKey = 'gender-' + state.genderChoice;
+    }
+    // else: stay on neutral 'gender' key
   }
   const svg = SCENES[sceneKey] || SCENES.custom;
-  // Set class for occasion-specific animations + add key to force re-animation
   container.className = 'scene scene-' + sceneKey;
   container.innerHTML = svg;
 }
 
 function replayScene(occasion,elementId){
-  // Remove and re-insert to restart CSS animations
-  renderScene(occasion,elementId);
+  // After scratch: pass revealed=true so gender shows its true colour
+  renderScene(occasion,elementId,true);
 }
 
 function fireConfetti(){
@@ -2495,6 +2806,13 @@ function fireConfetti(){
 }
 
 function triggerFullReveal(){
+  // Add .just-revealed class to card so sequenced text fade-in animation fires
+  const card = document.getElementById('previewCard');
+  card.classList.remove('just-revealed');
+  // Force reflow to restart CSS animations if already applied
+  void card.offsetWidth;
+  card.classList.add('just-revealed');
+
   // Subtle gold flash backdrop
   const flash = document.getElementById('cardFlash');
   flash.classList.remove('active');
@@ -2507,6 +2825,61 @@ function triggerFullReveal(){
 
   // Themed confetti
   fireConfetti();
+
+  // Ambient gold dust motes (start drifting after confetti settles)
+  startAmbientMotes();
+}
+
+/* Continuously generate floating gold dust motes after reveal */
+let motesInterval = null;
+function startAmbientMotes(){
+  const container = document.getElementById('ambientMotes');
+  if(!container) return;
+  container.innerHTML = '';
+  // Clear any previous interval
+  if(motesInterval) clearInterval(motesInterval);
+
+  // Spawn motes at a calm pace
+  const spawn = ()=>{
+    const card = document.getElementById('previewCard');
+    if(!card || !card.classList.contains('just-revealed')) return;
+    const mote = document.createElement('div');
+    mote.className = 'mote';
+    const startX = Math.random() * 100;
+    const driftX = (Math.random() - 0.5) * 80;
+    const duration = 5 + Math.random() * 4;
+    const size = 2 + Math.random() * 3;
+    mote.style.left = startX + '%';
+    mote.style.bottom = '0';
+    mote.style.width = size + 'px';
+    mote.style.height = size + 'px';
+    mote.style.setProperty('--mote-drift',driftX + 'px');
+    mote.style.animationDuration = duration + 's';
+    container.appendChild(mote);
+    setTimeout(()=>mote.remove(),duration * 1000 + 100);
+  };
+
+  // Delay first mote so it starts after confetti completes
+  setTimeout(()=>{
+    spawn(); spawn(); spawn();
+    motesInterval = setInterval(spawn,450);
+  },2000);
+}
+
+function stopAmbientMotes(){
+  if(motesInterval){ clearInterval(motesInterval); motesInterval = null; }
+  const container = document.getElementById('ambientMotes');
+  if(container) container.innerHTML = '';
+}
+
+/* Replay button handler - triggers the whole reveal sequence again */
+function replayRevealFromButton(){
+  const card = document.getElementById('previewCard');
+  // Briefly remove .just-revealed so the sequence can restart
+  card.classList.remove('just-revealed');
+  stopAmbientMotes();
+  // Small timeout so the class removal takes effect before re-adding
+  setTimeout(()=>triggerFullReveal(),50);
 }
 
 function setupSingleCanvas(){
@@ -2697,6 +3070,9 @@ function updateTripleStatus(){
 function resetScratch(){
   panelsRevealed = [false,false,false];
   winnerShown = false;
+  // Clear sequenced reveal class so next scratch re-fires it
+  document.getElementById('previewCard').classList.remove('just-revealed');
+  stopAmbientMotes();
   document.getElementById('tripleWrap').classList.remove('winner');
   document.getElementById('winnerMessage').classList.remove('show');
   document.querySelectorAll('.tri-panel').forEach(p=>{
@@ -2743,13 +3119,12 @@ async function submitOrder(){
     yourEmail:state.yourEmail,orderNumber:state.orderNumber,
     status:'pending'
   };
-  console.log(payload);
+  console.log('Order payload (ready for Google Sheets):',payload);
 try {
- await fetch("https://script.google.com/macros/s/AKfycbxWI-tXcQxCysAKfXrj8L7yT2z0rhJSdLJ0djDK5NiMo47wV679z4cxpYlCtLdrNc2goA/exec", {
-  method: "POST",
-  mode: "no-cors",
-  body: JSON.stringify(payload)
-});
+  await fetch("https://script.google.com/macros/s/AKfycbzceJiKgp2ZPlM6aG8F6jtg2yDEcbBPLfq5Qru9DCx69FTnRxiibbQ7raVEQB9-CpE86A/exec", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
 } catch (error) {
   console.error("Error sending to Google Sheets:", error);
 }
