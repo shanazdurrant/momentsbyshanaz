@@ -270,77 +270,37 @@ body::after{
   transition:box-shadow 0.6s,background 0.8s ease;
 }
 
-/* ══════ BACKGROUND IMAGE LAYER ══════ */
-/* Occupies the full card, sits behind everything */
+/* ══════ BACKGROUND IMAGES — set directly on the card ══════ */
+/* The canvas sits on top; the card bg is always visible around/through it */
+.theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
+.theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-girl{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-holiday{background-image:url('Holiday.jpg');background-size:cover;background-position:center;}
+.theme-pregnancy{background-image:url('image.png');background-size:cover;background-position:center;}
+.theme-wedding{background-image:url('Wedding.jpg');background-size:cover;background-position:center;}
+.theme-birthday{background-image:url('birthday.jpg');background-size:cover;background-position:center;}
+.theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
+.theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
+
+/* ══════ BACKGROUND IMAGE LAYER — now just a tint overlay ══════ */
 .theme-bg-layer{
   position:absolute;inset:0;
-  background-position:center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  /* Clearly visible before scratch */
-  opacity:0.45;
+  background:rgba(250,246,240,0.35);
   z-index:0;
-  transition:opacity 1.2s ease, filter 1.2s ease;
-  filter:brightness(0.82) saturate(0.85);
 }
-/* After scratch: image blooms fully */
-.preview-card.just-revealed .theme-bg-layer{
-  opacity:0.7;
-  filter:brightness(0.75) saturate(1.15);
-}
-
-/* Pre-scratch preview layer — sits ABOVE the gold canvas so the bg image is visible
-   before scratching. Fades out the moment scratching begins. */
-.theme-bg-preview{
-  position:absolute;inset:0;
-  background-position:center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  opacity:0.5;
-  z-index:6;
-  pointer-events:none;
-  transition:opacity 0.6s ease;
-  filter:brightness(0.82) saturate(0.85);
-}
-.theme-bg-preview.hide{opacity:0;}
-.theme-proposal .theme-bg-preview{background-image:url('Proposal.jpg');}
-.theme-gender .theme-bg-preview{background-image:url('gender.jpg');}
-.theme-holiday .theme-bg-preview{background-image:url('Holiday.jpg');}
-.theme-pregnancy .theme-bg-preview{background-image:url('image.png');}
-.theme-wedding .theme-bg-preview{background-image:url('Wedding.jpg');}
-.theme-birthday .theme-bg-preview{background-image:url('birthday.jpg');}
-.theme-christmas .theme-bg-preview{background-image:url('christmas.jpg');}
-.theme-custom .theme-bg-preview{background-image:url('Other.jpg');}
-/* Gender boy/girl: no preview before scratch */
-.theme-gender-boy .theme-bg-preview,
-.theme-gender-girl .theme-bg-preview{background-image:none;}
-
-/* Per-occasion backgrounds */
-.theme-proposal .theme-bg-layer{background-image:url('Proposal.jpg');}
-.theme-gender .theme-bg-layer{background-image:url('gender.jpg');}
-.theme-holiday .theme-bg-layer{background-image:url('Holiday.jpg');}
-.theme-pregnancy .theme-bg-layer{background-image:url('image.png');}
-.theme-wedding .theme-bg-layer{background-image:url('Wedding.jpg');}
-.theme-birthday .theme-bg-layer{background-image:url('birthday.jpg');}
-.theme-christmas .theme-bg-layer{background-image:url('christmas.jpg');}
-.theme-custom .theme-bg-layer{background-image:url('Other.jpg');}
-/* Gender-boy/girl: no background image before scratch (neutral), revealed after */
-.theme-gender-boy .theme-bg-layer{background-image:none;}
-.theme-gender-girl .theme-bg-layer{background-image:none;}
-.theme-gender-boy.just-revealed .theme-bg-layer{background-image:url('gender.jpg');}
-.theme-gender-girl.just-revealed .theme-bg-layer{background-image:url('gender.jpg');}
 
 /* Soft colour overlay on top of the image, under text — adds polish & legibility */
 .theme-bg-tint{
   position:absolute;inset:0;
   z-index:1;
   pointer-events:none;
-  /* Light tint — lets the image breathe */
+/* Light tint — lets the image breathe */
   background:linear-gradient(
     to bottom,
-    rgba(253,251,246,0.35) 0%,
-    rgba(250,246,240,0.15) 40%,
-    rgba(242,236,223,0.35) 100%
+    rgba(253,251,246,0.25) 0%,
+    rgba(250,246,240,0.10) 40%,
+    rgba(242,236,223,0.25) 100%
   );
   transition:background 0.8s ease;
 }
@@ -568,32 +528,17 @@ body::after{
 .preview-reset button{background:transparent;border:none;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-deep);font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:8px 16px;transition:all .3s;}
 .preview-reset button:hover{color:var(--ink);transform:translateY(-1px);}
 
-/* ══════ OCCASION THEMES ══════ */
-.theme-proposal{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c4cc 100%);--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-.theme-gender{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-/* Boy/girl: neutral palette UNTIL scratched — no colour hint before reveal */
-.theme-gender-boy{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-.theme-gender-girl{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-/* After scratch: blue/pink palette blooms in */
-.theme-gender-boy.just-revealed{--theme-bg:linear-gradient(145deg,#eef5fa 0%,#d6e4f0 60%,#b8ccdf 100%);--theme-text:#1a3855;--theme-text-soft:#3e5b7a;}
-.theme-gender-girl.just-revealed{--theme-bg:linear-gradient(145deg,#fdf0f4 0%,#f4d4dc 60%,#e8b4c0 100%);--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
-.theme-holiday{--theme-bg:linear-gradient(145deg,#eef3f0 0%,#c8d8ce 60%,#a0c0af 100%);--theme-text:#143028;--theme-text-soft:#2d5a48;}
-.theme-pregnancy{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c0a8 100%);--theme-text:#4a2018;--theme-text-soft:#6b3828;}
-.theme-wedding{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f2ecdf 60%,#e8d4a0 100%);--theme-text:#2b2b2b;--theme-text-soft:#4a3a20;}
-.theme-birthday{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 60%,#e8c0c8 100%);--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
-.theme-christmas{--theme-bg:linear-gradient(145deg,#f4ecdf 0%,#e8d0bc 40%,#8a2e54 100%);--theme-text:#2b2b2b;--theme-text-soft:#4a2018;}
-.theme-custom{--theme-bg:linear-gradient(145deg,#fdfbf6 0%,#f4e3d7 100%);--theme-text:#2b2b2b;--theme-text-soft:#4a4a4a;}
-
-/* Per-theme bg tints */
-/* Before scratch: boy/girl tint stays neutral */
-.theme-gender-boy .theme-bg-tint,
-.theme-gender-girl .theme-bg-tint{background:linear-gradient(to bottom,rgba(253,251,246,0.55) 0%,rgba(250,246,240,0.30) 40%,rgba(242,236,223,0.55) 100%);transition:background 0.8s ease;}
-/* After scratch: tint shifts to blue or pink */
-.theme-gender-boy.just-revealed .theme-bg-tint{background:linear-gradient(to bottom,rgba(240,248,255,0.55) 0%,rgba(214,228,240,0.30) 40%,rgba(184,204,223,0.55) 100%);}
-.theme-gender-girl.just-revealed .theme-bg-tint{background:linear-gradient(to bottom,rgba(255,245,248,0.55) 0%,rgba(244,212,220,0.30) 40%,rgba(232,180,192,0.55) 100%);}
-.theme-holiday .theme-bg-tint{background:linear-gradient(to bottom,rgba(240,248,244,0.55) 0%,rgba(200,216,206,0.30) 40%,rgba(160,192,175,0.55) 100%);}
-.theme-christmas .theme-bg-tint{background:linear-gradient(to bottom,rgba(244,236,223,0.55) 0%,rgba(232,208,188,0.30) 40%,rgba(138,46,84,0.45) 100%);}
-.theme-wedding .theme-bg-tint{background:linear-gradient(to bottom,rgba(253,251,246,0.55) 0%,rgba(242,236,223,0.25) 40%,rgba(232,212,160,0.50) 100%);}
+/* ══════ OCCASION THEMES — text colours only, bg image set above ══════ */
+.theme-proposal{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
+.theme-gender{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
+.theme-gender-boy{--theme-text:#1a3855;--theme-text-soft:#3e5b7a;}
+.theme-gender-girl{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
+.theme-holiday{--theme-text:#143028;--theme-text-soft:#2d5a48;}
+.theme-pregnancy{--theme-text:#4a2018;--theme-text-soft:#6b3828;}
+.theme-wedding{--theme-text:#2b2b2b;--theme-text-soft:#4a3a20;}
+.theme-birthday{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
+.theme-christmas{--theme-text:#2b2b2b;--theme-text-soft:#4a2018;}
+.theme-custom{--theme-text:#2b2b2b;--theme-text-soft:#4a4a4a;}
 
 /* ══════ MODAL ══════ */
 .modal-backdrop{position:fixed;inset:0;background:rgba(20,14,8,0.75);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;opacity:0;transition:opacity .5s;}
@@ -779,9 +724,6 @@ body::after{
 
           <!-- Background photo layer (behind everything) -->
           <div class="theme-bg-layer"></div>
-
-          <!-- Pre-scratch preview layer (above canvas, fades on scratch) -->
-          <div class="theme-bg-preview" id="bgPreview"></div>
 
           <!-- Per-theme colour tint (helps readability over photo) -->
           <div class="theme-bg-tint"></div>
@@ -1113,10 +1055,6 @@ function updatePreview(){
   const wasRevealed = card.classList.contains('just-revealed');
   card.className = 'preview-card '+themeClass+(wasRevealed?' just-revealed':'');
 
-  // Keep preview layer in sync with theme (it reads bg-image from CSS class on card)
-  const bgPreview = document.getElementById('bgPreview');
-  if(bgPreview) bgPreview.classList.remove('hide');
-
   const displayName    = state.recipient || 'Amelia';
   const displayHeadline = state.headline || state.defaultHeadline;
   const displayMessage = state.message || 'Your message will appear here.';
@@ -1256,8 +1194,7 @@ function setupSingleCanvas(){
     ctx.lineTo(x,y);
     ctx.stroke();
     lastX=x; lastY=y;
-    // Hide the preview overlay as soon as scratching begins
-    document.getElementById('bgPreview').classList.add('hide');
+    // Hide the scratch hint as soon as scratching begins
     document.getElementById('singleHint').classList.add('faded');
     checkSingleProgress(canvas,ctx);
   };
@@ -1520,8 +1457,6 @@ function resetScratch(){
   if(single){ single.style.opacity='1'; single.style.transition='none'; }
   document.getElementById('singleHint').classList.remove('faded');
   document.getElementById('singleHint').style.display='flex';
-  // Restore the pre-scratch background preview
-  document.getElementById('bgPreview').classList.remove('hide');
   setTimeout(()=>initCanvases(),50);
 }
 
