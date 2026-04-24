@@ -271,7 +271,6 @@ body::after{
 }
 
 /* ══════ BACKGROUND IMAGES — set directly on the card ══════ */
-/* The canvas sits on top; the card bg is always visible around/through it */
 .theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
 .theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
 .theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
@@ -283,10 +282,10 @@ body::after{
 .theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
 .theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
 
-/* ══════ BACKGROUND IMAGE LAYER — now just a tint overlay ══════ */
+/* ══════ BACKGROUND IMAGE LAYER — dark overlay over the bg image ══════ */
 .theme-bg-layer{
   position:absolute;inset:0;
-  background:rgba(250,246,240,0.35);
+  background:rgba(15,10,5,0.52);
   z-index:0;
 }
 
@@ -529,16 +528,16 @@ body::after{
 .preview-reset button:hover{color:var(--ink);transform:translateY(-1px);}
 
 /* ══════ OCCASION THEMES — text colours only, bg image set above ══════ */
-.theme-proposal{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-.theme-gender{--theme-text:#4a1229;--theme-text-soft:#6b1e3f;}
-.theme-gender-boy{--theme-text:#1a3855;--theme-text-soft:#3e5b7a;}
-.theme-gender-girl{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
-.theme-holiday{--theme-text:#143028;--theme-text-soft:#2d5a48;}
-.theme-pregnancy{--theme-text:#4a2018;--theme-text-soft:#6b3828;}
-.theme-wedding{--theme-text:#2b2b2b;--theme-text-soft:#4a3a20;}
-.theme-birthday{--theme-text:#5a1835;--theme-text-soft:#7a3a52;}
-.theme-christmas{--theme-text:#2b2b2b;--theme-text-soft:#4a2018;}
-.theme-custom{--theme-text:#2b2b2b;--theme-text-soft:#4a4a4a;}
+.theme-proposal{--theme-text:#faf0f2;--theme-text-soft:#e8d4d8;}
+.theme-gender{--theme-text:#faf0f2;--theme-text-soft:#e8d4d8;}
+.theme-gender-boy{--theme-text:#e8f0f8;--theme-text-soft:#c8dcea;}
+.theme-gender-girl{--theme-text:#faf0f4;--theme-text-soft:#f0d8e0;}
+.theme-holiday{--theme-text:#f0f8f4;--theme-text-soft:#d0e8dc;}
+.theme-pregnancy{--theme-text:#faf0ec;--theme-text-soft:#e8d8d0;}
+.theme-wedding{--theme-text:#fdfbf6;--theme-text-soft:#ece8dc;}
+.theme-birthday{--theme-text:#faf0f2;--theme-text-soft:#f0d8e0;}
+.theme-christmas{--theme-text:#fdfbf6;--theme-text-soft:#ece8dc;}
+.theme-custom{--theme-text:#fdfbf6;--theme-text-soft:#e8e4dc;}
 
 /* ══════ MODAL ══════ */
 .modal-backdrop{position:fixed;inset:0;background:rgba(20,14,8,0.75);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;opacity:0;transition:opacity .5s;}
