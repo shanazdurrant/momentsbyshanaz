@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Moments by Shanaz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="logo-m.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f4;
+      --warm-white: #fefcf8;
+      --gold: #b8924a;
+      --charcoal: #2c2825;
+      --mid: #6b6460;
+      --soft: #9c958f;
+      --border: #e8e2d9;
+      --dark: #1a1714;
+    }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* LOCK SCREEN */
+    #lock-screen {
+      position: fixed; inset: 0;
+      background: var(--dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 200;
+      transition: opacity 0.6s, visibility 0.6s;
+    }
+    #lock-screen.hidden { opacity: 0; visibility: hidden; }
+    .lock-logo { margin-bottom: 48px; }
+    .lock-logo img { height: 36px; filter: brightness(0) invert(1) opacity(0.7); }
+    .lock-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 48px 40px;
+      width: 340px;
+      text-align: center;
+    }
+    .lock-icon {
+      width: 52px; height: 52px;
+      background: rgba(184,146,74,0.12);
+      border: 1px solid rgba(184,146,74,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .lock-icon svg { color: var(--gold); width: 22px; height: 22px; }
+    .lock-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .lock-box p {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--soft);
+      margin-bottom: 32px;
+    }
+    .lock-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 14px 16px;
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-align: center;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .lock-input:focus { border-color: var(--gold); }
+    .lock-input.error { border-color: #c0392b; animation: shake 0.4s; }
+    @keyframes shake {
+      0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 60%{transform:translateX(6px)}
+    }
+    .lock-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: 4px;
+      padding: 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lock-btn:hover { background: var(--gold-light, #d4a96a); }
+    .lock-error {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #e74c3c;
+      height: 16px;
+    }
+
+    /* ADMIN PANEL */
+    #admin-panel { display: none; flex-direction: column; min-height: 100vh; }
+    #admin-panel.visible { display: flex; }
+
+    /* ADMIN NAV */
+    .admin-nav {
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+    }
+    .admin-nav img { height: 32px; filter: brightness(0) invert(1) opacity(0.8); }
+    .admin-badge {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184,146,74,0.4);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .admin-logout {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--soft);
+      cursor: pointer;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      transition: color 0.2s;
+    }
+    .admin-logout:hover { color: var(--cream); }
+
+    /* ADMIN MAIN */
+    .admin-main { flex: 1; padding: 60px 40px; max-width: 1000px; margin: 0 auto; width: 100%; }
+    .admin-main h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .admin-main h1 em { font-style: italic; color: var(--gold); }
+    .admin-main > p {
+      font-size: 13px;
+      color: var(--soft);
+      letter-spacing: 0.05em;
+      margin-bottom: 52px;
+    }
+
+    /* CARDS */
+    .admin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
+    .admin-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 36px;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .admin-card:hover {
+      border-color: rgba(184,146,74,0.5);
+      background: rgba(184,146,74,0.04);
+    }
+    .admin-card-icon { font-size: 32px; margin-bottom: 20px; }
+    .admin-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    .admin-card p { font-size: 13px; color: var(--soft); line-height: 1.6; margin-bottom: 24px; }
+    .admin-card-cta {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ORDERS SECTION */
+    .admin-section-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .orders-table { width: 100%; border-collapse: collapse; }
+    .orders-table th {
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--soft);
+      padding: 0 16px 14px 0;
+      font-weight: 400;
+    }
+    .orders-table td {
+      padding: 16px 16px 16px 0;
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--cream);
+      vertical-align: middle;
+    }
+    .status-badge {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .status-new { background: rgba(184,146,74,0.15); color: var(--gold); }
+    .status-delivered { background: rgba(100,200,120,0.12); color: #7ecf8b; }
+    .status-pending { background: rgba(200,150,80,0.12); color: #d4a056; }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--soft);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+    }
+    .empty-state span { display: block; font-size: 32px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- LOCK SCREEN -->
+  <div id="lock-screen">
+    <div class="lock-logo">
+      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+    </div>
+    <div class="lock-box">
+      <div class="lock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <h2>Admin Access</h2>
+      <p>This area is private. Enter your password to continue.</p>
+      <input type="password" id="pwd" class="lock-input" placeholder="••••••••••" autocomplete="current-password" />
+      <button class="lock-btn" onclick="checkPassword()">Enter</button>
+      <div class="lock-error" id="lock-error"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel">
+    <nav class="admin-nav">
+      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+      <span class="admin-badge">Admin</span>
+      <button class="admin-logout" onclick="logout()">Log out</button>
+    </nav>
+
+    <main class="admin-main">
+      <h1>Welcome back, <em>Shanaz</em></h1>
+      <p>Manage your digital keepsake offerings from here.</p>
+
+      <div class="admin-cards">
+        <a href="/order.html" class="admin-card">
+          <div class="admin-card-icon">✨</div>
+          <h2>Create a Scratchcard</h2>
+          <p>Design and preview a new scratchcard reveal for a client. Fill in their details and send the final link.</p>
+          <span class="admin-card-cta">Go to Scratchcard Builder →</span>
+        </a>
+        <a href="/invitations.html" class="admin-card">
+          <div class="admin-card-icon">💌</div>
+          <h2>Create an Invitation</h2>
+          <p>Build a luxury digital invitation — choose a theme, personalise the details and generate a watermarked preview.</p>
+          <span class="admin-card-cta">Go to Invitation Builder →</span>
+        </a>
+      </div>
+
+      <div class="admin-section-title">Recent Orders</div>
+      <div class="empty-state">
+        <span>📋</span>
+        Order tracking coming soon — link your order inbox here to manage client requests in one place.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const PASS = 'moments2026';
+    const KEY = 'mbs_admin_auth';
+
+    function checkPassword() {
+      const input = document.getElementById('pwd');
+      const err = document.getElementById('lock-error');
+      if (input.value === PASS) {
+        sessionStorage.setItem(KEY, '1');
+        document.getElementById('lock-screen').classList.add('hidden');
+        document.getElementById('admin-panel').classList.add('visible');
+        err.textContent = '';
+      } else {
+        input.classList.add('error');
+        err.textContent = 'Incorrect password. Please try again.';
+        input.value = '';
+        setTimeout(() => input.classList.remove('error'), 500);
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem(KEY);
+      document.getElementById('lock-screen').classList.remove('hidden');
+      document.getElementById('admin-panel').classList.remove('visible');
+      document.getElementById('pwd').value = '';
+      document.getElementById('lock-error').textContent = '';
+    }
+
+    document.getElementById('pwd').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    // Auto-unlock if already authenticated this session
+    if (sessionStorage.getItem(KEY) === '1') {
+      document.getElementById('lock-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.add('visible');
+    }
+  </script>
+</body>
+</html>
