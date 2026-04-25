@@ -96,6 +96,34 @@
     #sent-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; margin-bottom: 12px; }
     #sent-state p { font-size: 14px; color: var(--mid); line-height: 1.7; }
 
+    /* RSVP */
+    .rsvp-section { margin-bottom: 32px; }
+    .rsvp-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 6px; }
+    .rsvp-section p { font-size: 13px; color: var(--mid); margin-bottom: 20px; line-height: 1.6; }
+    .rsvp-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .rsvp-btn {
+      flex: 1; min-width: 100px; max-width: 140px;
+      padding: 14px 10px; border-radius: 4px; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; border: none;
+      transition: all 0.2s; display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+    }
+    .rsvp-btn .rsvp-emoji { font-size: 22px; }
+    .rsvp-btn.yes { background: rgba(74,124,89,0.1); color: #2d6a42; border: 1px solid rgba(74,124,89,0.3); }
+    .rsvp-btn.yes:hover { background: rgba(74,124,89,0.18); border-color: rgba(74,124,89,0.6); }
+    .rsvp-btn.no { background: rgba(192,104,122,0.08); color: #8b3a4a; border: 1px solid rgba(192,104,122,0.25); }
+    .rsvp-btn.no:hover { background: rgba(192,104,122,0.15); border-color: rgba(192,104,122,0.5); }
+    .rsvp-btn.maybe { background: rgba(184,146,74,0.08); color: #7a5f20; border: 1px solid rgba(184,146,74,0.25); }
+    .rsvp-btn.maybe:hover { background: rgba(184,146,74,0.15); border-color: rgba(184,146,74,0.5); }
+    .rsvp-sent { display: none; background: rgba(74,124,89,0.08); border: 1px solid rgba(74,124,89,0.25); border-radius: 6px; padding: 20px; text-align: center; }
+    .rsvp-sent.vis { display: block; }
+    .rsvp-sent p { font-size: 14px; color: #2d6a42; }
+    .card-rsvp { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-top: 8px; display: none; }
+    .card-rsvp.vis { display: block; }
+    .card-rsvp-deadline { font-size: 8px; letter-spacing: 0.1em; opacity: 0.45; margin-top: 2px; display: none; }
+    .card-rsvp-deadline.vis { display: block; }
+
     /* ERROR STATE */
     .error-state { text-align: center; padding: 80px 20px; }
     .error-state h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 12px; color: var(--mid); }
@@ -162,6 +190,8 @@
             <div class="card-body">${esc(d.venue||'')}</div>
             <div class="card-date">${esc(d.date||'')}</div>
             <div class="card-from">${d.from ? 'With love, '+esc(d.from) : ''}</div>
+            ${d.rsvp ? `<div class="card-rsvp vis">RSVP</div>` : ''}
+            ${d.rsvp && d.rsvpDeadline ? `<div class="card-rsvp-deadline vis">Kindly reply by ${esc(d.rsvpDeadline)}</div>` : ''}
             <div class="card-stamp"><img src="logo-m.png" alt="M" style="width:100%;height:100%;object-fit:contain;filter:${stampFilter};" /></div>
           </div>
           <div class="card-watermark"><span style="color:${wmColor};">Moments by Shanaz · Preview Only</span></div>
@@ -178,6 +208,27 @@
           Download Preview (with watermark)
         </button>
       </div>
+
+      ${d.rsvp && d.rsvpEmail ? `
+      <div class="rsvp-section">
+        <h3>Will you be attending?</h3>
+        <p>${d.rsvpDeadline ? 'Please RSVP by <strong>'+esc(d.rsvpDeadline)+'</strong>.' : 'Please let the host know if you can make it.'}</p>
+        <div class="rsvp-btns">
+          <button class="rsvp-btn yes" onclick="sendRsvp('yes','${esc(d.rsvpEmail)}','${esc(d.name||'')}')">
+            <span class="rsvp-emoji">🎉</span>Yes, I'll be there!
+          </button>
+          <button class="rsvp-btn maybe" onclick="sendRsvp('maybe','${esc(d.rsvpEmail)}','${esc(d.name||'')}')">
+            <span class="rsvp-emoji">🤔</span>Maybe
+          </button>
+          <button class="rsvp-btn no" onclick="sendRsvp('no','${esc(d.rsvpEmail)}','${esc(d.name||'')}')">
+            <span class="rsvp-emoji">😔</span>Sorry, I can't make it
+          </button>
+        </div>
+        <div class="rsvp-sent" id="rsvp-sent">
+          <p>✓ Your RSVP has been sent! The host will be in touch.</p>
+        </div>
+      </div>
+      ` : ''}
 
       <div class="response-box">
         <h3>What do you think?</h3>
@@ -309,6 +360,29 @@
       btn.disabled = false;
       btn.textContent = 'Try again';
     });
+  }
+
+  // ── RSVP ─────────────────────────────────────────────────
+  function sendRsvp(response, toEmail, eventName) {
+    const labels = { yes: "Yes, I'll be there!", maybe: 'Maybe', no: "Sorry, I can't make it" };
+    const emojis = { yes: '🎉', maybe: '🤔', no: '😔' };
+    const guestName = document.querySelector('.card-name') ? document.querySelector('.card-name').textContent : 'A guest';
+    const subject = encodeURIComponent(`RSVP: ${emojis[response]} ${labels[response]} · ${eventName || 'Your Event'}`);
+    const body = encodeURIComponent(
+      `Hi,
+
+${guestName} has responded to your invitation:
+
+` +
+      `${emojis[response]} ${labels[response].toUpperCase()}
+
+` +
+      `This response was sent via Moments by Shanaz.`
+    );
+    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+    document.getElementById('rsvp-sent').classList.add('vis');
+    // Disable buttons after responding
+    document.querySelectorAll('.rsvp-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.4'; });
   }
 
   // ── Init ─────────────────────────────────────────────────
