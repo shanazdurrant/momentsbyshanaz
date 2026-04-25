@@ -183,6 +183,31 @@
     .pdf-action-btn:disabled { opacity: 0.4; cursor: wait; }
     .pdf-action-btn svg { width: 13px; height: 13px; }
 
+    /* TEXT CONTROLS */
+    .text-controls { display: flex; flex-direction: column; gap: 8px; }
+    .tc-row { display: flex; align-items: center; gap: 8px; }
+    .tc-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); width: 56px; flex-shrink: 0; }
+    .tc-btns { display: flex; gap: 4px; }
+    .tc-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 10px; cursor: pointer; color: var(--soft); font-size: 12px; font-family: 'Jost', sans-serif; transition: all 0.15s; min-width: 32px; text-align: center; }
+    .tc-btn:hover { border-color: var(--gold-light); color: var(--cream); }
+    .tc-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(184,146,74,0.1); }
+    .tc-size-val { font-size: 11px; color: var(--soft); min-width: 30px; text-align: center; }
+    .align-btn { font-size: 14px; }
+
+    /* GUEST LIST */
+    .guest-row { display: flex; gap: 5px; margin-bottom: 6px; align-items: center; }
+    .guest-row input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 8px 10px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 12px; outline: none; transition: border-color 0.2s; min-width: 0; }
+    .guest-row input:focus { border-color: var(--gold); }
+    .guest-row .rm-btn { background: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 8px; color: var(--soft); cursor: pointer; font-size: 12px; transition: all 0.15s; flex-shrink: 0; }
+    .guest-row .rm-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+    .guest-row .sent-tick { color: #4a7c59; font-size: 14px; flex-shrink: 0; }
+    .add-guest-btn { width: 100%; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.14); border-radius: 4px; padding: 9px; color: var(--soft); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; }
+    .add-guest-btn:hover { border-color: var(--gold-light); color: var(--cream); }
+    .guest-send-btn { width: 100%; background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.35); border-radius: 4px; padding: 11px; color: var(--gold); font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .guest-send-btn:hover { background: rgba(184,146,74,0.22); }
+    .guest-send-btn:disabled { opacity: 0.4; cursor: wait; }
+    .guest-count { font-size: 11px; color: var(--soft); margin-top: 6px; }
+
     @media (max-width: 1100px) {
       .builder { grid-template-columns: 280px 1fr 300px; }
     }
@@ -328,9 +353,56 @@
         </div>
       </div>
 
+      <!-- Text Controls -->
+      <div class="ctrl-section">
+        <div class="ctrl-title"><span>06</span> Text Controls</div>
+        <div class="text-controls">
+          <div class="tc-row">
+            <span class="tc-label">Align</span>
+            <div class="tc-btns">
+              <button class="tc-btn align-btn active" id="align-left" onclick="setAlign('left',this)" title="Left">&#9776;</button>
+              <button class="tc-btn align-btn" id="align-center" onclick="setAlign('center',this)" title="Centre">☰</button>
+              <button class="tc-btn align-btn" id="align-right" onclick="setAlign('right',this)" title="Right">&#9776;</button>
+            </div>
+          </div>
+          <div class="tc-row">
+            <span class="tc-label">Name</span>
+            <div class="tc-btns">
+              <button class="tc-btn" onclick="adjustSize('card-name',-1)">A−</button>
+              <button class="tc-btn" onclick="adjustSize('card-name',1)">A+</button>
+            </div>
+            <span class="tc-size-val" id="sz-name">1.7</span>
+          </div>
+          <div class="tc-row">
+            <span class="tc-label">Headline</span>
+            <div class="tc-btns">
+              <button class="tc-btn" onclick="adjustSize('card-headline',-1)">A−</button>
+              <button class="tc-btn" onclick="adjustSize('card-headline',1)">A+</button>
+            </div>
+            <span class="tc-size-val" id="sz-headline">0.85</span>
+          </div>
+          <div class="tc-row">
+            <span class="tc-label">Date</span>
+            <div class="tc-btns">
+              <button class="tc-btn" onclick="adjustSize('card-date',-1)">A−</button>
+              <button class="tc-btn" onclick="adjustSize('card-date',1)">A+</button>
+            </div>
+            <span class="tc-size-val" id="sz-date">0.88</span>
+          </div>
+          <div class="tc-row">
+            <span class="tc-label">Body</span>
+            <div class="tc-btns">
+              <button class="tc-btn" onclick="adjustSize('card-venue',-1)">A−</button>
+              <button class="tc-btn" onclick="adjustSize('card-venue',1)">A+</button>
+            </div>
+            <span class="tc-size-val" id="sz-venue">10</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Content -->
       <div class="ctrl-section">
-        <div class="ctrl-title"><span>06</span> Card Content</div>
+        <div class="ctrl-title"><span>07</span> Card Content</div>
         <div class="ctrl-field"><label>Name(s)</label><input type="text" id="c-name" placeholder="e.g. Amelia" oninput="updateCard()" /></div>
         <div class="ctrl-field"><label>Headline</label><input type="text" id="c-headline" placeholder="e.g. Turns 6!" oninput="updateCard()" /></div>
         <div class="ctrl-field"><label>Date & Time</label><input type="text" id="c-date" placeholder="Saturday, 14th June · 3pm" oninput="updateCard()" /></div>
@@ -406,6 +478,34 @@
         <p class="gen-note">Use the final PDF to send to your customer for sharing. Share the watermarked version for approval only.</p>
       </div>
 
+      <!-- Guest List -->
+      <div>
+        <div class="ap-section-title">Guest List & Send</div>
+
+        <!-- Paste from order -->
+        <div style="font-size:12px;color:var(--soft);margin-bottom:10px;line-height:1.6;">
+          Guest list submitted with this order. Review, edit if needed, then send each guest their invitation — a link <em>and</em> a PDF.
+        </div>
+
+        <div id="admin-guest-list" style="margin-bottom:8px;"></div>
+
+        <button class="add-guest-btn" onclick="adminAddGuest()" style="margin-bottom:10px;">+ Add guest manually</button>
+
+        <!-- Action buttons -->
+        <button class="guest-send-btn" id="send-all-btn" onclick="sendAllGuests()" style="margin-bottom:6px;">
+          ✉ Send to All Guests
+        </button>
+        <button class="pdf-action-btn wm" style="margin-bottom:6px;" onclick="downloadAllGuestPDFs()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download All Guest PDFs
+        </button>
+
+        <p class="gen-note" style="margin-top:6px;">
+          "Send to All" opens a pre-filled email for each guest (staggered). "Download All PDFs" saves a named PDF per guest — attach to the emails manually. Both work together for a complete send.
+        </p>
+        <p class="guest-count" id="admin-guest-count"></p>
+      </div>
+
       <!-- Internal notes -->
       <div>
         <div class="ap-section-title">Internal Notes</div>
@@ -453,14 +553,24 @@
   // ── Bg apply ──────────────────────────────────────────────
   function applyBg() {
     const ci = document.getElementById('card-inner');
+    // Clear all first to avoid conflicts
+    ci.style.backgroundImage = 'none';
+    ci.style.backgroundColor = '';
+    ci.style.backgroundSize = '';
+    ci.style.backgroundPosition = '';
+    ci.style.backgroundBlendMode = '';
+
     if (S.texture !== 'none') {
       ci.style.backgroundImage = `url('${S.texture}')`;
-      ci.style.backgroundSize = 'cover'; ci.style.backgroundPosition = 'center';
-      ci.style.backgroundBlendMode = 'multiply'; ci.style.backgroundColor = S.bg;
+      ci.style.backgroundSize = 'cover';
+      ci.style.backgroundPosition = 'center';
+      ci.style.backgroundBlendMode = 'multiply';
+      ci.style.backgroundColor = S.bg;
     } else if (S.bgMode === 'gradient') {
-      ci.style.backgroundImage = S.bg; ci.style.backgroundColor = ''; ci.style.backgroundSize = ''; ci.style.backgroundBlendMode = '';
+      // Use background shorthand so gradient renders correctly
+      ci.style.background = S.bg;
     } else {
-      ci.style.backgroundImage = 'none'; ci.style.backgroundColor = S.bg; ci.style.backgroundSize = ''; ci.style.backgroundBlendMode = '';
+      ci.style.background = S.bg;
     }
     const tc = S.textDark ? '#2c2825' : '#f0ebe2';
     ci.style.color = tc;
@@ -614,6 +724,206 @@
       btn.disabled = false;
       btn.innerHTML = origHTML;
     });
+  }
+
+  // ── Text size & alignment ─────────────────────────────────
+  const sizes = {
+    'card-name': 1.7,
+    'card-headline': 0.85,
+    'card-date': 0.88,
+    'card-venue': 10,
+  };
+  const sizeUnits = {
+    'card-name': 'rem',
+    'card-headline': 'rem',
+    'card-date': 'rem',
+    'card-venue': 'px',
+  };
+  const sizeDisplayIds = {
+    'card-name': 'sz-name',
+    'card-headline': 'sz-headline',
+    'card-date': 'sz-date',
+    'card-venue': 'sz-venue',
+  };
+
+  function adjustSize(id, dir) {
+    const unit = sizeUnits[id];
+    const step = unit === 'px' ? 1 : 0.05;
+    const min  = unit === 'px' ? 8  : 0.5;
+    const max  = unit === 'px' ? 28 : 4;
+    sizes[id] = Math.min(max, Math.max(min, +(sizes[id] + dir * step).toFixed(2)));
+    document.getElementById(id).style.fontSize = sizes[id] + unit;
+    const dispId = sizeDisplayIds[id];
+    if (dispId) document.getElementById(dispId).textContent = sizes[id];
+    // store in S for link generation
+    S.sizes = { ...sizes };
+  }
+
+  function setAlign(dir, btn) {
+    document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    S.align = dir;
+    const ci = document.getElementById('card-inner');
+    ci.style.textAlign = dir;
+    ci.style.alignItems = dir === 'left' ? 'flex-start' : dir === 'right' ? 'flex-end' : 'center';
+    // keep dividers centred visually
+    document.querySelectorAll('.card-divider').forEach(d => d.style.margin = '9px auto');
+  }
+
+  // ── Admin guest list ─────────────────────────────────────
+  let adminGuests = [];
+  let adminGuestIdx = 0;
+
+  function adminAddGuest(name, email) {
+    const idx = adminGuestIdx++;
+    adminGuests.push({ id: idx, name: name || '', email: email || '', sent: false });
+    const list = document.getElementById('admin-guest-list');
+    const row = document.createElement('div');
+    row.className = 'guest-row';
+    row.id = `agrow-${idx}`;
+    row.innerHTML = `
+      <input type="text" placeholder="Name" value="${(name||'').replace(/"/g,'&quot;')}"
+             oninput="updateAdminGuest(${idx},'name',this.value)" />
+      <input type="email" placeholder="Email" style="flex:1.3;"
+             value="${(email||'').replace(/"/g,'&quot;')}"
+             oninput="updateAdminGuest(${idx},'email',this.value)" />
+      <button class="rm-btn" onclick="removeAdminGuest(${idx})">✕</button>
+    `;
+    list.appendChild(row);
+    updateAdminGuestCount();
+  }
+
+  function updateAdminGuest(idx, field, val) {
+    const g = adminGuests.find(g => g.id === idx);
+    if (g) g[field] = val;
+    updateAdminGuestCount();
+  }
+
+  function removeAdminGuest(idx) {
+    document.getElementById(`agrow-${idx}`)?.remove();
+    adminGuests = adminGuests.filter(g => g.id !== idx);
+    updateAdminGuestCount();
+  }
+
+  function updateAdminGuestCount() {
+    const valid = adminGuests.filter(g => g.email.trim()).length;
+    document.getElementById('admin-guest-count').textContent =
+      valid > 0 ? `${valid} guest${valid !== 1 ? 's' : ''} ready to send` : '';
+  }
+
+  function buildInviteData() {
+    const v = id => (document.getElementById(id)||{}).value || '';
+    return {
+      eyebrow: v('c-eyebrow-custom') || v('c-eyebrow'),
+      name: v('c-name'), headline: v('c-headline'),
+      date: v('c-date'), venue: v('c-venue'),
+      msg: v('c-msg'), from: v('c-from'),
+      bgMode: S.bgMode, bg: S.bg, textDark: S.textDark,
+      texture: S.texture, font: S.font, frame: S.frame,
+    };
+  }
+
+  function guestInviteUrl(baseData, guestName) {
+    const d = { ...baseData, guestName };
+    return `${location.origin}/invitation-preview.html?d=${btoa(encodeURIComponent(JSON.stringify(d)))}`;
+  }
+
+  function sendAllGuests() {
+    const valid = adminGuests.filter(g => g.email.trim());
+    if (valid.length === 0) { alert('Add at least one guest with an email address.'); return; }
+
+    const btn = document.getElementById('send-all-btn');
+    btn.disabled = true;
+    btn.textContent = 'Opening emails…';
+
+    const baseData = buildInviteData();
+    const senderName = document.getElementById('c-cname').value || 'Moments by Shanaz';
+
+    valid.forEach((g, i) => {
+      const url = guestInviteUrl(baseData, g.name);
+      const subject = encodeURIComponent(`You're Invited ✦`);
+      const body = encodeURIComponent(
+        `Hi ${g.name || 'there'},
+
+You have received a beautiful digital invitation.
+
+` +
+        `View your invitation here:
+${url}
+
+` +
+        `Your PDF invitation is also attached to this email.
+
+` +
+        `With love,
+${senderName}`
+      );
+      setTimeout(() => {
+        window.open(`mailto:${encodeURIComponent(g.email)}?subject=${subject}&body=${body}`, '_blank');
+        // Mark as sent visually
+        const row = document.getElementById(`agrow-${g.id}`);
+        if (row && !row.querySelector('.sent-tick')) {
+          const tick = document.createElement('span');
+          tick.className = 'sent-tick'; tick.textContent = '✓';
+          row.appendChild(tick);
+        }
+      }, i * 700);
+    });
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = '✉ Send to All Guests';
+    }, valid.length * 700 + 500);
+  }
+
+  function downloadAllGuestPDFs() {
+    const valid = adminGuests.filter(g => g.email.trim());
+    if (valid.length === 0) { alert('Add at least one guest first.'); return; }
+
+    const card = document.getElementById('inv-card');
+    const wm = document.getElementById('card-watermark');
+    const prevWm = wm ? wm.style.display : 'flex';
+    if (wm) wm.style.display = 'none'; // no watermark on final PDFs
+
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    const origHTML = btn.innerHTML;
+    btn.textContent = `Generating ${valid.length} PDF${valid.length !== 1 ? 's' : ''}…`;
+
+    const cardRect = card.getBoundingClientRect();
+
+    html2canvas(card, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: null, logging: false })
+      .then(canvas => {
+        const { jsPDF } = window.jspdf;
+        const pdfW = 148, pdfH = 210, margin = 8;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const availW = pdfW - margin * 2, availH = pdfH - margin * 2;
+        const ratio = cardRect.width / cardRect.height;
+        let drawW = availW, drawH = availW / ratio;
+        if (drawH > availH) { drawH = availH; drawW = availH * ratio; }
+        const x = (pdfW - drawW) / 2, y = (pdfH - drawH) / 2;
+
+        // Download one PDF per guest, staggered
+        valid.forEach((g, i) => {
+          setTimeout(() => {
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, pdfH] });
+            pdf.addImage(imgData, 'JPEG', x, y, drawW, drawH);
+            const safeName = (g.name || `guest-${i+1}`).replace(/\s+/g, '-').toLowerCase();
+            pdf.save(`invitation-${safeName}.pdf`);
+          }, i * 400);
+        });
+
+        setTimeout(() => {
+          if (wm) wm.style.display = prevWm;
+          btn.disabled = false;
+          btn.innerHTML = origHTML;
+        }, valid.length * 400 + 300);
+      })
+      .catch(() => {
+        if (wm) wm.style.display = prevWm;
+        btn.disabled = false;
+        btn.innerHTML = origHTML;
+      });
   }
 
   applyBg();
