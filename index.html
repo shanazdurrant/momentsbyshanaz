@@ -41,9 +41,15 @@
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 40px;
-      height: 72px;
+      height: 88px;
+      transition: height 0.35s ease;
     }
-    nav .logo img { height: 38px; }
+    nav.scrolled { height: 64px; }
+    nav .logo img {
+      height: 200px;
+      transition: height 0.35s ease;
+    }
+    nav.scrolled .logo img { height: 38px; }
     nav .nav-links { display: flex; gap: 36px; align-items: center; }
     nav .nav-links a {
       font-family: 'Jost', sans-serif;
@@ -362,5 +368,11 @@
     </a>
   </footer>
 
+  <script>
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  </script>
 </body>
 </html>
