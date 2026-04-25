@@ -208,6 +208,21 @@
     .guest-send-btn:disabled { opacity: 0.4; cursor: wait; }
     .guest-count { font-size: 11px; color: var(--soft); margin-top: 6px; }
 
+    /* RSVP */
+    .rsvp-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; margin-bottom: 10px; transition: border-color 0.2s; }
+    .rsvp-row:hover { border-color: var(--gold-light); }
+    .rsvp-row.on { border-color: rgba(184,146,74,0.4); }
+    .rsvp-switch { width: 36px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; position: relative; transition: background 0.3s; flex-shrink: 0; }
+    .rsvp-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s; }
+    .rsvp-row.on .rsvp-switch { background: var(--gold); }
+    .rsvp-row.on .rsvp-switch::after { transform: translateX(16px); }
+    .rsvp-extra { display: none; }
+    .rsvp-extra.vis { display: block; }
+    .card-rsvp { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-top: 8px; display: none; }
+    .card-rsvp.vis { display: block; }
+    .card-rsvp-deadline { font-size: 8px; letter-spacing: 0.1em; opacity: 0.45; margin-top: 2px; display: none; }
+    .card-rsvp-deadline.vis { display: block; }
+
     @media (max-width: 1100px) {
       .builder { grid-template-columns: 280px 1fr 300px; }
     }
@@ -411,6 +426,26 @@
         <div class="ctrl-field"><label>Signed from</label><input type="text" id="c-from" placeholder="With love, The Smiths" oninput="updateCard()" /></div>
       </div>
 
+      <!-- RSVP -->
+      <div class="ctrl-section">
+        <div class="ctrl-title"><span>08</span> RSVP</div>
+        <div class="rsvp-row" id="admin-rsvp-toggle" onclick="toggleAdminRsvp()">
+          <span style="font-size:12px;color:var(--soft);">📩 Include RSVP</span>
+          <div class="rsvp-switch"></div>
+        </div>
+        <div class="rsvp-extra" id="admin-rsvp-extra">
+          <div class="ctrl-field">
+            <label>RSVP deadline</label>
+            <input type="text" id="c-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateRsvpCard()" />
+          </div>
+          <div class="ctrl-field">
+            <label>Customer RSVP email</label>
+            <input type="email" id="c-rsvp-email" placeholder="Responses go here" />
+            <p style="font-size:10px;color:var(--soft);margin-top:4px;line-height:1.5;">Guest Yes/No/Maybe buttons email this address directly</p>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /controls -->
 
     <!-- ══ CENTRE: CANVAS ══ -->
@@ -428,6 +463,8 @@
             <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
             <div class="card-date" id="card-date">Date & Time</div>
             <div class="card-from" id="card-from"></div>
+            <div class="card-rsvp" id="card-rsvp">RSVP</div>
+            <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
             <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img" /></div>
           </div>
           <div class="card-watermark" id="card-watermark"><span style="color:rgba(0,0,0,0.1);">Moments by Shanaz · Preview Only</span></div>
@@ -653,6 +690,9 @@
       texture: S.texture,
       font:    S.font,
       frame:   S.frame,
+      rsvp:    adminRsvpEnabled,
+      rsvpDeadline: (document.getElementById('c-rsvp-deadline')||{}).value || '',
+      rsvpEmail:    (document.getElementById('c-rsvp-email')||{}).value || '',
     };
     const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
     const url = `${location.origin}/invitation-preview.html?d=${encoded}`;
@@ -811,6 +851,24 @@
       valid > 0 ? `${valid} guest${valid !== 1 ? 's' : ''} ready to send` : '';
   }
 
+  let adminRsvpEnabled = false;
+
+  function toggleAdminRsvp() {
+    adminRsvpEnabled = !adminRsvpEnabled;
+    document.getElementById('admin-rsvp-toggle').classList.toggle('on', adminRsvpEnabled);
+    document.getElementById('admin-rsvp-extra').classList.toggle('vis', adminRsvpEnabled);
+    document.getElementById('card-rsvp').classList.toggle('vis', adminRsvpEnabled);
+    updateRsvpCard();
+  }
+
+  function updateRsvpCard() {
+    if (!adminRsvpEnabled) return;
+    const deadline = (document.getElementById('c-rsvp-deadline')||{}).value || '';
+    const dl = document.getElementById('card-rsvp-deadline');
+    dl.textContent = deadline ? 'Kindly reply by ' + deadline : '';
+    dl.classList.toggle('vis', !!deadline);
+  }
+
   function buildInviteData() {
     const v = id => (document.getElementById(id)||{}).value || '';
     return {
@@ -820,6 +878,9 @@
       msg: v('c-msg'), from: v('c-from'),
       bgMode: S.bgMode, bg: S.bg, textDark: S.textDark,
       texture: S.texture, font: S.font, frame: S.frame,
+      rsvp: adminRsvpEnabled,
+      rsvpDeadline: v('c-rsvp-deadline'),
+      rsvpEmail: v('c-rsvp-email'),
     };
   }
 
