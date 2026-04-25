@@ -8,6 +8,8 @@
   <link rel="icon" type="image/png" href="logo-m.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -165,6 +167,21 @@
     /* notes */
     .notes-area { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 10px 12px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; outline: none; resize: none; min-height: 100px; }
     .notes-area:focus { border-color: var(--gold); }
+
+    /* PDF */
+    .pdf-action-btn {
+      width: 100%; border: none; border-radius: 4px; padding: 12px;
+      font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s, opacity 0.2s; margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .pdf-action-btn.clean { background: var(--gold); color: var(--dark); }
+    .pdf-action-btn.clean:hover { opacity: 0.85; }
+    .pdf-action-btn.wm { background: rgba(255,255,255,0.06); color: var(--soft); border: 1px solid rgba(255,255,255,0.1); }
+    .pdf-action-btn.wm:hover { border-color: var(--gold-light); color: var(--cream); }
+    .pdf-action-btn:disabled { opacity: 0.4; cursor: wait; }
+    .pdf-action-btn svg { width: 13px; height: 13px; }
 
     @media (max-width: 1100px) {
       .builder { grid-template-columns: 280px 1fr 300px; }
@@ -375,6 +392,20 @@
         </div>
       </div>
 
+      <!-- PDF Download -->
+      <div>
+        <div class="ap-section-title">Download as PDF</div>
+        <button class="pdf-action-btn clean" onclick="adminDownloadPDF(false)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Final PDF (no watermark)
+        </button>
+        <button class="pdf-action-btn wm" onclick="adminDownloadPDF(true)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Draft (with watermark)
+        </button>
+        <p class="gen-note">Use the final PDF to send to your customer for sharing. Share the watermarked version for approval only.</p>
+      </div>
+
       <!-- Internal notes -->
       <div>
         <div class="ap-section-title">Internal Notes</div>
@@ -525,6 +556,63 @@
       const btn = document.getElementById('copy-btn');
       btn.textContent = '✓ Copied!'; btn.classList.add('copied');
       setTimeout(() => { btn.textContent='Copy Link'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // ── Admin PDF Download ────────────────────────────────────
+  function adminDownloadPDF(withWatermark) {
+    const card = document.getElementById('inv-card');
+    if (!card) return;
+
+    // Handle watermark visibility
+    const wm = document.getElementById('card-watermark');
+    const prevDisplay = wm ? wm.style.display : 'flex';
+    if (wm) wm.style.display = withWatermark ? 'flex' : 'none';
+
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    const origHTML = btn.innerHTML;
+    btn.textContent = 'Generating…';
+
+    const cardRect = card.getBoundingClientRect();
+
+    html2canvas(card, {
+      scale: 3,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      logging: false,
+    }).then(canvas => {
+      const { jsPDF } = window.jspdf;
+      const pdfW = 148, pdfH = 210, margin = 8;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, pdfH] });
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      const availW = pdfW - margin * 2;
+      const availH = pdfH - margin * 2;
+      const ratio = cardRect.width / cardRect.height;
+      let drawW = availW, drawH = availW / ratio;
+      if (drawH > availH) { drawH = availH; drawW = availH * ratio; }
+
+      pdf.addImage(imgData, 'JPEG', (pdfW - drawW) / 2, (pdfH - drawH) / 2, drawW, drawH);
+
+      const nameEl = document.getElementById('card-name');
+      const cname = document.getElementById('c-cname').value.trim();
+      const filename = cname
+        ? `invitation-${cname.replace(/\s+/g,'-').toLowerCase()}.pdf`
+        : (nameEl && nameEl.textContent.trim()
+            ? `invitation-${nameEl.textContent.trim().replace(/\s+/g,'-').toLowerCase()}.pdf`
+            : 'invitation-moments-by-shanaz.pdf');
+
+      pdf.save(filename);
+
+      if (wm) wm.style.display = prevDisplay;
+      btn.disabled = false;
+      btn.innerHTML = origHTML;
+    }).catch(() => {
+      if (wm) wm.style.display = prevDisplay;
+      btn.disabled = false;
+      btn.innerHTML = origHTML;
     });
   }
 
