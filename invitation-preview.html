@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --cream: #faf8f4; --gold: #b8924a; --charcoal: #2c2825; --mid: #6b6460; --soft: #9c958f; --border: #e8e2d9; }
@@ -71,6 +73,22 @@
 
     .watermark-note { font-size: 11px; color: var(--soft); line-height: 1.7; }
     .watermark-note strong { color: var(--gold); }
+
+    /* PDF DOWNLOAD */
+    .pdf-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+    .pdf-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 24px; border-radius: 4px; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; border: none;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .pdf-btn.primary { background: var(--charcoal); color: var(--cream); }
+    .pdf-btn.primary:hover { background: var(--gold); }
+    .pdf-btn.secondary { background: transparent; color: var(--charcoal); border: 1px solid var(--border); }
+    .pdf-btn.secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .pdf-btn:disabled { opacity: 0.5; cursor: wait; }
+    .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* SENT STATE */
     #sent-state { display: none; background: rgba(74,124,89,0.08); border: 1px solid rgba(74,124,89,0.3); border-radius: 6px; padding: 32px; text-align: center; }
@@ -150,9 +168,16 @@
         </div>
       </div>
 
-      <p class="watermark-note" style="margin-bottom:40px;">
+      <p class="watermark-note" style="margin-bottom:24px;">
         <strong>This is a watermarked preview.</strong> The watermark is removed from your final, delivered invitation.
       </p>
+
+      <div class="pdf-row">
+        <button class="pdf-btn secondary" onclick="downloadPDF(true)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Preview (with watermark)
+        </button>
+      </div>
 
       <div class="response-box">
         <h3>What do you think?</h3>
@@ -206,6 +231,84 @@
     );
     window.location.href = `mailto:hello@momentsbyshanaz.co.uk?subject=${subject}&body=${body}`;
     document.getElementById('sent-state').classList.add('vis');
+  }
+
+  // ── PDF Download ─────────────────────────────────────────
+  function downloadPDF(withWatermark) {
+    const card = document.querySelector('.inv-card');
+    if (!card) return;
+
+    // Temporarily hide/show watermark
+    const wm = card.querySelector('.card-watermark');
+    const wasHidden = wm && wm.style.display === 'none';
+    if (wm) wm.style.display = withWatermark ? 'flex' : 'none';
+
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    btn.textContent = 'Generating…';
+
+    // Get card dimensions for proper PDF sizing
+    const cardRect = card.getBoundingClientRect();
+    const scale = 3; // high res
+
+    html2canvas(card, {
+      scale: scale,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      logging: false,
+    }).then(canvas => {
+      const { jsPDF } = window.jspdf;
+
+      // A5 portrait (148 x 210 mm) — good card size
+      const pdfW = 148;
+      const pdfH = 210;
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [pdfW, pdfH],
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      // Centre the card image on the page with equal margins
+      const margin = 8;
+      const availW = pdfW - margin * 2;
+      const availH = pdfH - margin * 2;
+      const cardRatio = cardRect.width / cardRect.height;
+      const availRatio = availW / availH;
+
+      let drawW, drawH;
+      if (cardRatio > availRatio) {
+        drawW = availW; drawH = availW / cardRatio;
+      } else {
+        drawH = availH; drawW = availH * cardRatio;
+      }
+
+      const x = (pdfW - drawW) / 2;
+      const y = (pdfH - drawH) / 2;
+
+      pdf.addImage(imgData, 'JPEG', x, y, drawW, drawH);
+
+      const name = document.querySelector('.card-name');
+      const filename = name && name.textContent.trim()
+        ? `invitation-${name.textContent.trim().replace(/\s+/g,'-').toLowerCase()}.pdf`
+        : 'invitation-moments-by-shanaz.pdf';
+
+      pdf.save(filename);
+
+      // Restore watermark state
+      if (wm) wm.style.display = wasHidden ? 'none' : (withWatermark ? 'flex' : 'none');
+
+      btn.disabled = false;
+      btn.innerHTML = withWatermark
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Preview (with watermark)'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Final PDF';
+    }).catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Try again';
+    });
   }
 
   // ── Init ─────────────────────────────────────────────────
