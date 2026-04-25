@@ -176,6 +176,21 @@
     .success-close { background: var(--charcoal); color: var(--cream); border: none; border-radius: 4px; padding: 13px 28px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
     .success-close:hover { background: var(--gold); }
 
+    /* RSVP */
+    .rsvp-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; margin-bottom: 10px; transition: border-color 0.2s; }
+    .rsvp-toggle-row:hover { border-color: var(--gold-light); }
+    .rsvp-toggle-label { font-size: 13px; display: flex; align-items: center; gap: 10px; }
+    .rsvp-switch { width: 40px; height: 22px; background: var(--border); border-radius: 11px; position: relative; transition: background 0.3s; flex-shrink: 0; }
+    .rsvp-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .rsvp-toggle-row.on .rsvp-switch { background: var(--gold); }
+    .rsvp-toggle-row.on .rsvp-switch::after { transform: translateX(18px); }
+    .rsvp-fields { display: none; }
+    .rsvp-fields.vis { display: block; }
+    .card-rsvp { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-top: 10px; display: none; }
+    .card-rsvp.vis { display: block; }
+    .card-rsvp-deadline { font-size: 9px; letter-spacing: 0.12em; opacity: 0.5; margin-top: 2px; display: none; }
+    .card-rsvp-deadline.vis { display: block; }
+
     /* GUEST LIST */
     .guest-intro { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; }
     .guest-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
@@ -385,6 +400,30 @@
       <div class="field"><label>Signed from (optional)</label><input type="text" id="f-from" placeholder="e.g. With love, The Smiths" oninput="updateCard()" /></div>
     </div>
 
+    <!-- 06b RSVP -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">✉</span> RSVP</div>
+      <div class="rsvp-toggle-row" id="rsvp-toggle" onclick="toggleRsvp()">
+        <span class="rsvp-toggle-label">
+          <span style="font-size:18px;">📩</span>
+          Include RSVP on the invitation
+        </span>
+        <div class="rsvp-switch"></div>
+      </div>
+      <div class="rsvp-fields" id="rsvp-fields">
+        <div class="field">
+          <label>RSVP by (deadline)</label>
+          <input type="text" id="f-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateCard()" />
+          <p class="hint">This date will appear on your invitation card</p>
+        </div>
+        <div class="field">
+          <label>Your email (for RSVP responses)</label>
+          <input type="email" id="f-rsvp-email" placeholder="Guests will reply directly to this email" />
+          <p class="hint">When guests click Yes / No / Maybe on their invitation, their response emails you directly</p>
+        </div>
+      </div>
+    </div>
+
     <!-- 07 PHOTO -->
     <div class="form-section">
       <div class="fs-title"><span class="fs-num">07</span> Photo (optional)</div>
@@ -436,6 +475,8 @@
         <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
         <div class="card-date" id="card-date">Date & Time</div>
         <div class="card-from" id="card-from"></div>
+        <div class="card-rsvp" id="card-rsvp">RSVP</div>
+        <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
         <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img" /></div>
       </div>
       <div class="card-watermark" id="card-watermark"><span>Moments by Shanaz · Preview Only</span></div>
@@ -554,6 +595,16 @@
     document.getElementById('custom-box').classList.toggle('vis');
   }
 
+  let rsvpEnabled = false;
+
+  function toggleRsvp() {
+    rsvpEnabled = !rsvpEnabled;
+    document.getElementById('rsvp-toggle').classList.toggle('on', rsvpEnabled);
+    document.getElementById('rsvp-fields').classList.toggle('vis', rsvpEnabled);
+    document.getElementById('card-rsvp').classList.toggle('vis', rsvpEnabled);
+    updateCard();
+  }
+
   function updateCard() {
     const v = id => document.getElementById(id).value;
     document.getElementById('card-name').textContent    = v('f-name')    || 'Your Name';
@@ -561,6 +612,14 @@
     document.getElementById('card-date').textContent    = v('f-date')    || 'Date & Time';
     document.getElementById('card-venue').textContent   = v('f-venue')   || 'Join us for a celebration to remember';
     document.getElementById('card-from').textContent    = v('f-from') ? 'With love, ' + v('f-from') : '';
+
+    // RSVP on card
+    if (rsvpEnabled) {
+      const deadline = v('f-rsvp-deadline');
+      const dl = document.getElementById('card-rsvp-deadline');
+      dl.textContent = deadline ? 'Kindly reply by ' + deadline : '';
+      dl.classList.toggle('vis', !!deadline);
+    }
   }
 
   function handlePhoto(e) {
