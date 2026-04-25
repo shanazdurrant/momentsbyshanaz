@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Invitations · Moments by Shanaz</title>
+  <link rel="icon" type="image/png" href="logo-m.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f4;
+      --warm-white: #fefcf8;
+      --gold: #b8924a;
+      --gold-light: #d4a96a;
+      --charcoal: #2c2825;
+      --mid: #6b6460;
+      --soft: #9c958f;
+      --border: #e8e2d9;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+    }
+    nav img { height: 34px; }
+    nav .nav-links { display: flex; gap: 32px; align-items: center; }
+    nav .nav-links a {
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.2s;
+    }
+    nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+
+    /* HERO */
+    .page-hero {
+      text-align: center;
+      padding: 80px 40px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero .eyebrow {
+      font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero p { font-size: 15px; color: var(--mid); max-width: 500px; margin: 0 auto; }
+
+    /* MAIN LAYOUT */
+    .builder-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 68px);
+    }
+
+    /* LEFT PANEL — FORM */
+    .form-panel {
+      border-right: 1px solid var(--border);
+      padding: 48px 40px;
+      overflow-y: auto;
+    }
+
+    .form-section { margin-bottom: 40px; }
+    .form-section-title {
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .form-section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .form-section-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(184,146,74,0.3);
+      margin-right: 4px;
+    }
+
+    /* TYPE GRID */
+    .type-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .type-option {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .type-option:hover { border-color: var(--gold-light); }
+    .type-option.selected {
+      border-color: var(--gold);
+      background: rgba(184,146,74,0.05);
+    }
+    .type-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .type-icon { font-size: 20px; margin-bottom: 6px; }
+    .type-name { font-size: 12px; letter-spacing: 0.06em; color: var(--charcoal); }
+
+    /* THEME GRID */
+    .theme-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    }
+    .theme-chip {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .theme-chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .theme-chip:hover { border-color: var(--gold-light); }
+    .theme-chip.selected { border-color: var(--gold); background: rgba(184,146,74,0.06); color: var(--gold); }
+    .theme-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 6px; }
+
+    /* INPUTS */
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-size: 11px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 8px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--gold);
+    }
+    .field textarea { min-height: 90px; }
+    .field .hint { font-size: 11px; color: var(--soft); margin-top: 6px; }
+
+    /* IMAGE UPLOAD */
+    .upload-area {
+      border: 1.5px dashed var(--border);
+      border-radius: 4px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-area:hover { border-color: var(--gold-light); background: rgba(184,146,74,0.02); }
+    .upload-area input { display: none; }
+    .upload-icon { font-size: 24px; margin-bottom: 10px; }
+    .upload-area p { font-size: 13px; color: var(--mid); }
+    .upload-area .upload-hint { font-size: 11px; color: var(--soft); margin-top: 4px; }
+    .upload-preview {
+      margin-top: 12px;
+      border-radius: 4px;
+      overflow: hidden;
+      display: none;
+    }
+    .upload-preview img { width: 100%; max-height: 120px; object-fit: cover; }
+
+    /* SUBMIT */
+    .submit-section { padding-top: 8px; }
+    .submit-btn {
+      width: 100%;
+      background: var(--charcoal);
+      color: var(--cream);
+      border: none;
+      border-radius: 4px;
+      padding: 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 12px;
+    }
+    .submit-btn:hover { background: var(--gold); }
+    .submit-note { font-size: 11px; color: var(--soft); text-align: center; line-height: 1.6; }
+
+    /* RIGHT PANEL — PREVIEW */
+    .preview-panel {
+      padding: 48px 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--warm-white);
+      min-height: 100%;
+    }
+    .preview-panel-label {
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--soft); margin-bottom: 36px; align-self: flex-start;
+    }
+
+    /* INVITATION CARD */
+    .invitation-card {
+      width: 100%;
+      max-width: 440px;
+      aspect-ratio: 5/7;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(44,40,37,0.2), 0 4px 20px rgba(44,40,37,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    /* CARD THEMES */
+    .card-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 44px 40px;
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    /* Theme: Ivory Classic (default) */
+    .theme-ivory .card-inner {
+      background: #fefcf8;
+    }
+    .theme-ivory .card-border {
+      position: absolute; inset: 16px;
+      border: 1px solid rgba(184,146,74,0.3);
+      pointer-events: none;
+    }
+
+    /* Theme: Midnight Luxury */
+    .theme-midnight .card-inner {
+      background: linear-gradient(155deg, #1a1714 0%, #252019 100%);
+      color: #f0ebe2;
+    }
+
+    /* Theme: Rose Blush */
+    .theme-blush .card-inner {
+      background: linear-gradient(135deg, #fff5f5 0%, #fde8e8 100%);
+    }
+
+    /* Theme: Sage Garden */
+    .theme-sage .card-inner {
+      background: linear-gradient(135deg, #f4f8f4 0%, #e8f2e8 100%);
+    }
+
+    /* Theme: Bluey */
+    .theme-bluey .card-inner {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+    }
+
+    /* Theme: Spiderman */
+    .theme-spider .card-inner {
+      background: linear-gradient(135deg, #1e1e2e 0%, #1a0a0a 100%);
+      color: #fff;
+    }
+
+    /* CARD CONTENT */
+    .card-eyebrow {
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+    .theme-midnight .card-eyebrow { color: #d4a96a; }
+    .theme-bluey .card-eyebrow { color: #1d4ed8; }
+    .theme-spider .card-eyebrow { color: #ef4444; }
+
+    .card-divider {
+      width: 40px; height: 1px; background: currentColor; opacity: 0.25;
+      margin: 14px auto;
+    }
+
+    .card-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      color: var(--charcoal);
+      transition: color 0.3s;
+    }
+    .theme-midnight .card-name { color: #f0ebe2; }
+    .theme-spider .card-name { color: #fff; }
+
+    .card-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--mid);
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+    .theme-midnight .card-headline { color: #9c958f; }
+    .theme-spider .card-headline { color: #fca5a5; }
+    .theme-bluey .card-headline { color: #1e40af; }
+
+    .card-body {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      line-height: 1.9;
+      color: var(--mid);
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+    .theme-midnight .card-body { color: #6b6460; }
+    .theme-spider .card-body { color: #d1d5db; }
+    .theme-bluey .card-body { color: #1e3a8a; }
+
+    .card-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .theme-midnight .card-date { color: #d4a96a; }
+    .theme-spider .card-date { color: #f87171; }
+    .theme-bluey .card-date { color: #1d4ed8; }
+
+    .card-from {
+      font-size: 11px; letter-spacing: 0.12em;
+      color: var(--soft); margin-top: 16px;
+    }
+    .theme-midnight .card-from { color: #6b6460; }
+
+    /* CLIENT PHOTO */
+    .card-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(184,146,74,0.3);
+      margin-bottom: 16px;
+      display: none;
+    }
+    .card-photo.visible { display: block; }
+
+    /* M STAMP */
+    .card-stamp {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
+      opacity: 0.18;
+    }
+    .card-stamp img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* WATERMARK */
+    .card-watermark {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      transform: rotate(-30deg);
+      z-index: 10;
+    }
+    .card-watermark span {
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(184,146,74,0.22);
+      white-space: nowrap;
+    }
+
+    /* PREVIEW NOTES */
+    .preview-note {
+      margin-top: 28px;
+      font-size: 11px;
+      color: var(--soft);
+      text-align: center;
+      letter-spacing: 0.06em;
+      max-width: 380px;
+      line-height: 1.7;
+    }
+    .preview-note strong { color: var(--gold); }
+
+    /* KIDS THEME NOTE */
+    .kids-theme-note {
+      display: none;
+      margin-top: 16px;
+      background: rgba(184,146,74,0.06);
+      border: 1px solid rgba(184,146,74,0.2);
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .kids-theme-note.visible { display: block; }
+
+    /* SUCCESS */
+    #success-modal {
+      position: fixed; inset: 0; background: rgba(44,40,37,0.7);
+      display: none; align-items: center; justify-content: center;
+      z-index: 500; backdrop-filter: blur(6px);
+    }
+    #success-modal.visible { display: flex; }
+    .success-box {
+      background: var(--cream);
+      border-radius: 6px;
+      padding: 52px 44px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(44,40,37,0.2);
+    }
+    .success-icon { font-size: 40px; margin-bottom: 20px; }
+    .success-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; margin-bottom: 12px;
+    }
+    .success-box p { font-size: 14px; color: var(--mid); margin-bottom: 28px; }
+    .success-btn {
+      background: var(--charcoal); color: var(--cream);
+      border: none; border-radius: 4px; padding: 14px 32px;
+      font-family: 'Jost', sans-serif; font-size: 12px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .success-btn:hover { background: var(--gold); }
+
+    @media (max-width: 900px) {
+      .builder-layout { grid-template-columns: 1fr; }
+      .form-panel { border-right: none; border-bottom: 1px solid var(--border); }
+      .preview-panel { min-height: auto; padding: 48px 24px; }
+      nav { padding: 0 20px; }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></a>
+    <div class="nav-links">
+      <a href="/order.html">Scratchcards</a>
+      <a href="/invitations.html" class="active">Invitations</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <p class="eyebrow">Digital Invitations</p>
+    <h1>Beautifully crafted, <em>personally yours</em></h1>
+    <p>Choose your occasion, personalise every detail, and receive a luxury digital invitation within hours — crafted by hand, just for you.</p>
+  </div>
+
+  <div class="builder-layout">
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+
+      <!-- STEP 1: OCCASION -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="form-section-num">01</span> Occasion
+        </div>
+        <div class="type-grid" id="occasion-grid">
+          <label class="type-option selected" onclick="selectOccasion(this, 'Birthday')">
+            <input type="radio" name="occasion" value="Birthday" checked />
+            <div class="type-icon">🎉</div>
+            <div class="type-name">Birthday</div>
+          </label>
+          <label class="type-option" onclick="selectOccasion(this, 'Wedding')">
+            <input type="radio" name="occasion" value="Wedding" />
+            <div class="type-icon">💒</div>
+            <div class="type-name">Wedding</div>
+          </label>
+          <label class="type-option" onclick="selectOccasion(this, 'Engagement')">
+            <input type="radio" name="occasion" value="Engagement" />
+            <div class="type-icon">💍</div>
+            <div class="type-name">Engagement</div>
+          </label>
+          <label class="type-option" onclick="selectOccasion(this, 'Bridesmaid')">
+            <input type="radio" name="occasion" value="Bridesmaid" />
+            <div class="type-icon">💐</div>
+            <div class="type-name">Bridesmaid</div>
+          </label>
+          <label class="type-option" onclick="selectOccasion(this, 'Baby Shower')">
+            <input type="radio" name="occasion" value="Baby Shower" />
+            <div class="type-icon">👶</div>
+            <div class="type-name">Baby Shower</div>
+          </label>
+          <label class="type-option" onclick="selectOccasion(this, 'Save the Date')">
+            <input type="radio" name="occasion" value="Save the Date" />
+            <div class="type-icon">📅</div>
+            <div class="type-name">Save the Date</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- STEP 2: THEME -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="form-section-num">02</span> Theme & Style
+        </div>
+        <div class="theme-grid" id="theme-grid">
+          <label class="theme-chip selected" onclick="selectTheme(this, 'theme-ivory')">
+            <input type="radio" name="theme" value="theme-ivory" checked />
+            <div class="theme-dot" style="background:#f0e8d8; border:1px solid #d4a96a;"></div>
+            Ivory Classic
+          </label>
+          <label class="theme-chip" onclick="selectTheme(this, 'theme-midnight')">
+            <input type="radio" name="theme" value="theme-midnight" />
+            <div class="theme-dot" style="background:#1a1714;"></div>
+            Midnight Luxury
+          </label>
+          <label class="theme-chip" onclick="selectTheme(this, 'theme-blush')">
+            <input type="radio" name="theme" value="theme-blush" />
+            <div class="theme-dot" style="background:#fde8e8;"></div>
+            Rose Blush
+          </label>
+          <label class="theme-chip" onclick="selectTheme(this, 'theme-sage')">
+            <input type="radio" name="theme" value="theme-sage" />
+            <div class="theme-dot" style="background:#e8f2e8;"></div>
+            Sage Garden
+          </label>
+          <label class="theme-chip" onclick="selectTheme(this, 'theme-bluey')">
+            <input type="radio" name="theme" value="theme-bluey" />
+            <div class="theme-dot" style="background:#bfdbfe;"></div>
+            Bluey (Kids)
+          </label>
+          <label class="theme-chip" onclick="selectTheme(this, 'theme-spider')">
+            <input type="radio" name="theme" value="theme-spider" />
+            <div class="theme-dot" style="background:#1e1e2e; border:1px solid #ef4444;"></div>
+            Spiderman (Kids)
+          </label>
+        </div>
+        <div class="kids-theme-note" id="kids-note">
+          🎨 For character-themed kids' invitations (Bluey, Spiderman, etc.), I will create a fully illustrated, personalised design featuring the characters. Share any extra details in the message below.
+        </div>
+      </div>
+
+      <!-- STEP 3: DETAILS -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="form-section-num">03</span> Personalise
+        </div>
+        <div class="field">
+          <label>Name(s) on the invitation</label>
+          <input type="text" id="field-name" placeholder="e.g. Amelia, or Amelia & James" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Headline / Occasion line</label>
+          <input type="text" id="field-headline" placeholder="e.g. Turns 6!, or Cordially Invites You…" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Date & Time</label>
+          <input type="text" id="field-date" placeholder="e.g. Saturday, 14th June 2025 · 3pm" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Venue / Location</label>
+          <input type="text" id="field-venue" placeholder="e.g. The Grand Hall, London" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Message / Additional details</label>
+          <textarea id="field-message" placeholder="RSVP details, dress code, special instructions…" oninput="updatePreview()"></textarea>
+        </div>
+        <div class="field">
+          <label>Signed from (optional)</label>
+          <input type="text" id="field-from" placeholder="e.g. With love, The Smiths" oninput="updatePreview()" />
+        </div>
+      </div>
+
+      <!-- STEP 4: PHOTO -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="form-section-num">04</span> Photo (optional)
+        </div>
+        <label class="upload-area" id="upload-area" for="photo-upload">
+          <input type="file" id="photo-upload" accept="image/*" onchange="handlePhoto(event)" />
+          <div class="upload-icon">📷</div>
+          <p>Click to upload a photo</p>
+          <p class="upload-hint">JPG or PNG · Will appear on your invitation</p>
+        </label>
+        <div class="upload-preview" id="upload-preview">
+          <img id="preview-photo-thumb" src="" alt="Your photo" />
+        </div>
+      </div>
+
+      <!-- STEP 5: YOUR DETAILS -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="form-section-num">05</span> Your Details
+        </div>
+        <div class="field">
+          <label>Your name</label>
+          <input type="text" id="field-your-name" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label>Your email</label>
+          <input type="email" id="field-your-email" placeholder="Where to send the final invitation" />
+        </div>
+        <div class="field">
+          <label>Etsy order number (if applicable)</label>
+          <input type="text" id="field-etsy" placeholder="e.g. 1234567890" />
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitOrder()">Send My Order to Shanaz</button>
+        <p class="submit-note">Your watermarked preview is shown on the right. The final invitation — without any watermark — will be sent to your email within a few hours.</p>
+      </div>
+
+    </div><!-- /form-panel -->
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <p class="preview-panel-label">Live Preview · Watermarked</p>
+
+      <div class="invitation-card theme-ivory" id="invitation-card">
+        <div class="card-inner">
+
+          <!-- optional photo -->
+          <img class="card-photo" id="card-photo" src="" alt="" />
+
+          <!-- border overlay for ivory -->
+          <div class="card-border" id="card-border"></div>
+
+          <p class="card-eyebrow" id="card-eyebrow">You're Invited</p>
+          <div class="card-divider"></div>
+
+          <div class="card-name" id="card-name">Your Name</div>
+          <div class="card-headline" id="card-headline">Turns 6!</div>
+
+          <div class="card-divider"></div>
+
+          <div class="card-body" id="card-body">
+            Join us for a<br />
+            <span id="card-venue-line">celebration to remember</span>
+          </div>
+
+          <div class="card-date" id="card-date">Date & Time</div>
+          <div class="card-from" id="card-from"></div>
+
+          <!-- M stamp -->
+          <div class="card-stamp"><img src="logo-m.png" alt="M" /></div>
+
+        </div>
+
+        <!-- WATERMARK -->
+        <div class="card-watermark">
+          <span>Moments by Shanaz · Preview Only</span>
+        </div>
+      </div>
+
+      <p class="preview-note">
+        <strong>This is your watermarked preview.</strong><br />
+        The final version — without watermark, fully crafted by Shanaz — will be delivered to your email within a few hours of ordering.
+      </p>
+    </div>
+
+  </div><!-- /builder-layout -->
+
+  <!-- SUCCESS MODAL -->
+  <div id="success-modal">
+    <div class="success-box">
+      <div class="success-icon">✉️</div>
+      <h2>Order received!</h2>
+      <p>Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!</p>
+      <button class="success-btn" onclick="closeSuccess()">Done</button>
+    </div>
+  </div>
+
+  <script>
+    let currentTheme = 'theme-ivory';
+    let uploadedPhotoUrl = null;
+
+    const eyebrowMap = {
+      'Birthday':     'You\'re Invited',
+      'Wedding':      'Wedding Invitation',
+      'Engagement':   'Engagement Party',
+      'Bridesmaid':   'Will You Be My Bridesmaid?',
+      'Baby Shower':  'Baby Shower',
+      'Save the Date':'Save the Date',
+    };
+
+    function selectOccasion(el, val) {
+      document.querySelectorAll('#occasion-grid .type-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('card-eyebrow').textContent = eyebrowMap[val] || val;
+    }
+
+    function selectTheme(el, theme) {
+      document.querySelectorAll('#theme-grid .theme-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      const card = document.getElementById('invitation-card');
+      card.className = 'invitation-card ' + theme;
+      currentTheme = theme;
+      // show kids note
+      const isKids = theme === 'theme-bluey' || theme === 'theme-spider';
+      document.getElementById('kids-note').classList.toggle('visible', isKids);
+      // show/hide border element for ivory theme
+      document.getElementById('card-border').style.display = (theme === 'theme-ivory') ? 'block' : 'none';
+    }
+
+    function updatePreview() {
+      const name = document.getElementById('field-name').value || 'Your Name';
+      const headline = document.getElementById('field-headline').value || '';
+      const date = document.getElementById('field-date').value || 'Date & Time';
+      const venue = document.getElementById('field-venue').value || 'celebration to remember';
+      const message = document.getElementById('field-message').value || '';
+      const from = document.getElementById('field-from').value || '';
+
+      document.getElementById('card-name').textContent = name;
+      document.getElementById('card-headline').textContent = headline;
+      document.getElementById('card-date').textContent = date;
+      document.getElementById('card-venue-line').textContent = venue || 'celebration to remember';
+      document.getElementById('card-from').textContent = from ? 'With love, ' + from : '';
+    }
+
+    function handlePhoto(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        uploadedPhotoUrl = ev.target.result;
+        document.getElementById('card-photo').src = uploadedPhotoUrl;
+        document.getElementById('card-photo').classList.add('visible');
+        document.getElementById('preview-photo-thumb').src = uploadedPhotoUrl;
+        document.getElementById('upload-preview').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('field-your-name').value.trim();
+      const email = document.getElementById('field-your-email').value.trim();
+      if (!name || !email) {
+        alert('Please add your name and email before submitting.');
+        return;
+      }
+      document.getElementById('success-modal').classList.add('visible');
+    }
+
+    function closeSuccess() {
+      document.getElementById('success-modal').classList.remove('visible');
+    }
+
+    // init
+    document.getElementById('card-border').style.display = 'block';
+  </script>
+
+</body>
+</html>
