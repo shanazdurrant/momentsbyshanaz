@@ -176,6 +176,32 @@
     .success-close { background: var(--charcoal); color: var(--cream); border: none; border-radius: 4px; padding: 13px 28px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
     .success-close:hover { background: var(--gold); }
 
+    /* GUEST LIST */
+    .guest-intro { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; }
+    .guest-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .guest-row input {
+      flex: 1; background: var(--warm-white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 10px 12px; font-family: 'Jost', sans-serif;
+      font-size: 13px; font-weight: 300; color: var(--charcoal); outline: none;
+      transition: border-color 0.2s;
+    }
+    .guest-row input:focus { border-color: var(--gold); }
+    .guest-row .rm-btn {
+      background: none; border: 1px solid var(--border); border-radius: 4px;
+      padding: 8px 11px; color: var(--soft); cursor: pointer; font-size: 13px;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .guest-row .rm-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+    .add-guest-btn {
+      width: 100%; background: transparent; border: 1.5px dashed var(--border);
+      border-radius: 4px; padding: 11px; color: var(--soft); font-family: 'Jost', sans-serif;
+      font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+      margin-top: 4px; margin-bottom: 4px;
+    }
+    .add-guest-btn:hover { border-color: var(--gold-light); color: var(--charcoal); }
+    .guest-note { font-size: 11px; color: var(--soft); line-height: 1.6; margin-top: 8px; }
+    .guest-count-label { font-size: 11px; color: var(--gold); letter-spacing: 0.08em; margin-top: 6px; min-height: 16px; }
+
     @media (max-width: 900px) {
       .builder-layout { grid-template-columns: 1fr; }
       .form-panel { border-right: none; border-bottom: 1px solid var(--border); }
@@ -371,6 +397,16 @@
       <div class="upload-preview" id="upload-preview"><img id="photo-thumb" src="" alt="Your photo" /></div>
     </div>
 
+    <!-- 09 GUEST LIST -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">09</span> Guest List (optional)</div>
+      <p class="guest-intro">If you'd like Shanaz to send the invitation directly to your guests, add their names and email addresses below. She will review and send each invitation personally.</p>
+      <div id="guest-list-c"></div>
+      <button class="add-guest-btn" onclick="addGuest()">+ Add a guest</button>
+      <p class="guest-count-label" id="guest-count-label"></p>
+      <p class="guest-note">Don't worry about getting this perfect — you can always email Shanaz with changes after submitting.</p>
+    </div>
+
     <!-- 08 YOUR DETAILS -->
     <div class="form-section">
       <div class="fs-title"><span class="fs-num">08</span> Your Details</div>
@@ -539,10 +575,61 @@
     r.readAsDataURL(file);
   }
 
+  // ── Guest list ────────────────────────────────────────────
+  let guestList = [];
+  let guestIdx = 0;
+
+  function addGuest() {
+    const idx = guestIdx++;
+    guestList.push({ id: idx, name: '', email: '' });
+    const container = document.getElementById('guest-list-c');
+    const row = document.createElement('div');
+    row.className = 'guest-row';
+    row.id = `grow-${idx}`;
+    row.innerHTML = `
+      <input type="text" placeholder="Guest name" oninput="updateGuest(${idx},'name',this.value)" />
+      <input type="email" placeholder="Email address" style="flex:1.3;" oninput="updateGuest(${idx},'email',this.value)" />
+      <button class="rm-btn" onclick="removeGuest(${idx})">✕</button>
+    `;
+    container.appendChild(row);
+    updateGuestCount();
+  }
+
+  function updateGuest(idx, field, val) {
+    const g = guestList.find(g => g.id === idx);
+    if (g) g[field] = val;
+    updateGuestCount();
+  }
+
+  function removeGuest(idx) {
+    const row = document.getElementById(`grow-${idx}`);
+    if (row) row.remove();
+    guestList = guestList.filter(g => g.id !== idx);
+    updateGuestCount();
+  }
+
+  function updateGuestCount() {
+    const valid = guestList.filter(g => g.email.trim()).length;
+    const el = document.getElementById('guest-count-label');
+    el.textContent = valid > 0 ? `${valid} guest${valid !== 1 ? 's' : ''} added` : '';
+  }
+
   function submitOrder() {
     const name  = document.getElementById('f-your-name').value.trim();
     const email = document.getElementById('f-your-email').value.trim();
     if (!name || !email) { alert('Please add your name and email before submitting.'); return; }
+
+    const validGuests = guestList.filter(g => g.email.trim());
+    const hasGuests = validGuests.length > 0;
+
+    // Update success message based on whether guests were added
+    const successMsg = document.querySelector('#success-modal p');
+    if (successMsg) {
+      successMsg.textContent = hasGuests
+        ? `Your order and guest list (${validGuests.length} guest${validGuests.length !== 1 ? 's' : ''}) have been sent to Shanaz. She will review your invitation and send it directly to each guest. Thank you!`
+        : `Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!`;
+    }
+
     document.getElementById('success-modal').classList.add('vis');
   }
 
