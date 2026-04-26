@@ -1,5 +1,256 @@
-<!-- SAME HEAD + STYLES (unchanged) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moments by Shanaz · Luxury Digital Keepsakes</title>
+  <link rel="icon" type="image/png" href="logo-m.png" />
+  <link rel="apple-touch-icon" href="logo-m.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #faf8f4;
+      --warm-white: #fefcf8;
+      --gold: #b8924a;
+      --gold-light: #d4a96a;
+      --charcoal: #2c2825;
+      --mid: #6b6460;
+      --soft: #9c958f;
+      --border: #e8e2d9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 88px;
+      transition: height 0.35s ease;
+    }
+    nav.scrolled { height: 64px; }
+    nav .logo img {
+      height: 200px;
+      transition: height 0.35s ease;
+    }
+    nav.scrolled .logo img { height: 38px; }
+    nav .nav-links { display: flex; gap: 36px; align-items: center; }
+    nav .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover { color: var(--gold); }
+    nav .admin-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav .admin-link:hover { color: var(--gold); }
+    nav .admin-link svg { width: 14px; height: 14px; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(184,146,74,0.06), transparent);
+    }
+    .hero-ornament {
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 40px;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--mid);
+      letter-spacing: 0.06em;
+      max-width: 400px;
+      margin-bottom: 60px;
+    }
+    .divider { color: var(--gold); font-size: 18px; margin: 8px 0; }
+
+    /* SECTION */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      margin-bottom: 56px;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* TILES */
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .tile {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 24px;
+      text-align: center;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tile.clickable {
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .tile.clickable:hover {
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(184,146,74,0.12);
+      transform: translateY(-2px);
+    }
+    .tile.clickable:hover .tile-arrow { opacity: 1; transform: translateX(0); }
+    .tile-icon { font-size: 28px; margin-bottom: 16px; }
+    .tile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .tile-status {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .tile-status.available { color: var(--gold); }
+    .tile-status.soon { color: var(--soft); }
+    .tile-arrow {
+      position: absolute;
+      bottom: 16px; right: 20px;
+      font-size: 18px;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    /* PREVIEW */
+    .preview-section {
+      border-top: 1px solid var(--border);
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .preview-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .preview-text p {
+      color: var(--mid);
+      font-size: 15px;
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+    .preview-img {
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(44,40,37,0.12);
+    }
+    .preview-img img { width: 100%; display: block; }
+
+    /* HOW IT WORKS */
+    .how-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .step { border-top: 1px solid var(--gold); padding-top: 32px; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(184,146,74,0.25);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .step p { font-size: 14px; color: var(--mid); line-height: 1.7; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 56px 40px;
+      text-align: center;
+    }
+    footer .footer-logo img { height: 36px; margin-bottom: 24px; }
+    footer p { font-size: 12px; color: var(--soft); letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      nav .nav-links { display: none; }
+      section, .preview-section { padding: 60px 20px; }
+      .preview-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .how-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
 <body>
 
   <!-- NAV -->
@@ -9,12 +260,9 @@
     </div>
     <div class="nav-links">
       <a href="/order.html">Scratchcards</a>
-      <a href="/invitation.html">Invitations</a>
+      <a href="/invitations.html">Invitations</a>
       <a href="/admin.html" class="admin-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="11" width="18" height="11" rx="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Admin
       </a>
     </div>
@@ -34,6 +282,7 @@
     <h2 class="section-title">Designed for every <em>special moment</em></h2>
     <div class="tiles">
 
+      <!-- SCRATCHCARD — clickable -->
       <a href="/order.html" class="tile clickable">
         <div class="tile-icon">✨</div>
         <div class="tile-name">Scratchcard Reveals</div>
@@ -41,7 +290,8 @@
         <span class="tile-arrow">→</span>
       </a>
 
-      <a href="/invitation.html" class="tile clickable">
+      <!-- INVITATIONS — clickable -->
+      <a href="/invitations.html" class="tile clickable">
         <div class="tile-icon">💌</div>
         <div class="tile-name">Digital Invitations</div>
         <div class="tile-status available">Available Now</div>
@@ -69,7 +319,20 @@
     </div>
   </section>
 
-  <!-- ❌ PREVIEW SECTION REMOVED COMPLETELY -->
+  <!-- PREVIEW -->
+  <div class="preview-section">
+    <div class="preview-wrap">
+      <div class="preview-text">
+        <p class="section-label">See the Experience</p>
+        <h2 class="section-title">A reveal they'll <em>never forget</em></h2>
+        <p>A beautifully designed scratchcard reveal that creates real reactions and unforgettable memories — crafted by hand and delivered within hours.</p>
+        <a href="/order.html" style="display:inline-block; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); border-bottom:1px solid var(--gold); padding-bottom:4px; text-decoration:none;">Create Your Reveal →</a>
+      </div>
+      <div class="preview-img">
+        <img src="scratchcard.jpg" alt="Scratchcard preview" />
+      </div>
+    </div>
+  </div>
 
   <!-- HOW IT WORKS -->
   <section>
@@ -96,17 +359,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">
-      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
-    </div>
+    <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></div>
     <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
     <p style="margin-top:16px;">© 2026 Moments by Shanaz</p>
-
-    <a href="/admin.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--soft);text-decoration:none;">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="11" width="18" height="11" rx="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
+    <a href="/admin.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--soft);text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--soft)'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       Admin
     </a>
   </footer>
@@ -117,6 +374,5 @@
       nav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
   </script>
-
 </body>
 </html>
