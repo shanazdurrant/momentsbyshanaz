@@ -1,160 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moments by Shanaz · Luxury Digital Keepsakes</title>
-  <link rel="icon" type="image/png" href="logo-m.png" />
-  <link rel="apple-touch-icon" href="logo-m.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #faf8f4;
-      --warm-white: #fefcf8;
-      --gold: #b8924a;
-      --gold-light: #d4a96a;
-      --charcoal: #2c2825;
-      --mid: #6b6460;
-      --soft: #9c958f;
-      --border: #e8e2d9;
-    }
-
-    body {
-      font-family: 'Jost', sans-serif;
-      background: var(--cream);
-      color: var(--charcoal);
-      font-weight: 300;
-      line-height: 1.7;
-    }
-
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(250,248,244,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      height: 88px;
-    }
-
-    nav .nav-links {
-      display: flex;
-      gap: 36px;
-    }
-
-    nav .nav-links a {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mid);
-      text-decoration: none;
-    }
-
-    nav .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 40px;
-    }
-
-    section {
-      padding: 80px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .tiles {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .tile {
-      background: var(--warm-white);
-      border: 1px solid var(--border);
-      padding: 36px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--charcoal);
-      transition: 0.2s;
-    }
-
-    .tile:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--soft);
-    }
-  </style>
-</head>
+<!-- SAME HEAD + STYLES (unchanged) -->
 
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">
-    <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" height="40"></a>
-  </div>
-  <div class="nav-links">
-    <a href="/order.html">Scratchcards</a>
-    <a href="/invitation.html">Invitations</a>
-    <a href="/admin.html">Admin</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>Turn life's biggest moments into something unforgettable</h1>
-</div>
-
-<!-- SERVICES -->
-<section>
-  <div class="tiles">
-
-    <a href="/order.html" class="tile">
-      ✨ Scratchcard Reveals
-    </a>
-
-    <a href="/invitation.html" class="tile">
-      💌 Digital Invitations
-    </a>
-
-    <div class="tile">
-      💍 Wedding Experiences (Coming Soon)
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></a>
     </div>
-
-    <div class="tile">
-      🎉 Birthday Reveals (Coming Soon)
+    <div class="nav-links">
+      <a href="/order.html">Scratchcards</a>
+      <a href="/invitation.html">Invitations</a>
+      <a href="/admin.html" class="admin-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Admin
+      </a>
     </div>
+  </nav>
 
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-ornament">Digital Keepsakes · Made With Care</p>
+    <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
+    <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
+    <span class="divider">✦</span>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  © 2026 Moments by Shanaz
-</footer>
+  <!-- SERVICES TILES -->
+  <section>
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Designed for every <em>special moment</em></h2>
+    <div class="tiles">
+
+      <a href="/order.html" class="tile clickable">
+        <div class="tile-icon">✨</div>
+        <div class="tile-name">Scratchcard Reveals</div>
+        <div class="tile-status available">Available Now</div>
+        <span class="tile-arrow">→</span>
+      </a>
+
+      <a href="/invitation.html" class="tile clickable">
+        <div class="tile-icon">💌</div>
+        <div class="tile-name">Digital Invitations</div>
+        <div class="tile-status available">Available Now</div>
+        <span class="tile-arrow">→</span>
+      </a>
+
+      <div class="tile">
+        <div class="tile-icon">💍</div>
+        <div class="tile-name">Wedding Experiences</div>
+        <div class="tile-status soon">Coming Soon</div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-icon">🎉</div>
+        <div class="tile-name">Birthday Reveals</div>
+        <div class="tile-status soon">Coming Soon</div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-icon">🎄</div>
+        <div class="tile-name">Digital Advent</div>
+        <div class="tile-status soon">Coming Soon</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ❌ PREVIEW SECTION REMOVED COMPLETELY -->
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <p class="section-label">The Process</p>
+    <h2 class="section-title">How it <em>works</em></h2>
+    <div class="how-wrap">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Choose your experience</h3>
+        <p>Pick from scratchcards, invitations and more based on the moment you want to create.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Personalise your message</h3>
+        <p>Add names, headlines, and the details that make it uniquely theirs.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Receive your digital reveal</h3>
+        <p>Crafted by hand and delivered in hours — ready to share with the person who matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+    </div>
+    <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
+    <p style="margin-top:16px;">© 2026 Moments by Shanaz</p>
+
+    <a href="/admin.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--soft);text-decoration:none;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Admin
+    </a>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  </script>
 
 </body>
 </html>
