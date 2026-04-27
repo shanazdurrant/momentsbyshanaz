@@ -39,18 +39,23 @@
       background: rgba(250,248,244,0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: center;
       padding: 0 40px;
       height: 88px;
       transition: height 0.35s ease;
+      position: fixed;
     }
     nav.scrolled { height: 64px; }
+    nav .logo {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center;
+    }
     nav .logo img {
-      height: 200px;
+      height: 56px;
       transition: height 0.35s ease;
     }
     nav.scrolled .logo img { height: 38px; }
-    nav .nav-links { display: flex; gap: 36px; align-items: center; }
+    nav .nav-links { display: flex; gap: 36px; align-items: center; margin-left: auto; }
     nav .nav-links a {
       font-family: 'Jost', sans-serif;
       font-size: 13px;
@@ -128,12 +133,14 @@
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 20px;
+      text-align: center;
     }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 300;
       margin-bottom: 56px;
+      text-align: center;
     }
     .section-title em { font-style: italic; color: var(--gold); }
 
@@ -188,32 +195,6 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    /* PREVIEW */
-    .preview-section {
-      border-top: 1px solid var(--border);
-      padding: 100px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .preview-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .preview-text p {
-      color: var(--mid);
-      font-size: 15px;
-      margin-bottom: 32px;
-      max-width: 380px;
-    }
-    .preview-img {
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(44,40,37,0.12);
-    }
-    .preview-img img { width: 100%; display: block; }
-
     /* HOW IT WORKS */
     .how-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
     .step { border-top: 1px solid var(--gold); padding-top: 32px; }
@@ -245,8 +226,7 @@
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       nav .nav-links { display: none; }
-      section, .preview-section { padding: 60px 20px; }
-      .preview-wrap { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 60px 20px; }
       .how-wrap { grid-template-columns: 1fr; }
     }
   </style>
@@ -318,21 +298,6 @@
 
     </div>
   </section>
-
-  <!-- PREVIEW -->
-  <div class="preview-section">
-    <div class="preview-wrap">
-      <div class="preview-text">
-        <p class="section-label">See the Experience</p>
-        <h2 class="section-title">A reveal they'll <em>never forget</em></h2>
-        <p>A beautifully designed scratchcard reveal that creates real reactions and unforgettable memories — crafted by hand and delivered within hours.</p>
-        <a href="/order.html" style="display:inline-block; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); border-bottom:1px solid var(--gold); padding-bottom:4px; text-decoration:none;">Create Your Reveal →</a>
-      </div>
-      <div class="preview-img">
-        <img src="scratchcard.jpg" alt="Scratchcard preview" />
-      </div>
-    </div>
-  </div>
 
   <!-- HOW IT WORKS -->
   <section>
