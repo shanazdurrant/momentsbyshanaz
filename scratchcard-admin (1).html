@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratchcard Builder · Admin · Moments by Shanaz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="logo-m.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f4; --gold: #b8924a; --gold-light: #d4a96a;
+      --charcoal: #2c2825; --mid: #6b6460; --soft: #9c958f;
+      --border: #e8e2d9; --green: #3a7d57;
+    }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); font-weight: 300; min-height: 100vh; }
+
+    /* NAV */
+    nav { background: rgba(250,248,244,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; position: sticky; top: 0; z-index: 50; }
+    nav .nav-brand { display: flex; align-items: center; gap: 12px; }
+    nav img { height: 32px; }
+    nav .nav-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); border-left: 1px solid var(--border); padding-left: 12px; }
+    nav a { font-size: 12px; letter-spacing: 0.1em; color: var(--soft); text-decoration: none; text-transform: uppercase; }
+    nav a:hover { color: var(--gold); }
+
+    /* LAYOUT */
+    .layout { display: grid; grid-template-columns: 440px 1fr; gap: 0; min-height: calc(100vh - 64px); }
+    .controls { border-right: 1px solid var(--border); padding: 32px 28px; overflow-y: auto; }
+    .preview-col { padding: 40px 32px; background: #f5f2ed; display: flex; flex-direction: column; align-items: center; }
+
+    /* SECTION BLOCKS */
+    .ctrl-section { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .ctrl-section:last-child { border-bottom: none; }
+    .ctrl-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .ctrl-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* FORM ELEMENTS */
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 9px 12px;
+      border: 1px solid var(--border); border-radius: 3px;
+      font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+      background: white; color: var(--charcoal);
+      transition: border-color 0.2s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
+    .field textarea { resize: vertical; min-height: 60px; }
+
+    /* OCCASION CHIPS */
+    .occ-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .occ-chip { padding: 10px 6px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
+    .occ-chip:hover { border-color: var(--gold); }
+    .occ-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.08); }
+    .occ-icon { font-size: 18px; display: block; margin-bottom: 3px; }
+    .occ-name { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+
+    /* LAYOUT CHIPS */
+    .layout-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .layout-chip { padding: 14px 10px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
+    .layout-chip:hover { border-color: var(--gold); }
+    .layout-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.08); }
+    .layout-chip-name { font-size: 12px; font-weight: 500; color: var(--charcoal); margin-bottom: 2px; }
+    .layout-chip-sub { font-size: 10px; color: var(--soft); font-style: italic; }
+    .layout-visual { display: flex; gap: 3px; justify-content: center; margin-bottom: 8px; height: 28px; align-items: center; }
+    .layout-panel { background: linear-gradient(135deg, #c9a961, #a88843); border-radius: 2px; }
+    .layout-chip[data-layout="single"] .layout-panel { width: 36px; height: 24px; }
+    .layout-chip[data-layout="triple"] .layout-panel { width: 14px; height: 14px; border-radius: 50%; }
+
+    /* TOGGLE */
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 3px; background: white; margin-bottom: 8px; }
+    .toggle-info { font-size: 13px; color: var(--charcoal); }
+    .toggle-info small { display: block; font-size: 10px; color: var(--soft); margin-top: 1px; }
+    .tog { width: 40px; height: 22px; background: var(--border); border-radius: 100px; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .tog::before { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
+    .tog.on { background: var(--gold); }
+    .tog.on::before { transform: translateX(18px); }
+
+    /* EMAIL PANEL */
+    .email-panel { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-top: 8px; }
+    .email-status { font-size: 12px; color: var(--mid); margin-top: 8px; min-height: 18px; text-align: center; }
+    .email-status.ok { color: var(--green); }
+    .email-status.err { color: #c0405a; }
+
+    /* BUTTONS */
+    .btn { width: 100%; padding: 13px; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; }
+    .btn-primary { background: var(--charcoal); color: var(--cream); }
+    .btn-primary:hover { background: #1a1210; }
+    .btn-gold { background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.4); color: var(--gold); }
+    .btn-gold:hover { background: rgba(184,146,74,0.22); }
+    .btn-green { background: rgba(58,125,87,0.1); border: 1px solid rgba(58,125,87,0.35); color: var(--green); }
+    .btn-green:hover { background: rgba(58,125,87,0.18); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* PREVIEW COLUMN */
+    .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
+    .card-wrap { position: relative; }
+    .preview-card {
+      width: 340px; aspect-ratio: 3/4; border-radius: 6px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(44,40,37,0.25);
+      background: var(--theme-bg, linear-gradient(145deg, #fdfbf6, #f2ecdf));
+    }
+    .theme-proposal { background-image: url('Proposal.jpg'); background-size: cover; background-position: center; }
+    .theme-gender { background-image: url('gender.jpg'); background-size: cover; background-position: center; }
+    .theme-holiday { background-image: url('Holiday.jpg'); background-size: cover; background-position: center; }
+    .theme-pregnancy { background-image: url('image.png'); background-size: cover; background-position: center; }
+    .theme-wedding { background-image: url('Wedding.jpg'); background-size: cover; background-position: center; }
+    .theme-birthday { background-image: url('birthday.jpg'); background-size: cover; background-position: center; }
+    .theme-christmas { background-image: url('christmas.jpg'); background-size: cover; background-position: center; }
+    .theme-custom { background-image: url('Other.jpg'); background-size: cover; background-position: center; }
+
+    .card-tint { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(253,251,246,0.2) 0%, rgba(250,246,240,0.08) 40%, rgba(242,236,223,0.22) 100%); z-index: 1; }
+    .card-frame { position: absolute; inset: 12px; border: 1px solid rgba(201,169,97,0.3); border-radius: 1px; z-index: 2; pointer-events: none; }
+
+    /* No watermark on admin version */
+    .card-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; z-index: 3; gap: 0; }
+    .card-greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #a88843; letter-spacing: 1.5px; margin-bottom: 8px; opacity: 0.9; }
+    .card-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 5vw, 28px); font-weight: 500; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.3px; color: var(--charcoal); }
+    .card-divider { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 10px; }
+    .card-divider .line { width: 28px; height: 1px; background: #c9a961; }
+    .card-message { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.5; color: rgba(44,40,37,0.7); max-width: 240px; }
+    .card-date { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; }
+    .card-signoff { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .card-signoff-prefix { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: rgba(44,40,37,0.6); letter-spacing: 1.5px; }
+    .card-signoff-name { font-family: 'Allura', cursive; font-size: 34px; color: #a88843; line-height: 1; }
+    .card-seal { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; z-index: 4; opacity: 0.75; }
+
+    /* TRIPLE LAYOUT */
+    .triple-inner { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; padding: 28px 20px 20px; }
+    .triple-inner .th { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 3px; text-transform: uppercase; margin-bottom: auto; padding-bottom: 12px; }
+    .triple-circles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: auto 0; }
+    .tri-circle { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: linear-gradient(135deg, #a88843, #c9a961, #e8d4a0, #c9a961, #a88843); box-shadow: 0 4px 12px rgba(201,169,97,0.4); }
+    .triple-foot { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: rgba(44,40,37,0.5); padding-top: 16px; margin-top: auto; }
+
+    /* SEND SUCCESS */
+    .send-success { display: none; background: rgba(58,125,87,0.08); border: 1px solid rgba(58,125,87,0.3); border-radius: 4px; padding: 14px; text-align: center; margin-top: 8px; }
+    .send-success.vis { display: block; }
+    .send-success p { font-size: 13px; color: var(--green); }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .preview-col { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+    <span class="nav-tag">Scratchcard Builder</span>
+  </div>
+  <a href="/admin.html">← Admin Home</a>
+</nav>
+
+<div class="layout">
+
+  <!-- ══ CONTROLS ══ -->
+  <div class="controls">
+
+    <!-- ORDER REF -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">Order Details</div>
+      <div class="field">
+        <label>Customer name</label>
+        <input type="text" id="customerName" placeholder="e.g. Sarah Ahmed" />
+      </div>
+      <div class="field">
+        <label>Customer email</label>
+        <input type="email" id="customerEmail" placeholder="sarah@example.com" />
+      </div>
+      <div class="field">
+        <label>Etsy order ref (optional)</label>
+        <input type="text" id="orderRef" placeholder="e.g. 1234567890" />
+      </div>
+    </div>
+
+    <!-- OCCASION -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">Occasion</div>
+      <div class="occ-grid" id="occGrid">
+        <div class="occ-chip sel" data-occ="proposal" data-icon="💍" data-headline="Will you marry me?" onclick="selectOcc(this)"><span class="occ-icon">💍</span><span class="occ-name">Proposal</span></div>
+        <div class="occ-chip" data-occ="gender" data-icon="👶" data-headline="It's a…" onclick="selectOcc(this)"><span class="occ-icon">👶</span><span class="occ-name">Gender</span></div>
+        <div class="occ-chip" data-occ="holiday" data-icon="✈️" data-headline="Pack your bags" onclick="selectOcc(this)"><span class="occ-icon">✈️</span><span class="occ-name">Holiday</span></div>
+        <div class="occ-chip" data-occ="pregnancy" data-icon="🤰" data-headline="You're going to be grandparents" onclick="selectOcc(this)"><span class="occ-icon">🤰</span><span class="occ-name">Pregnancy</span></div>
+        <div class="occ-chip" data-occ="wedding" data-icon="💐" data-headline="Save the date" onclick="selectOcc(this)"><span class="occ-icon">💐</span><span class="occ-name">Wedding</span></div>
+        <div class="occ-chip" data-occ="birthday" data-icon="🎁" data-headline="Happy birthday!" onclick="selectOcc(this)"><span class="occ-icon">🎁</span><span class="occ-name">Birthday</span></div>
+        <div class="occ-chip" data-occ="christmas" data-icon="🎄" data-headline="A Christmas surprise" onclick="selectOcc(this)"><span class="occ-icon">🎄</span><span class="occ-name">Christmas</span></div>
+        <div class="occ-chip" data-occ="custom" data-icon="✨" data-headline="A little something for you" onclick="selectOcc(this)"><span class="occ-icon">✨</span><span class="occ-name">Other</span></div>
+      </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">Layout</div>
+      <div class="layout-chips">
+        <div class="layout-chip sel" data-layout="single" onclick="selectLayout(this)">
+          <div class="layout-visual"><div class="layout-panel"></div></div>
+          <div class="layout-chip-name">One Big Reveal</div>
+          <div class="layout-chip-sub">Single scratch moment</div>
+        </div>
+        <div class="layout-chip" data-layout="triple" onclick="selectLayout(this)">
+          <div class="layout-visual"><div class="layout-panel"></div><div class="layout-panel"></div><div class="layout-panel"></div></div>
+          <div class="layout-chip-name">Three Matches</div>
+          <div class="layout-chip-sub">Scratch to match &amp; win</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">The Message</div>
+      <div class="field">
+        <label>Who is it for?</label>
+        <input type="text" id="recipient" placeholder="e.g. Amelia" oninput="updatePreview()" maxlength="30" />
+      </div>
+      <div class="field">
+        <label>Headline — the big reveal</label>
+        <input type="text" id="headline" placeholder="e.g. Will you marry me?" oninput="updatePreview()" maxlength="50" />
+      </div>
+      <div class="field" id="weddingDateField" style="display:none;">
+        <label>Wedding date</label>
+        <input type="text" id="weddingDate" placeholder="e.g. 14th June 2026" oninput="updatePreview()" />
+      </div>
+      <div class="field">
+        <label>Your message</label>
+        <textarea id="message" placeholder="e.g. I've been waiting for the right moment. This is it." oninput="updatePreview()" maxlength="180"></textarea>
+      </div>
+      <div class="field">
+        <label>Signed from (optional)</label>
+        <input type="text" id="signature" placeholder="e.g. James" oninput="updatePreview()" maxlength="30" />
+      </div>
+    </div>
+
+    <!-- FINISHING TOUCHES -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">Finishing Touches</div>
+      <div class="toggle-row">
+        <div class="toggle-info">Confetti on reveal<small>Gold, sage &amp; themed colours</small></div>
+        <div class="tog on" id="confettiToggle" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+
+    <!-- SEND -->
+    <div class="ctrl-section">
+      <div class="ctrl-label">Send to Customer</div>
+      <p style="font-size:12px;color:var(--mid);margin-bottom:14px;line-height:1.6;">
+        Download the final scratchcard PDF and email it directly to your customer — no watermark, ready to share.
+      </p>
+
+      <button class="btn btn-gold" onclick="downloadPDF()">⬇ Download Final PDF (No Watermark)</button>
+      <button class="btn btn-primary" onclick="sendByEmail()" id="sendEmailBtn">✉ Send PDF by Email</button>
+
+      <div class="send-success" id="sendSuccess">
+        <p>✓ Email sent successfully to <span id="sentTo"></span></p>
+      </div>
+      <div class="email-status" id="emailStatus"></div>
+
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border);">
+        <p style="font-size:11px;color:var(--soft);line-height:1.6;text-align:center;">
+          The final card has no watermark and is fully scratchable.<br>
+          Your customer can scratch on any device and share the reveal.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ PREVIEW ══ -->
+  <div class="preview-col">
+    <div class="preview-title">✦ Live Preview — No Watermark ✦</div>
+    <div class="card-wrap">
+      <div class="preview-card theme-proposal" id="previewCard">
+        <div class="card-tint"></div>
+        <div class="card-frame"></div>
+
+        <!-- Single layout content -->
+        <div class="card-content" id="cardContent">
+          <div class="card-greeting" id="pGreeting">For Amelia</div>
+          <div class="card-headline" id="pHeadline">Will you marry me?</div>
+          <div class="card-date" id="pDate" style="display:none;"></div>
+          <div class="card-divider"><span class="line"></span><svg width="12" height="5" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
+          <div class="card-message" id="pMessage">Your message will appear here.</div>
+          <div class="card-signoff" id="pSignoff" style="display:none;">
+            <div class="card-signoff-prefix">with love,</div>
+            <div class="card-signoff-name" id="pSig"></div>
+          </div>
+        </div>
+
+        <!-- Triple layout -->
+        <div class="triple-inner" id="tripleInner" style="display:none;">
+          <div class="th">✦ Scratch &amp; Match ✦</div>
+          <div class="triple-circles">
+            <div class="tri-circle" id="tc0">💍</div>
+            <div class="tri-circle" id="tc1">💍</div>
+            <div class="tri-circle" id="tc2">💍</div>
+          </div>
+          <div class="triple-foot">Scratch all three to reveal</div>
+        </div>
+
+        <!-- Seal -->
+        <svg class="card-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
+      </div>
+    </div>
+
+    <!-- Note below card -->
+    <div style="margin-top:20px;padding:14px 20px;background:rgba(184,146,74,0.07);border:1px solid rgba(184,146,74,0.2);border-radius:4px;text-align:center;max-width:340px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mid);line-height:1.6;">This is the final card your customer receives — fully scratchable, no watermark.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════ STATE ══════
+const S = {
+  occasion: 'proposal', icon: '💍', layout: 'single',
+  defaultHeadline: 'Will you marry me?'
+};
+
+// ══════ OCCASION ══════
+function selectOcc(el) {
+  document.querySelectorAll('.occ-chip').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.occasion = el.dataset.occ;
+  S.icon = el.dataset.icon;
+  S.defaultHeadline = el.dataset.headline;
+  document.getElementById('weddingDateField').style.display = S.occasion === 'wedding' ? 'block' : 'none';
+  const hInput = document.getElementById('headline');
+  if (!hInput.value.trim() || hInput.dataset.auto) {
+    hInput.value = el.dataset.headline;
+    hInput.dataset.auto = 'true';
+  }
+  hInput.placeholder = el.dataset.headline;
+  updatePreview();
+}
+
+// ══════ LAYOUT ══════
+function selectLayout(el) {
+  document.querySelectorAll('.layout-chip').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.layout = el.dataset.layout;
+  updatePreview();
+}
+
+// ══════ PREVIEW ══════
+function updatePreview() {
+  const card = document.getElementById('previewCard');
+  card.className = 'preview-card theme-' + S.occasion;
+
+  const recipient = document.getElementById('recipient').value || 'Amelia';
+  const headline  = document.getElementById('headline').value  || S.defaultHeadline;
+  const message   = document.getElementById('message').value   || 'Your message will appear here.';
+  const sig       = document.getElementById('signature').value || '';
+  const wDate     = document.getElementById('weddingDate').value || '';
+
+  document.getElementById('pGreeting').textContent = 'For ' + recipient;
+  document.getElementById('pHeadline').textContent = headline;
+  document.getElementById('pMessage').textContent  = message;
+
+  const pDate = document.getElementById('pDate');
+  if (S.occasion === 'wedding' && wDate) { pDate.textContent = wDate; pDate.style.display = 'block'; }
+  else pDate.style.display = 'none';
+
+  const pSig = document.getElementById('pSignoff');
+  if (sig) { pSig.style.display = 'flex'; document.getElementById('pSig').textContent = sig; }
+  else pSig.style.display = 'none';
+
+  // Triple circles icon
+  ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).textContent = S.icon);
+
+  // Layout toggle
+  const cc = document.getElementById('cardContent');
+  const ti = document.getElementById('tripleInner');
+  if (S.layout === 'triple') { cc.style.display = 'none'; ti.style.display = 'flex'; }
+  else { cc.style.display = 'flex'; ti.style.display = 'none'; }
+}
+
+// ══════ PDF GENERATION ══════
+async function generatePDFBlob() {
+  const card = document.getElementById('previewCard');
+  const canvas = await html2canvas(card, { scale: 3, useCORS: true, backgroundColor: null });
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
+  const W = 148, H = 210;
+  const cRatio = canvas.width / canvas.height;
+  const cardH = W / cRatio;
+  const yOff = (H - cardH) / 2;
+  pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, yOff, W, cardH);
+  return pdf;
+}
+
+async function downloadPDF() {
+  setStatus('Generating PDF…', '');
+  try {
+    const pdf = await generatePDFBlob();
+    const name = document.getElementById('recipient').value || 'Scratchcard';
+    pdf.save(name.replace(/\s+/g,'_') + '_scratchcard.pdf');
+    setStatus('PDF downloaded!', 'ok');
+  } catch (e) {
+    setStatus('PDF generation failed. Try again.', 'err');
+  }
+}
+
+// ══════ EMAIL SEND ══════
+async function sendByEmail() {
+  const customerEmail = document.getElementById('customerEmail').value.trim();
+  const customerName  = document.getElementById('customerName').value.trim();
+
+  if (!customerEmail || !customerEmail.includes('@')) {
+    setStatus('Please enter a valid customer email first.', 'err');
+    return;
+  }
+
+  const btn = document.getElementById('sendEmailBtn');
+  btn.disabled = true;
+  btn.textContent = '✉ Sending…';
+  setStatus('Preparing email…', '');
+
+  try {
+    // Generate PDF as base64
+    const pdf = await generatePDFBlob();
+    const pdfBase64 = pdf.output('datauristring').split(',')[1];
+    const recipientName = document.getElementById('recipient').value || 'Your recipient';
+    const headline      = document.getElementById('headline').value  || S.defaultHeadline;
+    const orderRef      = document.getElementById('orderRef').value  || 'N/A';
+
+    await emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
+      to_email:       customerEmail,
+      to_name:        customerName || customerEmail,
+      recipient_name: recipientName,
+      headline:       headline,
+      order_ref:      orderRef,
+      occasion:       S.occasion,
+      pdf_attachment: pdfBase64
+    });
+
+    document.getElementById('sentTo').textContent = customerEmail;
+    document.getElementById('sendSuccess').classList.add('vis');
+    setStatus('', '');
+    btn.textContent = '✓ Sent';
+    setTimeout(() => { btn.textContent = '✉ Send PDF by Email'; btn.disabled = false; }, 4000);
+
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    // Fallback: download PDF and open mailto
+    setStatus('EmailJS unavailable — downloading PDF. Open your email to send manually.', 'err');
+    const pdf = await generatePDFBlob();
+    const name = document.getElementById('recipient').value || 'Scratchcard';
+    pdf.save(name.replace(/\s+/g,'_') + '_scratchcard.pdf');
+    const subject = encodeURIComponent('Your Scratchcard from Moments by Shanaz');
+    const body = encodeURIComponent(`Hi ${customerName || 'there'},\n\nYour personalised scratchcard is attached!\n\nWith love,\nShanaz`);
+    window.open(`mailto:${customerEmail}?subject=${subject}&body=${body}`);
+    btn.textContent = '✉ Send PDF by Email';
+    btn.disabled = false;
+  }
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('emailStatus');
+  el.textContent = msg;
+  el.className = 'email-status' + (type ? ' ' + type : '');
+}
+
+// ══════ INIT ══════
+document.getElementById('headline').value = S.defaultHeadline;
+document.getElementById('headline').dataset.auto = 'true';
+document.getElementById('headline').addEventListener('input', function() {
+  delete this.dataset.auto;
+});
+updatePreview();
+</script>
+
+</body>
+</html>
