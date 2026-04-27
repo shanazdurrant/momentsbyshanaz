@@ -9,7 +9,7 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Scratchcard Builder -->
+  <!-- Scratchcard Builder (Public Page) -->
   <url>
     <loc>https://www.momentsbyshanaz.co.uk/order.html</loc>
     <lastmod>2026-04-27</lastmod>
@@ -17,9 +17,9 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Digital Invitations -->
+  <!-- Digital Invitations (Public Page) -->
   <url>
-    <loc>https://www.momentsbyshanaz.co.uk/invitations.html</loc>
+    <loc>https://www.momentsbyshanaz.co.uk/invitation.html</loc>
     <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
