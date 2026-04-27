@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -521,7 +523,7 @@
 
         <!-- Paste from order -->
         <div style="font-size:12px;color:var(--soft);margin-bottom:10px;line-height:1.6;">
-          Guest list submitted with this order. Review, edit if needed, then send each guest their invitation — a link <em>and</em> a PDF.
+          Guest list submitted with this order. Review, edit if needed, then send each guest their invitation — a personalised PDF delivered directly to their inbox via email.
         </div>
 
         <div id="admin-guest-list" style="margin-bottom:8px;"></div>
@@ -530,15 +532,17 @@
 
         <!-- Action buttons -->
         <button class="guest-send-btn" id="send-all-btn" onclick="sendAllGuests()" style="margin-bottom:6px;">
-          ✉ Send to All Guests
+          ✉ Send PDF to All Guests
         </button>
         <button class="pdf-action-btn wm" style="margin-bottom:6px;" onclick="downloadAllGuestPDFs()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download All Guest PDFs
         </button>
 
+        <div id="send-all-status" style="display:none;margin-top:8px;padding:10px;border-radius:3px;font-size:12px;text-align:center;"></div>
+
         <p class="gen-note" style="margin-top:6px;">
-          "Send to All" opens a pre-filled email for each guest (staggered). "Download All PDFs" saves a named PDF per guest — attach to the emails manually. Both work together for a complete send.
+          "Send PDF to All Guests" emails each guest their personalised invitation PDF via EmailJS — no manual attaching needed. "Download All PDFs" saves them locally as a backup.
         </p>
         <p class="guest-count" id="admin-guest-count"></p>
       </div>
@@ -889,52 +893,105 @@
     return `${location.origin}/invitation-preview.html?d=${btoa(encodeURIComponent(JSON.stringify(d)))}`;
   }
 
-  function sendAllGuests() {
+  async function sendAllGuests() {
     const valid = adminGuests.filter(g => g.email.trim());
     if (valid.length === 0) { alert('Add at least one guest with an email address.'); return; }
 
     const btn = document.getElementById('send-all-btn');
+    const statusEl = document.getElementById('send-all-status');
     btn.disabled = true;
-    btn.textContent = 'Opening emails…';
+    btn.textContent = 'Sending…';
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(184,146,74,0.08)';
+    statusEl.style.color = 'var(--gold)';
+    statusEl.style.border = '1px solid rgba(184,146,74,0.25)';
+    statusEl.textContent = 'Preparing invitations…';
 
     const baseData = buildInviteData();
     const senderName = document.getElementById('c-cname').value || 'Moments by Shanaz';
+    const eventTitle = baseData.headline || 'Your Invitation';
 
-    valid.forEach((g, i) => {
-      const url = guestInviteUrl(baseData, g.name);
-      const subject = encodeURIComponent(`You're Invited ✦`);
-      const body = encodeURIComponent(
-        `Hi ${g.name || 'there'},
+    let sent = 0, failed = 0;
 
-You have received a beautiful digital invitation.
+    // Generate a single base PDF (no guest name) then personalise per guest
+    async function generateGuestPDF(guestName) {
+      // Temporarily set the card name to this guest
+      const cardNameEl = document.querySelector('.card-name');
+      const original = cardNameEl ? cardNameEl.textContent : '';
+      if (cardNameEl && guestName) cardNameEl.textContent = guestName;
 
-` +
-        `View your invitation here:
-${url}
+      const card = document.getElementById('inv-card');
+      const canvas = await html2canvas(card, { scale: 3, useCORS: true, backgroundColor: null });
 
-` +
-        `Your PDF invitation is also attached to this email.
+      if (cardNameEl && guestName) cardNameEl.textContent = original;
 
-` +
-        `With love,
-${senderName}`
-      );
-      setTimeout(() => {
-        window.open(`mailto:${encodeURIComponent(g.email)}?subject=${subject}&body=${body}`, '_blank');
-        // Mark as sent visually
-        const row = document.getElementById(`agrow-${g.id}`);
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
+      const W = 148, H = 210;
+      const ratio = canvas.width / canvas.height;
+      const cardH = W / ratio;
+      const yOff = (H - cardH) / 2;
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, yOff, W, cardH);
+      return pdf.output('datauristring').split(',')[1];
+    }
+
+    for (let i = 0; i < valid.length; i++) {
+      const g = valid[i];
+      statusEl.textContent = `Sending to ${g.name || g.email} (${i + 1} of ${valid.length})…`;
+
+      try {
+        const pdfBase64 = await generateGuestPDF(g.name);
+        const inviteUrl = guestInviteUrl(baseData, g.name);
+
+        await emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
+          to_email:       g.email,
+          to_name:        g.name || 'Guest',
+          guest_name:     g.name || 'Guest',
+          event_name:     eventTitle,
+          invite_link:    inviteUrl,
+          sender_name:    senderName,
+          pdf_attachment: pdfBase64
+        });
+
+        sent++;
+        // Tick the row
+        const row = document.getElementById('agrow-' + g.id);
         if (row && !row.querySelector('.sent-tick')) {
           const tick = document.createElement('span');
           tick.className = 'sent-tick'; tick.textContent = '✓';
           row.appendChild(tick);
         }
-      }, i * 700);
-    });
 
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.textContent = '✉ Send to All Guests';
-    }, valid.length * 700 + 500);
+      } catch (err) {
+        console.error('Failed for', g.email, err);
+        failed++;
+        // Fallback: open mailto for this guest
+        const url = guestInviteUrl(baseData, g.name);
+        const subject = encodeURIComponent("You're Invited ✦");
+        const body = encodeURIComponent(
+          "Hi " + (g.name || 'there') + ",\n\nYou have received a beautiful digital invitation.\n\nView it here: " + url + "\n\nWith love,\n" + senderName
+        );
+        window.open('mailto:' + encodeURIComponent(g.email) + '?subject=' + subject + '&body=' + body, '_blank');
+      }
+
+      // Small pause between sends to avoid rate limits
+      if (i < valid.length - 1) await new Promise(r => setTimeout(r, 600));
+    }
+
+    btn.disabled = false;
+    btn.textContent = '✉ Send PDF to All Guests';
+
+    if (failed === 0) {
+      statusEl.style.background = 'rgba(58,125,87,0.08)';
+      statusEl.style.color = '#3a7d57';
+      statusEl.style.border = '1px solid rgba(58,125,87,0.25)';
+      statusEl.textContent = '✓ All ' + sent + ' invitation' + (sent !== 1 ? 's' : '') + ' sent successfully!';
+    } else {
+      statusEl.style.background = 'rgba(192,104,122,0.08)';
+      statusEl.style.color = '#8b3a4a';
+      statusEl.style.border = '1px solid rgba(192,104,122,0.25)';
+      statusEl.textContent = sent + ' sent, ' + failed + ' opened as fallback mailto. Check your email app for those.';
+    }
   }
 
   function downloadAllGuestPDFs() {
