@@ -7,10 +7,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/png" href="logo-m.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -82,10 +79,6 @@
     .tog.on::before { transform: translateX(18px); }
 
     /* EMAIL PANEL */
-    .email-panel { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-top: 8px; }
-    .email-status { font-size: 12px; color: var(--mid); margin-top: 8px; min-height: 18px; text-align: center; }
-    .email-status.ok { color: var(--green); }
-    .email-status.err { color: #c0405a; }
 
     /* BUTTONS */
     .btn { width: 100%; padding: 13px; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; }
@@ -139,9 +132,6 @@
     .triple-foot { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: rgba(44,40,37,0.5); padding-top: 16px; margin-top: auto; }
 
     /* SEND SUCCESS */
-    .send-success { display: none; background: rgba(58,125,87,0.08); border: 1px solid rgba(58,125,87,0.3); border-radius: 4px; padding: 14px; text-align: center; margin-top: 8px; }
-    .send-success.vis { display: block; }
-    .send-success p { font-size: 13px; color: var(--green); }
 
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
@@ -251,21 +241,20 @@
     <div class="ctrl-section">
       <div class="ctrl-label">Send to Customer</div>
       <p style="font-size:12px;color:var(--mid);margin-bottom:14px;line-height:1.6;">
-        Download the final scratchcard PDF and email it directly to your customer — no watermark, ready to share.
+        Paste the customer's order details below to generate their unique scratchcard link — no PDF needed. They open the link and scratch on any device.
       </p>
-
-      <button class="btn btn-gold" onclick="downloadPDF()">⬇ Download Final PDF (No Watermark)</button>
-      <button class="btn btn-primary" onclick="sendByEmail()" id="sendEmailBtn">✉ Send PDF by Email</button>
-
-      <div class="send-success" id="sendSuccess">
-        <p>✓ Email sent successfully to <span id="sentTo"></span></p>
+      <div style="background:white;border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:10px;">
+        <div id="sc-link-box" style="font-size:11px;color:var(--soft);font-style:italic;text-align:center;padding:8px 0;">
+          Fill in the details above, then click Generate to create the customer link.
+        </div>
+        <textarea id="sc-link-url" readonly style="display:none;width:100%;padding:8px;border:1px solid var(--border);border-radius:3px;font-size:11px;font-family:monospace;resize:none;height:60px;margin-top:8px;background:#fafafa;color:var(--charcoal);"></textarea>
+        <button id="sc-copy-btn" style="display:none;width:100%;margin-top:8px;padding:9px;background:rgba(184,146,74,0.1);border:1px solid rgba(184,146,74,0.35);border-radius:3px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);cursor:pointer;" onclick="copyScLink()">Copy Link</button>
       </div>
-      <div class="email-status" id="emailStatus"></div>
-
-      <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border);">
-        <p style="font-size:11px;color:var(--soft);line-height:1.6;text-align:center;">
-          The final card has no watermark and is fully scratchable.<br>
-          Your customer can scratch on any device and share the reveal.
+      <button class="btn btn-primary" onclick="generateScLink()">⚡ Generate Customer Link</button>
+      <div style="margin-top:12px;padding:10px;background:rgba(184,146,74,0.06);border-radius:3px;">
+        <p style="font-size:11px;color:var(--soft);line-height:1.7;text-align:center;">
+          The link is the finished product — fully scratchable, no watermark.<br>
+          Send via email, WhatsApp or however you prefer. No app needed.
         </p>
       </div>
     </div>
@@ -382,90 +371,41 @@ function updatePreview() {
   else { cc.style.display = 'flex'; ti.style.display = 'none'; }
 }
 
-// ══════ PDF GENERATION ══════
-async function generatePDFBlob() {
-  const card = document.getElementById('previewCard');
-  const canvas = await html2canvas(card, { scale: 3, useCORS: true, backgroundColor: null });
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
-  const W = 148, H = 210;
-  const cRatio = canvas.width / canvas.height;
-  const cardH = W / cRatio;
-  const yOff = (H - cardH) / 2;
-  pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, yOff, W, cardH);
-  return pdf;
-}
+// ══════ GENERATE CUSTOMER LINK ══════
+function generateScLink() {
+  const recipient = document.getElementById('recipient').value.trim();
+  const headline  = document.getElementById('headline').value.trim() || S.defaultHeadline;
+  const message   = document.getElementById('message').value.trim();
+  const sig       = document.getElementById('signature').value.trim();
+  const wDate     = document.getElementById('weddingDate').value.trim();
+  const confetti  = document.getElementById('confettiToggle').classList.contains('on');
 
-async function downloadPDF() {
-  setStatus('Generating PDF…', '');
-  try {
-    const pdf = await generatePDFBlob();
-    const name = document.getElementById('recipient').value || 'Scratchcard';
-    pdf.save(name.replace(/\s+/g,'_') + '_scratchcard.pdf');
-    setStatus('PDF downloaded!', 'ok');
-  } catch (e) {
-    setStatus('PDF generation failed. Try again.', 'err');
-  }
-}
-
-// ══════ EMAIL SEND ══════
-async function sendByEmail() {
-  const customerEmail = document.getElementById('customerEmail').value.trim();
-  const customerName  = document.getElementById('customerName').value.trim();
-
-  if (!customerEmail || !customerEmail.includes('@')) {
-    setStatus('Please enter a valid customer email first.', 'err');
-    return;
-  }
-
-  const btn = document.getElementById('sendEmailBtn');
-  btn.disabled = true;
-  btn.textContent = '✉ Sending…';
-  setStatus('Preparing email…', '');
+  const data = {
+    occasion: S.occasion, icon: S.icon, layout: S.layout,
+    recipient, headline, message, signature: sig,
+    weddingDate: wDate, confetti
+  };
 
   try {
-    // Generate PDF as base64
-    const pdf = await generatePDFBlob();
-    const pdfBase64 = pdf.output('datauristring').split(',')[1];
-    const recipientName = document.getElementById('recipient').value || 'Your recipient';
-    const headline      = document.getElementById('headline').value  || S.defaultHeadline;
-    const orderRef      = document.getElementById('orderRef').value  || 'N/A';
+    const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
+    const url = window.location.origin + '/order.html?reveal=' + encoded;
 
-    await emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
-      to_email:       customerEmail,
-      to_name:        customerName || customerEmail,
-      recipient_name: recipientName,
-      headline:       headline,
-      order_ref:      orderRef,
-      occasion:       S.occasion,
-      pdf_attachment: pdfBase64
-    });
-
-    document.getElementById('sentTo').textContent = customerEmail;
-    document.getElementById('sendSuccess').classList.add('vis');
-    setStatus('', '');
-    btn.textContent = '✓ Sent';
-    setTimeout(() => { btn.textContent = '✉ Send PDF by Email'; btn.disabled = false; }, 4000);
-
-  } catch (err) {
-    console.error('EmailJS error:', err);
-    // Fallback: download PDF and open mailto
-    setStatus('EmailJS unavailable — downloading PDF. Open your email to send manually.', 'err');
-    const pdf = await generatePDFBlob();
-    const name = document.getElementById('recipient').value || 'Scratchcard';
-    pdf.save(name.replace(/\s+/g,'_') + '_scratchcard.pdf');
-    const subject = encodeURIComponent('Your Scratchcard from Moments by Shanaz');
-    const body = encodeURIComponent(`Hi ${customerName || 'there'},\n\nYour personalised scratchcard is attached!\n\nWith love,\nShanaz`);
-    window.open(`mailto:${customerEmail}?subject=${subject}&body=${body}`);
-    btn.textContent = '✉ Send PDF by Email';
-    btn.disabled = false;
+    document.getElementById('sc-link-url').style.display = 'block';
+    document.getElementById('sc-link-url').value = url;
+    document.getElementById('sc-copy-btn').style.display = 'block';
+    document.getElementById('sc-link-box').style.display = 'none';
+  } catch(e) {
+    alert('Could not generate link. Please check all fields are filled in.');
   }
 }
 
-function setStatus(msg, type) {
-  const el = document.getElementById('emailStatus');
-  el.textContent = msg;
-  el.className = 'email-status' + (type ? ' ' + type : '');
+function copyScLink() {
+  const ta = document.getElementById('sc-link-url');
+  navigator.clipboard.writeText(ta.value).then(() => {
+    const btn = document.getElementById('sc-copy-btn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
+  });
 }
 
 // ══════ INIT ══════
