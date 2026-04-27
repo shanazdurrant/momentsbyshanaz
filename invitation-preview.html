@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --cream: #faf8f4; --gold: #b8924a; --charcoal: #2c2825; --mid: #6b6460; --soft: #9c958f; --border: #e8e2d9; }
@@ -362,27 +364,37 @@
     });
   }
 
-  // ── RSVP ─────────────────────────────────────────────────
+  // ── RSVP via EmailJS ─────────────────────────────────────
   function sendRsvp(response, toEmail, eventName) {
     const labels = { yes: "Yes, I'll be there!", maybe: 'Maybe', no: "Sorry, I can't make it" };
     const emojis = { yes: '🎉', maybe: '🤔', no: '😔' };
     const guestName = document.querySelector('.card-name') ? document.querySelector('.card-name').textContent : 'A guest';
-    const subject = encodeURIComponent(`RSVP: ${emojis[response]} ${labels[response]} · ${eventName || 'Your Event'}`);
-    const body = encodeURIComponent(
-      `Hi,
 
-${guestName} has responded to your invitation:
-
-` +
-      `${emojis[response]} ${labels[response].toUpperCase()}
-
-` +
-      `This response was sent via Moments by Shanaz.`
-    );
-    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-    document.getElementById('rsvp-sent').classList.add('vis');
-    // Disable buttons after responding
+    // Disable buttons immediately
     document.querySelectorAll('.rsvp-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.4'; });
+
+    emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
+      to_email:   toEmail,
+      guest_name: guestName,
+      event_name: eventName || 'Your Event',
+      response:   emojis[response] + ' ' + labels[response]
+    })
+    .then(() => {
+      document.getElementById('rsvp-sent').classList.add('vis');
+    })
+    .catch(err => {
+      console.error('EmailJS error:', err);
+      const subject = encodeURIComponent('RSVP: ' + emojis[response] + ' ' + labels[response] + ' · ' + (eventName || 'Your Event'));
+      const body = encodeURIComponent('Hi,
+
+' + guestName + ' has responded to your invitation:
+
+' + emojis[response] + ' ' + labels[response].toUpperCase() + '
+
+This response was sent via Moments by Shanaz.');
+      window.open('mailto:' + toEmail + '?subject=' + subject + '&body=' + body);
+      document.getElementById('rsvp-sent').classList.add('vis');
+    });
   }
 
   // ── Init ─────────────────────────────────────────────────
