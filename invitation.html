@@ -1,705 +1,899 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Invitations · Moments by Shanaz</title>
-  <meta name="description" content="Create a luxury digital invitation for weddings, birthdays, gender reveals and more. Choose your style, personalise every detail, and send to guests as a beautiful PDF." />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Digital Invitations · Moments by Shanaz" />
-  <meta property="og:description" content="Luxury personalised digital invitations for every occasion. Beautiful designs crafted by hand and delivered within hours." />
-  <meta property="og:url" content="https://www.momentsbyshanaz.co.uk/invitations.html" />
-  <meta property="og:type" content="website" />
-  <link rel="canonical" href="https://www.momentsbyshanaz.co.uk/invitations.html" />
-  <link rel="icon" type="image/png" href="logo-m.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #faf8f4; --warm-white: #fefcf8;
-      --gold: #b8924a; --gold-light: #d4a96a;
-      --charcoal: #2c2825; --mid: #6b6460; --soft: #9c958f; --border: #e8e2d9;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); font-weight: 300; line-height: 1.7; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Digital Invitations · Moments by Shanaz</title>
+<meta name="description" content="Luxury personalised digital invitations — weddings, birthdays, children's parties, engagements and more. Choose a style or go fully bespoke."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://www.momentsbyshanaz.co.uk/invitations.html"/>
+<link rel="icon" type="image/png" href="logo-m.png"/>
+<link rel="apple-touch-icon" href="logo-m.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&family=Cinzel:wght@400;600&family=Dancing+Script:wght@500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@100;300;400&family=Sacramento&family=Nunito:wght@300;400;700;800&family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--cream:#faf8f4;--warm:#fefcf8;--gold:#b8924a;--gold-l:#d4a96a;--gold-d:#8a6a28;--char:#2c2825;--mid:#6b6460;--soft:#9c958f;--border:#e8e2d9;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);font-weight:300;line-height:1.7;overflow-x:hidden;}
 
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(250,248,244,0.96); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 68px;
-    }
-    nav img { height: 34px; }
-    nav .nav-links { display: flex; gap: 32px; }
-    nav .nav-links a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
-    nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,248,244,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;}
+nav .logo img{height:34px;}
+nav .nav-links{display:flex;gap:32px;align-items:center;}
+nav .nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
+nav .nav-links a:hover{color:var(--gold);}
+nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
 
-    .page-hero { text-align: center; padding: 64px 40px 48px; border-bottom: 1px solid var(--border); }
-    .page-hero .eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 16px; }
-    .page-hero h1 em { font-style: italic; color: var(--gold); }
-    .page-hero p { font-size: 14px; color: var(--mid); max-width: 480px; margin: 0 auto; }
+/* HERO */
+.hero{padding:148px 40px 72px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(184,146,74,.07),transparent 70%);pointer-events:none;}
+.hero-ornament{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:300;line-height:1.15;margin-bottom:20px;max-width:680px;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero p{font-size:14px;color:var(--mid);max-width:460px;margin:0 auto 44px;line-height:1.9;}
+.hero-divider{display:flex;align-items:center;justify-content:center;gap:16px;}
+.hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:80px;height:1px;background:var(--border);}
+.hero-divider span{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--soft);}
 
-    .builder-layout { display: grid; grid-template-columns: 440px 1fr; min-height: calc(100vh - 68px); }
+/* HOW */
+.how{padding:56px 40px 72px;text-align:center;border-bottom:1px solid var(--border);}
+.how-steps{display:flex;justify-content:center;max-width:720px;margin:32px auto 0;position:relative;}
+.how-steps::before{content:'';position:absolute;top:20px;left:calc(16.66% + 12px);right:calc(16.66% + 12px);height:1px;background:var(--border);}
+.how-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 16px;}
+.how-num{width:40px;height:40px;border-radius:50%;background:var(--warm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.12em;color:var(--gold);position:relative;z-index:1;font-family:'Cinzel',serif;}
+.how-step h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;}
+.how-step p{font-size:12px;color:var(--mid);line-height:1.7;}
 
-    .form-panel { border-right: 1px solid var(--border); padding: 40px 36px; overflow-y: auto; }
-    .form-section { margin-bottom: 36px; }
-    .fs-title {
-      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
-    }
-    .fs-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .fs-num { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: rgba(184,146,74,0.3); margin-right: 2px; }
+/* SECTION LABEL */
+.section-label{text-align:center;padding:72px 40px 48px;}
+.section-label .eyebrow{font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+.section-label h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;line-height:1.2;}
+.section-label p{font-size:13px;color:var(--mid);margin-top:12px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.8;}
 
-    /* OCCASION */
-    .occ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .occ-tile { border: 1px solid var(--border); border-radius: 4px; padding: 14px 10px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
-    .occ-tile:hover { border-color: var(--gold-light); }
-    .occ-tile.sel { border-color: var(--gold); background: rgba(184,146,74,0.05); }
-    .occ-icon { font-size: 18px; margin-bottom: 5px; }
-    .occ-name { font-size: 12px; letter-spacing: 0.04em; }
+/* GRID */
+.presets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 40px 80px;max-width:1120px;margin:0 auto;}
 
-    /* MODE TABS */
-    .mode-tabs { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 14px; }
-    .mode-tab { flex: 1; padding: 10px 8px; text-align: center; cursor: pointer; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; border-right: 1px solid var(--border); font-family: 'Jost', sans-serif; color: var(--soft); transition: background 0.2s, color 0.2s; }
-    .mode-tab:last-child { border-right: none; }
-    .mode-tab.active { background: var(--charcoal); color: var(--cream); }
+/* PRESET CARD */
+.preset{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease;box-shadow:0 6px 24px rgba(44,40,37,.09),0 2px 8px rgba(44,40,37,.05);}
+.preset:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(44,40,37,.16),0 6px 16px rgba(44,40,37,.08);}
+.preset.open{transform:none !important;box-shadow:0 0 0 2px var(--gold),0 20px 56px rgba(44,40,37,.18) !important;}
 
-    /* SOLID SWATCHES */
-    .swatch-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-    .swatch { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s, border-color 0.15s; }
-    .swatch:hover { transform: scale(1.12); }
-    .swatch.sel { border-color: var(--gold); box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--gold); }
+/* MINI CARD */
+.mini-card{aspect-ratio:5/7;position:relative;overflow:hidden;}
+.mini-card-inner{position:absolute;inset:0;z-index:2;}
+.mini-frame{position:absolute;z-index:3;pointer-events:none;}
 
-    /* GRADIENT SWATCHES */
-    .grad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .grad-swatch { height: 44px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s, border-color 0.15s; }
-    .grad-swatch:hover { transform: scale(1.05); }
-    .grad-swatch.sel { border-color: var(--gold); box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--gold); }
+/* PRESET LABEL */
+.preset-label{padding:14px 18px;background:var(--warm);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.preset-name{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--char);margin-bottom:2px;}
+.preset-vibe{font-size:10px;color:var(--soft);}
+.preset-arrow{font-size:16px;color:var(--gold);transition:transform .25s;flex-shrink:0;margin-left:8px;}
+.preset:hover .preset-arrow,.preset.open .preset-arrow{transform:rotate(90deg);}
 
-    /* TEXTURE */
-    .texture-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .texture-tile { border: 2px solid var(--border); border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 5/3; transition: border-color 0.2s; }
-    .texture-tile:hover { border-color: var(--gold-light); }
-    .texture-tile.sel { border-color: var(--gold); }
-    .texture-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .texture-tile .tname { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.45); color: #fff; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 8px; text-align: center; }
-    .tex-none { border: 2px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; aspect-ratio: 5/3; background: var(--warm-white); transition: border-color 0.2s; font-size: 11px; letter-spacing: 0.08em; color: var(--soft); flex-direction: column; gap: 4px; }
-    .tex-none:hover { border-color: var(--gold-light); }
-    .tex-none.sel { border-color: var(--gold); color: var(--gold); }
+/* ORDER PANEL */
+.order-panel{display:none;background:var(--warm);border-top:2px solid var(--gold);}
+.order-panel.vis{display:block;animation:slideDown .28s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.order-form{padding:22px 22px 26px;}
+.of-style-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--char);margin-bottom:2px;}
+.of-style-desc{font-size:10px;color:var(--soft);margin-bottom:18px;line-height:1.6;}
+.of-field{margin-bottom:10px;}
+.of-field label{display:block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+.of-field input,.of-field textarea{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:9px 11px;font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;resize:none;}
+.of-field input:focus,.of-field textarea:focus{border-color:var(--gold);}
+.of-field textarea{min-height:58px;}
+.of-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.order-submit{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:13px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:4px;}
+.order-submit:hover{background:var(--gold);}
+.order-submit:disabled{opacity:.5;cursor:not-allowed;}
 
-    /* FONTS */
-    .font-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .font-tile { border: 1px solid var(--border); border-radius: 4px; padding: 14px 12px; cursor: pointer; text-align: center; transition: border-color 0.2s, background 0.2s; }
-    .font-tile:hover { border-color: var(--gold-light); }
-    .font-tile.sel { border-color: var(--gold); background: rgba(184,146,74,0.05); }
-    .font-preview { font-size: 1.3rem; margin-bottom: 4px; line-height: 1.2; }
-    .font-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+/* BESPOKE */
+.bespoke{background:var(--char);color:var(--cream);padding:88px 40px;text-align:center;position:relative;overflow:hidden;}
+.bespoke::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 50%,rgba(184,146,74,.1),transparent 70%);}
+.bespoke .eyebrow{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-l);margin-bottom:16px;display:block;position:relative;}
+.bespoke h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:14px;position:relative;}
+.bespoke h2 em{font-style:italic;color:var(--gold-l);}
+.bespoke>.intro{font-size:13px;color:rgba(250,248,244,.6);max-width:460px;margin:0 auto 20px;line-height:1.9;position:relative;}
 
-    /* FRAME */
-    .frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .frame-chip { border: 1px solid var(--border); border-radius: 4px; padding: 12px 8px; text-align: center; cursor: pointer; font-size: 11px; letter-spacing: 0.08em; transition: border-color 0.2s, background 0.2s; }
-    .frame-chip:hover { border-color: var(--gold-light); }
-    .frame-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.06); color: var(--gold); }
-    .frame-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 6px; }
+/* BESPOKE DEMO CARD */
+.bespoke-demo{max-width:900px;margin:0 auto 52px;display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:28px;text-align:left;position:relative;}
+.bespoke-demo-card{aspect-ratio:5/7;position:relative;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.bespoke-demo-text{position:relative;}
+.bespoke-demo-text h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--cream);margin-bottom:8px;line-height:1.3;}
+.bespoke-demo-text p{font-size:12px;color:rgba(250,248,244,.55);line-height:1.8;margin-bottom:16px;}
+.bespoke-demo-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.bespoke-tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l);border:1px solid rgba(212,169,106,.25);padding:3px 8px;border-radius:2px;}
 
-    /* CUSTOM */
-    .custom-toggle { border: 1px solid var(--border); border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; font-size: 13px; }
-    .custom-toggle:hover { border-color: var(--gold-light); }
-    .custom-toggle.sel { border-color: var(--gold); background: rgba(184,146,74,0.05); color: var(--gold); }
-    .info-box { display: none; margin-top: 12px; background: rgba(184,146,74,0.06); border: 1px solid rgba(184,146,74,0.2); border-radius: 4px; padding: 14px 16px; font-size: 13px; color: var(--mid); line-height: 1.6; }
-    .info-box.vis { display: block; }
-    .info-box strong { display: block; font-weight: 500; margin-bottom: 8px; font-size: 13px; color: var(--charcoal); }
+.bespoke-form{max-width:540px;margin:0 auto;position:relative;text-align:left;}
+.bespoke-form .of-field label{color:rgba(250,248,244,.45);}
+.bespoke-form .of-field input,.bespoke-form .of-field textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:var(--cream);}
+.bespoke-form .of-field input::placeholder,.bespoke-form .of-field textarea::placeholder{color:rgba(250,248,244,.25);}
+.bespoke-form .of-field input:focus,.bespoke-form .of-field textarea:focus{border-color:var(--gold-l);}
+.bespoke-form .order-submit{background:var(--gold);color:var(--cream);}
+.bespoke-form .order-submit:hover{background:var(--gold-l);}
 
-    /* FIELDS */
-    .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 7px; }
-    .field input, .field textarea { width: 100%; background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 11px 13px; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: var(--charcoal); outline: none; transition: border-color 0.2s; resize: none; }
-    .field input:focus, .field textarea:focus { border-color: var(--gold); }
-    .field textarea { min-height: 85px; }
-    .field .hint { font-size: 11px; color: var(--soft); margin-top: 5px; }
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:48px 40px;text-align:center;}
+footer .footer-logo img{height:32px;margin-bottom:20px;opacity:.85;}
+footer p{font-size:12px;color:var(--soft);}
+footer a{color:var(--soft);text-decoration:none;}
+footer a:hover{color:var(--gold);}
 
-    /* UPLOAD */
-    .upload-area { border: 1.5px dashed var(--border); border-radius: 4px; padding: 26px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
-    .upload-area:hover { border-color: var(--gold-light); }
-    .upload-area input { display: none; }
-    .upload-icon { font-size: 22px; margin-bottom: 8px; }
-    .upload-area p { font-size: 13px; color: var(--mid); }
-    .upload-area small { font-size: 11px; color: var(--soft); }
-    .upload-preview { margin-top: 10px; border-radius: 4px; overflow: hidden; display: none; }
-    .upload-preview img { width: 100%; max-height: 110px; object-fit: cover; }
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--char);color:var(--cream);padding:13px 28px;border-radius:4px;font-size:12px;letter-spacing:.08em;opacity:0;transition:all .35s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(44,40,37,.25);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-    .submit-btn { width: 100%; background: var(--charcoal); color: var(--cream); border: none; border-radius: 4px; padding: 15px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-bottom: 10px; }
-    .submit-btn:hover { background: var(--gold); }
-    .submit-note { font-size: 11px; color: var(--soft); text-align: center; line-height: 1.6; }
+@media(max-width:900px){.presets-grid{grid-template-columns:repeat(2,1fr);}.bespoke-demo{grid-template-columns:160px 1fr;}}
+@media(max-width:600px){nav{padding:0 20px;}nav .nav-links{gap:18px;}.hero{padding:110px 20px 56px;}.presets-grid{grid-template-columns:1fr;padding:0 20px 60px;}.how{padding:40px 20px 60px;}.how-steps{flex-direction:column;gap:24px;}.how-steps::before{display:none;}.bespoke{padding:60px 20px;}.bespoke-demo{grid-template-columns:1fr;}.bespoke-demo-card{max-width:160px;margin:0 auto;}footer{padding:36px 20px;}.of-row{grid-template-columns:1fr;}}
 
-    /* PREVIEW PANEL */
-    .preview-panel { padding: 40px 52px; display: flex; flex-direction: column; align-items: center; background: var(--warm-white); position: sticky; top: 68px; height: calc(100vh - 68px); overflow-y: auto; }
-    .preview-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--soft); margin-bottom: 28px; align-self: flex-start; }
+/* ══════════════════════════════
+   PRESET MINI-CARD DESIGNS
+══════════════════════════════ */
 
-    .inv-card { width: 100%; max-width: 360px; aspect-ratio: 5/7; position: relative; box-shadow: 0 24px 70px rgba(44,40,37,0.18), 0 4px 16px rgba(44,40,37,0.08); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+/* ── 1. ETERNAL ELEGANCE — cream/gold linen, text bottom-left ── */
+.p-elegant .mini-card{background:linear-gradient(160deg,#fdf8f0 0%,#f5ead8 50%,#ede0c4 100%);}
+.p-elegant .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(150,120,60,.032) 3px,rgba(150,120,60,.032) 4px),repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(150,120,60,.025) 3px,rgba(150,120,60,.025) 4px);}
+.p-elegant .mini-card::after{content:'';position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 60% 40% at 50% 20%,rgba(255,240,200,.55) 0%,transparent 70%),
+  radial-gradient(ellipse 80% 30% at 50% 95%,rgba(200,160,80,.15) 0%,transparent 70%);}
+.p-elegant .mini-card-inner{padding:18px 16px 20px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;}
+.p-elegant .mini-frame{inset:10px;border:1px solid rgba(184,146,74,.28);}
+/* SVG floral top */
+.p-elegant .mc-floral{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:2;opacity:.45;width:80px;}
+.p-elegant .mc-eyebrow{font-family:'Jost',sans-serif;font-size:5px;letter-spacing:.42em;text-transform:uppercase;color:rgba(184,146,74,.7);margin-bottom:6px;}
+.p-elegant .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;color:#2c2825;line-height:1.15;margin-bottom:3px;}
+.p-elegant .mc-line{width:28px;height:1px;background:rgba(184,146,74,.38);margin-bottom:7px;}
+.p-elegant .mc-detail{font-family:'Jost',sans-serif;font-size:5.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(107,100,96,.62);line-height:1.9;}
 
-    .card-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; text-align: center; transition: background 0.35s; background: #fefcf8; color: #2c2825; }
-    .card-frame { position: absolute; inset: 18px; border: 1px solid rgba(184,146,74,0.3); pointer-events: none; border-radius: 1px; }
+/* ── 2. NOIR & GOLD — dark, Cinzel, centred, herringbone ── */
+.p-noir .mini-card{background:linear-gradient(148deg,#1a1714 0%,#2c2218 60%,#1a1410 100%);}
+.p-noir .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
+  background:repeating-linear-gradient(45deg,rgba(212,169,106,.03) 0,rgba(212,169,106,.03) 1px,transparent 1px,transparent 8px),repeating-linear-gradient(-45deg,rgba(212,169,106,.025) 0,rgba(212,169,106,.025) 1px,transparent 1px,transparent 8px),
+  radial-gradient(ellipse 50% 40% at 30% 15%,rgba(255,240,180,.12) 0%,transparent 70%),
+  radial-gradient(ellipse 40% 35% at 75% 80%,rgba(212,169,106,.1) 0%,transparent 70%),
+  radial-gradient(circle 8px at 20% 30%,rgba(255,230,150,.18) 0%,transparent 100%),
+  radial-gradient(circle 5px at 65% 20%,rgba(255,220,120,.12) 0%,transparent 100%),
+  radial-gradient(circle 12px at 80% 60%,rgba(200,160,80,.08) 0%,transparent 100%);}
+.p-noir .mini-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;}
+.p-noir .mini-frame{inset:11px;border:1px solid rgba(212,169,106,.22);z-index:4;}
+/* Rings SVG top */
+.p-noir .mc-rings{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:3;width:44px;opacity:.7;}
+.p-noir .mc-eyebrow{font-family:'Cinzel',serif;font-size:5px;letter-spacing:.5em;text-transform:uppercase;color:rgba(212,169,106,.55);margin-bottom:10px;margin-top:30px;}
+.p-noir .mc-name{font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:#e8d5a8;letter-spacing:.1em;line-height:1.3;margin-bottom:3px;}
+.p-noir .mc-line{width:36px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,169,106,.45),transparent);margin:8px auto;}
+.p-noir .mc-detail{font-family:'Cinzel',serif;font-size:5.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,169,106,.45);line-height:1.9;}
+/* Gold shimmer */
+.p-noir .mini-card::after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,transparent 35%,rgba(232,200,122,.06) 50%,transparent 65%);background-size:200% 200%;animation:goldSheen 5s ease-in-out infinite;z-index:5;pointer-events:none;}
+@keyframes goldSheen{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
 
-    /* font classes */
-    .font-elegant .card-name { font-family: 'Cormorant Garamond', serif !important; font-style: italic; font-weight: 400; }
-    .font-elegant .card-headline { font-family: 'Lato', sans-serif !important; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; font-style: normal; font-size: 0.75rem !important; }
-    .font-modern .card-name { font-family: 'Playfair Display', serif !important; font-weight: 700; font-style: normal; }
-    .font-modern .card-headline { font-family: 'Lato', sans-serif !important; font-weight: 300; letter-spacing: 0.06em; font-style: normal; }
-    .font-playful .card-name { font-family: 'Dancing Script', cursive !important; font-weight: 600; }
-    .font-playful .card-headline { font-family: 'Nunito', sans-serif !important; font-weight: 700; font-style: normal; }
-    .font-comical .card-name { font-family: 'Pacifico', cursive !important; font-weight: 400; font-style: normal; font-size: 1.5rem !important; }
-    .font-comical .card-headline { font-family: 'Nunito', sans-serif !important; font-weight: 700; font-style: normal; }
-    .font-comical .card-eyebrow { font-family: 'Abril Fatface', serif !important; }
+/* ── 3. BLUSH WEDDING — lace texture, arch, rings, right-aligned ── */
+.p-wedding .mini-card{background:linear-gradient(160deg,#fff5f7 0%,#fde0e8 40%,#f8d0dc 70%,#f0c8d4 100%);}
+.p-wedding .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 70% 50% at 50% 15%,rgba(255,255,255,.85) 0%,transparent 60%),
+  radial-gradient(ellipse 100% 40% at 0% 100%,rgba(220,140,170,.35) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 30% at 100% 80%,rgba(200,120,160,.25) 0%,transparent 60%),
+  radial-gradient(circle 3px at 15% 20%,rgba(255,220,230,.9) 0%,transparent 100%),
+  radial-gradient(circle 2px at 80% 15%,rgba(255,200,220,.8) 0%,transparent 100%),
+  radial-gradient(circle 4px at 90% 40%,rgba(255,215,225,.7) 0%,transparent 100%),
+  radial-gradient(circle 2px at 10% 70%,rgba(255,210,225,.8) 0%,transparent 100%),
+  radial-gradient(circle 3px at 50% 90%,rgba(255,200,215,.6) 0%,transparent 100%);}
+/* Glitter shimmer bottom */
+.p-wedding .mini-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:35%;z-index:2;
+  background:repeating-linear-gradient(125deg,rgba(255,255,255,.0) 0,rgba(255,255,255,.0) 3px,rgba(255,220,230,.08) 3px,rgba(255,220,230,.08) 4px),
+  radial-gradient(circle 1.5px at 20% 70%,rgba(255,255,255,.7) 0%,transparent 100%),
+  radial-gradient(circle 1px at 50% 85%,rgba(255,255,255,.6) 0%,transparent 100%),
+  radial-gradient(circle 2px at 75% 65%,rgba(255,255,255,.5) 0%,transparent 100%),
+  radial-gradient(circle 1px at 35% 90%,rgba(255,255,255,.7) 0%,transparent 100%);pointer-events:none;}
+.p-wedding .mini-card-inner{padding:14px 14px 18px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;text-align:right;}
+/* Arch frame */
+.p-wedding .mini-frame{top:8px;left:8px;right:8px;bottom:8px;border:1px solid rgba(200,130,155,.2);border-radius:38% 38% 3px 3px / 14% 14% 2px 2px;}
+/* Flowers top centre */
+.p-wedding .mc-flowers{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:4;width:70px;opacity:.55;}
+.p-wedding .mc-eyebrow{font-family:'Great Vibes',cursive;font-size:.75rem;color:rgba(180,100,125,.55);margin-bottom:4px;margin-top:4px;font-weight:400;}
+.p-wedding .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#5a2535;line-height:1.2;margin-bottom:3px;}
+.p-wedding .mc-line{display:flex;justify-content:flex-end;margin-bottom:6px;}
+.p-wedding .mc-line svg{width:32px;opacity:.3;}
+.p-wedding .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:5.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(90,37,53,.55);line-height:1.9;}
 
-    .card-eyebrow { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 16px; opacity: 0.65; }
-    .card-divider { width: 32px; height: 1px; background: currentColor; opacity: 0.18; margin: 10px auto; }
-    .card-name { font-family: 'Dancing Script', cursive; font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 600; line-height: 1.2; margin-bottom: 4px; }
-    .card-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.85rem, 1.5vw, 1rem); font-weight: 300; font-style: italic; margin-bottom: 14px; opacity: 0.75; }
-    .card-body { font-size: 11px; letter-spacing: 0.06em; line-height: 1.9; opacity: 0.6; margin-bottom: 12px; }
-    .card-date { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 300; margin-bottom: 4px; opacity: 0.85; }
-    .card-from { font-size: 10px; letter-spacing: 0.1em; opacity: 0.45; margin-top: 12px; font-style: italic; }
-    .card-photo { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.4); margin-bottom: 12px; display: none; }
-    .card-photo.vis { display: block; }
-    .card-stamp { position: absolute; bottom: 14px; right: 14px; width: 26px; height: 26px; opacity: 0.15; }
-    .card-stamp img { width: 100%; height: 100%; object-fit: contain; }
+/* ── 4. ENGAGEMENT — champagne velvet, ring box, left-aligned ── */
+.p-engage .mini-card{background:radial-gradient(ellipse 50% 50% at 25% 20%,#6a4a88 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 80%,rgba(30,15,50,.6) 0%,transparent 70%),linear-gradient(148deg,#3a2e42 0%,#5c4468 50%,#4a3560 100%);}
+.p-engage .mini-card::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(circle 2px at 25% 15%,rgba(255,220,120,.55) 0%,transparent 100%),
+  radial-gradient(circle 1.5px at 70% 22%,rgba(255,230,150,.45) 0%,transparent 100%),
+  radial-gradient(circle 3px at 85% 10%,rgba(255,215,100,.35) 0%,transparent 100%),
+  radial-gradient(circle 1px at 15% 38%,rgba(255,240,180,.5) 0%,transparent 100%),
+  radial-gradient(circle 2px at 55% 8%,rgba(255,220,130,.4) 0%,transparent 100%),
+  radial-gradient(circle 1.5px at 40% 28%,rgba(255,200,255,.3) 0%,transparent 100%);}
+.p-engage .mini-card-inner{padding:16px 14px 16px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;}
+.p-engage .mini-frame{inset:10px;border:1px solid rgba(220,180,255,.18);}
+/* Ring box SVG */
+.p-engage .mc-ringbox{position:absolute;top:14px;right:14px;z-index:4;width:52px;opacity:.8;}
+.p-engage .mc-eyebrow{font-family:'Sacramento',cursive;font-size:.9rem;color:rgba(220,180,255,.7);margin-bottom:4px;}
+.p-engage .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#f0e4ff;line-height:1.2;margin-bottom:3px;}
+.p-engage .mc-line{width:24px;height:1px;background:rgba(220,180,255,.35);margin-bottom:6px;}
+.p-engage .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:5.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(220,180,255,.5);line-height:1.9;}
+.p-engage .mc-spark{position:absolute;top:18px;left:18px;font-size:8px;opacity:.4;z-index:3;}
 
-    .card-watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; transform: rotate(-28deg); z-index: 10; }
-    .card-watermark span { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(0,0,0,0.1); white-space: nowrap; }
+/* ── 5. GARDEN PARTY — sage linen, botanical, left offset ── */
+.p-garden .mini-card{background:linear-gradient(165deg,#f0f8f0 0%,#e4f4e4 40%,#d8eeda 70%,#c8e6cc 100%);}
+.p-garden .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
+  /* linen weave */
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(60,120,70,.025) 3px,rgba(60,120,70,.025) 4px),repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(60,120,70,.018) 3px,rgba(60,120,70,.018) 4px),
+  /* light wash top */
+  radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,255,255,.7) 0%,transparent 70%),
+  /* petal scatter — top corners */
+  radial-gradient(ellipse 5px 3px at 8% 8%,rgba(255,255,255,.7) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 2.5px at 15% 12%,rgba(240,255,240,.8) 0%,transparent 100%),
+  radial-gradient(ellipse 6px 3px at 88% 6%,rgba(255,255,255,.65) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 2px at 80% 14%,rgba(240,255,240,.7) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 92% 20%,rgba(220,255,220,.6) 0%,transparent 100%),
+  /* bottom corners */
+  radial-gradient(ellipse 6px 3px at 5% 88%,rgba(200,240,200,.6) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 2.5px at 12% 94%,rgba(210,240,210,.55) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 85% 90%,rgba(200,240,200,.55) 0%,transparent 100%);}
+.p-garden .mini-card-inner{padding:14px 12px 16px 14px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;}
+.p-garden .mini-frame{inset:10px;border:1px solid rgba(80,140,90,.16);}
+/* Branch right */
+.p-garden .mc-branch{position:absolute;right:-4px;top:0;bottom:0;z-index:4;width:52px;opacity:.55;}
+.p-garden .mc-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(55,105,65,.58);margin-bottom:7px;}
+.p-garden .mc-name{font-family:'Dancing Script',cursive;font-size:1.55rem;font-weight:600;color:#2d5a35;line-height:1.15;margin-bottom:3px;}
+.p-garden .mc-line{font-size:11px;opacity:.35;color:#4a8a56;margin-bottom:6px;}
+.p-garden .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:5.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(45,90,53,.6);line-height:1.9;}
 
-    .preview-note { margin-top: 22px; font-size: 11px; color: var(--soft); text-align: center; max-width: 320px; line-height: 1.7; }
-    .preview-note strong { color: var(--gold); }
+/* ── 6. STARRY NIGHT — deep navy, celestial, centred ── */
+.p-starry .mini-card{
+  background:radial-gradient(ellipse 60% 50% at 35% 15%,#2a3d7a 0%,#0d1a3a 55%,#060c1e 100%);}
+.p-starry .mini-card-bg{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 100% 25% at 50% 40%,rgba(80,50,180,.18) 0%,transparent 70%),
+  radial-gradient(ellipse 80% 20% at 20% 55%,rgba(40,100,200,.12) 0%,transparent 70%);}
+.p-starry .mini-card::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1px),radial-gradient(circle,rgba(255,255,255,.4) 0.6px,transparent 0.6px);background-size:28px 28px,16px 16px;background-position:0 0,8px 8px;opacity:.28;z-index:1;}
+.p-starry .mini-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;}
+.p-starry .mini-frame{inset:11px;border:1px solid rgba(200,215,255,.1);z-index:4;}
+/* Crescent moon */
+.p-starry .mc-moon{position:absolute;top:12px;right:14px;z-index:3;font-size:18px;opacity:.35;}
+.p-starry .mc-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:5px;letter-spacing:.4em;text-transform:uppercase;color:rgba(180,200,255,.48);margin-bottom:8px;}
+.p-starry .mc-name{font-family:'Sacramento',cursive;font-size:1.8rem;color:#eaf0ff;line-height:1.1;margin-bottom:3px;}
+.p-starry .mc-line{font-size:9px;letter-spacing:5px;color:rgba(200,215,255,.28);margin:5px 0;}
+.p-starry .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:5.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(180,200,255,.42);line-height:1.9;}
 
-    /* SUCCESS */
-    #success-modal { position: fixed; inset: 0; background: rgba(44,40,37,0.7); display: none; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(6px); }
-    #success-modal.vis { display: flex; }
-    .success-box { background: var(--cream); border-radius: 6px; padding: 48px 40px; max-width: 400px; text-align: center; box-shadow: 0 40px 80px rgba(44,40,37,0.2); }
-    .success-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; margin-bottom: 12px; }
-    .success-box p { font-size: 14px; color: var(--mid); margin-bottom: 24px; line-height: 1.7; }
-    .success-close { background: var(--charcoal); color: var(--cream); border: none; border-radius: 4px; padding: 13px 28px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-    .success-close:hover { background: var(--gold); }
+/* ── 7. LITTLE EXPLORER — children's, balloon/adventure, playful layout ── */
+.p-explorer .mini-card{background:linear-gradient(170deg,#c8eeff 0%,#a0dcff 30%,#b8e8ff 60%,#d0f0ff 100%);}
+.p-explorer .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  /* Balloon shapes using gradients */
+  background:
+  /* big pink balloon */
+  radial-gradient(ellipse 18px 22px at 78% 28%,rgba(255,140,180,.85) 0%,rgba(255,100,160,.0) 70%),
+  radial-gradient(ellipse 18px 22px at 78% 28%,rgba(255,180,210,.5) 30%,transparent 70%),
+  /* teal balloon */
+  radial-gradient(ellipse 15px 19px at 62% 20%,rgba(100,220,200,.8) 0%,rgba(80,200,180,.0) 70%),
+  /* yellow balloon */
+  radial-gradient(ellipse 16px 20px at 88% 45%,rgba(255,230,80,.85) 0%,rgba(255,220,60,.0) 70%),
+  /* white balloon */
+  radial-gradient(ellipse 13px 17px at 68% 38%,rgba(240,250,255,.9) 0%,rgba(220,240,255,.0) 70%),
+  /* bokeh circles (confetti feel) */
+  radial-gradient(circle 4px at 12% 18%,rgba(255,100,120,.55) 0%,transparent 100%),
+  radial-gradient(circle 3px at 30% 8%,rgba(255,220,50,.6) 0%,transparent 100%),
+  radial-gradient(circle 3px at 50% 22%,rgba(100,200,255,.5) 0%,transparent 100%),
+  radial-gradient(circle 2px at 40% 15%,rgba(255,150,200,.5) 0%,transparent 100%),
+  radial-gradient(circle 4px at 20% 30%,rgba(255,180,80,.45) 0%,transparent 100%),
+  radial-gradient(circle 3px at 55% 10%,rgba(150,100,255,.35) 0%,transparent 100%),
+  /* light top glow */
+  radial-gradient(ellipse 100% 40% at 50% 0%,rgba(255,255,255,.6) 0%,transparent 70%);}
+.p-explorer .mini-card-inner{padding:14px 12px 12px 14px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;}
+.p-explorer .mini-frame{top:8px;left:8px;right:8px;bottom:8px;border:2px solid rgba(255,170,50,.3);border-radius:6px;}
+/* Balloons top right */
+.p-explorer .mc-balloons{position:absolute;top:6px;right:6px;z-index:4;font-size:26px;line-height:1;opacity:.85;transform:rotate(8deg);}
+/* Stars scattered */
+.p-explorer .mc-stars{position:absolute;top:12px;left:12px;z-index:4;font-size:9px;opacity:.5;letter-spacing:5px;}
+.p-explorer .mc-eyebrow{font-family:'Nunito',sans-serif;font-size:6.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(160,110,20,.7);margin-bottom:5px;font-weight:700;}
+.p-explorer .mc-name{font-family:'Pacifico',cursive;font-size:1.1rem;color:#7a4a00;line-height:1.2;margin-bottom:4px;}
+.p-explorer .mc-line{font-size:11px;margin-bottom:5px;opacity:.6;}
+.p-explorer .mc-detail{font-family:'Nunito',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(120,80,0,.65);line-height:1.8;font-weight:700;}
 
-    /* RSVP */
-    .rsvp-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; margin-bottom: 10px; transition: border-color 0.2s; }
-    .rsvp-toggle-row:hover { border-color: var(--gold-light); }
-    .rsvp-toggle-label { font-size: 13px; display: flex; align-items: center; gap: 10px; }
-    .rsvp-switch { width: 40px; height: 22px; background: var(--border); border-radius: 11px; position: relative; transition: background 0.3s; flex-shrink: 0; }
-    .rsvp-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
-    .rsvp-toggle-row.on .rsvp-switch { background: var(--gold); }
-    .rsvp-toggle-row.on .rsvp-switch::after { transform: translateX(18px); }
-    .rsvp-fields { display: none; }
-    .rsvp-fields.vis { display: block; }
-    .card-rsvp { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-top: 10px; display: none; }
-    .card-rsvp.vis { display: block; }
-    .card-rsvp-deadline { font-size: 9px; letter-spacing: 0.12em; opacity: 0.5; margin-top: 2px; display: none; }
-    .card-rsvp-deadline.vis { display: block; }
+/* ── 8. WILD SAFARI — children's animal theme, vibrant, top-heavy ── */
+.p-safari .mini-card{background:linear-gradient(175deg,#f5f0d8 0%,#ede5c0 40%,#e4d8a8 70%,#d8cc90 100%);}
+.p-safari .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+  /* sandy ground band at bottom */
+  linear-gradient(transparent 65%,rgba(180,150,60,.2) 100%),
+  /* leaf shapes — green blobs top corners */
+  radial-gradient(ellipse 12px 8px at 5% 5%,rgba(80,160,60,.4) 0%,transparent 70%),
+  radial-gradient(ellipse 10px 6px at 12% 10%,rgba(100,180,70,.35) 0%,transparent 70%),
+  radial-gradient(ellipse 14px 8px at 92% 6%,rgba(80,160,60,.4) 0%,transparent 70%),
+  radial-gradient(ellipse 10px 7px at 85% 12%,rgba(100,180,70,.35) 0%,transparent 70%),
+  radial-gradient(ellipse 8px 5px at 3% 18%,rgba(80,160,60,.3) 0%,transparent 70%),
+  radial-gradient(ellipse 9px 5px at 95% 20%,rgba(80,160,60,.3) 0%,transparent 70%),
+  /* triangle banner shapes top */
+  radial-gradient(ellipse 100% 30% at 50% 0%,rgba(255,255,255,.45) 0%,transparent 80%),
+  /* dot scatter */
+  radial-gradient(circle 2px at 25% 55%,rgba(180,150,60,.3) 0%,transparent 100%),
+  radial-gradient(circle 1.5px at 75% 50%,rgba(180,150,60,.25) 0%,transparent 100%),
+  radial-gradient(circle 2px at 50% 60%,rgba(180,150,60,.2) 0%,transparent 100%);}
+.p-safari .mini-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:12px 12px 18px;}
+.p-safari .mini-frame{top:8px;left:8px;right:8px;bottom:8px;border:2px dashed rgba(60,130,50,.25);border-radius:4px;}
+/* Animal emojis top strip */
+.p-safari .mc-animals{position:absolute;top:12px;left:0;right:0;text-align:center;z-index:4;font-size:20px;letter-spacing:3px;opacity:.85;}
+.p-safari .mc-eyebrow{font-family:'Nunito',sans-serif;font-size:6px;letter-spacing:.2em;text-transform:uppercase;color:rgba(40,100,30,.7);font-weight:800;margin-bottom:4px;margin-top:8px;}
+.p-safari .mc-name{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;color:#1e5c10;line-height:1.15;margin-bottom:3px;}
+.p-safari .mc-line{font-size:13px;margin:3px 0;opacity:.5;}
+.p-safari .mc-detail{font-family:'Nunito',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(30,92,16,.65);line-height:1.8;font-weight:700;}
 
-    /* GUEST LIST */
-    .guest-intro { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; }
-    .guest-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-    .guest-row input {
-      flex: 1; background: var(--warm-white); border: 1px solid var(--border);
-      border-radius: 4px; padding: 10px 12px; font-family: 'Jost', sans-serif;
-      font-size: 13px; font-weight: 300; color: var(--charcoal); outline: none;
-      transition: border-color 0.2s;
-    }
-    .guest-row input:focus { border-color: var(--gold); }
-    .guest-row .rm-btn {
-      background: none; border: 1px solid var(--border); border-radius: 4px;
-      padding: 8px 11px; color: var(--soft); cursor: pointer; font-size: 13px;
-      transition: all 0.15s; flex-shrink: 0;
-    }
-    .guest-row .rm-btn:hover { border-color: #e74c3c; color: #e74c3c; }
-    .add-guest-btn {
-      width: 100%; background: transparent; border: 1.5px dashed var(--border);
-      border-radius: 4px; padding: 11px; color: var(--soft); font-family: 'Jost', sans-serif;
-      font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
-      margin-top: 4px; margin-bottom: 4px;
-    }
-    .add-guest-btn:hover { border-color: var(--gold-light); color: var(--charcoal); }
-    .guest-note { font-size: 11px; color: var(--soft); line-height: 1.6; margin-top: 8px; }
-    .guest-count-label { font-size: 11px; color: var(--gold); letter-spacing: 0.08em; margin-top: 6px; min-height: 16px; }
+/* ── 9. PRINCESS & FAIRY — children's, soft pink, castle, centred ── */
+.p-princess .mini-card{background:linear-gradient(160deg,#fff5fb 0%,#ffe0f4 35%,#ffd0ee 65%,#ffc8ea 100%);}
+.p-princess .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+  /* watercolour top wash */
+  radial-gradient(ellipse 90% 55% at 50% 5%,rgba(255,255,255,.82) 0%,transparent 70%),
+  /* pink ink bleed bottom-left */
+  radial-gradient(ellipse 60% 45% at 0% 100%,rgba(255,100,190,.3) 0%,transparent 65%),
+  /* pink ink bleed bottom-right */
+  radial-gradient(ellipse 50% 40% at 100% 85%,rgba(240,80,180,.25) 0%,transparent 65%),
+  /* gold veins */
+  radial-gradient(ellipse 80% 3px at 50% 88%,rgba(212,169,106,.3) 0%,transparent 100%),
+  radial-gradient(ellipse 50% 2px at 20% 94%,rgba(212,169,106,.25) 0%,transparent 100%),
+  /* glitter dots */
+  radial-gradient(circle 1.5px at 20% 80%,rgba(255,255,255,.9) 0%,transparent 100%),
+  radial-gradient(circle 1px at 35% 88%,rgba(255,215,0,.7) 0%,transparent 100%),
+  radial-gradient(circle 2px at 55% 82%,rgba(255,255,255,.8) 0%,transparent 100%),
+  radial-gradient(circle 1px at 70% 90%,rgba(255,215,0,.6) 0%,transparent 100%),
+  radial-gradient(circle 1.5px at 82% 78%,rgba(255,255,255,.75) 0%,transparent 100%),
+  radial-gradient(circle 1px at 10% 72%,rgba(255,215,0,.5) 0%,transparent 100%);}
+.p-princess .mini-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 14px;}
+.p-princess .mini-frame{top:8px;left:8px;right:8px;bottom:8px;border:1.5px solid rgba(220,100,180,.18);border-radius:3px;}
+/* Crown top */
+.p-princess .mc-crown{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:4;font-size:22px;opacity:.75;}
+/* Sparkles */
+.p-princess .mc-sparks{position:absolute;bottom:12px;left:0;right:0;text-align:center;z-index:4;font-size:9px;letter-spacing:8px;opacity:.45;}
+.p-princess .mc-eyebrow{font-family:'Nunito',sans-serif;font-size:5.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(180,60,140,.6);font-weight:800;margin-bottom:5px;margin-top:20px;}
+.p-princess .mc-name{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:600;color:#8c1a6a;line-height:1.15;margin-bottom:3px;}
+.p-princess .mc-line{font-size:12px;opacity:.4;color:#c050a0;margin:4px 0;}
+.p-princess .mc-detail{font-family:'Nunito',sans-serif;font-size:5.5px;letter-spacing:.14em;color:rgba(140,26,106,.58);line-height:1.9;font-weight:700;}
 
-    @media (max-width: 900px) {
-      .builder-layout { grid-template-columns: 1fr; }
-      .form-panel { border-right: none; border-bottom: 1px solid var(--border); }
-      .preview-panel { position: static; height: auto; padding: 40px 20px; }
-      nav { padding: 0 20px; }
-      nav .nav-links { display: none; }
-    }
-  </style>
+/* ── 10. BOLD & PLAYFUL — coral/gold, Bebas, angled layout ── */
+.p-playful .mini-card{background:linear-gradient(135deg,#ff5f5f 0%,#ff8432 45%,#ffc94a 100%);}
+.p-playful .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+  /* diagonal stripe texture */
+  repeating-linear-gradient(45deg,rgba(255,255,255,.045) 0,rgba(255,255,255,.045) 1px,transparent 1px,transparent 10px),
+  /* confetti colour blobs */
+  radial-gradient(ellipse 6px 4px at 12% 25%,rgba(255,255,255,.55) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 30% 15%,rgba(100,200,255,.5) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 6px at 45% 30%,rgba(255,100,200,.45) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 60% 18%,rgba(255,255,255,.5) 0%,transparent 100%),
+  radial-gradient(ellipse 6px 4px at 75% 28%,rgba(100,255,200,.4) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 5px at 88% 20%,rgba(200,100,255,.4) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 20% 40%,rgba(100,200,255,.35) 0%,transparent 100%),
+  radial-gradient(ellipse 4px 4px at 50% 42%,rgba(255,255,255,.4) 0%,transparent 100%),
+  radial-gradient(ellipse 5px 3px at 80% 38%,rgba(255,200,50,.5) 0%,transparent 100%),
+  /* top light */
+  radial-gradient(ellipse 100% 35% at 50% 0%,rgba(255,255,255,.22) 0%,transparent 70%);}
+.p-playful .mini-card-inner{padding:14px 12px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;}
+.p-playful .mini-frame{inset:8px;border:2.5px solid rgba(255,255,255,.3);border-radius:5px;}
+/* Confetti top */
+.p-playful .mc-confetti{position:absolute;top:0;left:0;right:0;z-index:4;font-size:11px;letter-spacing:4px;padding:12px 0 0 14px;opacity:.7;}
+.p-playful .mc-eyebrow{font-family:'Nunito',sans-serif;font-size:6.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.88);font-weight:800;margin-bottom:4px;}
+.p-playful .mc-name{font-family:'Bebas Neue',cursive;font-size:2rem;color:#fff;letter-spacing:.08em;line-height:1;margin-bottom:4px;text-shadow:0 2px 10px rgba(180,50,20,.25);}
+.p-playful .mc-line{font-size:13px;margin-bottom:4px;opacity:.8;}
+.p-playful .mc-detail{font-family:'Nunito',sans-serif;font-size:6.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.8;font-weight:700;}
+
+</style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></a>
+  <div class="logo"><a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></a></div>
   <div class="nav-links">
     <a href="/order.html">Scratchcards</a>
     <a href="/invitations.html" class="active">Invitations</a>
+    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
   </div>
 </nav>
 
-<div class="page-hero">
-  <p class="eyebrow">Digital Invitations</p>
-  <h1>Beautifully crafted, <em>personally yours</em></h1>
-  <p>Choose your occasion, style every detail, and receive a luxury digital invitation within hours — crafted by hand, just for you.</p>
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-ornament">Digital Invitations · Crafted by Hand</span>
+  <h1>Invitations as <em>beautiful</em><br>as the moment they announce</h1>
+  <p>Choose a style, fill in your details, and I'll craft your finished invitation — delivered to your inbox within hours.</p>
+  <div class="hero-divider"><span>Choose your style below</span></div>
 </div>
 
-<div class="builder-layout">
-
-  <!-- ══ FORM ══ -->
-  <div class="form-panel">
-
-    <!-- 01 OCCASION -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">01</span> Occasion</div>
-      <div class="occ-grid" id="occ-grid">
-        <div class="occ-tile sel" onclick="pickOcc(this,'You\'re Invited')"><div class="occ-icon">🎉</div><div class="occ-name">Birthday</div></div>
-        <div class="occ-tile" onclick="pickOcc(this,'Wedding Invitation')"><div class="occ-icon">💒</div><div class="occ-name">Wedding</div></div>
-        <div class="occ-tile" onclick="pickOcc(this,'Engagement Party')"><div class="occ-icon">💍</div><div class="occ-name">Engagement</div></div>
-        <div class="occ-tile" onclick="pickOcc(this,'Will You Be My Bridesmaid?')"><div class="occ-icon">💐</div><div class="occ-name">Bridesmaid</div></div>
-        <div class="occ-tile" onclick="pickOcc(this,'Baby Shower')"><div class="occ-icon">👶</div><div class="occ-name">Baby Shower</div></div>
-        <div class="occ-tile" onclick="pickOcc(this,'Save the Date')"><div class="occ-icon">📅</div><div class="occ-name">Save the Date</div></div>
-      </div>
-    </div>
-
-    <!-- 02 BACKGROUND -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">02</span> Background Style</div>
-      <div class="mode-tabs">
-        <button class="mode-tab active" onclick="switchMode('solid',this)">Solid Colour</button>
-        <button class="mode-tab" onclick="switchMode('gradient',this)">Gradient</button>
-        <button class="mode-tab" onclick="switchMode('texture',this)">Texture / Image</button>
-      </div>
-
-      <!-- SOLID -->
-      <div id="mode-solid">
-        <div class="swatch-grid">
-          <div class="swatch sel" style="background:#fefcf8;outline:1px solid #ddd;" title="Ivory" onclick="pickSolid(this,'#fefcf8','dark')"></div>
-          <div class="swatch" style="background:#1a1714;" title="Midnight" onclick="pickSolid(this,'#1a1714','light')"></div>
-          <div class="swatch" style="background:#2c2825;" title="Charcoal" onclick="pickSolid(this,'#2c2825','light')"></div>
-          <div class="swatch" style="background:#ffffff;outline:1px solid #ddd;" title="White" onclick="pickSolid(this,'#ffffff','dark')"></div>
-          <div class="swatch" style="background:#f5f0e8;" title="Warm Cream" onclick="pickSolid(this,'#f5f0e8','dark')"></div>
-          <div class="swatch" style="background:#2d4a3e;" title="Forest Green" onclick="pickSolid(this,'#2d4a3e','light')"></div>
-          <div class="swatch" style="background:#fde8e8;" title="Blush" onclick="pickSolid(this,'#fde8e8','dark')"></div>
-          <div class="swatch" style="background:#c0687a;" title="Deep Rose" onclick="pickSolid(this,'#c0687a','light')"></div>
-          <div class="swatch" style="background:#7b3552;" title="Berry" onclick="pickSolid(this,'#7b3552','light')"></div>
-          <div class="swatch" style="background:#e8d5c4;" title="Peach" onclick="pickSolid(this,'#e8d5c4','dark')"></div>
-          <div class="swatch" style="background:#b8924a;" title="Gold" onclick="pickSolid(this,'#b8924a','light')"></div>
-          <div class="swatch" style="background:#e8c87a;" title="Champagne" onclick="pickSolid(this,'#e8c87a','dark')"></div>
-          <div class="swatch" style="background:#e8f2f8;" title="Ice Blue" onclick="pickSolid(this,'#e8f2f8','dark')"></div>
-          <div class="swatch" style="background:#5b8fa8;" title="Slate Blue" onclick="pickSolid(this,'#5b8fa8','light')"></div>
-          <div class="swatch" style="background:#1e3a5f;" title="Navy" onclick="pickSolid(this,'#1e3a5f','light')"></div>
-          <div class="swatch" style="background:#e8f2e8;" title="Mint" onclick="pickSolid(this,'#e8f2e8','dark')"></div>
-          <div class="swatch" style="background:#4a7c59;" title="Sage Green" onclick="pickSolid(this,'#4a7c59','light')"></div>
-          <div class="swatch" style="background:#e8e2f8;" title="Lavender" onclick="pickSolid(this,'#e8e2f8','dark')"></div>
-        </div>
-      </div>
-
-      <!-- GRADIENT -->
-      <div id="mode-gradient" style="display:none;">
-        <div class="grad-grid">
-          <div class="grad-swatch sel" style="background:linear-gradient(135deg,#fefcf8,#f0e8d8);" onclick="pickGrad(this,'linear-gradient(135deg,#fefcf8,#f0e8d8)','dark')" title="Ivory Drift"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#1a1714,#3a2e1f);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3a2e1f)','light')" title="Midnight Gold"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#fde8e8,#f9c0cb);" onclick="pickGrad(this,'linear-gradient(135deg,#fde8e8,#f9c0cb)','dark')" title="Rose Blush"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#f5f0e8,#e8d5c4);" onclick="pickGrad(this,'linear-gradient(135deg,#f5f0e8,#e8d5c4)','dark')" title="Warm Sand"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#e8f2e8,#c8e6c9);" onclick="pickGrad(this,'linear-gradient(135deg,#e8f2e8,#c8e6c9)','dark')" title="Garden"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#1e3a5f,#2d6a8a);" onclick="pickGrad(this,'linear-gradient(135deg,#1e3a5f,#2d6a8a)','light')" title="Ocean Deep"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#7b3552,#c0687a);" onclick="pickGrad(this,'linear-gradient(135deg,#7b3552,#c0687a)','light')" title="Berry Romance"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#2d4a3e,#4a7c59);" onclick="pickGrad(this,'linear-gradient(135deg,#2d4a3e,#4a7c59)','light')" title="Forest"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#b8924a,#e8c87a);" onclick="pickGrad(this,'linear-gradient(135deg,#b8924a,#e8c87a)','dark')" title="Golden Hour"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#e8e2f8,#c4b8e8);" onclick="pickGrad(this,'linear-gradient(135deg,#e8e2f8,#c4b8e8)','dark')" title="Lavender Mist"></div>
-          <div class="grad-swatch" style="background:linear-gradient(135deg,#1a1714,#3d1a2b);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3d1a2b)','light')" title="Noir"></div>
-          <div class="grad-swatch" style="background:linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8);" onclick="pickGrad(this,'linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8)','dark')" title="Pastel Dreams"></div>
-        </div>
-      </div>
-
-      <!-- TEXTURE / IMAGE -->
-      <div id="mode-texture" style="display:none;">
-        <div class="texture-grid">
-          <div class="tex-none sel" id="tex-none" onclick="pickTexture(this,'none')">
-            <span style="font-size:18px; margin-bottom:4px;">✕</span>No texture
-          </div>
-          <div class="texture-tile" onclick="pickTexture(this,'wedding.jpg')">
-            <img src="wedding.jpg" alt="Wedding" /><span class="tname">Wedding</span>
-          </div>
-          <div class="texture-tile" onclick="pickTexture(this,'birthday.jpg')">
-            <img src="birthday.jpg" alt="Birthday" /><span class="tname">Birthday</span>
-          </div>
-          <div class="texture-tile" onclick="pickTexture(this,'christmas.jpg')">
-            <img src="christmas.jpg" alt="Christmas" /><span class="tname">Christmas</span>
-          </div>
-          <div class="texture-tile" onclick="pickTexture(this,'gender.jpg')">
-            <img src="gender.jpg" alt="Gender Reveal" /><span class="tname">Gender Reveal</span>
-          </div>
-        </div>
-        <p style="font-size:11px; color:var(--soft); margin-top:10px; line-height:1.6;">Background images will be used as a full overlay on your finished invitation. Your colour choice still tints text and frame elements.</p>
-      </div>
-    </div>
-
-    <!-- 03 FONT STYLE -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">03</span> Font Style</div>
-      <div class="font-grid">
-        <div class="font-tile sel" onclick="pickFont(this,'elegant')">
-          <div class="font-preview" style="font-family:'Cormorant Garamond',serif;font-style:italic;">Amelia</div>
-          <div class="font-label">Elegant</div>
-        </div>
-        <div class="font-tile" onclick="pickFont(this,'modern')">
-          <div class="font-preview" style="font-family:'Playfair Display',serif;font-weight:700;">Amelia</div>
-          <div class="font-label">Modern</div>
-        </div>
-        <div class="font-tile" onclick="pickFont(this,'playful')">
-          <div class="font-preview" style="font-family:'Dancing Script',cursive;">Amelia</div>
-          <div class="font-label">Playful</div>
-        </div>
-        <div class="font-tile" onclick="pickFont(this,'comical')">
-          <div class="font-preview" style="font-family:'Pacifico',cursive;">Amelia</div>
-          <div class="font-label">Comical</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 04 FRAME -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">04</span> Frame & Border</div>
-      <div class="frame-grid">
-        <div class="frame-chip sel" onclick="pickFrame(this,'classic')">
-          <div class="frame-dot" style="background:#f0e8d8;border:1px solid #d4a96a;"></div>Classic Border
-        </div>
-        <div class="frame-chip" onclick="pickFrame(this,'minimal')">
-          <div class="frame-dot" style="background:transparent;border:1px solid #9c958f;"></div>Minimal
-        </div>
-        <div class="frame-chip" onclick="pickFrame(this,'none')">
-          <div class="frame-dot" style="background:#e8e2d9;"></div>No Frame
-        </div>
-      </div>
-    </div>
-
-    <!-- 05 CUSTOM THEME -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">05</span> Custom / Kids Theme</div>
-      <div class="custom-toggle" id="custom-toggle" onclick="toggleCustom()">
-        <span style="font-size:18px;">🎨</span>
-        <span>I want a custom illustrated theme</span>
-      </div>
-      <div class="info-box" id="custom-box">
-        <strong>🎨 Describe your custom design</strong>
-        Tell me the theme, character, colours, or any inspiration — I'll create a bespoke illustrated design just for your invitation.
-        <div class="field" style="margin-top:12px; margin-bottom:0;">
-          <textarea id="f-custom" placeholder="e.g. Bluey themed for a 5-year-old girl, blue and teal, fun and playful — or — Princess theme, soft pinks and florals, 7th birthday"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 PERSONALISE -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">06</span> Personalise</div>
-      <div class="field"><label>Name(s) on the invitation</label><input type="text" id="f-name" placeholder="e.g. Amelia, or Amelia & James" oninput="updateCard()" /></div>
-      <div class="field"><label>Headline / Occasion line</label><input type="text" id="f-headline" placeholder="e.g. Turns 6!, or Cordially Invites You…" oninput="updateCard()" /></div>
-      <div class="field"><label>Date & Time</label><input type="text" id="f-date" placeholder="e.g. Saturday, 14th June 2025 · 3pm" oninput="updateCard()" /></div>
-      <div class="field"><label>Venue / Location</label><input type="text" id="f-venue" placeholder="e.g. The Grand Hall, London" oninput="updateCard()" /></div>
-      <div class="field"><label>Message / Additional details</label><textarea id="f-message" placeholder="RSVP details, dress code, special instructions…" oninput="updateCard()"></textarea></div>
-      <div class="field"><label>Signed from (optional)</label><input type="text" id="f-from" placeholder="e.g. With love, The Smiths" oninput="updateCard()" /></div>
-    </div>
-
-    <!-- 06b RSVP -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">✉</span> RSVP</div>
-      <div class="rsvp-toggle-row" id="rsvp-toggle" onclick="toggleRsvp()">
-        <span class="rsvp-toggle-label">
-          <span style="font-size:18px;">📩</span>
-          Include RSVP on the invitation
-        </span>
-        <div class="rsvp-switch"></div>
-      </div>
-      <div class="rsvp-fields" id="rsvp-fields">
-        <div class="field">
-          <label>RSVP by (deadline)</label>
-          <input type="text" id="f-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateCard()" />
-          <p class="hint">This date will appear on your invitation card</p>
-        </div>
-        <div class="field">
-          <label>Your email (for RSVP responses)</label>
-          <input type="email" id="f-rsvp-email" placeholder="Guests will reply directly to this email" />
-          <p class="hint">When guests click Yes / No / Maybe on their invitation, their response emails you directly</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 07 PHOTO -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">07</span> Photo (optional)</div>
-      <label class="upload-area" for="photo-upload">
-        <input type="file" id="photo-upload" accept="image/*" onchange="handlePhoto(event)" />
-        <div class="upload-icon">📷</div>
-        <p>Click to upload a photo</p>
-        <small>JPG or PNG · Will appear on your invitation</small>
-      </label>
-      <div class="upload-preview" id="upload-preview"><img id="photo-thumb" src="" alt="Your photo" /></div>
-    </div>
-
-    <!-- 09 GUEST LIST -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">09</span> Guest List (optional)</div>
-      <p class="guest-intro">If you'd like Shanaz to send the invitation directly to your guests, add their names and email addresses below. She will review and send each invitation personally.</p>
-      <div id="guest-list-c"></div>
-      <button class="add-guest-btn" onclick="addGuest()">+ Add a guest</button>
-      <p class="guest-count-label" id="guest-count-label"></p>
-      <p class="guest-note">Don't worry about getting this perfect — you can always email Shanaz with changes after submitting.</p>
-    </div>
-
-    <!-- 08 YOUR DETAILS -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">08</span> Your Details</div>
-      <div class="field"><label>Your name</label><input type="text" id="f-your-name" placeholder="Your name" /></div>
-      <div class="field"><label>Your email</label><input type="email" id="f-your-email" placeholder="Where to send the final invitation" /></div>
-      <div class="field"><label>Etsy order number (if applicable)</label><input type="text" id="f-etsy" placeholder="e.g. 1234567890" /></div>
-    </div>
-
-    <button class="submit-btn" onclick="submitOrder()">Send My Order to Shanaz ✦</button>
-    <p class="submit-note">Your watermarked preview is shown on the right. The final invitation — without any watermark — will be sent to your email within a few hours.</p>
-
-  </div>
-
-  <!-- ══ PREVIEW ══ -->
-  <div class="preview-panel">
-    <p class="preview-label">✦ Live Preview · Watermarked</p>
-
-    <div class="inv-card" id="inv-card">
-      <div class="card-inner font-elegant" id="card-inner">
-        <div class="card-frame" id="card-frame"></div>
-        <img class="card-photo" id="card-photo" src="" alt="" />
-        <p class="card-eyebrow" id="card-eyebrow">You're Invited</p>
-        <div class="card-divider"></div>
-        <div class="card-name" id="card-name">Your Name</div>
-        <div class="card-headline" id="card-headline">A Special Celebration</div>
-        <div class="card-divider"></div>
-        <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
-        <div class="card-date" id="card-date">Date & Time</div>
-        <div class="card-from" id="card-from"></div>
-        <div class="card-rsvp" id="card-rsvp">RSVP</div>
-        <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
-        <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img" /></div>
-      </div>
-      <div class="card-watermark" id="card-watermark"><span>Moments by Shanaz · Preview Only</span></div>
-    </div>
-
-    <p class="preview-note">
-      <strong>Watermarked preview.</strong> Your finished invitation — fully crafted by hand, no watermark — arrives in your inbox within hours.
-    </p>
-  </div>
-
-</div>
-
-<!-- SUCCESS -->
-<div id="success-modal">
-  <div class="success-box">
-    <div style="font-size:36px;margin-bottom:16px;">✉️</div>
-    <h2>Order received!</h2>
-    <p>Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!</p>
-    <button class="success-close" onclick="document.getElementById('success-modal').classList.remove('vis')">Done</button>
+<!-- HOW -->
+<div class="how">
+  <div class="how-steps">
+    <div class="how-step"><div class="how-num">01</div><h3>Pick a style</h3><p>Ten curated designs — or go fully bespoke.</p></div>
+    <div class="how-step"><div class="how-num">02</div><h3>Fill in the details</h3><p>Names, date, venue and any special touches.</p></div>
+    <div class="how-step"><div class="how-num">03</div><h3>Receive your invitation</h3><p>Finished, watermark-free — in your inbox within hours.</p></div>
   </div>
 </div>
+
+<!-- SECTION HEADING -->
+<div class="section-label">
+  <span class="eyebrow">The Collection</span>
+  <h2>Ten signature styles</h2>
+  <p>Click any card to open the order form. Each design is personalised fresh — your names, your details, your occasion.</p>
+</div>
+
+<!-- PRESETS GRID -->
+<div class="presets-grid">
+
+  <!-- 1. ETERNAL ELEGANCE -->
+  <div class="preset p-elegant" onclick="togglePreset(this,'elegant')">
+    <div class="mini-card">
+      <div class="mini-frame"></div>
+      <!-- Floral wreath SVG -->
+      <svg class="mc-floral" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 15 Q10 5 20 12 Q25 5 30 14 Q35 6 40 15 Q45 6 50 14 Q55 5 60 12 Q70 5 75 15" stroke="#b8924a" stroke-width="1" fill="none" opacity=".5"/>
+        <circle cx="20" cy="12" r="2.5" fill="#b8924a" opacity=".3"/>
+        <circle cx="40" cy="14" r="2.5" fill="#b8924a" opacity=".3"/>
+        <circle cx="60" cy="12" r="2.5" fill="#b8924a" opacity=".3"/>
+        <path d="M18 10 Q20 7 22 10" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".4"/>
+        <path d="M38 12 Q40 9 42 12" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".4"/>
+        <path d="M58 10 Q60 7 62 10" stroke="#b8924a" stroke-width=".8" fill="none" opacity=".4"/>
+      </svg>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">You're Invited</div>
+        <div class="mc-name">Amelia &amp; James</div>
+        <div class="mc-line"></div>
+        <div class="mc-detail">Saturday, 14th June 2025<br/>The Grand Hall, London<br/>Black Tie</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Eternal Elegance</div><div class="preset-vibe">Classic · Gold · Linen texture</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-elegant"><div class="order-form">
+      <div class="of-style-title">Eternal Elegance</div>
+      <div class="of-style-desc">Warm cream &amp; linen texture · Cormorant italic · Floral wreath · Gold border · Text anchored bottom-left</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Amelia &amp; James"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Anniversary"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 14th June · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Grand Hall, London"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 1st June · With love, The Smiths"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Eternal Elegance',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 2. NOIR & GOLD -->
+  <div class="preset p-noir" onclick="togglePreset(this,'noir')">
+    <div class="mini-card">
+      <div class="mini-frame"></div>
+      <!-- Wedding rings SVG -->
+      <svg class="mc-rings" viewBox="0 0 44 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="15" cy="11" r="9" stroke="#d4a96a" stroke-width="1.5" fill="none" opacity=".75"/>
+        <circle cx="29" cy="11" r="9" stroke="#d4a96a" stroke-width="1.5" fill="none" opacity=".75"/>
+        <circle cx="22" cy="11" r="2" fill="#d4a96a" opacity=".4"/>
+      </svg>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">Cordially Invited</div>
+        <div class="mc-name">Sophie &amp; Rajan</div>
+        <div class="mc-line"></div>
+        <div class="mc-detail">Friday, 6th September 2025<br/>Claridge's, London<br/>Black Tie</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Noir &amp; Gold</div><div class="preset-vibe">Dark · Herringbone · Shimmer</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-noir"><div class="order-form">
+      <div class="of-style-title">Noir &amp; Gold</div>
+      <div class="of-style-desc">Deep charcoal · Herringbone texture · Cinzel serif · Wedding rings graphic · Gold foil shimmer</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Sophie &amp; Rajan"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Engagement Party"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th September · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Claridge's, London"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 20th August · Hosted by The Patels"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Noir & Gold',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 3. BLUSH WEDDING -->
+  <div class="preset p-wedding" onclick="togglePreset(this,'wedding')">
+    <div class="mini-card">
+      <!-- SWAP: add background-image:url('your-photo.jpg') to .mini-card for a real photo background -->
+      <div class="mini-frame"></div>
+      <!-- Floral bouquet SVG -->
+      <svg class="mc-flowers" viewBox="0 0 70 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="35" cy="30" rx="18" ry="5" fill="rgba(200,150,170,.15)"/>
+        <path d="M35 28 Q30 18 24 14 Q28 16 30 22 Q30 14 26 8 Q31 13 31 20 Q32 11 30 6 Q35 12 34 20 Q35 10 38 6 Q37 13 36 20 Q37 13 41 8 Q39 14 39 20 Q41 16 44 13 Q40 18 40 26" stroke="rgba(180,120,145,.5)" stroke-width="1" fill="none"/>
+        <circle cx="35" cy="14" r="4" fill="rgba(220,140,170,.35)"/>
+        <circle cx="28" cy="18" r="3" fill="rgba(220,160,180,.3)"/>
+        <circle cx="42" cy="18" r="3" fill="rgba(220,160,180,.3)"/>
+        <circle cx="32" cy="10" r="2" fill="rgba(240,180,200,.4)"/>
+        <circle cx="38" cy="10" r="2" fill="rgba(240,180,200,.4)"/>
+        <!-- Lace dots -->
+        <circle cx="10" cy="5" r="1" fill="rgba(200,130,160,.2)"/>
+        <circle cx="60" cy="5" r="1" fill="rgba(200,130,160,.2)"/>
+        <circle cx="8" cy="12" r="1.5" fill="rgba(200,130,160,.15)"/>
+        <circle cx="62" cy="12" r="1.5" fill="rgba(200,130,160,.15)"/>
+      </svg>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">Together With Their Families</div>
+        <div class="mc-name">Charlotte &amp; Oliver</div>
+        <div class="mc-line"><svg viewBox="0 0 40 6" fill="none"><path d="M0 3 Q5 0 10 3 Q15 6 20 3 Q25 0 30 3 Q35 6 40 3" stroke="rgba(180,100,130,.3)" stroke-width=".8"/></svg></div>
+        <div class="mc-detail">Sunday, 8th September 2025<br/>Blenheim Palace, Oxfordshire<br/>Morning Dress</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Blush Wedding</div><div class="preset-vibe">Lace dots · Florals · Arch</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-wedding"><div class="order-form">
+      <div class="of-style-title">Blush Wedding</div>
+      <div class="of-style-desc">Soft blush rose · Lace dot texture · Floral bouquet graphic · Arch frame · Great Vibes script · Text right-aligned</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Charlotte &amp; Oliver"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Vow Renewal"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 8th September · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Blenheim Palace, Oxfordshire"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Morning dress · RSVP by 1st August · Reception to follow"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Blush Wedding',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 4. ENGAGEMENT -->
+  <div class="preset p-engage" onclick="togglePreset(this,'engage')">
+    <div class="mini-card">
+      <!-- SWAP: add background-image:url('your-photo.jpg') to .mini-card for a real photo background -->
+      <div class="mini-frame"></div>
+      <div class="mc-spark">✨</div>
+      <!-- Ring box SVG -->
+      <svg class="mc-ringbox" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Box lid open -->
+        <rect x="6" y="26" width="40" height="22" rx="3" fill="rgba(180,140,220,.25)" stroke="rgba(220,180,255,.4)" stroke-width="1.2"/>
+        <rect x="8" y="28" width="36" height="18" rx="2" fill="rgba(150,100,200,.15)"/>
+        <!-- Lid -->
+        <path d="M4 26 Q26 6 48 26" fill="rgba(180,140,220,.2)" stroke="rgba(220,180,255,.4)" stroke-width="1.2"/>
+        <!-- Ring inside box -->
+        <circle cx="26" cy="37" r="6" stroke="rgba(255,215,120,.8)" stroke-width="1.8" fill="none"/>
+        <!-- Diamond -->
+        <polygon points="26,28 29,33 26,36 23,33" fill="rgba(200,220,255,.7)" stroke="rgba(255,220,150,.6)" stroke-width=".8"/>
+        <!-- Sparkle -->
+        <path d="M38 10 L39 13 L42 14 L39 15 L38 18 L37 15 L34 14 L37 13 Z" fill="rgba(255,220,100,.5)"/>
+        <path d="M14 8 L14.5 10 L17 10.5 L14.5 11 L14 13 L13.5 11 L11 10.5 L13.5 10 Z" fill="rgba(255,220,100,.4)"/>
+      </svg>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">She Said Yes</div>
+        <div class="mc-name">Priya &amp; Arjun</div>
+        <div class="mc-line"></div>
+        <div class="mc-detail">Saturday, 1st February 2025<br/>The Ivy, Covent Garden<br/>Smart Casual</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Engagement</div><div class="preset-vibe">Velvet · Ring box · Plum</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-engage"><div class="order-form">
+      <div class="of-style-title">Engagement</div>
+      <div class="of-style-desc">Deep plum velvet gradient · Sacramento script · Ring-in-box SVG graphic · Left-aligned text · Very romantic</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Priya &amp; Arjun"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Engagement Party, Proposal Reveal"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 1st February · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Ivy, Covent Garden"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart casual · RSVP by 20th January · Drinks and dancing"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Engagement',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 5. GARDEN PARTY -->
+  <div class="preset p-garden" onclick="togglePreset(this,'garden')">
+    <div class="mini-card">
+      <div class="mini-frame"></div>
+      <!-- Botanical branch SVG right side -->
+      <svg class="mc-branch" viewBox="0 0 52 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 160 Q35 120 30 90 Q25 60 28 20" stroke="rgba(70,140,80,.35)" stroke-width="1.5" fill="none"/>
+        <ellipse cx="22" cy="35" rx="8" ry="5" fill="rgba(80,160,90,.22)" transform="rotate(-25 22 35)"/>
+        <ellipse cx="18" cy="60" rx="9" ry="5" fill="rgba(80,160,90,.2)" transform="rotate(15 18 60)"/>
+        <ellipse cx="24" cy="85" rx="7" ry="4.5" fill="rgba(80,160,90,.25)" transform="rotate(-20 24 85)"/>
+        <ellipse cx="16" cy="108" rx="9" ry="5" fill="rgba(80,160,90,.18)" transform="rotate(20 16 108)"/>
+        <ellipse cx="26" cy="128" rx="7" ry="4" fill="rgba(80,160,90,.22)" transform="rotate(-15 26 128)"/>
+        <circle cx="28" cy="22" r="3" fill="rgba(200,240,200,.3)"/>
+        <circle cx="16" cy="55" r="2.5" fill="rgba(200,240,200,.25)"/>
+      </svg>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">You Are Invited</div>
+        <div class="mc-name">Zara Turns 30</div>
+        <div class="mc-line">🌿</div>
+        <div class="mc-detail">Saturday, 3rd May 2025<br/>Kew Gardens · 12 noon<br/>Garden Casual</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Garden Party</div><div class="preset-vibe">Sage · Linen · Botanical branch</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-garden"><div class="order-form">
+      <div class="of-style-title">Garden Party</div>
+      <div class="of-style-desc">Sage green · Linen texture · Botanical branch graphic · Dancing Script · Left-aligned layout</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Zara, or The Johnson Family"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Garden Party"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 3rd May · 12 noon"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Kew Gardens Pavilion"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Garden casual · RSVP by 20th April · Children welcome"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Garden Party',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 6. STARRY NIGHT -->
+  <div class="preset p-starry" onclick="togglePreset(this,'starry')">
+    <div class="mini-card">
+      <!-- SWAP: replace background with a real photo using style="background-image:url('your-stars.jpg');background-size:cover" on .mini-card -->
+      <div class="mini-card-bg"></div>
+      <div class="mini-frame"></div>
+      <div class="mc-moon">🌙</div>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">An Evening to Remember</div>
+        <div class="mc-name">Under the Stars</div>
+        <div class="mc-line">✦ ✦ ✦</div>
+        <div class="mc-detail">New Year's Eve · 9pm<br/>The Rooftop, Canary Wharf<br/>Smart Dress</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Starry Night</div><div class="preset-vibe">Navy · Star field · Celestial</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-starry"><div class="order-form">
+      <div class="of-style-title">Starry Night</div>
+      <div class="of-style-desc">Deep navy · Star field overlay · Sacramento script · Crescent moon · Great for Eid, NYE, milestone birthdays</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Fatima's Eid, or NYE 2026"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Eid, New Year's Eve, 40th Birthday"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. 31st December · 9pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Rooftop, Canary Wharf"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart dress · RSVP by 20th Dec · Drinks and dancing"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Starry Night',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 7. LITTLE EXPLORER (balloons) -->
+  <div class="preset p-explorer" onclick="togglePreset(this,'explorer')">
+    <div class="mini-card">
+      <!-- SWAP: swap in photo of real balloons, e.g. background-image:url('balloons.jpg') -->
+      <div class="mini-frame"></div>
+      <div class="mc-balloons">🎈🎈🎈</div>
+      <div class="mc-stars">✦ ✦ ✦</div>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">It's Party Time!</div>
+        <div class="mc-name">Leo Turns 5!</div>
+        <div class="mc-line">🎉</div>
+        <div class="mc-detail">Saturday 10th May · 2pm<br/>Sunshine Hall, Wimbledon<br/>Fancy Dress Welcome!</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Little Explorer</div><div class="preset-vibe">Balloons · Bright · Kids' party</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-explorer"><div class="order-form">
+      <div class="of-style-title">Little Explorer</div>
+      <div class="of-style-desc">Warm yellow · Balloon graphics · Pacifico font · Star confetti · Left-aligned layout — perfect for any children's party</div>
+      <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Leo Turns 5!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 10th May · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Sunshine Hall, Wimbledon"/></div></div>
+      <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dinosaur theme · RSVP by 3rd May · Loot bags for all!"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Little Explorer',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 8. WILD SAFARI (animals) -->
+  <div class="preset p-safari" onclick="togglePreset(this,'safari')">
+    <div class="mini-card">
+      <!-- SWAP: swap in a real jungle/safari photo background -->
+      <div class="mini-frame"></div>
+      <div class="mc-animals">🦁 🐘 🦒</div>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">Join the Adventure!</div>
+        <div class="mc-name">Mia's Wild 4th!</div>
+        <div class="mc-line">🌴</div>
+        <div class="mc-detail">Sunday 18th May · 1pm<br/>Jungle Room, Tooting<br/>Animal Ears Welcome!</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Wild Safari</div><div class="preset-vibe">Animals · Jungle green · Adventure</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-safari"><div class="order-form">
+      <div class="of-style-title">Wild Safari</div>
+      <div class="of-style-desc">Jungle greens · Animal emoji strip · Dashed border · Nunito bold · Centre-anchored — kids go wild for this one</div>
+      <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Mia's Wild 4th!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 18th May · 1pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Jungle Room, Tooting"/></div></div>
+      <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Animal ears welcome · RSVP by 10th May · Jungle juice provided!"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Wild Safari',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 9. PRINCESS & FAIRY -->
+  <div class="preset p-princess" onclick="togglePreset(this,'princess')">
+    <div class="mini-card">
+      <!-- SWAP: swap in a real pink watercolour background image -->
+      <div class="mini-frame"></div>
+      <div class="mc-crown">👑</div>
+      <div class="mc-sparks">✨ ✨ ✨</div>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">You're Invited to the Royal Party!</div>
+        <div class="mc-name">Isabelle Turns 6</div>
+        <div class="mc-line">🌸</div>
+        <div class="mc-detail">Saturday 24th May · 3pm<br/>The Pink Palace, Sutton<br/>Dress as your Favourite Princess!</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Princess &amp; Fairy</div><div class="preset-vibe">Pink · Crown · Magical sparkle</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-princess"><div class="order-form">
+      <div class="of-style-title">Princess &amp; Fairy</div>
+      <div class="of-style-desc">Soft pink gradient · Glitter dot texture · Crown graphic · Dancing Script · Magical sparkle details</div>
+      <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Isabelle Turns 6"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party, Fairy Tea Party"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 24th May · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Pink Palace, Sutton"/></div></div>
+      <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dress as your favourite princess · RSVP by 17th May · Fairy cakes for all!"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Princess & Fairy',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+  <!-- 10. BOLD & PLAYFUL -->
+  <div class="preset p-playful" onclick="togglePreset(this,'playful')">
+    <div class="mini-card">
+      <div class="mini-frame"></div>
+      <div class="mc-confetti">🎊 🎉 🎊</div>
+      <div class="mini-card-inner">
+        <div class="mc-eyebrow">Come Celebrate!</div>
+        <div class="mc-name">Jade Turns 30!</div>
+        <div class="mc-line">🥂</div>
+        <div class="mc-detail">Friday 6th June · 8pm<br/>Rooftop Bar, Shoreditch<br/>Dress to Impress</div>
+      </div>
+    </div>
+    <div class="preset-label"><div><div class="preset-name">Bold &amp; Playful</div><div class="preset-vibe">Coral-gold · Confetti · Big energy</div></div><div class="preset-arrow">›</div></div>
+    <div class="order-panel" id="panel-playful"><div class="order-form">
+      <div class="of-style-title">Bold &amp; Playful</div>
+      <div class="of-style-desc">Coral-to-gold gradient · Diagonal stripe texture · Bebas Neue · Confetti graphic · High energy — milestone birthdays, hen dos</div>
+      <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Jade Turns 30!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Hen Do, Graduation"/></div></div>
+      <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th June · 8pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Rooftop Bar, Shoreditch"/></div></div>
+      <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Dress to impress · RSVP by 25th May · Surprises in store!"></textarea></div>
+      <div class="of-row"><div class="of-field"><label>Your name</label><input type="text" placeholder="Your name"/></div><div class="of-field"><label>Your email</label><input type="email" placeholder="Where to send the finished invite"/></div></div>
+      <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" placeholder="e.g. 1234567890"/></div>
+      <button class="order-submit" onclick="submitPreset(event,'Bold & Playful',this)">Send My Order to Shanaz ✦</button>
+    </div></div>
+  </div>
+
+</div><!-- /presets-grid -->
+
+<!-- BESPOKE SECTION -->
+<div class="bespoke">
+  <span class="eyebrow">Something Unique</span>
+  <h2>Want something <em>completely bespoke?</em></h2>
+  <p class="intro">Tell me your vision and I'll create something made entirely from scratch — illustrated, textured, themed, or photo-based. No limits.</p>
+
+  <!-- BESPOKE DEMO CARD -->
+  <div class="bespoke-demo">
+    <!-- Demo card: photo-background, custom illustrated style -->
+    <div class="bespoke-demo-card">
+      <!-- Simulated photo background bespoke card -->
+      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#2c1a3a 0%,#4a2060 40%,#7a3480 70%,#a04090 100%);"></div>
+      <!-- Bokeh dots -->
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,180,255,.18) 2px,transparent 2px),radial-gradient(circle,rgba(200,140,255,.1) 3px,transparent 3px);background-size:22px 22px,36px 36px;background-position:0 0,12px 18px;"></div>
+      <!-- Photo placeholder band -->
+      <div style="position:absolute;top:0;left:0;right:0;height:52%;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(120,60,180,.5),rgba(80,20,120,.8));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,255,.5)" stroke-width="1.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span style="font-family:'Jost',sans-serif;font-size:6px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,200,255,.4);">Your Photo Here</span>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(transparent,rgba(44,26,58,1));"></div>
+      </div>
+      <!-- Card text bottom -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 12px;text-align:center;">
+        <div style="font-family:'Sacramento',cursive;font-size:1.5rem;color:#f8e0ff;line-height:1.1;margin-bottom:3px;">Baby Yasmin</div>
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:5.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,180,255,.55);line-height:1.9;">She's Arrived · 7lbs 4oz<br/>Sunday 12th January</div>
+      </div>
+      <!-- Corner ornament -->
+      <div style="position:absolute;top:6px;left:6px;width:14px;height:14px;border-top:1px solid rgba(220,160,255,.3);border-left:1px solid rgba(220,160,255,.3);"></div>
+      <div style="position:absolute;top:6px;right:6px;width:14px;height:14px;border-top:1px solid rgba(220,160,255,.3);border-right:1px solid rgba(220,160,255,.3);"></div>
+    </div>
+    <div class="bespoke-demo-text">
+      <h3>This is what bespoke looks like</h3>
+      <p>A fully custom design — your photo, your colour palette, your theme, your background image. Hand-crafted from scratch. Tell me the vibe: I'll build it. The example here is a new baby announcement with a photo at the top, plum bokeh background and corner frame.</p>
+      <p style="font-size:11px;color:rgba(250,248,244,.4);margin-top:8px;line-height:1.7;">✦ If you have background images in your repository, just drop the filename in your order description and I'll use it — watercolour washes, real photos, bokeh, marble, anything.</p>
+      <div class="bespoke-demo-tags">
+        <span class="bespoke-tag">Photo upload</span>
+        <span class="bespoke-tag">Custom colours</span>
+        <span class="bespoke-tag">Illustrated elements</span>
+        <span class="bespoke-tag">Any occasion</span>
+        <span class="bespoke-tag">Any theme</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bespoke-form">
+    <div class="of-row">
+      <div class="of-field"><label>Your name</label><input type="text" id="b-name" placeholder="Your full name"/></div>
+      <div class="of-field"><label>Your email</label><input type="email" id="b-email" placeholder="Where to send your invitation"/></div>
+    </div>
+    <div class="of-row">
+      <div class="of-field"><label>Occasion</label><input type="text" id="b-occasion" placeholder="e.g. Wedding, New Baby, Eid"/></div>
+      <div class="of-field"><label>Date &amp; Time</label><input type="text" id="b-date" placeholder="e.g. Saturday 14th June · 3pm"/></div>
+    </div>
+    <div class="of-field"><label>Name(s) on the invitation</label><input type="text" id="b-names" placeholder="e.g. Amara &amp; Daniel, or Baby Yasmin"/></div>
+    <div class="of-field"><label>Venue</label><input type="text" id="b-venue" placeholder="e.g. The Rooftop at OXO Tower, London"/></div>
+    <div class="of-field"><label>Describe your vision — colours, mood, theme, anything</label><textarea id="b-vision" style="min-height:88px;" placeholder="e.g. Deep burgundy and gold, very romantic and moody, old Hollywood — or — Bright tropical colours for a 5th birthday, lots of flamingos — or — I'd like to include a photo of us at the top — the more detail the better!"></textarea></div>
+    <div class="of-field"><label>Etsy order number (if purchased)</label><input type="text" id="b-etsy" placeholder="e.g. 1234567890"/></div>
+    <button class="order-submit" onclick="submitBespoke(this)">Send My Vision to Shanaz ✦</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></div>
+  <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
+  <p style="margin-top:10px;"><a href="mailto:hello@momentsbyshanaz.co.uk" style="color:var(--gold);">hello@momentsbyshanaz.co.uk</a></p>
+  <p style="margin-top:16px;font-size:11px;"><a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; © 2026 Moments by Shanaz</p>
+  <a href="/admin.html" style="display:inline-flex;align-items:center;gap:5px;margin-top:24px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);opacity:.35;text-decoration:none;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.35'">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Admin
+  </a>
+</footer>
+
+<div class="toast" id="toast"></div>
 
 <script>
-  const S = { bgMode:'solid', bg:'#fefcf8', textDark:true, texture:'none' };
+let openPreset = null;
 
-  function applyBg() {
-    const ci = document.getElementById('card-inner');
-    if (S.texture !== 'none') {
-      ci.style.backgroundImage = `url('${S.texture}')`;
-      ci.style.backgroundSize = 'cover';
-      ci.style.backgroundPosition = 'center';
-      ci.style.backgroundBlendMode = 'multiply';
-      ci.style.backgroundColor = S.bg;
-    } else if (S.bgMode === 'gradient') {
-      ci.style.backgroundImage = S.bg;
-      ci.style.backgroundColor = '';
-      ci.style.backgroundSize = '';
-      ci.style.backgroundBlendMode = '';
-    } else {
-      ci.style.backgroundImage = 'none';
-      ci.style.backgroundColor = S.bg;
-      ci.style.backgroundSize = '';
-      ci.style.backgroundBlendMode = '';
-    }
-    const tc = S.textDark ? '#2c2825' : '#f0ebe2';
-    ci.style.color = tc;
-    // watermark contrast
-    document.querySelector('#card-watermark span').style.color =
-      S.textDark ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.18)';
-    // stamp
-    document.getElementById('stamp-img').style.filter =
-      S.textDark ? 'none' : 'brightness(0) invert(1)';
+function togglePreset(card, id){
+  if(event.target.closest('.order-panel')) return;
+  const panel = document.getElementById('panel-'+id);
+  const isOpen = card.classList.contains('open');
+  if(openPreset && openPreset !== card){
+    openPreset.classList.remove('open');
+    openPreset.querySelector('.order-panel').classList.remove('vis');
   }
+  card.classList.toggle('open', !isOpen);
+  panel.classList.toggle('vis', !isOpen);
+  openPreset = isOpen ? null : card;
+  if(!isOpen) setTimeout(()=> card.scrollIntoView({behavior:'smooth', block:'nearest'}), 60);
+}
 
-  function pickOcc(el, eyebrow) {
-    document.querySelectorAll('#occ-grid .occ-tile').forEach(t => t.classList.remove('sel'));
-    el.classList.add('sel');
-    document.getElementById('card-eyebrow').textContent = eyebrow;
-  }
+function getFields(form){
+  const inputs = [...form.querySelectorAll('input:not([type=submit]),textarea')];
+  return {
+    names:inputs[0]?.value.trim()||'', occasion:inputs[1]?.value.trim()||'',
+    date:inputs[2]?.value.trim()||'', venue:inputs[3]?.value.trim()||'',
+    extras:inputs[4]?.value.trim()||'', yourName:inputs[5]?.value.trim()||'',
+    email:inputs[6]?.value.trim()||'', etsy:inputs[7]?.value.trim()||'',
+  };
+}
 
-  function switchMode(mode, btn) {
-    document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    ['solid','gradient','texture'].forEach(m =>
-      document.getElementById('mode-'+m).style.display = m === mode ? 'block' : 'none'
-    );
-    S.bgMode = mode;
-  }
+async function submitPreset(e, style, btn){
+  e.stopPropagation();
+  const form = btn.closest('.order-form');
+  const f = getFields(form);
+  if(!f.yourName){ showToast('Please enter your name.'); return; }
+  if(!f.email||!f.email.includes('@')){ showToast('Please enter a valid email address.'); return; }
+  if(!f.names){ showToast('Please enter the name(s) for the invitation.'); return; }
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  const body = ['— INVITATION ORDER —','Style: '+style,'Name(s): '+f.names,
+    'Occasion: '+(f.occasion||'not specified'),'Date & Time: '+(f.date||'not specified'),
+    'Venue: '+(f.venue||'not specified'),'Extras: '+(f.extras||'none'),'',
+    '— ORDER BY —','Name: '+f.yourName,'Email: '+f.email,
+    'Etsy ref: '+(f.etsy||'none'),'Submitted: '+new Date().toLocaleString('en-GB')].join('\n');
+  try {
+    await emailjs.send('service_q7cy9mq','template_3o0vnf5',{
+      to_email:'hello@momentsbyshanaz.co.uk', guest_name:f.yourName,
+      event_name:style+' — '+(f.occasion||'invitation')+' for '+f.names, response:body,
+    });
+    showToast('✦ Order sent! I\'ll be in touch within hours.');
+    const card = btn.closest('.preset');
+    card.querySelector('.order-panel').classList.remove('vis');
+    card.classList.remove('open'); openPreset = null;
+  } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
+  btn.textContent = 'Send My Order to Shanaz ✦'; btn.disabled = false;
+}
 
-  function pickSolid(el, color, scheme) {
-    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('sel'));
-    el.classList.add('sel');
-    S.bg = color; S.bgMode = 'solid'; S.textDark = scheme === 'dark';
-    applyBg();
-  }
+async function submitBespoke(btn){
+  const g = id => document.getElementById(id).value.trim();
+  const name=g('b-name'),email=g('b-email'),occasion=g('b-occasion'),date=g('b-date');
+  const names=g('b-names'),venue=g('b-venue'),vision=g('b-vision'),etsy=g('b-etsy');
+  if(!name){ showToast('Please enter your name.'); return; }
+  if(!email||!email.includes('@')){ showToast('Please enter a valid email address.'); return; }
+  if(!vision){ showToast('Please describe your vision — even a few words helps!'); return; }
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  const body = ['— BESPOKE INVITATION ORDER —','Name(s): '+(names||'not specified'),
+    'Occasion: '+(occasion||'not specified'),'Date & Time: '+(date||'not specified'),
+    'Venue: '+(venue||'not specified'),'','Vision:',vision,'',
+    '— ORDER BY —','Name: '+name,'Email: '+email,
+    'Etsy ref: '+(etsy||'none'),'Submitted: '+new Date().toLocaleString('en-GB')].join('\n');
+  try {
+    await emailjs.send('service_q7cy9mq','template_3o0vnf5',{
+      to_email:'hello@momentsbyshanaz.co.uk', guest_name:name,
+      event_name:'BESPOKE — '+(occasion||'custom')+(names?' for '+names:''), response:body,
+    });
+    showToast('✦ Vision received! I\'ll be in touch to chat it through.');
+    ['b-name','b-email','b-occasion','b-date','b-names','b-venue','b-vision','b-etsy']
+      .forEach(id=>{ document.getElementById(id).value=''; });
+  } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
+  btn.textContent = 'Send My Vision to Shanaz ✦'; btn.disabled = false;
+}
 
-  function pickGrad(el, grad, scheme) {
-    document.querySelectorAll('.grad-swatch').forEach(s => s.classList.remove('sel'));
-    el.classList.add('sel');
-    S.bg = grad; S.bgMode = 'gradient'; S.textDark = scheme === 'dark';
-    applyBg();
-  }
-
-  function pickTexture(el, file) {
-    document.querySelectorAll('.texture-tile, .tex-none').forEach(t => t.classList.remove('sel'));
-    el.classList.add('sel');
-    S.texture = file === 'none' ? 'none' : file;
-    applyBg();
-  }
-
-  function pickFont(el, style) {
-    document.querySelectorAll('.font-tile').forEach(t => t.classList.remove('sel'));
-    el.classList.add('sel');
-    const ci = document.getElementById('card-inner');
-    ci.classList.remove('font-elegant','font-modern','font-playful','font-comical');
-    ci.classList.add('font-' + style);
-  }
-
-  function pickFrame(el, style) {
-    document.querySelectorAll('.frame-chip').forEach(t => t.classList.remove('sel'));
-    el.classList.add('sel');
-    const cf = document.getElementById('card-frame');
-    if (style === 'classic') {
-      cf.style.display = 'block';
-      cf.style.border = '1px solid rgba(184,146,74,0.35)';
-    } else if (style === 'minimal') {
-      cf.style.display = 'block';
-      cf.style.border = '1px solid rgba(255,255,255,0.2)';
-    } else {
-      cf.style.display = 'none';
-    }
-  }
-
-  function toggleCustom() {
-    document.getElementById('custom-toggle').classList.toggle('sel');
-    document.getElementById('custom-box').classList.toggle('vis');
-  }
-
-  let rsvpEnabled = false;
-
-  function toggleRsvp() {
-    rsvpEnabled = !rsvpEnabled;
-    document.getElementById('rsvp-toggle').classList.toggle('on', rsvpEnabled);
-    document.getElementById('rsvp-fields').classList.toggle('vis', rsvpEnabled);
-    document.getElementById('card-rsvp').classList.toggle('vis', rsvpEnabled);
-    updateCard();
-  }
-
-  function updateCard() {
-    const v = id => document.getElementById(id).value;
-    document.getElementById('card-name').textContent    = v('f-name')    || 'Your Name';
-    document.getElementById('card-headline').textContent= v('f-headline')|| 'A Special Celebration';
-    document.getElementById('card-date').textContent    = v('f-date')    || 'Date & Time';
-    document.getElementById('card-venue').textContent   = v('f-venue')   || 'Join us for a celebration to remember';
-    document.getElementById('card-from').textContent    = v('f-from') ? 'With love, ' + v('f-from') : '';
-
-    // RSVP on card
-    if (rsvpEnabled) {
-      const deadline = v('f-rsvp-deadline');
-      const dl = document.getElementById('card-rsvp-deadline');
-      dl.textContent = deadline ? 'Kindly reply by ' + deadline : '';
-      dl.classList.toggle('vis', !!deadline);
-    }
-  }
-
-  function handlePhoto(e) {
-    const file = e.target.files[0]; if (!file) return;
-    const r = new FileReader();
-    r.onload = ev => {
-      document.getElementById('card-photo').src = ev.target.result;
-      document.getElementById('card-photo').classList.add('vis');
-      document.getElementById('photo-thumb').src = ev.target.result;
-      document.getElementById('upload-preview').style.display = 'block';
-    };
-    r.readAsDataURL(file);
-  }
-
-  // ── Guest list ────────────────────────────────────────────
-  let guestList = [];
-  let guestIdx = 0;
-
-  function addGuest() {
-    const idx = guestIdx++;
-    guestList.push({ id: idx, name: '', email: '' });
-    const container = document.getElementById('guest-list-c');
-    const row = document.createElement('div');
-    row.className = 'guest-row';
-    row.id = `grow-${idx}`;
-    row.innerHTML = `
-      <input type="text" placeholder="Guest name" oninput="updateGuest(${idx},'name',this.value)" />
-      <input type="email" placeholder="Email address" style="flex:1.3;" oninput="updateGuest(${idx},'email',this.value)" />
-      <button class="rm-btn" onclick="removeGuest(${idx})">✕</button>
-    `;
-    container.appendChild(row);
-    updateGuestCount();
-  }
-
-  function updateGuest(idx, field, val) {
-    const g = guestList.find(g => g.id === idx);
-    if (g) g[field] = val;
-    updateGuestCount();
-  }
-
-  function removeGuest(idx) {
-    const row = document.getElementById(`grow-${idx}`);
-    if (row) row.remove();
-    guestList = guestList.filter(g => g.id !== idx);
-    updateGuestCount();
-  }
-
-  function updateGuestCount() {
-    const valid = guestList.filter(g => g.email.trim()).length;
-    const el = document.getElementById('guest-count-label');
-    el.textContent = valid > 0 ? `${valid} guest${valid !== 1 ? 's' : ''} added` : '';
-  }
-
-  function submitOrder() {
-    const name  = document.getElementById('f-your-name').value.trim();
-    const email = document.getElementById('f-your-email').value.trim();
-    if (!name || !email) { alert('Please add your name and email before submitting.'); return; }
-
-    const validGuests = guestList.filter(g => g.email.trim());
-    const hasGuests = validGuests.length > 0;
-
-    // Update success message based on whether guests were added
-    const successMsg = document.querySelector('#success-modal p');
-    if (successMsg) {
-      successMsg.textContent = hasGuests
-        ? `Your order and guest list (${validGuests.length} guest${validGuests.length !== 1 ? 's' : ''}) have been sent to Shanaz. She will review your invitation and send it directly to each guest. Thank you!`
-        : `Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!`;
-    }
-
-    document.getElementById('success-modal').classList.add('vis');
-  }
-
-  applyBg();
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 4000);
+}
 </script>
 </body>
 </html>
