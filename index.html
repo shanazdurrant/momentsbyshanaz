@@ -47,21 +47,21 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      padding: 0 40px;
-      height: 88px;
-      transition: height 0.35s ease;
-      position: fixed;
+      padding: 16px 40px;
+      height: auto;
+      min-height: 88px;
+      transition: padding 0.4s ease;
     }
-    nav.scrolled { height: 64px; }
+    nav.scrolled { padding: 8px 40px; }
     nav .logo {
       position: absolute; left: 50%; transform: translateX(-50%);
       display: flex; align-items: center;
     }
     nav .logo img {
-      height: 56px;
-      transition: height 0.35s ease;
+      height: 200px;
+      transition: height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.3s ease;
     }
-    nav.scrolled .logo img { height: 38px; }
+    nav.scrolled .logo img { height: 80px; }
     nav .nav-links { display: flex; gap: 36px; align-items: center; margin-left: auto; }
     nav .nav-links a {
       font-family: 'Jost', sans-serif;
@@ -249,11 +249,7 @@
       <a href="/order.html">Scratchcards</a>
       <a href="/invitations.html">Invitations</a>
       <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
-      <a href="/admin.html" class="admin-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Admin
-      </a>
-    </div>
+      </div>
   </nav>
 
   <!-- HERO -->
