@@ -1,1053 +1,1419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invitation Builder · Admin · Moments by Shanaz</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" type="image/png" href="logo-m.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Digital Invitations · Moments by Shanaz</title>
+  <meta name="description" content="Create a luxury digital invitation for weddings, birthdays, gender reveals and more. Fully customisable fonts, backgrounds and layouts."/>
+  <meta name="robots" content="index,follow"/>
+  <meta property="og:title" content="Digital Invitations · Moments by Shanaz"/>
+  <meta property="og:description" content="Luxury personalised digital invitations for every occasion."/>
+  <meta property="og:url" content="https://www.momentsbyshanaz.co.uk/invitations.html"/>
+  <meta property="og:type" content="website"/>
+  <link rel="canonical" href="https://www.momentsbyshanaz.co.uk/invitations.html"/>
+  <link rel="icon" type="image/png" href="logo-m.png"/>
+  <link rel="apple-touch-icon" href="logo-m.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&family=Nunito:wght@400;700&family=Abril+Fatface&family=Lato:wght@300;400;700&family=Italiana&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400;1,6..96,700&family=Sacramento&family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,600;1,300&family=Cinzel:wght@400;600;700&family=Great+Vibes&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Alex+Brush&family=Tangerine:wght@400;700&family=Pinyon+Script&family=Vidaloka&family=Rufina:wght@400;700&family=Zilla+Slab:ital,wght@0,300;0,400;0,600;1,400&display=swap"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --dark: #111009; --surface: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.08); --gold: #b8924a; --gold-light: #d4a96a;
-      --cream: #faf8f4; --mid: #6b6460; --soft: #9c958f;
-    }
-    body { font-family: 'Jost', sans-serif; background: var(--dark); color: var(--cream); min-height: 100vh; font-weight: 300; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#faf8f4;--warm:#fefcf8;--gold:#b8924a;--gold-l:#d4a96a;--gold-d:#8a6a28;
+  --char:#2c2825;--mid:#6b6460;--soft:#9c958f;--border:#e8e2d9;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);font-weight:300;line-height:1.7;}
 
-    /* ── LOCK ─────────────────────────────────────────────── */
-    #lock {
-      position: fixed; inset: 0; background: var(--dark);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999;
-      transition: opacity 0.6s, visibility 0.6s;
-    }
-    #lock.gone { opacity: 0; visibility: hidden; }
-    #lock img { height: 36px; filter: brightness(0) invert(1) opacity(0.6); margin-bottom: 48px; }
-    .lock-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 44px 36px; width: 320px; text-align: center; }
-    .lock-icon { width: 48px; height: 48px; background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-    .lock-icon svg { width: 20px; height: 20px; color: var(--gold); }
-    .lock-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 6px; }
-    .lock-box p { font-size: 12px; color: var(--soft); margin-bottom: 28px; letter-spacing: 0.05em; }
-    .lock-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 13px 16px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 15px; letter-spacing: 0.12em; text-align: center; outline: none; margin-bottom: 14px; transition: border-color 0.2s; }
-    .lock-input:focus { border-color: var(--gold); }
-    .lock-input.err { border-color: #e74c3c; animation: shake 0.4s; }
-    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-    .lock-btn { width: 100%; background: var(--gold); color: var(--dark); border: none; border-radius: 4px; padding: 13px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
-    .lock-btn:hover { opacity: 0.85; }
-    .lock-err { font-size: 11px; color: #e74c3c; margin-top: 12px; height: 14px; }
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:68px;}
+nav img{height:34px;}
+nav .nav-links{display:flex;gap:32px;}
+nav .nav-links a{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
+nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
 
-    /* ── SHELL ─────────────────────────────────────────────── */
-    #shell { display: none; flex-direction: column; min-height: 100vh; }
-    #shell.on { display: flex; }
+/* ── HERO ── */
+.page-hero{text-align:center;padding:64px 40px 48px;border-bottom:1px solid var(--border);}
+.page-hero .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.2;margin-bottom:16px;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.page-hero p{font-size:14px;color:var(--mid);max-width:480px;margin:0 auto;}
 
-    /* ── TOP BAR ───────────────────────────────────────────── */
-    .topbar { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; flex-shrink: 0; }
-    .topbar img { height: 28px; filter: brightness(0) invert(1) opacity(0.75); }
-    .topbar-right { display: flex; align-items: center; gap: 16px; }
-    .tb-badge { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(184,146,74,0.35); padding: 4px 12px; border-radius: 20px; }
-    .tb-back { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); text-decoration: none; transition: color 0.2s; }
-    .tb-back:hover { color: var(--cream); }
-    .tb-logout { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); background: none; border: none; font-family: 'Jost', sans-serif; cursor: pointer; transition: color 0.2s; }
-    .tb-logout:hover { color: var(--cream); }
+/* ── LAYOUT ── */
+.builder-layout{display:grid;grid-template-columns:500px 1fr;min-height:calc(100vh - 68px);}
+.form-panel{border-right:1px solid var(--border);padding:40px 36px;overflow-y:auto;max-height:calc(100vh - 68px);}
+.preview-panel{padding:40px 32px;display:flex;flex-direction:column;align-items:center;background:var(--warm);position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;}
 
-    /* ── MAIN GRID ─────────────────────────────────────────── */
-    .builder { display: grid; grid-template-columns: 320px 1fr 360px; flex: 1; min-height: 0; }
+/* ── SECTION LABELS ── */
+.form-section{margin-bottom:32px;}
+.fs-title{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.fs-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.fs-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:rgba(184,146,74,.3);margin-right:2px;}
 
-    /* ── CONTROLS (left) ───────────────────────────────────── */
-    .controls { border-right: 1px solid var(--border); overflow-y: auto; padding: 28px 24px; }
-    .ctrl-section { margin-bottom: 28px; }
-    .ctrl-title { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-    .ctrl-title span { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; color: rgba(184,146,74,0.35); }
+/* ── OCCASION ── */
+.occ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.occ-tile{border:1px solid var(--border);border-radius:4px;padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;}
+.occ-tile:hover{border-color:var(--gold-l);}
+.occ-tile.sel{border-color:var(--gold);background:rgba(184,146,74,.06);}
+.occ-icon{font-size:18px;margin-bottom:4px;}
+.occ-name{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
 
-    /* customer details */
-    .ctrl-field { margin-bottom: 12px; }
-    .ctrl-field label { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
-    .ctrl-field input, .ctrl-field textarea, .ctrl-field select {
-      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 4px; padding: 10px 12px; color: var(--cream); font-family: 'Jost', sans-serif;
-      font-size: 13px; font-weight: 300; outline: none; transition: border-color 0.2s; resize: none;
-    }
-    .ctrl-field input:focus, .ctrl-field textarea:focus { border-color: var(--gold); }
-    .ctrl-field textarea { min-height: 72px; }
+/* ── MODE TABS ── */
+.mode-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:14px;}
+.mode-tab{flex:1;padding:10px 6px;text-align:center;cursor:pointer;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;border-right:1px solid var(--border);font-family:'Jost',sans-serif;color:var(--soft);transition:background .2s,color .2s;}
+.mode-tab:last-child{border-right:none;}
+.mode-tab.active{background:var(--char);color:var(--cream);}
 
-    /* MODE TABS */
-    .mode-tabs { display: flex; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
-    .mode-tab { flex: 1; padding: 9px 6px; text-align: center; cursor: pointer; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; background: none; border: none; border-right: 1px solid rgba(255,255,255,0.08); font-family: 'Jost', sans-serif; color: var(--soft); transition: background 0.2s, color 0.2s; }
-    .mode-tab:last-child { border-right: none; }
-    .mode-tab.active { background: var(--gold); color: var(--dark); }
+/* ── COLOUR SWATCHES ── */
+.swatch-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;}
+.swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s,border-color .15s;flex-shrink:0;}
+.swatch:hover{transform:scale(1.12);}
+.swatch.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 4px var(--gold);}
+.cc-row{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.cc-row label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);white-space:nowrap;}
+.cc-row input[type=color]{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);cursor:pointer;padding:2px;background:none;}
 
-    /* SWATCHES */
-    .swatch-grid { display: flex; flex-wrap: wrap; gap: 7px; }
-    .swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s; }
-    .swatch:hover { transform: scale(1.15); }
-    .swatch.sel { border-color: var(--gold); box-shadow: 0 0 0 2px #111009, 0 0 0 4px var(--gold); }
-    .grad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
-    .grad-swatch { height: 36px; border-radius: 5px; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s; }
-    .grad-swatch:hover { transform: scale(1.06); }
-    .grad-swatch.sel { border-color: var(--gold); box-shadow: 0 0 0 2px #111009, 0 0 0 4px var(--gold); }
-    .texture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-    .tex-tile { border: 2px solid rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 5/3; transition: border-color 0.2s; }
-    .tex-tile:hover { border-color: var(--gold-light); }
-    .tex-tile.sel { border-color: var(--gold); }
-    .tex-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .tex-tile .tn { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.55); color: #fff; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 6px; text-align: center; }
-    .tex-none { border: 2px solid rgba(255,255,255,0.1); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; aspect-ratio: 5/3; transition: border-color 0.2s; font-size: 10px; color: var(--soft); flex-direction: column; gap: 3px; }
-    .tex-none:hover { border-color: var(--gold-light); }
-    .tex-none.sel { border-color: var(--gold); color: var(--gold); }
+/* ── GRADIENTS ── */
+.grad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+.grad-sw{height:40px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:transform .15s,border-color .15s;}
+.grad-sw:hover{transform:scale(1.05);}
+.grad-sw.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 4px var(--gold);}
 
-    /* FONT + FRAME CHIPS */
-    .chip-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
-    .chip { border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 10px 8px; text-align: center; cursor: pointer; font-size: 11px; color: var(--soft); transition: border-color 0.2s, color 0.2s; }
-    .chip:hover { border-color: var(--gold-light); }
-    .chip.sel { border-color: var(--gold); color: var(--gold); background: rgba(184,146,74,0.08); }
-    .chip .fp { font-size: 1.1rem; margin-bottom: 3px; line-height: 1; }
-    .chip .fl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+/* ── TEXTURES ── */
+.tex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tex-tile{border:2px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3;transition:border-color .2s;}
+.tex-tile:hover{border-color:var(--gold-l);}
+.tex-tile.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 4px var(--gold);}
+.tex-tile-inner{width:100%;height:100%;display:flex;align-items:flex-end;}
+.tex-tile .tn{width:100%;background:rgba(0,0,0,.5);color:#fff;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:4px 6px;text-align:center;}
+.tex-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.tex-none{border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;aspect-ratio:4/3;background:var(--warm);transition:border-color .2s;font-size:10px;color:var(--soft);flex-direction:column;gap:4px;}
+.tex-none:hover{border-color:var(--gold-l);}
+.tex-none.sel{border-color:var(--gold);color:var(--gold);}
 
-    /* ── CANVAS (centre) ───────────────────────────────────── */
-    .canvas-area { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; background: rgba(0,0,0,0.2); overflow: auto; }
-    .preview-wrap { position: relative; }
-    .inv-card { width: 320px; aspect-ratio: 5/7; position: relative; box-shadow: 0 24px 70px rgba(0,0,0,0.5); border-radius: 4px; overflow: hidden; }
-    .card-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px 28px; text-align: center; }
-    .card-frame { position: absolute; inset: 16px; border: 1px solid rgba(255,255,255,0.25); pointer-events: none; border-radius: 1px; }
-    .font-elegant .card-name { font-family: 'Cormorant Garamond', serif !important; font-style: italic; font-weight: 400; }
-    .font-elegant .card-headline { font-family: 'Lato', sans-serif !important; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; font-style: normal; font-size: 0.7rem !important; }
-    .font-modern .card-name { font-family: 'Playfair Display', serif !important; font-weight: 700; font-style: normal; }
-    .font-modern .card-headline { font-family: 'Lato', sans-serif !important; font-weight: 300; font-style: normal; }
-    .font-playful .card-name { font-family: 'Dancing Script', cursive !important; font-weight: 600; }
-    .font-playful .card-headline { font-family: 'Nunito', sans-serif !important; font-weight: 700; font-style: normal; }
-    .font-comical .card-name { font-family: 'Pacifico', cursive !important; font-weight: 400; font-style: normal; font-size: 1.3rem !important; }
-    .font-comical .card-headline { font-family: 'Nunito', sans-serif !important; font-weight: 700; font-style: normal; }
-    .font-comical .card-eyebrow { font-family: 'Abril Fatface', serif !important; }
-    .card-eyebrow { font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 14px; opacity: 0.65; }
-    .card-divider { width: 28px; height: 1px; background: currentColor; opacity: 0.18; margin: 9px auto; }
-    .card-name { font-family: 'Dancing Script', cursive; font-size: 1.7rem; font-weight: 600; line-height: 1.2; margin-bottom: 3px; }
-    .card-headline { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 300; font-style: italic; margin-bottom: 12px; opacity: 0.75; }
-    .card-body { font-size: 10px; letter-spacing: 0.06em; line-height: 1.9; opacity: 0.6; margin-bottom: 10px; }
-    .card-date { font-family: 'Cormorant Garamond', serif; font-size: 0.88rem; font-weight: 300; margin-bottom: 4px; opacity: 0.85; }
-    .card-from { font-size: 9px; letter-spacing: 0.1em; opacity: 0.45; margin-top: 10px; font-style: italic; }
-    .card-photo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.4); margin-bottom: 10px; display: none; }
-    .card-photo.vis { display: block; }
-    .card-stamp { position: absolute; bottom: 12px; right: 12px; width: 24px; height: 24px; opacity: 0.15; }
-    .card-stamp img { width: 100%; height: 100%; object-fit: contain; }
-    .card-watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; transform: rotate(-28deg); z-index: 10; }
-    .card-watermark span { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; white-space: nowrap; }
-    .watermark-off .card-watermark { display: none; }
+/* CSS pattern tiles */
+.pat-tile{border:2px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3;transition:border-color .2s;display:flex;align-items:flex-end;}
+.pat-tile .pat-bg{position:absolute;inset:0;width:100%;height:100%;}
+.pat-tile:hover{border-color:var(--gold-l);}
+.pat-tile.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 4px var(--gold);}
 
-    /* preview toggle */
-    .preview-toggle-row { display: flex; gap: 8px; margin-top: 20px; align-items: center; }
-    .ptog-btn { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 7px 16px; cursor: pointer; color: var(--soft); background: none; font-family: 'Jost', sans-serif; transition: all 0.2s; }
-    .ptog-btn:hover { border-color: var(--gold); color: var(--gold); }
-    .ptog-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+/* ── FONTS ── */
+.font-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.font-tile{border:1px solid var(--border);border-radius:4px;padding:12px 8px;cursor:pointer;text-align:center;transition:border-color .2s,background .2s;position:relative;}
+.font-tile:hover{border-color:var(--gold-l);}
+.font-tile.sel{border-color:var(--gold);background:rgba(184,146,74,.05);}
+.font-preview{font-size:1.4rem;margin-bottom:3px;line-height:1.2;}
+.font-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);}
+.font-vibe{font-size:8px;color:rgba(107,100,96,.5);margin-top:2px;}
 
-    /* ── ACTION PANEL (right) ──────────────────────────────── */
-    .action-panel { border-left: 1px solid var(--border); padding: 28px 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
-    .ap-section-title { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+/* ── TEXT CONTROLS ── */
+.tc-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:14px;}
+.tc-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap;}
+.tc-row:last-child{margin-bottom:0;}
+.tc-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);min-width:70px;flex-shrink:0;}
+.tc-btns{display:flex;gap:4px;flex-wrap:wrap;}
+.tcb{background:white;border:1px solid var(--border);border-radius:3px;padding:5px 9px;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;color:var(--mid);transition:all .15s;line-height:1;min-width:28px;text-align:center;}
+.tcb:hover{border-color:var(--gold-l);color:var(--char);}
+.tcb.on{background:var(--char);color:var(--cream);border-color:var(--char);}
+.sz-wrap{display:flex;align-items:center;gap:6px;}
+.sz-wrap button{background:white;border:1px solid var(--border);border-radius:3px;width:28px;height:28px;cursor:pointer;font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:all .15s;padding:0;line-height:1;}
+.sz-wrap button:hover{border-color:var(--gold-l);}
+.sz-wrap span{font-size:11px;color:var(--soft);min-width:32px;text-align:center;}
 
-    /* customer info display */
-    .customer-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 5px; padding: 16px; font-size: 12px; line-height: 1.8; color: var(--soft); }
-    .customer-card strong { color: var(--cream); font-weight: 400; }
+/* ── COLOUR PICKERS FOR TEXT ── */
+.txt-col-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.txt-col{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .15s;flex-shrink:0;}
+.txt-col:hover{transform:scale(1.15);}
+.txt-col.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 3px var(--gold);}
+.txt-col-custom{display:flex;align-items:center;gap:6px;margin-top:8px;}
+.txt-col-custom label{font-size:10px;color:var(--soft);}
+.txt-col-custom input[type=color]{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:2px;background:none;}
 
-    /* draft link */
-    .draft-link-box { background: rgba(184,146,74,0.06); border: 1px solid rgba(184,146,74,0.2); border-radius: 5px; padding: 16px; }
-    .draft-link-box p { font-size: 12px; color: var(--soft); margin-bottom: 12px; line-height: 1.6; }
-    .draft-url { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 10px 12px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.03em; outline: none; resize: none; min-height: 70px; word-break: break-all; }
-    .copy-btn { width: 100%; background: var(--gold); color: var(--dark); border: none; border-radius: 4px; padding: 11px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; margin-top: 10px; transition: opacity 0.2s; }
-    .copy-btn:hover { opacity: 0.85; }
-    .copy-btn.copied { background: #4a7c59; color: #fff; }
+/* ── POSITION / LAYOUT ── */
+.pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pos-chip{border:1px solid var(--border);border-radius:4px;padding:10px 4px;text-align:center;cursor:pointer;transition:all .2s;}
+.pos-chip:hover{border-color:var(--gold-l);}
+.pos-chip.sel{border-color:var(--gold);background:rgba(184,146,74,.06);}
+.pos-icon{font-size:16px;margin-bottom:3px;}
+.pos-name{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);}
+.align-row{display:flex;gap:6px;margin-top:10px;}
+.aln{flex:1;background:white;border:1px solid var(--border);border-radius:3px;padding:8px 4px;cursor:pointer;font-size:13px;text-align:center;transition:all .15s;}
+.aln:hover{border-color:var(--gold-l);}
+.aln.on{background:var(--char);color:var(--cream);border-color:var(--char);}
 
-    .gen-btn { width: 100%; background: var(--cream); color: var(--dark); border: none; border-radius: 4px; padding: 13px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-bottom: 8px; }
-    .gen-btn:hover { background: var(--gold-light); }
-    .gen-note { font-size: 11px; color: var(--soft); line-height: 1.6; }
+/* ── SPACING SLIDER ── */
+.slider-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.slider-row label{font-size:10px;color:var(--soft);min-width:90px;}
+.slider-row input[type=range]{flex:1;accent-color:var(--gold);}
+.slider-val{font-size:10px;color:var(--soft);min-width:24px;text-align:right;}
 
-    /* notes */
-    .notes-area { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 10px 12px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; outline: none; resize: none; min-height: 100px; }
-    .notes-area:focus { border-color: var(--gold); }
+/* ── FRAME ── */
+.frame-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
+.fr-chip{border:1px solid var(--border);border-radius:4px;padding:10px 6px;text-align:center;cursor:pointer;font-size:10px;letter-spacing:.06em;transition:all .2s;}
+.fr-chip:hover{border-color:var(--gold-l);}
+.fr-chip.sel{border-color:var(--gold);background:rgba(184,146,74,.06);color:var(--gold);}
+.fr-dot{width:28px;height:20px;margin:0 auto 5px;border-radius:2px;}
 
-    /* PDF */
-    .pdf-action-btn {
-      width: 100%; border: none; border-radius: 4px; padding: 12px;
-      font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer;
-      transition: background 0.2s, opacity 0.2s; margin-bottom: 8px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .pdf-action-btn.clean { background: var(--gold); color: var(--dark); }
-    .pdf-action-btn.clean:hover { opacity: 0.85; }
-    .pdf-action-btn.wm { background: rgba(255,255,255,0.06); color: var(--soft); border: 1px solid rgba(255,255,255,0.1); }
-    .pdf-action-btn.wm:hover { border-color: var(--gold-light); color: var(--cream); }
-    .pdf-action-btn:disabled { opacity: 0.4; cursor: wait; }
-    .pdf-action-btn svg { width: 13px; height: 13px; }
+/* ── DIVIDER ── */
+.div-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:8px;}
+.dv-chip{border:1px solid var(--border);border-radius:4px;padding:8px 4px;text-align:center;cursor:pointer;font-size:13px;transition:all .2s;height:36px;display:flex;align-items:center;justify-content:center;}
+.dv-chip:hover{border-color:var(--gold-l);}
+.dv-chip.sel{border-color:var(--gold);background:rgba(184,146,74,.06);}
 
-    /* TEXT CONTROLS */
-    .text-controls { display: flex; flex-direction: column; gap: 8px; }
-    .tc-row { display: flex; align-items: center; gap: 8px; }
-    .tc-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); width: 56px; flex-shrink: 0; }
-    .tc-btns { display: flex; gap: 4px; }
-    .tc-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 10px; cursor: pointer; color: var(--soft); font-size: 12px; font-family: 'Jost', sans-serif; transition: all 0.15s; min-width: 32px; text-align: center; }
-    .tc-btn:hover { border-color: var(--gold-light); color: var(--cream); }
-    .tc-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(184,146,74,0.1); }
-    .tc-size-val { font-size: 11px; color: var(--soft); min-width: 30px; text-align: center; }
-    .align-btn { font-size: 14px; }
+/* ── FOIL TOGGLE ── */
+.foil-row{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:4px;padding:12px 14px;cursor:pointer;transition:border-color .2s;margin-bottom:8px;}
+.foil-row:hover{border-color:var(--gold-l);}
+.foil-lbl{font-size:13px;display:flex;align-items:center;gap:10px;}
+.tog{width:40px;height:22px;background:var(--border);border-radius:11px;position:relative;transition:background .3s;flex-shrink:0;}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .3s;box-shadow:0 1px 3px rgba(0,0,0,.15);}
+.tog.on{background:var(--gold);}
+.tog.on::after{transform:translateX(18px);}
 
-    /* GUEST LIST */
-    .guest-row { display: flex; gap: 5px; margin-bottom: 6px; align-items: center; }
-    .guest-row input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 8px 10px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 12px; outline: none; transition: border-color 0.2s; min-width: 0; }
-    .guest-row input:focus { border-color: var(--gold); }
-    .guest-row .rm-btn { background: none; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px 8px; color: var(--soft); cursor: pointer; font-size: 12px; transition: all 0.15s; flex-shrink: 0; }
-    .guest-row .rm-btn:hover { border-color: #e74c3c; color: #e74c3c; }
-    .guest-row .sent-tick { color: #4a7c59; font-size: 14px; flex-shrink: 0; }
-    .add-guest-btn { width: 100%; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.14); border-radius: 4px; padding: 9px; color: var(--soft); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; }
-    .add-guest-btn:hover { border-color: var(--gold-light); color: var(--cream); }
-    .guest-send-btn { width: 100%; background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.35); border-radius: 4px; padding: 11px; color: var(--gold); font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
-    .guest-send-btn:hover { background: rgba(184,146,74,0.22); }
-    .guest-send-btn:disabled { opacity: 0.4; cursor: wait; }
-    .guest-count { font-size: 11px; color: var(--soft); margin-top: 6px; }
+/* ── FIELDS ── */
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.field input,.field textarea,.field select{width:100%;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:10px 12px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;resize:none;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);}
+.field textarea{min-height:72px;}
+.field .hint{font-size:11px;color:var(--soft);margin-top:4px;}
 
-    /* RSVP */
-    .rsvp-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; margin-bottom: 10px; transition: border-color 0.2s; }
-    .rsvp-row:hover { border-color: var(--gold-light); }
-    .rsvp-row.on { border-color: rgba(184,146,74,0.4); }
-    .rsvp-switch { width: 36px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; position: relative; transition: background 0.3s; flex-shrink: 0; }
-    .rsvp-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s; }
-    .rsvp-row.on .rsvp-switch { background: var(--gold); }
-    .rsvp-row.on .rsvp-switch::after { transform: translateX(16px); }
-    .rsvp-extra { display: none; }
-    .rsvp-extra.vis { display: block; }
-    .card-rsvp { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-top: 8px; display: none; }
-    .card-rsvp.vis { display: block; }
-    .card-rsvp-deadline { font-size: 8px; letter-spacing: 0.1em; opacity: 0.45; margin-top: 2px; display: none; }
-    .card-rsvp-deadline.vis { display: block; }
+/* ── PHOTO ── */
+.upload-area{border:1.5px dashed var(--border);border-radius:4px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;}
+.upload-area:hover{border-color:var(--gold-l);background:rgba(184,146,74,.02);}
+.upload-area input{display:none;}
+.upload-icon{font-size:20px;margin-bottom:7px;}
+.upload-area p{font-size:12px;color:var(--mid);}
+.upload-area small{font-size:10px;color:var(--soft);}
+.upload-preview{margin-top:8px;border-radius:4px;overflow:hidden;display:none;}
+.upload-preview img{width:100%;max-height:90px;object-fit:cover;display:block;}
+.photo-shape-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.psb{flex:1;min-width:50px;background:white;border:1px solid var(--border);border-radius:3px;padding:7px 4px;text-align:center;cursor:pointer;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);transition:all .15s;}
+.psb:hover{border-color:var(--gold-l);}
+.psb.on{background:var(--char);color:var(--cream);border-color:var(--char);}
 
-    @media (max-width: 1100px) {
-      .builder { grid-template-columns: 280px 1fr 300px; }
-    }
+/* ── RSVP ── */
+.rsvp-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--border);border-radius:4px;cursor:pointer;margin-bottom:10px;transition:border-color .2s;}
+.rsvp-toggle-row:hover{border-color:var(--gold-l);}
+.rsvp-toggle-row.on{border-color:var(--gold);}
+.rsvp-toggle-label{font-size:13px;display:flex;align-items:center;gap:10px;}
+.rsvp-switch{width:40px;height:22px;background:var(--border);border-radius:11px;position:relative;transition:background .3s;flex-shrink:0;}
+.rsvp-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .3s;box-shadow:0 1px 3px rgba(0,0,0,.15);}
+.rsvp-toggle-row.on .rsvp-switch{background:var(--gold);}
+.rsvp-toggle-row.on .rsvp-switch::after{transform:translateX(18px);}
+.rsvp-fields{display:none;}
+.rsvp-fields.vis{display:block;}
+
+/* ── GUESTS ── */
+.guest-row{display:flex;gap:7px;margin-bottom:7px;align-items:center;}
+.guest-row input{flex:1;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:9px 11px;font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;}
+.guest-row input:focus{border-color:var(--gold);}
+.rm-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:7px 10px;color:var(--soft);cursor:pointer;font-size:12px;transition:all .15s;flex-shrink:0;}
+.rm-btn:hover{border-color:#e74c3c;color:#e74c3c;}
+.add-guest-btn{width:100%;background:transparent;border:1.5px dashed var(--border);border-radius:4px;padding:10px;color:var(--soft);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:4px;}
+.add-guest-btn:hover{border-color:var(--gold-l);color:var(--char);}
+.guest-count{font-size:11px;color:var(--gold);letter-spacing:.08em;margin-top:6px;min-height:16px;}
+
+/* ── CUSTOM TOGGLE ── */
+.custom-toggle{border:1px solid var(--border);border-radius:4px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .2s,background .2s;font-size:13px;}
+.custom-toggle:hover{border-color:var(--gold-l);}
+.custom-toggle.sel{border-color:var(--gold);background:rgba(184,146,74,.05);color:var(--gold);}
+.info-box{display:none;margin-top:10px;background:rgba(184,146,74,.06);border:1px solid rgba(184,146,74,.2);border-radius:4px;padding:12px 14px;font-size:12px;color:var(--mid);line-height:1.6;}
+.info-box.vis{display:block;}
+.info-box strong{display:block;font-weight:500;margin-bottom:6px;font-size:12px;color:var(--char);}
+
+/* ── SUBMIT ── */
+.submit-btn{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:15px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-bottom:10px;}
+.submit-btn:hover{background:var(--gold);}
+.submit-note{font-size:11px;color:var(--soft);text-align:center;line-height:1.6;}
+
+/* ══════════════════════════════
+   CARD PREVIEW
+══════════════════════════════ */
+.preview-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);margin-bottom:20px;align-self:flex-start;}
+.inv-card{width:100%;max-width:300px;aspect-ratio:5/7;position:relative;box-shadow:0 40px 100px rgba(44,40,37,.28),0 8px 30px rgba(44,40,37,.12);border-radius:6px;overflow:hidden;flex-shrink:0;transition:box-shadow .3s;}
+/* card-inner is now a pure positioned container — no flex */
+.card-inner{position:absolute;inset:0;background:#fefcf8;color:#2c2825;overflow:hidden;transition:background .35s,color .35s;}
+
+/* ── DRAGGABLE TEXT BLOCK ── */
+#card-text-block{position:absolute;cursor:grab;user-select:none;z-index:5;display:flex;flex-direction:column;width:84%;box-sizing:border-box;padding:0 4px;touch-action:none;align-items:center;text-align:center;}
+#card-text-block:active{cursor:grabbing;}
+.card-inner.al-left  #card-text-block{align-items:flex-start;text-align:left;}
+.card-inner.al-right #card-text-block{align-items:flex-end;text-align:right;}
+.card-inner.al-center #card-text-block{align-items:center;text-align:center;}
+
+/* ── DRAG HINT ── */
+.card-drag-hint{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);font-size:6.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;color:rgba(255,255,255,.9);background:rgba(0,0,0,.32);padding:3px 10px;border-radius:10px;pointer-events:none;transition:opacity .3s;white-space:nowrap;z-index:20;}
+.inv-card:hover .card-drag-hint{opacity:.85;}
+
+/* ── BACKGROUND PHOTO LAYER ── */
+#card-bg-photo{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
+#card-bg-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;}
+
+/* alignment */
+/* pos/align now handled by #card-text-block position — see setPos() */
+
+/* frame */
+.card-frame{position:absolute;pointer-events:none;border-radius:1px;z-index:2;}
+.card-frame.f-classic{inset:14px;border:1px solid rgba(184,146,74,.35);}
+.card-frame.f-double{inset:10px;border:2px solid rgba(184,146,74,.3);outline:1px solid rgba(184,146,74,.12);outline-offset:5px;}
+.card-frame.f-corners{inset:14px;}
+.card-frame.f-corners::before{content:'';position:absolute;top:0;left:0;width:22px;height:22px;border-top:1.5px solid rgba(184,146,74,.5);border-left:1.5px solid rgba(184,146,74,.5);}
+.card-frame.f-corners::after{content:'';position:absolute;bottom:0;right:0;width:22px;height:22px;border-bottom:1.5px solid rgba(184,146,74,.5);border-right:1.5px solid rgba(184,146,74,.5);}
+.card-frame.f-arch{inset:12px;border:1px solid rgba(184,146,74,.3);border-radius:40% 40% 2px 2px / 18% 18% 2px 2px;}
+.card-frame.f-minimal{inset:14px;border:1px solid rgba(200,200,200,.22);}
+.card-frame.f-none{display:none;}
+
+/* foil sheen */
+.card-foil{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;background:linear-gradient(125deg,transparent 35%,rgba(232,200,122,.15) 50%,transparent 65%);background-size:200% 200%;}
+.card-foil.on{opacity:1;animation:foil 4s ease-in-out infinite;}
+@keyframes foil{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+/* photo */
+.card-photo-wrap{margin-bottom:10px;flex-shrink:0;position:relative;z-index:1;}
+.card-photo-wrap.hide{display:none!important;}
+.card-photo{object-fit:cover;border:2px solid rgba(255,255,255,.4);display:block;}
+.card-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(184,146,74,.08);border:1.5px dashed rgba(184,146,74,.35);color:rgba(184,146,74,.7);font-size:8px;letter-spacing:.1em;text-transform:uppercase;gap:3px;}
+.card-photo.sh-circle,.card-ph.sh-circle{border-radius:50%;width:64px;height:64px;}
+.card-photo.sh-rounded,.card-ph.sh-rounded{border-radius:10px;width:80px;height:68px;}
+.card-photo.sh-square,.card-ph.sh-square{border-radius:3px;width:68px;height:68px;}
+.card-photo.sh-banner,.card-ph.sh-banner{border-radius:4px;width:100%;height:72px;}
+.card-photo.sh-oval,.card-ph.sh-oval{border-radius:50%;width:56px;height:80px;}
+.card-ph svg{width:16px;height:16px;opacity:.6;}
+
+/* card text elements */
+.card-eyebrow{font-family:'Jost',sans-serif;font-size:8px;letter-spacing:.32em;text-transform:uppercase;margin-bottom:8px;opacity:.65;position:relative;z-index:1;}
+.card-name{font-family:'Dancing Script',cursive;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:600;line-height:1.2;margin-bottom:4px;position:relative;z-index:1;}
+.card-headline{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:300;font-style:italic;margin-bottom:8px;opacity:.78;position:relative;z-index:1;}
+.card-divider-el{margin:6px auto;position:relative;z-index:1;}
+.div-line-el{height:1px;background:currentColor;opacity:.18;}
+.div-dots{letter-spacing:4px;opacity:.3;font-size:10px;}
+.div-floral{font-size:14px;opacity:.45;letter-spacing:4px;}
+.div-diamond{font-size:10px;opacity:.35;letter-spacing:6px;}
+.div-wave{font-size:12px;opacity:.4;letter-spacing:2px;}
+.card-body{font-size:9px;letter-spacing:.06em;line-height:2;opacity:.62;margin-bottom:8px;position:relative;z-index:1;}
+.card-date{font-family:'Cormorant Garamond',serif;font-size:.84rem;font-weight:300;margin-bottom:4px;opacity:.88;position:relative;z-index:1;}
+.card-from{font-size:9px;letter-spacing:.1em;opacity:.45;margin-top:10px;font-style:italic;position:relative;z-index:1;}
+.card-rsvp{display:none;font-size:8px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:10px;position:relative;z-index:1;}
+.card-rsvp.vis{display:block;}
+.card-rsvp-deadline{display:none;font-size:8px;letter-spacing:.08em;opacity:.4;position:relative;z-index:1;}
+.card-rsvp-deadline.vis{display:block;}
+.card-stamp{position:absolute;bottom:10px;right:10px;width:20px;height:20px;opacity:.15;z-index:3;}
+.card-stamp img{width:100%;height:100%;object-fit:contain;}
+
+/* watermark */
+.card-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transform:rotate(-28deg);z-index:10;}
+.card-wm span{font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,0,0,.1);white-space:nowrap;}
+
+/* ── FONT STYLE CLASSES ── */
+.fs-cormorant .card-name{font-family:'Cormorant Garamond',serif!important;font-style:italic;font-weight:400;}
+.fs-cormorant .card-headline{font-family:'Lato',sans-serif!important;font-weight:300;letter-spacing:.18em;text-transform:uppercase;font-style:normal;font-size:.66rem!important;}
+.fs-playfair .card-name{font-family:'Playfair Display',serif!important;font-weight:700;font-style:normal;}
+.fs-playfair .card-headline{font-family:'Lato',sans-serif!important;font-weight:400;font-style:normal;}
+.fs-bodoni .card-name{font-family:'Bodoni Moda',serif!important;font-weight:700;font-style:italic;}
+.fs-bodoni .card-headline{font-family:'Bodoni Moda',serif!important;font-weight:400;font-style:normal;font-size:.76rem!important;}
+.fs-cinzel .card-name{font-family:'Cinzel',serif!important;font-weight:600;letter-spacing:.08em;font-size:1.05rem!important;}
+.fs-cinzel .card-headline{font-family:'Cinzel',serif!important;font-weight:400;font-style:normal;font-size:.64rem!important;letter-spacing:.14em;}
+.fs-cinzel .card-eyebrow{font-family:'Cinzel',serif!important;letter-spacing:.32em;}
+.fs-italiana .card-name{font-family:'Italiana',serif!important;font-weight:400;letter-spacing:.06em;}
+.fs-italiana .card-headline{font-family:'Lato',sans-serif!important;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-size:.64rem!important;}
+.fs-vidaloka .card-name{font-family:'Vidaloka',serif!important;font-weight:400;}
+.fs-vidaloka .card-headline{font-family:'Raleway',sans-serif!important;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-size:.64rem!important;}
+.fs-rufina .card-name{font-family:'Rufina',serif!important;font-weight:700;}
+.fs-rufina .card-headline{font-family:'Zilla Slab',serif!important;font-weight:300;font-style:italic;}
+.fs-ebgaramond .card-name{font-family:'EB Garamond',serif!important;font-weight:600;font-style:italic;}
+.fs-ebgaramond .card-headline{font-family:'EB Garamond',serif!important;font-weight:400;font-style:normal;}
+.fs-sacramento .card-name{font-family:'Sacramento',cursive!important;font-weight:400;font-size:2.1rem!important;}
+.fs-sacramento .card-headline{font-family:'Josefin Sans',sans-serif!important;font-weight:300;letter-spacing:.22em;text-transform:uppercase;font-style:normal;font-size:.62rem!important;}
+.fs-alexbrush .card-name{font-family:'Alex Brush',cursive!important;font-weight:400;font-size:2.2rem!important;}
+.fs-alexbrush .card-headline{font-family:'Lato',sans-serif!important;font-weight:300;letter-spacing:.16em;text-transform:uppercase;font-style:normal;font-size:.62rem!important;}
+.fs-tangerine .card-name{font-family:'Tangerine',cursive!important;font-weight:700;font-size:2.6rem!important;}
+.fs-tangerine .card-headline{font-family:'Josefin Sans',sans-serif!important;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-size:.62rem!important;}
+.fs-pinyonscript .card-name{font-family:'Pinyon Script',cursive!important;font-weight:400;font-size:2.3rem!important;}
+.fs-pinyonscript .card-headline{font-family:'Cormorant Garamond',serif!important;font-weight:300;letter-spacing:.14em;font-style:normal;}
+.fs-greatvibes .card-name{font-family:'Great Vibes',cursive!important;font-weight:400;font-size:2.2rem!important;}
+.fs-greatvibes .card-headline{font-family:'Cormorant Garamond',serif!important;font-weight:300;font-style:italic;}
+.fs-dancing .card-name{font-family:'Dancing Script',cursive!important;font-weight:600;}
+.fs-dancing .card-headline{font-family:'Nunito',sans-serif!important;font-weight:400;font-style:normal;}
+.fs-bebas .card-name{font-family:'Bebas Neue',cursive!important;letter-spacing:.12em;font-size:1.9rem!important;}
+.fs-bebas .card-headline{font-family:'Josefin Sans',sans-serif!important;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-size:.62rem!important;}
+.fs-josefin .card-name{font-family:'Josefin Sans',sans-serif!important;font-weight:100;letter-spacing:.25em;text-transform:uppercase;}
+.fs-josefin .card-headline{font-family:'Josefin Sans',sans-serif!important;font-weight:300;letter-spacing:.12em;font-style:normal;}
+.fs-montserrat .card-name{font-family:'Montserrat',sans-serif!important;font-weight:700;letter-spacing:.04em;}
+.fs-montserrat .card-headline{font-family:'Montserrat',sans-serif!important;font-weight:300;letter-spacing:.1em;font-style:normal;}
+.fs-raleway .card-name{font-family:'Raleway',sans-serif!important;font-weight:700;letter-spacing:.06em;}
+.fs-raleway .card-headline{font-family:'Raleway',sans-serif!important;font-weight:300;letter-spacing:.16em;font-style:normal;}
+.fs-pacifico .card-name{font-family:'Pacifico',cursive!important;font-weight:400;font-style:normal;font-size:1.2rem!important;}
+.fs-pacifico .card-headline{font-family:'Nunito',sans-serif!important;font-weight:700;font-style:normal;}
+.fs-pacifico .card-eyebrow{font-family:'Abril Fatface',serif!important;}
+.fs-libre .card-name{font-family:'Libre Baskerville',serif!important;font-weight:700;font-style:italic;}
+.fs-libre .card-headline{font-family:'Libre Baskerville',serif!important;font-weight:400;font-style:normal;}
+
+.preview-note{margin-top:16px;font-size:11px;color:var(--soft);text-align:center;max-width:260px;line-height:1.7;}
+.preview-note strong{color:var(--gold);}
+
+/* ── SUCCESS ── */
+#success-modal{position:fixed;inset:0;background:rgba(44,40,37,.7);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px);}
+#success-modal.vis{display:flex;}
+.success-box{background:var(--cream);border-radius:6px;padding:48px 40px;max-width:400px;text-align:center;box-shadow:0 40px 80px rgba(44,40,37,.2);}
+.success-box h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;margin-bottom:12px;}
+.success-box p{font-size:14px;color:var(--mid);margin-bottom:24px;line-height:1.7;}
+.success-close{background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:13px 28px;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;}
+.success-close:hover{background:var(--gold);}
+
+@media(max-width:960px){
+  .builder-layout{grid-template-columns:1fr;}
+  .form-panel{border-right:none;border-bottom:1px solid var(--border);max-height:none;}
+  .preview-panel{position:static;height:auto;padding:40px 20px;}
+  nav{padding:0 20px;}
+  nav .nav-links{display:none;}
+}
   </style>
 </head>
 <body>
 
-<!-- ── LOCK ── -->
-<div id="lock">
-  <img src="logo-horizontal.png" alt="Moments by Shanaz" />
-  <div class="lock-box">
-    <div class="lock-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
+<nav>
+  <img src="logo-horizontal.png" alt="Moments by Shanaz"/>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/order.html">Scratchcards</a>
+    <a href="/invitations.html" class="active">Invitations</a>
+    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">Digital Invitations</p>
+  <h1>Design something <em>truly beautiful</em></h1>
+  <p>Fully customise every detail — fonts, colours, layouts, textures, and more. Crafted by hand and delivered within hours.</p>
+</div>
+
+<div class="builder-layout">
+
+  <!-- ══ FORM PANEL ══ -->
+  <div class="form-panel">
+
+    <!-- 01 OCCASION -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">01</span>Occasion</div>
+      <div class="occ-grid" id="occ-grid">
+        <div class="occ-tile sel" onclick="pickOcc(this,'You\'re Invited')"><div class="occ-icon">💌</div><div class="occ-name">General</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'Save the Date')"><div class="occ-icon">💍</div><div class="occ-name">Wedding</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'Birthday Celebration')"><div class="occ-icon">🎂</div><div class="occ-name">Birthday</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'You\'re Invited')"><div class="occ-icon">👶</div><div class="occ-name">Baby Shower</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'It\'s a…')"><div class="occ-icon">🎀</div><div class="occ-name">Gender Reveal</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'Join Us for a Celebration')"><div class="occ-icon">🎄</div><div class="occ-name">Christmas</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'Eid Mubarak')"><div class="occ-icon">🌙</div><div class="occ-name">Eid</div></div>
+        <div class="occ-tile" onclick="pickOcc(this,'You\'re Invited')"><div class="occ-icon">✨</div><div class="occ-name">Other</div></div>
+      </div>
     </div>
-    <h2>Admin Access</h2>
-    <p>Enter your password to continue</p>
-    <input type="password" id="pwd" class="lock-input" placeholder="••••••••" />
-    <button class="lock-btn" onclick="checkPwd()">Enter</button>
-    <div class="lock-err" id="lock-err"></div>
+
+    <!-- 02 BACKGROUND -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">02</span>Background</div>
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="switchMode('solid',this)">Solid</button>
+        <button class="mode-tab" onclick="switchMode('gradient',this)">Gradient</button>
+        <button class="mode-tab" onclick="switchMode('pattern',this)">Pattern</button>
+        <button class="mode-tab" onclick="switchMode('image',this)">Image</button>
+      </div>
+
+      <div id="mode-solid">
+        <div class="swatch-grid">
+          <div class="swatch sel" style="background:#fefcf8;outline:1px solid #ddd;" title="Ivory" onclick="pickSolid(this,'#fefcf8','dark')"></div>
+          <div class="swatch" style="background:#ffffff;outline:1px solid #ddd;" title="White" onclick="pickSolid(this,'#ffffff','dark')"></div>
+          <div class="swatch" style="background:#1a1714;" title="Midnight" onclick="pickSolid(this,'#1a1714','light')"></div>
+          <div class="swatch" style="background:#2c2825;" title="Charcoal" onclick="pickSolid(this,'#2c2825','light')"></div>
+          <div class="swatch" style="background:#f5f0e8;" title="Warm Cream" onclick="pickSolid(this,'#f5f0e8','dark')"></div>
+          <div class="swatch" style="background:#fde8e8;" title="Blush" onclick="pickSolid(this,'#fde8e8','dark')"></div>
+          <div class="swatch" style="background:#f8e1ec;" title="Soft Rose" onclick="pickSolid(this,'#f8e1ec','dark')"></div>
+          <div class="swatch" style="background:#c0687a;" title="Deep Rose" onclick="pickSolid(this,'#c0687a','light')"></div>
+          <div class="swatch" style="background:#7b3552;" title="Berry" onclick="pickSolid(this,'#7b3552','light')"></div>
+          <div class="swatch" style="background:#3d1c3a;" title="Deep Plum" onclick="pickSolid(this,'#3d1c3a','light')"></div>
+          <div class="swatch" style="background:#e8d5c4;" title="Peach" onclick="pickSolid(this,'#e8d5c4','dark')"></div>
+          <div class="swatch" style="background:#b8924a;" title="Gold" onclick="pickSolid(this,'#b8924a','light')"></div>
+          <div class="swatch" style="background:#e8c87a;" title="Champagne" onclick="pickSolid(this,'#e8c87a','dark')"></div>
+          <div class="swatch" style="background:#d4af70;" title="Antique Gold" onclick="pickSolid(this,'#d4af70','dark')"></div>
+          <div class="swatch" style="background:#e8f2f8;" title="Ice Blue" onclick="pickSolid(this,'#e8f2f8','dark')"></div>
+          <div class="swatch" style="background:#5b8fa8;" title="Slate Blue" onclick="pickSolid(this,'#5b8fa8','light')"></div>
+          <div class="swatch" style="background:#1e3a5f;" title="Navy" onclick="pickSolid(this,'#1e3a5f','light')"></div>
+          <div class="swatch" style="background:#0d1f3c;" title="Midnight Navy" onclick="pickSolid(this,'#0d1f3c','light')"></div>
+          <div class="swatch" style="background:#e8f2e8;" title="Mint" onclick="pickSolid(this,'#e8f2e8','dark')"></div>
+          <div class="swatch" style="background:#4a7c59;" title="Sage Green" onclick="pickSolid(this,'#4a7c59','light')"></div>
+          <div class="swatch" style="background:#2d4a3e;" title="Forest" onclick="pickSolid(this,'#2d4a3e','light')"></div>
+          <div class="swatch" style="background:#1a2e1a;" title="Deep Forest" onclick="pickSolid(this,'#1a2e1a','light')"></div>
+          <div class="swatch" style="background:#e8e2f8;" title="Lavender" onclick="pickSolid(this,'#e8e2f8','dark')"></div>
+          <div class="swatch" style="background:#7b6fa8;" title="Amethyst" onclick="pickSolid(this,'#7b6fa8','light')"></div>
+        </div>
+        <div class="cc-row">
+          <label>Custom colour</label>
+          <input type="color" id="custom-solid" value="#fefcf8" oninput="customSolid(this.value)"/>
+        </div>
+      </div>
+
+      <div id="mode-gradient" style="display:none;">
+        <div class="grad-grid">
+          <div class="grad-sw sel" style="background:linear-gradient(135deg,#fefcf8,#f0e8d8);" onclick="pickGrad(this,'linear-gradient(135deg,#fefcf8,#f0e8d8)','dark')" title="Ivory Drift"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#1a1714,#3a2e1f);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3a2e1f)','light')" title="Midnight Gold"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#fde8e8,#f9c0cb);" onclick="pickGrad(this,'linear-gradient(135deg,#fde8e8,#f9c0cb)','dark')" title="Rose Blush"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#f5f0e8,#e8d5c4);" onclick="pickGrad(this,'linear-gradient(135deg,#f5f0e8,#e8d5c4)','dark')" title="Warm Sand"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#e8f2e8,#c8e6c9);" onclick="pickGrad(this,'linear-gradient(135deg,#e8f2e8,#c8e6c9)','dark')" title="Garden"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#1e3a5f,#2d6a8a);" onclick="pickGrad(this,'linear-gradient(135deg,#1e3a5f,#2d6a8a)','light')" title="Ocean Deep"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#7b3552,#c0687a);" onclick="pickGrad(this,'linear-gradient(135deg,#7b3552,#c0687a)','light')" title="Berry Romance"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#2d4a3e,#4a7c59);" onclick="pickGrad(this,'linear-gradient(135deg,#2d4a3e,#4a7c59)','light')" title="Forest"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#b8924a,#e8c87a);" onclick="pickGrad(this,'linear-gradient(135deg,#b8924a,#e8c87a)','dark')" title="Golden Hour"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#e8e2f8,#c4b8e8);" onclick="pickGrad(this,'linear-gradient(135deg,#e8e2f8,#c4b8e8)','dark')" title="Lavender Mist"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#1a1714,#3d1a2b);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3d1a2b)','light')" title="Noir"></div>
+          <div class="grad-sw" style="background:linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8);" onclick="pickGrad(this,'linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8)','dark')" title="Pastel Dreams"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#0d1f3c,#1e3a5f,#2d6a8a);" onclick="pickGrad(this,'linear-gradient(135deg,#0d1f3c,#1e3a5f,#2d6a8a)','light')" title="Midnight Ocean"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#3d1c3a,#7b3552,#c0687a);" onclick="pickGrad(this,'linear-gradient(135deg,#3d1c3a,#7b3552,#c0687a)','light')" title="Deep Plum Rose"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#1a2e1a,#2d4a3e,#4a7c59);" onclick="pickGrad(this,'linear-gradient(135deg,#1a2e1a,#2d4a3e,#4a7c59)','light')" title="Deep Forest"></div>
+          <div class="grad-sw" style="background:linear-gradient(135deg,#d4af70,#f0dca0,#b8924a);" onclick="pickGrad(this,'linear-gradient(135deg,#d4af70,#f0dca0,#b8924a)','dark')" title="Gold Foil"></div>
+        </div>
+      </div>
+
+      <div id="mode-pattern" style="display:none;">
+        <div class="tex-grid">
+          <div class="tex-tile sel" id="pat-none" onclick="pickPattern(this,'none')">
+            <div class="tex-tile-inner" style="align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:10px;color:var(--soft);">
+              <span style="font-size:18px;">✕</span>No pattern
+            </div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'diamonds')">
+            <div class="pat-bg" id="pat-preview-diamonds"></div>
+            <div class="tn">Diamonds</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'dots')">
+            <div class="pat-bg" id="pat-preview-dots"></div>
+            <div class="tn">Polka Dots</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'herringbone')">
+            <div class="pat-bg" id="pat-preview-herringbone"></div>
+            <div class="tn">Herringbone</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'marble')">
+            <div class="pat-bg" id="pat-preview-marble"></div>
+            <div class="tn">Marble Veins</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'grid')">
+            <div class="pat-bg" id="pat-preview-grid"></div>
+            <div class="tn">Fine Grid</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'stars')">
+            <div class="pat-bg" id="pat-preview-stars"></div>
+            <div class="tn">Stars</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'leaves')">
+            <div class="pat-bg" id="pat-preview-leaves"></div>
+            <div class="tn">Botanical</div>
+          </div>
+          <div class="pat-tile" onclick="pickPattern(this,'waves')">
+            <div class="pat-bg" id="pat-preview-waves"></div>
+            <div class="tn">Waves</div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--soft);margin-top:8px;line-height:1.6;">Patterns use your chosen solid colour as the base — pick a solid first, then add a pattern overlay.</p>
+      </div>
+
+      <div id="mode-image" style="display:none;">
+        <!-- Upload your own background -->
+        <label style="display:block;cursor:pointer;margin-bottom:12px;">
+          <div style="border:1.5px dashed var(--border);border-radius:6px;padding:14px;text-align:center;transition:border-color .2s;background:var(--warm);" id="bg-upload-box" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-size:22px;margin-bottom:4px;">📁</div>
+            <div style="font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--char);margin-bottom:2px;">Upload your own background</div>
+            <div style="font-size:10px;color:var(--soft);">JPG, PNG, WebP — fills the full card</div>
+            <div id="bg-upload-name" style="font-size:10px;color:var(--gold);margin-top:6px;display:none;"></div>
+          </div>
+          <input type="file" id="bg-photo-input" accept="image/*" style="display:none;" onchange="handleBgUpload(event)"/>
+        </label>
+        <!-- Or choose from presets -->
+        <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;text-align:center;">— or choose a preset —</div>
+        <div class="tex-grid">
+          <div class="tex-tile" onclick="pickImage(this,'wedding.jpg')">
+            <img src="wedding.jpg" alt="Wedding"/>
+            <div class="tn">Wedding</div>
+          </div>
+          <div class="tex-tile" onclick="pickImage(this,'birthday.jpg')">
+            <img src="birthday.jpg" alt="Birthday"/>
+            <div class="tn">Birthday</div>
+          </div>
+          <div class="tex-tile" onclick="pickImage(this,'christmas.jpg')">
+            <img src="christmas.jpg" alt="Christmas"/>
+            <div class="tn">Christmas</div>
+          </div>
+          <div class="tex-tile" onclick="pickImage(this,'gender.jpg')">
+            <img src="gender.jpg" alt="Gender Reveal"/>
+            <div class="tn">Gender Reveal</div>
+          </div>
+          <div class="tex-tile" onclick="pickImage(this,'Proposal.jpg')">
+            <img src="Proposal.jpg" alt="Romance"/>
+            <div class="tn">Romance</div>
+          </div>
+          <div class="tex-tile" onclick="pickImage(this,'Holiday.jpg')">
+            <img src="Holiday.jpg" alt="Holiday"/>
+            <div class="tn">Holiday</div>
+          </div>
+        </div>
+        <!-- Overlay darkness slider -->
+        <div style="margin-top:14px;">
+          <div class="slider-row" style="align-items:center;">
+            <label style="font-size:10px;color:var(--soft);min-width:110px;">Text overlay darkness</label>
+            <input type="range" min="0" max="80" value="30" id="bg-overlay-slider" oninput="setBgOverlay(this.value)" style="flex:1;"/>
+            <span class="slider-val" id="bg-overlay-val">30%</span>
+          </div>
+          <p style="font-size:10px;color:var(--soft);margin-top:6px;line-height:1.6;">Darkens the photo so text stays readable. Set to 0 for no overlay.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 FONT STYLE -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">03</span>Font Style</div>
+      <div class="font-grid" id="font-grid">
+        <div class="font-tile sel" onclick="pickFont(this,'cormorant')">
+          <div class="font-preview" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;">Amelia</div>
+          <div class="font-label">Cormorant</div><div class="font-vibe">Timeless · Elegant</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'playfair')">
+          <div class="font-preview" style="font-family:'Playfair Display',serif;font-weight:700;">Amelia</div>
+          <div class="font-label">Playfair</div><div class="font-vibe">Classic · Bold</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'bodoni')">
+          <div class="font-preview" style="font-family:'Bodoni Moda',serif;font-weight:700;font-style:italic;">Amelia</div>
+          <div class="font-label">Bodoni</div><div class="font-vibe">High Fashion · Luxury</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'cinzel')">
+          <div class="font-preview" style="font-family:'Cinzel',serif;font-weight:600;font-size:1.1rem;letter-spacing:.06em;">Amelia</div>
+          <div class="font-label">Cinzel</div><div class="font-vibe">Regal · Formal</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'italiana')">
+          <div class="font-preview" style="font-family:'Italiana',serif;">Amelia</div>
+          <div class="font-label">Italiana</div><div class="font-vibe">Refined · Soft</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'vidaloka')">
+          <div class="font-preview" style="font-family:'Vidaloka',serif;">Amelia</div>
+          <div class="font-label">Vidaloka</div><div class="font-vibe">Contemporary</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'rufina')">
+          <div class="font-preview" style="font-family:'Rufina',serif;font-weight:700;">Amelia</div>
+          <div class="font-label">Rufina</div><div class="font-vibe">Editorial · Strong</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'ebgaramond')">
+          <div class="font-preview" style="font-family:'EB Garamond',serif;font-style:italic;font-weight:600;">Amelia</div>
+          <div class="font-label">EB Garamond</div><div class="font-vibe">Literary · Warm</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'libre')">
+          <div class="font-preview" style="font-family:'Libre Baskerville',serif;font-weight:700;font-style:italic;">Amelia</div>
+          <div class="font-label">Libre Baskerville</div><div class="font-vibe">Heritage · Trustworthy</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'sacramento')">
+          <div class="font-preview" style="font-family:'Sacramento',cursive;font-size:1.6rem;">Amelia</div>
+          <div class="font-label">Sacramento</div><div class="font-vibe">Calligraphy · Flowing</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'greatvibes')">
+          <div class="font-preview" style="font-family:'Great Vibes',cursive;font-size:1.6rem;">Amelia</div>
+          <div class="font-label">Great Vibes</div><div class="font-vibe">Romantic · Lush</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'alexbrush')">
+          <div class="font-preview" style="font-family:'Alex Brush',cursive;font-size:1.6rem;">Amelia</div>
+          <div class="font-label">Alex Brush</div><div class="font-vibe">Delicate · Graceful</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'tangerine')">
+          <div class="font-preview" style="font-family:'Tangerine',cursive;font-size:2rem;font-weight:700;">Amelia</div>
+          <div class="font-label">Tangerine</div><div class="font-vibe">Dramatic Script</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'pinyonscript')">
+          <div class="font-preview" style="font-family:'Pinyon Script',cursive;font-size:1.7rem;">Amelia</div>
+          <div class="font-label">Pinyon Script</div><div class="font-vibe">Vintage · Ornate</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'dancing')">
+          <div class="font-preview" style="font-family:'Dancing Script',cursive;font-weight:600;">Amelia</div>
+          <div class="font-label">Dancing Script</div><div class="font-vibe">Playful · Friendly</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'pacifico')">
+          <div class="font-preview" style="font-family:'Pacifico',cursive;">Amelia</div>
+          <div class="font-label">Pacifico</div><div class="font-vibe">Fun · Retro</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'montserrat')">
+          <div class="font-preview" style="font-family:'Montserrat',sans-serif;font-weight:700;">Amelia</div>
+          <div class="font-label">Montserrat</div><div class="font-vibe">Modern · Clean</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'raleway')">
+          <div class="font-preview" style="font-family:'Raleway',sans-serif;font-weight:700;">Amelia</div>
+          <div class="font-label">Raleway</div><div class="font-vibe">Geometric · Stylish</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'josefin')">
+          <div class="font-preview" style="font-family:'Josefin Sans',sans-serif;font-weight:100;letter-spacing:.2em;text-transform:uppercase;font-size:1.1rem;">Amelia</div>
+          <div class="font-label">Josefin</div><div class="font-vibe">Ultra Light · Minimal</div>
+        </div>
+        <div class="font-tile" onclick="pickFont(this,'bebas')">
+          <div class="font-preview" style="font-family:'Bebas Neue',cursive;font-size:1.7rem;letter-spacing:.1em;">Amelia</div>
+          <div class="font-label">Bebas Neue</div><div class="font-vibe">Bold · Striking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 TEXT CONTROLS -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">04</span>Text Styling</div>
+      <div class="tc-box">
+        <div class="tc-row">
+          <span class="tc-lbl">Name</span>
+          <div class="tc-btns">
+            <button class="tcb" id="name-b" onclick="toggleStyle('name','bold')" title="Bold"><b>B</b></button>
+            <button class="tcb" id="name-i" onclick="toggleStyle('name','italic')" title="Italic"><i>I</i></button>
+            <button class="tcb" id="name-u" onclick="toggleStyle('name','upper')" title="UPPERCASE">AA</button>
+          </div>
+          <div class="sz-wrap">
+            <button onclick="changeSize('name',-1)" title="Smaller">−</button>
+            <span id="name-sz">16</span>
+            <button onclick="changeSize('name',1)" title="Larger">+</button>
+          </div>
+        </div>
+        <div class="tc-row">
+          <span class="tc-lbl">Headline</span>
+          <div class="tc-btns">
+            <button class="tcb" id="hl-b" onclick="toggleStyle('hl','bold')" title="Bold"><b>B</b></button>
+            <button class="tcb" id="hl-i" onclick="toggleStyle('hl','italic')" title="Italic"><i>I</i></button>
+            <button class="tcb" id="hl-u" onclick="toggleStyle('hl','upper')" title="UPPERCASE">AA</button>
+          </div>
+          <div class="sz-wrap">
+            <button onclick="changeSize('hl',-1)">−</button>
+            <span id="hl-sz">10</span>
+            <button onclick="changeSize('hl',1)">+</button>
+          </div>
+        </div>
+        <div class="tc-row">
+          <span class="tc-lbl">Body</span>
+          <div class="tc-btns">
+            <button class="tcb" id="body-b" onclick="toggleStyle('body','bold')" title="Bold"><b>B</b></button>
+            <button class="tcb" id="body-i" onclick="toggleStyle('body','italic')" title="Italic"><i>I</i></button>
+            <button class="tcb" id="body-u" onclick="toggleStyle('body','upper')" title="UPPERCASE">AA</button>
+          </div>
+          <div class="sz-wrap">
+            <button onclick="changeSize('body',-1)">−</button>
+            <span id="body-sz">9</span>
+            <button onclick="changeSize('body',1)">+</button>
+          </div>
+        </div>
+        <div class="tc-row">
+          <span class="tc-lbl">Text colour</span>
+          <div>
+            <div class="txt-col-row">
+              <div class="txt-col sel" style="background:#2c2825;" onclick="setTextColor(this,'#2c2825')"></div>
+              <div class="txt-col" style="background:#fefcf8;outline:1px solid #ddd;" onclick="setTextColor(this,'#fefcf8')"></div>
+              <div class="txt-col" style="background:#ffffff;outline:1px solid #ddd;" onclick="setTextColor(this,'#ffffff')"></div>
+              <div class="txt-col" style="background:#b8924a;" onclick="setTextColor(this,'#b8924a')"></div>
+              <div class="txt-col" style="background:#d4af70;" onclick="setTextColor(this,'#d4af70')"></div>
+              <div class="txt-col" style="background:#c0687a;" onclick="setTextColor(this,'#c0687a')"></div>
+              <div class="txt-col" style="background:#1e3a5f;" onclick="setTextColor(this,'#1e3a5f')"></div>
+              <div class="txt-col" style="background:#2d4a3e;" onclick="setTextColor(this,'#2d4a3e')"></div>
+            </div>
+            <div class="txt-col-custom">
+              <label>Custom</label>
+              <input type="color" id="custom-text-color" value="#2c2825" oninput="setTextColorCustom(this.value)"/>
+            </div>
+          </div>
+        </div>
+        <div class="tc-row">
+          <span class="tc-lbl">Letter spacing</span>
+          <div class="slider-row" style="flex:1;">
+            <input type="range" min="0" max="12" value="2" id="ls-slider" oninput="setLetterSpacing(this.value)"/>
+            <span class="slider-val" id="ls-val">2</span>
+          </div>
+        </div>
+        <div class="tc-row">
+          <span class="tc-lbl">Line height</span>
+          <div class="slider-row" style="flex:1;">
+            <input type="range" min="10" max="30" value="16" id="lh-slider" oninput="setLineHeight(this.value)"/>
+            <span class="slider-val" id="lh-val">1.6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 LAYOUT & POSITION -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">05</span>Layout & Position</div>
+      <div class="pos-grid">
+        <div class="pos-chip sel" onclick="setPos(this,'pos-top')"><div class="pos-icon">⬆</div><div class="pos-name">Top Centre</div></div>
+        <div class="pos-chip" onclick="setPos(this,'pos-center')"><div class="pos-icon">⊕</div><div class="pos-name">Centred</div></div>
+        <div class="pos-chip" onclick="setPos(this,'pos-bottom')"><div class="pos-icon">⬇</div><div class="pos-name">Bottom</div></div>
+        <div class="pos-chip" onclick="setPos(this,'pos-split')"><div class="pos-icon">↕</div><div class="pos-name">Split</div></div>
+        <div class="pos-chip" onclick="setPos(this,'pos-top-left')"><div class="pos-icon">↖</div><div class="pos-name">Top Left</div></div>
+        <div class="pos-chip" onclick="setPos(this,'pos-top-right')"><div class="pos-icon">↗</div><div class="pos-name">Top Right</div></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Text alignment</div>
+        <div class="align-row">
+          <button class="aln on" id="aln-left" onclick="setAlign(this,'al-left')">&#9664; Left</button>
+          <button class="aln" id="aln-center" onclick="setAlign(this,'al-center')">&#9632; Centre</button>
+          <button class="aln" id="aln-right" onclick="setAlign(this,'al-right')">Right &#9654;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 FRAME & DETAILS -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">06</span>Frame & Details</div>
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Border frame</div>
+      <div class="frame-grid">
+        <div class="fr-chip sel" onclick="pickFrame(this,'f-classic')"><div class="fr-dot" style="border:1px solid #d4a96a;background:#f0e8d8;"></div>Classic Gold</div>
+        <div class="fr-chip" onclick="pickFrame(this,'f-double')"><div class="fr-dot" style="border:2px solid rgba(184,146,74,.4);"></div>Double Line</div>
+        <div class="fr-chip" onclick="pickFrame(this,'f-corners')"><div class="fr-dot" style="border-top:1.5px solid #d4a96a;border-left:1.5px solid #d4a96a;background:none;"></div>Corner Marks</div>
+        <div class="fr-chip" onclick="pickFrame(this,'f-arch')"><div class="fr-dot" style="border:1px solid #d4a96a;border-radius:30% 30% 2px 2px;"></div>Arch</div>
+        <div class="fr-chip" onclick="pickFrame(this,'f-minimal')"><div class="fr-dot" style="border:1px solid rgba(180,180,180,.35);"></div>Minimal</div>
+        <div class="fr-chip" onclick="pickFrame(this,'f-none')"><div class="fr-dot" style="background:#e8e2d9;border:none;"></div>No Frame</div>
+      </div>
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;margin-top:12px;">Divider element</div>
+      <div class="div-grid">
+        <div class="dv-chip sel" onclick="pickDiv(this,'line')"><div style="width:32px;height:1px;background:currentColor;opacity:.3;margin:auto;"></div></div>
+        <div class="dv-chip" onclick="pickDiv(this,'dots')"><span style="letter-spacing:4px;opacity:.5;font-size:9px;">···</span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'floral')">❧</div>
+        <div class="dv-chip" onclick="pickDiv(this,'diamond')"><span style="letter-spacing:3px;font-size:9px;">◆</span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'wave')"><span style="font-size:12px;">〜</span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'stars')"><span style="letter-spacing:2px;font-size:9px;">✦✦✦</span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'leaves')">🌿</div>
+        <div class="dv-chip" onclick="pickDiv(this,'double')"><span style="border-top:1px solid;border-bottom:1px solid;padding:1px 0;display:inline-block;width:28px;opacity:.3;"></span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'none')"><span style="opacity:.3;font-size:9px;">none</span></div>
+        <div class="dv-chip" onclick="pickDiv(this,'custom')">✦</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="foil-row" onclick="toggleFoil()">
+          <span class="foil-lbl"><span style="font-size:16px;">✨</span> Gold foil shimmer effect</span>
+          <div class="tog" id="foil-tog"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 CUSTOM THEME -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">07</span>Custom Theme</div>
+      <div class="custom-toggle" id="custom-toggle" onclick="toggleCustom()">
+        <span style="font-size:18px;">🎨</span>
+        <span>I want a custom illustrated theme</span>
+      </div>
+      <div class="info-box" id="custom-box">
+        <strong>🎨 Describe your custom design</strong>
+        Tell me the theme, character, colours, or any inspiration — I'll create a bespoke illustrated design just for your invitation.
+        <div class="field" style="margin-top:10px;margin-bottom:0;">
+          <textarea id="f-custom" placeholder="e.g. Bluey themed, blue and teal, fun for a 5 year old — or — Princess theme, soft pinks and florals, 7th birthday"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 PERSONALISE -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">08</span>Personalise</div>
+      <div class="field"><label>Name(s) on the invitation</label><input type="text" id="f-name" placeholder="e.g. Amelia, or Amelia & James" oninput="updateCard()"/></div>
+      <div class="field"><label>Headline / Occasion line</label><input type="text" id="f-headline" placeholder="e.g. Turns 6!, or Cordially Invites You…" oninput="updateCard()"/></div>
+      <div class="field"><label>Date & Time</label><input type="text" id="f-date" placeholder="e.g. Saturday, 14th June 2025 · 3pm" oninput="updateCard()"/></div>
+      <div class="field"><label>Venue / Location</label><input type="text" id="f-venue" placeholder="e.g. The Grand Hall, London" oninput="updateCard()"/></div>
+      <div class="field"><label>Message / Additional details</label><textarea id="f-message" placeholder="Dress code, special instructions, gift details…" oninput="updateCard()"></textarea></div>
+      <div class="field"><label>Signed from (optional)</label><input type="text" id="f-from" placeholder="e.g. With love, The Smiths" oninput="updateCard()"/></div>
+    </div>
+
+    <!-- RSVP -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">✉</span>RSVP</div>
+      <div class="rsvp-toggle-row" id="rsvp-toggle" onclick="toggleRsvp()">
+        <span class="rsvp-toggle-label"><span style="font-size:16px;">📩</span> Include RSVP on the invitation</span>
+        <div class="rsvp-switch"></div>
+      </div>
+      <div class="rsvp-fields" id="rsvp-fields">
+        <div class="field"><label>RSVP by (deadline)</label><input type="text" id="f-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateCard()"/><p class="hint">Shown on the invitation card</p></div>
+        <div class="field"><label>Your email (for RSVP responses)</label><input type="email" id="f-rsvp-email" placeholder="Guests will reply directly to this email"/><p class="hint">When guests tap Yes / No / Maybe, their response emails you directly</p></div>
+      </div>
+    </div>
+
+    <!-- 09 PHOTO -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">09</span>Photo (optional)</div>
+      <label class="upload-area" for="photo-upload">
+        <input type="file" id="photo-upload" accept="image/*" onchange="handlePhoto(event)"/>
+        <div class="upload-icon">📷</div>
+        <p>Click to upload a photo</p>
+        <small>JPG or PNG · Appears on your invitation</small>
+      </label>
+      <div class="upload-preview" id="upload-preview"><img id="photo-thumb" src="" alt="Your photo"/></div>
+      <div class="photo-shape-row" id="photo-shapes" style="display:none;">
+        <button class="psb on" onclick="setPhotoShape(this,'sh-circle')">Circle</button>
+        <button class="psb" onclick="setPhotoShape(this,'sh-oval')">Oval</button>
+        <button class="psb" onclick="setPhotoShape(this,'sh-rounded')">Rounded</button>
+        <button class="psb" onclick="setPhotoShape(this,'sh-square')">Square</button>
+        <button class="psb" onclick="setPhotoShape(this,'sh-banner')">Banner</button>
+      </div>
+    </div>
+
+    <!-- 10 GUEST LIST -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">10</span>Guest List (optional)</div>
+      <p class="guest-intro" style="font-size:12px;color:var(--mid);line-height:1.7;margin-bottom:12px;">If you'd like Shanaz to send the invitation directly to your guests, add their names and email addresses below.</p>
+      <div id="guest-list-c"></div>
+      <button class="add-guest-btn" onclick="addGuest()">+ Add a guest</button>
+      <p class="guest-count" id="guest-count-label"></p>
+    </div>
+
+    <!-- 11 YOUR DETAILS -->
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-num">11</span>Your Details</div>
+      <div class="field"><label>Your name</label><input type="text" id="f-your-name" placeholder="Your full name"/></div>
+      <div class="field"><label>Your email</label><input type="email" id="f-your-email" placeholder="Where to send the final invitation"/></div>
+      <div class="field"><label>Etsy order number (if applicable)</label><input type="text" id="f-etsy" placeholder="e.g. 1234567890"/></div>
+    </div>
+
+    <button class="submit-btn" onclick="submitOrder()">Send My Order to Shanaz ✦</button>
+    <p class="submit-note">Your watermarked preview is shown on the right. The final invitation — without any watermark — will be sent to your email within a few hours.</p>
+
+  </div>
+
+  <!-- ══ PREVIEW PANEL ══ -->
+  <div class="preview-panel">
+    <p class="preview-label">✦ Live Preview · Watermarked</p>
+
+    <div class="inv-card" id="inv-card">
+      <div class="card-inner al-center" id="card-inner">
+
+        <!-- Background photo layer (for uploaded bg images) -->
+        <div id="card-bg-photo"></div>
+        <div id="card-bg-overlay"></div>
+
+        <!-- Frame -->
+        <div class="card-frame f-classic" id="card-frame"></div>
+
+        <!-- Foil sheen -->
+        <div class="card-foil" id="card-foil"></div>
+
+        <!-- DRAGGABLE TEXT BLOCK — contains everything readable -->
+        <div id="card-text-block" style="top:50%;left:50%;transform:translate(-50%,-50%);">
+
+          <!-- Photo (portrait / shape) — shown inside text block when "Add photo" toggled -->
+          <div class="card-photo-wrap hide" id="card-photo-wrap" style="margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+            <div class="card-ph sh-circle" id="card-ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Photo</span>
+            </div>
+            <img class="card-photo sh-circle" id="card-photo" src="" alt="" style="display:none;"/>
+          </div>
+
+          <!-- Eyebrow -->
+          <div class="card-eyebrow" id="card-eyebrow">You're Invited</div>
+
+          <!-- Divider top -->
+          <div class="card-divider-el" id="card-div-top"><div class="div-line-el" style="width:40px;"></div></div>
+
+          <!-- Name -->
+          <div class="card-name" id="card-name">Your Name</div>
+
+          <!-- Headline -->
+          <div class="card-headline" id="card-headline">A Special Celebration</div>
+
+          <!-- Divider mid -->
+          <div class="card-divider-el" id="card-div-mid"><div class="div-line-el" style="width:40px;"></div></div>
+
+          <!-- Venue -->
+          <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
+
+          <!-- Date -->
+          <div class="card-date" id="card-date">Date &amp; Time</div>
+
+          <!-- From -->
+          <div class="card-from" id="card-from"></div>
+
+          <!-- RSVP -->
+          <div class="card-rsvp" id="card-rsvp">RSVP</div>
+          <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
+
+        </div><!-- /card-text-block -->
+
+        <!-- Stamp -->
+        <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img"/></div>
+
+        <!-- Drag hint -->
+        <div class="card-drag-hint">✦ Drag text to reposition</div>
+
+      </div>
+
+      <!-- Watermark -->
+      <div class="card-wm" id="card-watermark"><span>Moments by Shanaz · Preview Only</span></div>
+    </div>
+
+    <p class="preview-note"><strong>Watermarked preview.</strong> Your finished invitation — fully crafted, no watermark — arrives in your inbox within hours.</p>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div id="success-modal">
+  <div class="success-box">
+    <div style="font-size:36px;margin-bottom:16px;">✉️</div>
+    <h2>Order received!</h2>
+    <p id="success-msg">Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!</p>
+    <button class="success-close" onclick="document.getElementById('success-modal').classList.remove('vis')">Done</button>
   </div>
 </div>
 
-<!-- ── SHELL ── -->
-<div id="shell">
-
-  <div class="topbar">
-    <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></a>
-    <div class="topbar-right">
-      <span class="tb-badge">Invitation Builder</span>
-      <a href="/admin.html" class="tb-back">← Admin Home</a>
-      <button class="tb-logout" onclick="logout()">Log out</button>
-    </div>
-  </div>
-
-  <div class="builder">
-
-    <!-- ══ LEFT: CONTROLS ══ -->
-    <div class="controls">
-
-      <!-- Customer Details -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>01</span> Customer Details</div>
-        <div class="ctrl-field"><label>Customer name</label><input type="text" id="c-cname" placeholder="e.g. Sarah Johnson" oninput="syncCustomer()" /></div>
-        <div class="ctrl-field"><label>Customer email</label><input type="text" id="c-cemail" placeholder="sarah@email.com" oninput="syncCustomer()" /></div>
-        <div class="ctrl-field"><label>Etsy order #</label><input type="text" id="c-etsy" placeholder="1234567890" oninput="syncCustomer()" /></div>
-      </div>
-
-      <!-- Occasion -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>02</span> Occasion & Eyebrow</div>
-        <div class="ctrl-field">
-          <label>Eyebrow text</label>
-          <select id="c-eyebrow" onchange="document.getElementById('card-eyebrow').textContent=this.value">
-            <option>You're Invited</option>
-            <option>Wedding Invitation</option>
-            <option>Engagement Party</option>
-            <option>Will You Be My Bridesmaid?</option>
-            <option>Baby Shower</option>
-            <option>Save the Date</option>
-            <option value="">Custom (see below)</option>
-          </select>
-        </div>
-        <div class="ctrl-field"><label>Custom eyebrow</label><input type="text" id="c-eyebrow-custom" placeholder="Override eyebrow text…" oninput="if(this.value)document.getElementById('card-eyebrow').textContent=this.value" /></div>
-      </div>
-
-      <!-- Background -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>03</span> Background</div>
-        <div class="mode-tabs">
-          <button class="mode-tab active" onclick="switchMode('solid',this)">Solid</button>
-          <button class="mode-tab" onclick="switchMode('gradient',this)">Gradient</button>
-          <button class="mode-tab" onclick="switchMode('texture',this)">Texture</button>
-        </div>
-        <div id="mode-solid">
-          <div class="swatch-grid">
-            <div class="swatch sel" style="background:#fefcf8;outline:1px solid rgba(255,255,255,0.2);" onclick="pickSolid(this,'#fefcf8','dark')"></div>
-            <div class="swatch" style="background:#1a1714;" onclick="pickSolid(this,'#1a1714','light')"></div>
-            <div class="swatch" style="background:#2c2825;" onclick="pickSolid(this,'#2c2825','light')"></div>
-            <div class="swatch" style="background:#ffffff;outline:1px solid rgba(255,255,255,0.2);" onclick="pickSolid(this,'#ffffff','dark')"></div>
-            <div class="swatch" style="background:#f5f0e8;" onclick="pickSolid(this,'#f5f0e8','dark')"></div>
-            <div class="swatch" style="background:#2d4a3e;" onclick="pickSolid(this,'#2d4a3e','light')"></div>
-            <div class="swatch" style="background:#fde8e8;" onclick="pickSolid(this,'#fde8e8','dark')"></div>
-            <div class="swatch" style="background:#c0687a;" onclick="pickSolid(this,'#c0687a','light')"></div>
-            <div class="swatch" style="background:#7b3552;" onclick="pickSolid(this,'#7b3552','light')"></div>
-            <div class="swatch" style="background:#e8d5c4;" onclick="pickSolid(this,'#e8d5c4','dark')"></div>
-            <div class="swatch" style="background:#b8924a;" onclick="pickSolid(this,'#b8924a','light')"></div>
-            <div class="swatch" style="background:#e8c87a;" onclick="pickSolid(this,'#e8c87a','dark')"></div>
-            <div class="swatch" style="background:#e8f2f8;" onclick="pickSolid(this,'#e8f2f8','dark')"></div>
-            <div class="swatch" style="background:#5b8fa8;" onclick="pickSolid(this,'#5b8fa8','light')"></div>
-            <div class="swatch" style="background:#1e3a5f;" onclick="pickSolid(this,'#1e3a5f','light')"></div>
-            <div class="swatch" style="background:#e8f2e8;" onclick="pickSolid(this,'#e8f2e8','dark')"></div>
-            <div class="swatch" style="background:#4a7c59;" onclick="pickSolid(this,'#4a7c59','light')"></div>
-            <div class="swatch" style="background:#e8e2f8;" onclick="pickSolid(this,'#e8e2f8','dark')"></div>
-          </div>
-        </div>
-        <div id="mode-gradient" style="display:none;">
-          <div class="grad-grid">
-            <div class="grad-swatch sel" style="background:linear-gradient(135deg,#fefcf8,#f0e8d8);" onclick="pickGrad(this,'linear-gradient(135deg,#fefcf8,#f0e8d8)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#1a1714,#3a2e1f);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3a2e1f)','light')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#fde8e8,#f9c0cb);" onclick="pickGrad(this,'linear-gradient(135deg,#fde8e8,#f9c0cb)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#f5f0e8,#e8d5c4);" onclick="pickGrad(this,'linear-gradient(135deg,#f5f0e8,#e8d5c4)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#e8f2e8,#c8e6c9);" onclick="pickGrad(this,'linear-gradient(135deg,#e8f2e8,#c8e6c9)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#1e3a5f,#2d6a8a);" onclick="pickGrad(this,'linear-gradient(135deg,#1e3a5f,#2d6a8a)','light')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#7b3552,#c0687a);" onclick="pickGrad(this,'linear-gradient(135deg,#7b3552,#c0687a)','light')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#2d4a3e,#4a7c59);" onclick="pickGrad(this,'linear-gradient(135deg,#2d4a3e,#4a7c59)','light')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#b8924a,#e8c87a);" onclick="pickGrad(this,'linear-gradient(135deg,#b8924a,#e8c87a)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#e8e2f8,#c4b8e8);" onclick="pickGrad(this,'linear-gradient(135deg,#e8e2f8,#c4b8e8)','dark')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(135deg,#1a1714,#3d1a2b);" onclick="pickGrad(this,'linear-gradient(135deg,#1a1714,#3d1a2b)','light')"></div>
-            <div class="grad-swatch" style="background:linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8);" onclick="pickGrad(this,'linear-gradient(155deg,#fde8e8,#e8e2f8,#e8f2f8)','dark')"></div>
-          </div>
-        </div>
-        <div id="mode-texture" style="display:none;">
-          <div class="texture-grid">
-            <div class="tex-none sel" onclick="pickTexture(this,'none')"><span style="font-size:14px;">✕</span>None</div>
-            <div class="tex-tile" onclick="pickTexture(this,'wedding.jpg')"><img src="wedding.jpg" alt="Wedding"/><span class="tn">Wedding</span></div>
-            <div class="tex-tile" onclick="pickTexture(this,'birthday.jpg')"><img src="birthday.jpg" alt="Birthday"/><span class="tn">Birthday</span></div>
-            <div class="tex-tile" onclick="pickTexture(this,'christmas.jpg')"><img src="christmas.jpg" alt="Christmas"/><span class="tn">Christmas</span></div>
-            <div class="tex-tile" onclick="pickTexture(this,'gender.jpg')"><img src="gender.jpg" alt="Gender"/><span class="tn">Gender Reveal</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Font -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>04</span> Font Style</div>
-        <div class="chip-row">
-          <div class="chip sel" onclick="pickFont(this,'elegant')"><div class="fp" style="font-family:'Cormorant Garamond',serif;font-style:italic;">Aa</div><div class="fl">Elegant</div></div>
-          <div class="chip" onclick="pickFont(this,'modern')"><div class="fp" style="font-family:'Playfair Display',serif;font-weight:700;">Aa</div><div class="fl">Modern</div></div>
-          <div class="chip" onclick="pickFont(this,'playful')"><div class="fp" style="font-family:'Dancing Script',cursive;">Aa</div><div class="fl">Playful</div></div>
-          <div class="chip" onclick="pickFont(this,'comical')"><div class="fp" style="font-family:'Pacifico',cursive;font-size:1rem;">Aa</div><div class="fl">Comical</div></div>
-        </div>
-      </div>
-
-      <!-- Frame -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>05</span> Frame</div>
-        <div class="chip-row">
-          <div class="chip sel" onclick="pickFrame(this,'classic')"><div class="fl">Classic</div></div>
-          <div class="chip" onclick="pickFrame(this,'minimal')"><div class="fl">Minimal</div></div>
-          <div class="chip" onclick="pickFrame(this,'none')"><div class="fl">No Frame</div></div>
-        </div>
-      </div>
-
-      <!-- Text Controls -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>06</span> Text Controls</div>
-        <div class="text-controls">
-          <div class="tc-row">
-            <span class="tc-label">Align</span>
-            <div class="tc-btns">
-              <button class="tc-btn align-btn active" id="align-left" onclick="setAlign('left',this)" title="Left">&#9776;</button>
-              <button class="tc-btn align-btn" id="align-center" onclick="setAlign('center',this)" title="Centre">☰</button>
-              <button class="tc-btn align-btn" id="align-right" onclick="setAlign('right',this)" title="Right">&#9776;</button>
-            </div>
-          </div>
-          <div class="tc-row">
-            <span class="tc-label">Name</span>
-            <div class="tc-btns">
-              <button class="tc-btn" onclick="adjustSize('card-name',-1)">A−</button>
-              <button class="tc-btn" onclick="adjustSize('card-name',1)">A+</button>
-            </div>
-            <span class="tc-size-val" id="sz-name">1.7</span>
-          </div>
-          <div class="tc-row">
-            <span class="tc-label">Headline</span>
-            <div class="tc-btns">
-              <button class="tc-btn" onclick="adjustSize('card-headline',-1)">A−</button>
-              <button class="tc-btn" onclick="adjustSize('card-headline',1)">A+</button>
-            </div>
-            <span class="tc-size-val" id="sz-headline">0.85</span>
-          </div>
-          <div class="tc-row">
-            <span class="tc-label">Date</span>
-            <div class="tc-btns">
-              <button class="tc-btn" onclick="adjustSize('card-date',-1)">A−</button>
-              <button class="tc-btn" onclick="adjustSize('card-date',1)">A+</button>
-            </div>
-            <span class="tc-size-val" id="sz-date">0.88</span>
-          </div>
-          <div class="tc-row">
-            <span class="tc-label">Body</span>
-            <div class="tc-btns">
-              <button class="tc-btn" onclick="adjustSize('card-venue',-1)">A−</button>
-              <button class="tc-btn" onclick="adjustSize('card-venue',1)">A+</button>
-            </div>
-            <span class="tc-size-val" id="sz-venue">10</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>07</span> Card Content</div>
-        <div class="ctrl-field"><label>Name(s)</label><input type="text" id="c-name" placeholder="e.g. Amelia" oninput="updateCard()" /></div>
-        <div class="ctrl-field"><label>Headline</label><input type="text" id="c-headline" placeholder="e.g. Turns 6!" oninput="updateCard()" /></div>
-        <div class="ctrl-field"><label>Date & Time</label><input type="text" id="c-date" placeholder="Saturday, 14th June · 3pm" oninput="updateCard()" /></div>
-        <div class="ctrl-field"><label>Venue</label><input type="text" id="c-venue" placeholder="The Grand Hall, London" oninput="updateCard()" /></div>
-        <div class="ctrl-field"><label>Message</label><textarea id="c-msg" placeholder="RSVP, dress code, details…" oninput="updateCard()"></textarea></div>
-        <div class="ctrl-field"><label>Signed from</label><input type="text" id="c-from" placeholder="With love, The Smiths" oninput="updateCard()" /></div>
-      </div>
-
-      <!-- RSVP -->
-      <div class="ctrl-section">
-        <div class="ctrl-title"><span>08</span> RSVP</div>
-        <div class="rsvp-row" id="admin-rsvp-toggle" onclick="toggleAdminRsvp()">
-          <span style="font-size:12px;color:var(--soft);">📩 Include RSVP</span>
-          <div class="rsvp-switch"></div>
-        </div>
-        <div class="rsvp-extra" id="admin-rsvp-extra">
-          <div class="ctrl-field">
-            <label>RSVP deadline</label>
-            <input type="text" id="c-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateRsvpCard()" />
-          </div>
-          <div class="ctrl-field">
-            <label>Customer RSVP email</label>
-            <input type="email" id="c-rsvp-email" placeholder="Responses go here" />
-            <p style="font-size:10px;color:var(--soft);margin-top:4px;line-height:1.5;">Guest Yes/No/Maybe buttons email this address directly</p>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /controls -->
-
-    <!-- ══ CENTRE: CANVAS ══ -->
-    <div class="canvas-area">
-      <div class="preview-wrap">
-        <div class="inv-card" id="inv-card">
-          <div class="card-inner font-elegant" id="card-inner">
-            <div class="card-frame" id="card-frame"></div>
-            <img class="card-photo" id="card-photo" src="" alt="" />
-            <p class="card-eyebrow" id="card-eyebrow">You're Invited</p>
-            <div class="card-divider"></div>
-            <div class="card-name" id="card-name">Customer Name</div>
-            <div class="card-headline" id="card-headline">A Special Celebration</div>
-            <div class="card-divider"></div>
-            <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
-            <div class="card-date" id="card-date">Date & Time</div>
-            <div class="card-from" id="card-from"></div>
-            <div class="card-rsvp" id="card-rsvp">RSVP</div>
-            <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
-            <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img" /></div>
-          </div>
-          <div class="card-watermark" id="card-watermark"><span style="color:rgba(0,0,0,0.1);">Moments by Shanaz · Preview Only</span></div>
-        </div>
-
-        <div class="preview-toggle-row">
-          <button class="ptog-btn active" onclick="setWatermark(true,this)">With Watermark</button>
-          <button class="ptog-btn" onclick="setWatermark(false,this)">Without Watermark</button>
-        </div>
-      </div>
-    </div><!-- /canvas-area -->
-
-    <!-- ══ RIGHT: ACTIONS ══ -->
-    <div class="action-panel">
-
-      <!-- Customer summary -->
-      <div>
-        <div class="ap-section-title">Customer</div>
-        <div class="customer-card" id="customer-summary">
-          <strong>No customer details yet.</strong><br />
-          Fill in the customer name, email and order number on the left.
-        </div>
-      </div>
-
-      <!-- Generate preview link -->
-      <div>
-        <div class="ap-section-title">Draft Preview Link</div>
-        <div class="draft-link-box">
-          <p>Generate a shareable link to send the customer their watermarked preview. They can view it and come back to you with feedback before you finalise.</p>
-          <button class="gen-btn" onclick="generateLink()">⚡ Generate Preview Link</button>
-          <textarea class="draft-url" id="draft-url" readonly placeholder="Click Generate to create the preview link…"></textarea>
-          <button class="copy-btn" id="copy-btn" onclick="copyLink()">Copy Link</button>
-          <p class="gen-note" style="margin-top:10px;">The link encodes the full design so nothing is stored on the server. Share it directly with the customer via email or WhatsApp.</p>
-        </div>
-      </div>
-
-      <!-- PDF Download -->
-      <div>
-        <div class="ap-section-title">Download as PDF</div>
-        <button class="pdf-action-btn clean" onclick="adminDownloadPDF(false)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Final PDF (no watermark)
-        </button>
-        <button class="pdf-action-btn wm" onclick="adminDownloadPDF(true)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Draft (with watermark)
-        </button>
-        <p class="gen-note">Use the final PDF to send to your customer for sharing. Share the watermarked version for approval only.</p>
-      </div>
-
-      <!-- Guest List -->
-      <div>
-        <div class="ap-section-title">Guest List & Send</div>
-
-        <!-- Paste from order -->
-        <div style="font-size:12px;color:var(--soft);margin-bottom:10px;line-height:1.6;">
-          Guest list submitted with this order. Review, edit if needed, then send each guest their invitation — a personalised PDF delivered directly to their inbox via email.
-        </div>
-
-        <div id="admin-guest-list" style="margin-bottom:8px;"></div>
-
-        <button class="add-guest-btn" onclick="adminAddGuest()" style="margin-bottom:10px;">+ Add guest manually</button>
-
-        <!-- Action buttons -->
-        <button class="guest-send-btn" id="send-all-btn" onclick="sendAllGuests()" style="margin-bottom:6px;">
-          ✉ Send PDF to All Guests
-        </button>
-        <button class="pdf-action-btn wm" style="margin-bottom:6px;" onclick="downloadAllGuestPDFs()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download All Guest PDFs
-        </button>
-
-        <div id="send-all-status" style="display:none;margin-top:8px;padding:10px;border-radius:3px;font-size:12px;text-align:center;"></div>
-
-        <p class="gen-note" style="margin-top:6px;">
-          "Send PDF to All Guests" emails each guest their personalised invitation PDF via EmailJS — no manual attaching needed. "Download All PDFs" saves them locally as a backup.
-        </p>
-        <p class="guest-count" id="admin-guest-count"></p>
-      </div>
-
-      <!-- Internal notes -->
-      <div>
-        <div class="ap-section-title">Internal Notes</div>
-        <textarea class="notes-area" placeholder="Add any notes about this order — special requests, revisions, feedback…"></textarea>
-      </div>
-
-    </div><!-- /action-panel -->
-
-  </div><!-- /builder -->
-</div><!-- /shell -->
-
 <script>
-  const PASS = 'moments2026';
-  const KEY  = 'mbs_admin_auth';
+const S = {
+  bgMode:'solid', bg:'#fefcf8', textDark:true,
+  pattern:'none', image:'none',
+  fontStyle:'cormorant',
+  nameSize:16, hlSize:10, bodySize:9,
+  nameBold:false, nameItalic:false, nameUpper:false,
+  hlBold:false,   hlItalic:false,   hlUpper:false,
+  bodyBold:false, bodyItalic:false, bodyUpper:false,
+  textColor:'#2c2825',
+  letterSpacing:2, lineHeight:16,
+  pos:'pos-top', align:'al-left',
+  frame:'f-classic', divStyle:'line',
+  foil:false, photoShape:'sh-circle'
+};
 
-  // ── Auth ──────────────────────────────────────────────────
-  function checkPwd() {
-    const input = document.getElementById('pwd');
-    if (input.value === PASS) {
-      sessionStorage.setItem(KEY,'1');
-      document.getElementById('lock').classList.add('gone');
-      document.getElementById('shell').classList.add('on');
+/* ── BACKGROUND ── */
+function applyBg(){
+  const ci  = document.getElementById('card-inner');
+  const bgL = document.getElementById('card-bg-photo');
+  const ovL = document.getElementById('card-bg-overlay');
+
+  // Reset card-inner background
+  ci.style.background = '';
+  ci.style.backgroundImage = '';
+
+  if(S.image !== 'none'){
+    // Photo background — use dedicated layer
+    bgL.style.backgroundImage    = `url('${S.image}')`;
+    bgL.style.backgroundSize     = 'cover';
+    bgL.style.backgroundPosition = 'center';
+    bgL.style.display = 'block';
+    ci.style.backgroundColor = 'transparent';
+    // Dark overlay so text reads
+    const ovAlpha = (S.bgOverlay !== undefined ? S.bgOverlay : 30) / 100;
+    ovL.style.background = `rgba(0,0,0,${ovAlpha})`;
+  } else {
+    bgL.style.backgroundImage = '';
+    bgL.style.display = 'none';
+    ovL.style.background = '';
+    // Solid or gradient
+    if(S.bgMode === 'gradient'){
+      ci.style.background = S.bg;
     } else {
-      input.classList.add('err');
-      document.getElementById('lock-err').textContent = 'Incorrect password.';
-      input.value = '';
-      setTimeout(() => input.classList.remove('err'), 500);
-    }
-  }
-  function logout() {
-    sessionStorage.removeItem(KEY);
-    document.getElementById('lock').classList.remove('gone');
-    document.getElementById('shell').classList.remove('on');
-    document.getElementById('pwd').value = '';
-  }
-  document.getElementById('pwd').addEventListener('keydown', e => { if (e.key==='Enter') checkPwd(); });
-  if (sessionStorage.getItem(KEY)==='1') {
-    document.getElementById('lock').classList.add('gone');
-    document.getElementById('shell').classList.add('on');
-  }
-
-  // ── State ─────────────────────────────────────────────────
-  const S = { bgMode:'solid', bg:'#fefcf8', textDark:true, texture:'none', font:'elegant', frame:'classic' };
-
-  // ── Bg apply ──────────────────────────────────────────────
-  function applyBg() {
-    const ci = document.getElementById('card-inner');
-    // Clear all first to avoid conflicts
-    ci.style.backgroundImage = 'none';
-    ci.style.backgroundColor = '';
-    ci.style.backgroundSize = '';
-    ci.style.backgroundPosition = '';
-    ci.style.backgroundBlendMode = '';
-
-    if (S.texture !== 'none') {
-      ci.style.backgroundImage = `url('${S.texture}')`;
-      ci.style.backgroundSize = 'cover';
-      ci.style.backgroundPosition = 'center';
-      ci.style.backgroundBlendMode = 'multiply';
       ci.style.backgroundColor = S.bg;
-    } else if (S.bgMode === 'gradient') {
-      // Use background shorthand so gradient renders correctly
-      ci.style.background = S.bg;
-    } else {
-      ci.style.background = S.bg;
     }
-    const tc = S.textDark ? '#2c2825' : '#f0ebe2';
-    ci.style.color = tc;
-    document.querySelector('#card-watermark span').style.color = S.textDark ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.18)';
-    document.getElementById('stamp-img').style.filter = S.textDark ? 'none' : 'brightness(0) invert(1)';
+    // Pattern overlay
+    if(S.pattern !== 'none') applyPatternOver(ci);
+    else { ci.style.backgroundImage = ''; }
   }
 
-  function switchMode(mode, btn) {
-    document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    ['solid','gradient','texture'].forEach(m => document.getElementById('mode-'+m).style.display = m===mode?'block':'none');
-    S.bgMode = mode;
-  }
-  function pickSolid(el, color, scheme) {
-    document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('sel')); el.classList.add('sel');
-    S.bg=color; S.bgMode='solid'; S.textDark=scheme==='dark'; applyBg();
-  }
-  function pickGrad(el, grad, scheme) {
-    document.querySelectorAll('.grad-swatch').forEach(s=>s.classList.remove('sel')); el.classList.add('sel');
-    S.bg=grad; S.bgMode='gradient'; S.textDark=scheme==='dark'; applyBg();
-  }
-  function pickTexture(el, file) {
-    document.querySelectorAll('.tex-tile,.tex-none').forEach(t=>t.classList.remove('sel')); el.classList.add('sel');
-    S.texture = file==='none'?'none':file; applyBg();
-  }
-  function pickFont(el, style) {
-    document.querySelectorAll('.chip').forEach(c=>{ if(c.parentElement===el.parentElement) c.classList.remove('sel'); });
-    el.classList.add('sel');
-    const ci = document.getElementById('card-inner');
-    ci.classList.remove('font-elegant','font-modern','font-playful','font-comical');
-    ci.classList.add('font-'+style); S.font=style;
-  }
-  function pickFrame(el, style) {
-    // only deselect siblings in same chip-row
-    el.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
-    el.classList.add('sel');
-    const cf = document.getElementById('card-frame'); S.frame=style;
-    if (style==='classic') { cf.style.display='block'; cf.style.border='1px solid rgba(184,146,74,0.35)'; }
-    else if (style==='minimal') { cf.style.display='block'; cf.style.border='1px solid rgba(255,255,255,0.18)'; }
-    else { cf.style.display='none'; }
-  }
+  const tc = S.textColor || (S.textDark ? '#2c2825' : '#f0ebe2');
+  ci.style.color = tc;
+  const tb = document.getElementById('card-text-block');
+  if(tb) tb.style.color = tc;
+  const wm = document.querySelector('#card-watermark span');
+  if(wm) wm.style.color = S.textDark ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.18)';
+  const si = document.getElementById('stamp-img');
+  if(si) si.style.filter = S.textDark ? 'none' : 'brightness(0) invert(1)';
+}
 
-  function updateCard() {
-    const v = id => document.getElementById(id).value;
-    document.getElementById('card-name').textContent     = v('c-name')    || 'Customer Name';
-    document.getElementById('card-headline').textContent = v('c-headline') || 'A Special Celebration';
-    document.getElementById('card-date').textContent     = v('c-date')    || 'Date & Time';
-    document.getElementById('card-venue').textContent    = v('c-venue')   || 'Join us for a celebration to remember';
-    document.getElementById('card-from').textContent     = v('c-from') ? 'With love, ' + v('c-from') : '';
-  }
-
-  function syncCustomer() {
-    const n = document.getElementById('c-cname').value;
-    const e = document.getElementById('c-cemail').value;
-    const o = document.getElementById('c-etsy').value;
-    document.getElementById('customer-summary').innerHTML =
-      `<strong>${n||'—'}</strong><br/>${e||'No email yet'}<br/>${o?'Etsy #'+o:''}`;
-  }
-
-  function setWatermark(show, btn) {
-    document.querySelectorAll('.ptog-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('inv-card').classList.toggle('watermark-off', !show);
-  }
-
-  // ── Generate preview link ─────────────────────────────────
-  function generateLink() {
-    const v = id => (document.getElementById(id)||{}).value || '';
-    const data = {
-      eyebrow: v('c-eyebrow-custom') || v('c-eyebrow'),
-      name:    v('c-name'),
-      headline:v('c-headline'),
-      date:    v('c-date'),
-      venue:   v('c-venue'),
-      msg:     v('c-msg'),
-      from:    v('c-from'),
-      bgMode:  S.bgMode,
-      bg:      S.bg,
-      textDark:S.textDark,
-      texture: S.texture,
-      font:    S.font,
-      frame:   S.frame,
-      rsvp:    adminRsvpEnabled,
-      rsvpDeadline: (document.getElementById('c-rsvp-deadline')||{}).value || '',
-      rsvpEmail:    (document.getElementById('c-rsvp-email')||{}).value || '',
-    };
-    const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
-    const url = `${location.origin}/invitation-preview.html?d=${encoded}`;
-    document.getElementById('draft-url').value = url;
-  }
-
-  function copyLink() {
-    const url = document.getElementById('draft-url').value;
-    if (!url || url.includes('Click Generate')) return;
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.getElementById('copy-btn');
-      btn.textContent = '✓ Copied!'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent='Copy Link'; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-
-  // ── Admin PDF Download ────────────────────────────────────
-  function adminDownloadPDF(withWatermark) {
-    const card = document.getElementById('inv-card');
-    if (!card) return;
-
-    // Handle watermark visibility
-    const wm = document.getElementById('card-watermark');
-    const prevDisplay = wm ? wm.style.display : 'flex';
-    if (wm) wm.style.display = withWatermark ? 'flex' : 'none';
-
-    const btn = event.currentTarget;
-    btn.disabled = true;
-    const origHTML = btn.innerHTML;
-    btn.textContent = 'Generating…';
-
-    const cardRect = card.getBoundingClientRect();
-
-    html2canvas(card, {
-      scale: 3,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: null,
-      logging: false,
-    }).then(canvas => {
-      const { jsPDF } = window.jspdf;
-      const pdfW = 148, pdfH = 210, margin = 8;
-      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, pdfH] });
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
-
-      const availW = pdfW - margin * 2;
-      const availH = pdfH - margin * 2;
-      const ratio = cardRect.width / cardRect.height;
-      let drawW = availW, drawH = availW / ratio;
-      if (drawH > availH) { drawH = availH; drawW = availH * ratio; }
-
-      pdf.addImage(imgData, 'JPEG', (pdfW - drawW) / 2, (pdfH - drawH) / 2, drawW, drawH);
-
-      const nameEl = document.getElementById('card-name');
-      const cname = document.getElementById('c-cname').value.trim();
-      const filename = cname
-        ? `invitation-${cname.replace(/\s+/g,'-').toLowerCase()}.pdf`
-        : (nameEl && nameEl.textContent.trim()
-            ? `invitation-${nameEl.textContent.trim().replace(/\s+/g,'-').toLowerCase()}.pdf`
-            : 'invitation-moments-by-shanaz.pdf');
-
-      pdf.save(filename);
-
-      if (wm) wm.style.display = prevDisplay;
-      btn.disabled = false;
-      btn.innerHTML = origHTML;
-    }).catch(() => {
-      if (wm) wm.style.display = prevDisplay;
-      btn.disabled = false;
-      btn.innerHTML = origHTML;
-    });
-  }
-
-  // ── Text size & alignment ─────────────────────────────────
-  const sizes = {
-    'card-name': 1.7,
-    'card-headline': 0.85,
-    'card-date': 0.88,
-    'card-venue': 10,
+/* Handle background photo upload */
+function handleBgUpload(e){
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    S.image = ev.target.result;
+    S.bgMode = 'image';
+    // Switch UI to image tab
+    document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('[id^="mode-"]').forEach(d=>d.style.display='none');
+    const imgTab = document.getElementById('mode-image');
+    if(imgTab) imgTab.style.display='block';
+    // Show filename
+    const nm = document.getElementById('bg-upload-name');
+    if(nm){ nm.textContent = '✓ '+file.name; nm.style.display='block'; }
+    applyBg();
   };
-  const sizeUnits = {
-    'card-name': 'rem',
-    'card-headline': 'rem',
-    'card-date': 'rem',
-    'card-venue': 'px',
-  };
-  const sizeDisplayIds = {
-    'card-name': 'sz-name',
-    'card-headline': 'sz-headline',
-    'card-date': 'sz-date',
-    'card-venue': 'sz-venue',
-  };
+  r.readAsDataURL(file);
+}
 
-  function adjustSize(id, dir) {
-    const unit = sizeUnits[id];
-    const step = unit === 'px' ? 1 : 0.05;
-    const min  = unit === 'px' ? 8  : 0.5;
-    const max  = unit === 'px' ? 28 : 4;
-    sizes[id] = Math.min(max, Math.max(min, +(sizes[id] + dir * step).toFixed(2)));
-    document.getElementById(id).style.fontSize = sizes[id] + unit;
-    const dispId = sizeDisplayIds[id];
-    if (dispId) document.getElementById(dispId).textContent = sizes[id];
-    // store in S for link generation
-    S.sizes = { ...sizes };
-  }
-
-  function setAlign(dir, btn) {
-    document.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    S.align = dir;
-    const ci = document.getElementById('card-inner');
-    ci.style.textAlign = dir;
-    ci.style.alignItems = dir === 'left' ? 'flex-start' : dir === 'right' ? 'flex-end' : 'center';
-    // keep dividers centred visually
-    document.querySelectorAll('.card-divider').forEach(d => d.style.margin = '9px auto');
-  }
-
-  // ── Admin guest list ─────────────────────────────────────
-  let adminGuests = [];
-  let adminGuestIdx = 0;
-
-  function adminAddGuest(name, email) {
-    const idx = adminGuestIdx++;
-    adminGuests.push({ id: idx, name: name || '', email: email || '', sent: false });
-    const list = document.getElementById('admin-guest-list');
-    const row = document.createElement('div');
-    row.className = 'guest-row';
-    row.id = `agrow-${idx}`;
-    row.innerHTML = `
-      <input type="text" placeholder="Name" value="${(name||'').replace(/"/g,'&quot;')}"
-             oninput="updateAdminGuest(${idx},'name',this.value)" />
-      <input type="email" placeholder="Email" style="flex:1.3;"
-             value="${(email||'').replace(/"/g,'&quot;')}"
-             oninput="updateAdminGuest(${idx},'email',this.value)" />
-      <button class="rm-btn" onclick="removeAdminGuest(${idx})">✕</button>
-    `;
-    list.appendChild(row);
-    updateAdminGuestCount();
-  }
-
-  function updateAdminGuest(idx, field, val) {
-    const g = adminGuests.find(g => g.id === idx);
-    if (g) g[field] = val;
-    updateAdminGuestCount();
-  }
-
-  function removeAdminGuest(idx) {
-    document.getElementById(`agrow-${idx}`)?.remove();
-    adminGuests = adminGuests.filter(g => g.id !== idx);
-    updateAdminGuestCount();
-  }
-
-  function updateAdminGuestCount() {
-    const valid = adminGuests.filter(g => g.email.trim()).length;
-    document.getElementById('admin-guest-count').textContent =
-      valid > 0 ? `${valid} guest${valid !== 1 ? 's' : ''} ready to send` : '';
-  }
-
-  let adminRsvpEnabled = false;
-
-  function toggleAdminRsvp() {
-    adminRsvpEnabled = !adminRsvpEnabled;
-    document.getElementById('admin-rsvp-toggle').classList.toggle('on', adminRsvpEnabled);
-    document.getElementById('admin-rsvp-extra').classList.toggle('vis', adminRsvpEnabled);
-    document.getElementById('card-rsvp').classList.toggle('vis', adminRsvpEnabled);
-    updateRsvpCard();
-  }
-
-  function updateRsvpCard() {
-    if (!adminRsvpEnabled) return;
-    const deadline = (document.getElementById('c-rsvp-deadline')||{}).value || '';
-    const dl = document.getElementById('card-rsvp-deadline');
-    dl.textContent = deadline ? 'Kindly reply by ' + deadline : '';
-    dl.classList.toggle('vis', !!deadline);
-  }
-
-  function buildInviteData() {
-    const v = id => (document.getElementById(id)||{}).value || '';
-    return {
-      eyebrow: v('c-eyebrow-custom') || v('c-eyebrow'),
-      name: v('c-name'), headline: v('c-headline'),
-      date: v('c-date'), venue: v('c-venue'),
-      msg: v('c-msg'), from: v('c-from'),
-      bgMode: S.bgMode, bg: S.bg, textDark: S.textDark,
-      texture: S.texture, font: S.font, frame: S.frame,
-      rsvp: adminRsvpEnabled,
-      rsvpDeadline: v('c-rsvp-deadline'),
-      rsvpEmail: v('c-rsvp-email'),
-    };
-  }
-
-  function guestInviteUrl(baseData, guestName) {
-    const d = { ...baseData, guestName };
-    return `${location.origin}/invitation-preview.html?d=${btoa(encodeURIComponent(JSON.stringify(d)))}`;
-  }
-
-  async function sendAllGuests() {
-    const valid = adminGuests.filter(g => g.email.trim());
-    if (valid.length === 0) { alert('Add at least one guest with an email address.'); return; }
-
-    const btn = document.getElementById('send-all-btn');
-    const statusEl = document.getElementById('send-all-status');
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    statusEl.style.display = 'block';
-    statusEl.style.background = 'rgba(184,146,74,0.08)';
-    statusEl.style.color = 'var(--gold)';
-    statusEl.style.border = '1px solid rgba(184,146,74,0.25)';
-    statusEl.textContent = 'Preparing invitations…';
-
-    const baseData = buildInviteData();
-    const senderName = document.getElementById('c-cname').value || 'Moments by Shanaz';
-    const eventTitle = baseData.headline || 'Your Invitation';
-
-    let sent = 0, failed = 0;
-
-    // Generate a single base PDF (no guest name) then personalise per guest
-    async function generateGuestPDF(guestName) {
-      // Temporarily set the card name to this guest
-      const cardNameEl = document.querySelector('.card-name');
-      const original = cardNameEl ? cardNameEl.textContent : '';
-      if (cardNameEl && guestName) cardNameEl.textContent = guestName;
-
-      const card = document.getElementById('inv-card');
-      const canvas = await html2canvas(card, { scale: 3, useCORS: true, backgroundColor: null });
-
-      if (cardNameEl && guestName) cardNameEl.textContent = original;
-
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
-      const W = 148, H = 210;
-      const ratio = canvas.width / canvas.height;
-      const cardH = W / ratio;
-      const yOff = (H - cardH) / 2;
-      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, yOff, W, cardH);
-      return pdf.output('datauristring').split(',')[1];
-    }
-
-    for (let i = 0; i < valid.length; i++) {
-      const g = valid[i];
-      statusEl.textContent = `Sending to ${g.name || g.email} (${i + 1} of ${valid.length})…`;
-
-      try {
-        const pdfBase64 = await generateGuestPDF(g.name);
-        const inviteUrl = guestInviteUrl(baseData, g.name);
-
-        await emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
-          to_email:       g.email,
-          to_name:        g.name || 'Guest',
-          guest_name:     g.name || 'Guest',
-          event_name:     eventTitle,
-          invite_link:    inviteUrl,
-          sender_name:    senderName,
-          pdf_attachment: pdfBase64
-        });
-
-        sent++;
-        // Tick the row
-        const row = document.getElementById('agrow-' + g.id);
-        if (row && !row.querySelector('.sent-tick')) {
-          const tick = document.createElement('span');
-          tick.className = 'sent-tick'; tick.textContent = '✓';
-          row.appendChild(tick);
-        }
-
-      } catch (err) {
-        console.error('Failed for', g.email, err);
-        failed++;
-        // Fallback: open mailto for this guest
-        const url = guestInviteUrl(baseData, g.name);
-        const subject = encodeURIComponent("You're Invited ✦");
-        const body = encodeURIComponent(
-          "Hi " + (g.name || 'there') + ",\n\nYou have received a beautiful digital invitation.\n\nView it here: " + url + "\n\nWith love,\n" + senderName
-        );
-        window.open('mailto:' + encodeURIComponent(g.email) + '?subject=' + subject + '&body=' + body, '_blank');
-      }
-
-      // Small pause between sends to avoid rate limits
-      if (i < valid.length - 1) await new Promise(r => setTimeout(r, 600));
-    }
-
-    btn.disabled = false;
-    btn.textContent = '✉ Send PDF to All Guests';
-
-    if (failed === 0) {
-      statusEl.style.background = 'rgba(58,125,87,0.08)';
-      statusEl.style.color = '#3a7d57';
-      statusEl.style.border = '1px solid rgba(58,125,87,0.25)';
-      statusEl.textContent = '✓ All ' + sent + ' invitation' + (sent !== 1 ? 's' : '') + ' sent successfully!';
-    } else {
-      statusEl.style.background = 'rgba(192,104,122,0.08)';
-      statusEl.style.color = '#8b3a4a';
-      statusEl.style.border = '1px solid rgba(192,104,122,0.25)';
-      statusEl.textContent = sent + ' sent, ' + failed + ' opened as fallback mailto. Check your email app for those.';
-    }
-  }
-
-  function downloadAllGuestPDFs() {
-    const valid = adminGuests.filter(g => g.email.trim());
-    if (valid.length === 0) { alert('Add at least one guest first.'); return; }
-
-    const card = document.getElementById('inv-card');
-    const wm = document.getElementById('card-watermark');
-    const prevWm = wm ? wm.style.display : 'flex';
-    if (wm) wm.style.display = 'none'; // no watermark on final PDFs
-
-    const btn = event.currentTarget;
-    btn.disabled = true;
-    const origHTML = btn.innerHTML;
-    btn.textContent = `Generating ${valid.length} PDF${valid.length !== 1 ? 's' : ''}…`;
-
-    const cardRect = card.getBoundingClientRect();
-
-    html2canvas(card, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: null, logging: false })
-      .then(canvas => {
-        const { jsPDF } = window.jspdf;
-        const pdfW = 148, pdfH = 210, margin = 8;
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const availW = pdfW - margin * 2, availH = pdfH - margin * 2;
-        const ratio = cardRect.width / cardRect.height;
-        let drawW = availW, drawH = availW / ratio;
-        if (drawH > availH) { drawH = availH; drawW = availH * ratio; }
-        const x = (pdfW - drawW) / 2, y = (pdfH - drawH) / 2;
-
-        // Download one PDF per guest, staggered
-        valid.forEach((g, i) => {
-          setTimeout(() => {
-            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, pdfH] });
-            pdf.addImage(imgData, 'JPEG', x, y, drawW, drawH);
-            const safeName = (g.name || `guest-${i+1}`).replace(/\s+/g, '-').toLowerCase();
-            pdf.save(`invitation-${safeName}.pdf`);
-          }, i * 400);
-        });
-
-        setTimeout(() => {
-          if (wm) wm.style.display = prevWm;
-          btn.disabled = false;
-          btn.innerHTML = origHTML;
-        }, valid.length * 400 + 300);
-      })
-      .catch(() => {
-        if (wm) wm.style.display = prevWm;
-        btn.disabled = false;
-        btn.innerHTML = origHTML;
-      });
-  }
-
+/* Overlay darkness */
+function setBgOverlay(v){
+  S.bgOverlay = parseInt(v);
+  document.getElementById('bg-overlay-val').textContent = v+'%';
   applyBg();
-  // init frame
-  document.getElementById('card-frame').style.display = 'block';
-  document.getElementById('card-frame').style.border = '1px solid rgba(184,146,74,0.35)';
+}
+
+const PATTERNS = {
+  diamonds: (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M12 2L22 12 12 22 2 12Z' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.12))}' stroke-width='0.8'/%3E%3C/svg%3E")`,
+  dots:     (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Ccircle cx='9' cy='9' r='1.5' fill='${encodeURIComponent(adjustOpacity(c,0.18))}'/%3E%3C/svg%3E")`,
+  herringbone:(c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M0 15L15 0M0 30L30 0M15 30L30 15' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.12))}' stroke-width='1'/%3E%3C/svg%3E")`,
+  marble:   (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 40Q20 20 40 40Q60 60 80 40' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.1))}' stroke-width='1.5'/%3E%3Cpath d='M0 20Q30 10 60 30Q70 40 80 20' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.07))}' stroke-width='1'/%3E%3C/svg%3E")`,
+  grid:     (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M20 0L0 0L0 20' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.1))}' stroke-width='0.5'/%3E%3C/svg%3E")`,
+  stars:    (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ctext x='12' y='22' font-size='12' fill='${encodeURIComponent(adjustOpacity(c,0.18))}' font-family='serif'%3E✦%3C/text%3E%3C/svg%3E")`,
+  leaves:   (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M20 4C20 4 30 14 20 24C10 14 20 4 20 4Z' fill='${encodeURIComponent(adjustOpacity(c,0.12))}'/%3E%3C/svg%3E")`,
+  waves:    (c)=>`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='20'%3E%3Cpath d='M0 10Q12.5 0 25 10Q37.5 20 50 10' fill='none' stroke='${encodeURIComponent(adjustOpacity(c,0.12))}' stroke-width='1'/%3E%3C/svg%3E")`
+};
+
+function adjustOpacity(hex,a){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function applyPatternBg(ci){
+  const oc = S.textDark ? '#2c2825' : '#fefcf8';
+  const fn = PATTERNS[S.pattern];
+  if(!fn) return;
+  ci.style.backgroundImage = fn(oc);
+  ci.style.backgroundColor = S.bg;
+  ci.style.backgroundRepeat = 'repeat';
+}
+function applyPatternOver(ci){
+  const oc = S.textDark ? '#2c2825' : '#fefcf8';
+  const fn = PATTERNS[S.pattern];
+  if(!fn) return;
+  // For gradients, overlay pattern on top via pseudo – can't do that in JS so use the bg shorthand with multiple layers
+  ci.style.backgroundImage = fn(oc) + ', ' + S.bg;
+  ci.style.backgroundSize = 'auto, auto';
+  ci.style.backgroundRepeat = 'repeat, no-repeat';
+}
+
+// Render pattern preview tiles on load
+function renderPatternPreviews(){
+  Object.keys(PATTERNS).forEach(key => {
+    const el = document.getElementById('pat-preview-'+key);
+    if(!el) return;
+    const fn = PATTERNS[key];
+    el.style.backgroundImage = fn('#2c2825') + ', linear-gradient(135deg,#fefcf8,#f0e8d8)';
+    el.style.backgroundSize = 'auto, cover';
+    el.style.backgroundRepeat = 'repeat, no-repeat';
+    el.style.position = 'absolute';
+    el.style.inset = '0';
+  });
+}
+
+function switchMode(mode,btn){
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  ['solid','gradient','pattern','image'].forEach(m=>
+    document.getElementById('mode-'+m).style.display = m===mode?'block':'none'
+  );
+  S.bgMode = mode;
+  if(mode !== 'image') S.image = 'none';
+  if(mode !== 'pattern') { S.pattern = 'none'; }
+  applyBg();
+}
+
+function pickSolid(el,color,scheme){
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+  S.bg = color; S.bgMode = 'solid'; S.textDark = scheme==='dark';
+  applyBg();
+}
+function customSolid(v){
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('sel'));
+  S.bg = v; S.bgMode = 'solid'; S.textDark = true;
+  applyBg();
+}
+function pickGrad(el,grad,scheme){
+  document.querySelectorAll('.grad-sw').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+  S.bg = grad; S.bgMode = 'gradient'; S.textDark = scheme==='dark';
+  applyBg();
+}
+function pickPattern(el,key){
+  document.querySelectorAll('.pat-tile,.tex-tile').forEach(t=>t.classList.remove('sel'));
+  document.getElementById('pat-none') && document.getElementById('pat-none').classList.remove('sel');
+  el.classList.add('sel');
+  S.pattern = key;
+  applyBg();
+}
+function pickImage(el,file){
+  document.querySelectorAll('.tex-tile').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  S.image = file;
+  applyBg();
+}
+
+/* ── FONT ── */
+function pickFont(el,style){
+  document.querySelectorAll('.font-tile').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  S.fontStyle = style;
+  const ci = document.getElementById('card-inner');
+  // Remove all fs- classes
+  [...ci.classList].filter(c=>c.startsWith('fs-')).forEach(c=>ci.classList.remove(c));
+  ci.classList.add('fs-'+style);
+}
+
+/* ── TEXT CONTROLS ── */
+const textTargets = {
+  name: {el:'card-name', szId:'name-sz', bId:'name-b', iId:'name-i', uId:'name-u'},
+  hl:   {el:'card-headline', szId:'hl-sz', bId:'hl-b', iId:'hl-i', uId:'hl-u'},
+  body: {el:'card-body', szId:'body-sz', bId:'body-b', iId:'body-i', uId:'body-u'}
+};
+const szState = {name:16, hl:10, body:9};
+const styleState = {name:{b:false,i:false,u:false}, hl:{b:false,i:false,u:false}, body:{b:false,i:false,u:false}};
+
+function applyTextStyles(){
+  Object.keys(textTargets).forEach(key=>{
+    const t = textTargets[key];
+    const el = document.getElementById(t.el);
+    if(!el) return;
+    el.style.fontSize = szState[key]+'px';
+    el.style.fontWeight = styleState[key].b ? '700' : '';
+    el.style.fontStyle  = styleState[key].i ? 'italic' : '';
+    el.style.textTransform = styleState[key].u ? 'uppercase' : '';
+  });
+}
+
+function toggleStyle(key,type){
+  const t = textTargets[key];
+  const k = type==='bold'?'b':type==='italic'?'i':'u';
+  styleState[key][k] = !styleState[key][k];
+  const btnId = type==='bold'?t.bId:type==='italic'?t.iId:t.uId;
+  document.getElementById(btnId).classList.toggle('on',styleState[key][k]);
+  applyTextStyles();
+}
+
+function changeSize(key,delta){
+  szState[key] = Math.max(6, Math.min(60, szState[key]+delta));
+  document.getElementById(textTargets[key].szId).textContent = szState[key];
+  applyTextStyles();
+}
+
+function setTextColor(el,color){
+  document.querySelectorAll('.txt-col').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.textColor = color;
+  document.getElementById('card-inner').style.color = color;
+}
+function setTextColorCustom(v){
+  document.querySelectorAll('.txt-col').forEach(c=>c.classList.remove('sel'));
+  S.textColor = v;
+  document.getElementById('card-inner').style.color = v;
+}
+
+function setLetterSpacing(v){
+  S.letterSpacing = v;
+  document.getElementById('ls-val').textContent = v;
+  document.getElementById('card-name').style.letterSpacing = (v/10)+'em';
+  document.getElementById('card-headline').style.letterSpacing = (v/10)+'em';
+}
+
+function setLineHeight(v){
+  S.lineHeight = v;
+  document.getElementById('lh-val').textContent = (v/10).toFixed(1);
+  document.getElementById('card-inner').style.lineHeight = (v/10);
+}
+
+/* ── POSITION ── */
+const posClasses = ['pos-top','pos-center','pos-bottom','pos-split','pos-top-left','pos-top-right'];
+function setPos(el,pos){
+  document.querySelectorAll('.pos-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.pos = pos;
+  const tb = document.getElementById('card-text-block');
+  const presets = {
+    'pos-top':       {top:'10%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'0', aln:'al-center'},
+    'pos-center':    {top:'50%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'-50%', aln:'al-center'},
+    'pos-bottom':    {top:'auto',left:'50%', right:'auto', bottom:'10%', tx:'-50%', ty:'0', aln:'al-center'},
+    'pos-top-left':  {top:'10%', left:'5%',  right:'auto', bottom:'auto', tx:'0', ty:'0', aln:'al-left'},
+    'pos-top-right': {top:'10%', left:'auto',right:'5%',   bottom:'auto', tx:'0', ty:'0', aln:'al-right'},
+    'pos-split':     {top:'12%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'0', aln:'al-center'},
+  };
+  const p = presets[pos] || presets['pos-center'];
+  tb.style.top=p.top; tb.style.bottom=p.bottom;
+  tb.style.left=p.left; tb.style.right=p.right;
+  tb.style.transform=`translate(${p.tx},${p.ty})`;
+  const ci = document.getElementById('card-inner');
+  alnClasses.forEach(c=>ci.classList.remove(c));
+  ci.classList.add(p.aln);
+  isDragged = false;
+}
+const alnClasses = ['al-left','al-center','al-right'];
+function setAlign(el,aln){
+  document.querySelectorAll('.aln').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  const ci = document.getElementById('card-inner');
+  alnClasses.forEach(c=>ci.classList.remove(c));
+  ci.classList.add(aln);
+}
+
+/* ── FRAME ── */
+function pickFrame(el,style){
+  document.querySelectorAll('.fr-chip').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  const cf = document.getElementById('card-frame');
+  cf.className = 'card-frame '+style;
+}
+
+/* ── DIVIDER ── */
+const divContent = {
+  line:    '<div class="div-line-el" style="width:40px;"></div>',
+  dots:    '<span class="div-dots">· · ·</span>',
+  floral:  '<span class="div-floral">❧ ❧</span>',
+  diamond: '<span class="div-diamond">◆</span>',
+  wave:    '<span class="div-wave">〜〜〜</span>',
+  stars:   '<span style="letter-spacing:3px;opacity:.35;font-size:10px;">✦ ✦ ✦</span>',
+  leaves:  '<span style="font-size:13px;opacity:.5;">🌿</span>',
+  double:  '<div style="border-top:1px solid currentColor;border-bottom:1px solid currentColor;padding:1.5px 0;width:36px;opacity:.2;"></div>',
+  custom:  '<span style="letter-spacing:6px;opacity:.4;font-size:11px;">✦✦✦</span>',
+  none:    ''
+};
+function pickDiv(el,style){
+  document.querySelectorAll('.dv-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.divStyle = style;
+  const html = divContent[style] || '';
+  document.getElementById('card-div-top').innerHTML = html;
+  document.getElementById('card-div-mid').innerHTML = html;
+}
+
+/* ── FOIL ── */
+function toggleFoil(){
+  S.foil = !S.foil;
+  document.getElementById('foil-tog').classList.toggle('on',S.foil);
+  document.getElementById('card-foil').classList.toggle('on',S.foil);
+}
+
+/* ── OCCASION ── */
+function pickOcc(el,eyebrow){
+  document.querySelectorAll('#occ-grid .occ-tile').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('card-eyebrow').textContent = eyebrow;
+}
+
+/* ── CUSTOM THEME ── */
+function toggleCustom(){
+  document.getElementById('custom-toggle').classList.toggle('sel');
+  document.getElementById('custom-box').classList.toggle('vis');
+}
+
+/* ── RSVP ── */
+let rsvpEnabled = false;
+function toggleRsvp(){
+  rsvpEnabled = !rsvpEnabled;
+  document.getElementById('rsvp-toggle').classList.toggle('on',rsvpEnabled);
+  document.getElementById('rsvp-fields').classList.toggle('vis',rsvpEnabled);
+  document.getElementById('card-rsvp').classList.toggle('vis',rsvpEnabled);
+  updateCard();
+}
+
+/* ── PHOTO ── */
+function handlePhoto(e){
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    const ph = document.getElementById('card-ph');
+    const img = document.getElementById('card-photo');
+    ph.style.display = 'none';
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    document.getElementById('photo-thumb').src = ev.target.result;
+    document.getElementById('upload-preview').style.display = 'block';
+    document.getElementById('photo-shapes').style.display = 'flex';
+  };
+  r.readAsDataURL(file);
+  document.getElementById('card-photo-wrap').classList.remove('hide');
+}
+function setPhotoShape(el,shape){
+  document.querySelectorAll('.psb').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  S.photoShape = shape;
+  const ph = document.getElementById('card-ph');
+  const img = document.getElementById('card-photo');
+  ph.className = 'card-ph '+shape;
+  img.className = 'card-photo '+shape;
+}
+
+/* ── UPDATE CARD TEXT ── */
+function updateCard(){
+  const v = id => document.getElementById(id).value;
+  document.getElementById('card-name').textContent    = v('f-name')    || 'Your Name';
+  document.getElementById('card-headline').textContent= v('f-headline')|| 'A Special Celebration';
+  document.getElementById('card-date').textContent    = v('f-date')    || 'Date & Time';
+  document.getElementById('card-venue').textContent   = v('f-venue')   || 'Join us for a celebration to remember';
+  document.getElementById('card-from').textContent    = v('f-from') ? 'With love, '+v('f-from') : '';
+  if(rsvpEnabled){
+    const deadline = v('f-rsvp-deadline');
+    const dl = document.getElementById('card-rsvp-deadline');
+    dl.textContent = deadline ? 'Kindly reply by '+deadline : '';
+    dl.classList.toggle('vis',!!deadline);
+  }
+}
+
+/* ── GUEST LIST ── */
+let guestList = []; let guestIdx = 0;
+function addGuest(){
+  const idx = guestIdx++;
+  guestList.push({id:idx,name:'',email:''});
+  const container = document.getElementById('guest-list-c');
+  const row = document.createElement('div');
+  row.className = 'guest-row'; row.id = `grow-${idx}`;
+  row.innerHTML = `<input type="text" placeholder="Guest name" oninput="updateGuest(${idx},'name',this.value)"/><input type="email" placeholder="Email address" style="flex:1.3;" oninput="updateGuest(${idx},'email',this.value)"/><button class="rm-btn" onclick="removeGuest(${idx})">✕</button>`;
+  container.appendChild(row);
+  updateGuestCount();
+}
+function updateGuest(idx,field,val){ const g=guestList.find(g=>g.id===idx); if(g) g[field]=val; updateGuestCount(); }
+function removeGuest(idx){ const r=document.getElementById(`grow-${idx}`); if(r) r.remove(); guestList=guestList.filter(g=>g.id!==idx); updateGuestCount(); }
+function updateGuestCount(){
+  const valid=guestList.filter(g=>g.email.trim()).length;
+  document.getElementById('guest-count-label').textContent = valid>0?`${valid} guest${valid!==1?'s':''} added`:'';
+}
+
+/* ── SUBMIT ── */
+function submitOrder(){
+  const name  = document.getElementById('f-your-name').value.trim();
+  const email = document.getElementById('f-your-email').value.trim();
+  if(!name || !email){ alert('Please add your name and email before submitting.'); return; }
+  const validGuests = guestList.filter(g=>g.email.trim());
+  const hasGuests = validGuests.length > 0;
+  const msg = document.getElementById('success-msg');
+  if(msg){
+    msg.textContent = hasGuests
+      ? `Your order and guest list (${validGuests.length} guest${validGuests.length!==1?'s':''}) have been sent to Shanaz. She will review your invitation and send it directly to each guest. Thank you!`
+      : `Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!`;
+  }
+  document.getElementById('success-modal').classList.add('vis');
+}
+
+/* ── DRAG TO REPOSITION ── */
+let isDragged = false;
+(function initDrag(){
+  const tb   = document.getElementById('card-text-block');
+  const card = document.getElementById('inv-card');
+  let dragging=false, ox=0, oy=0;
+
+  function startDrag(cx,cy){
+    const tr = tb.getBoundingClientRect();
+    ox = cx - tr.left; oy = cy - tr.top;
+    dragging = true; isDragged = true;
+    tb.style.cursor = 'grabbing';
+    tb.style.transition = 'none';
+    tb.style.transform = 'none';
+  }
+  function moveDrag(cx,cy){
+    if(!dragging) return;
+    const cr = card.getBoundingClientRect();
+    const tw = tb.offsetWidth, th = tb.offsetHeight;
+    let x = cx - cr.left - ox;
+    let y = cy - cr.top  - oy;
+    x = Math.max(0, Math.min(cr.width  - tw, x));
+    y = Math.max(0, Math.min(cr.height - th, y));
+    tb.style.left   = x+'px'; tb.style.top  = y+'px';
+    tb.style.right  = 'auto'; tb.style.bottom = 'auto';
+  }
+  function endDrag(){ dragging=false; tb.style.cursor='grab'; tb.style.transition=''; }
+
+  tb.addEventListener('mousedown', e=>{ startDrag(e.clientX,e.clientY); e.preventDefault(); });
+  window.addEventListener('mousemove', e=>moveDrag(e.clientX,e.clientY));
+  window.addEventListener('mouseup', endDrag);
+  tb.addEventListener('touchstart', e=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); },{passive:true});
+  window.addEventListener('touchmove', e=>{ if(!dragging) return; const t=e.touches[0]; moveDrag(t.clientX,t.clientY); e.preventDefault(); },{passive:false});
+  window.addEventListener('touchend', endDrag);
+})();
+
+/* ── INIT ── */
+renderPatternPreviews();
+applyBg();
+applyTextStyles();
 </script>
 </body>
 </html>
