@@ -22,7 +22,8 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);fon
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,248,244,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;}
-nav .logo img{height:34px;}
+nav .logo img{height:180px;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
+nav.scrolled .logo img{height:70px;}
 nav .nav-links{display:flex;gap:32px;align-items:center;}
 nav .nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
 nav .nav-links a:hover{color:var(--gold);}
@@ -894,6 +895,11 @@ function showToast(msg){
   t.textContent = msg; t.classList.add('show');
   setTimeout(()=> t.classList.remove('show'), 4000);
 }
+</script>
+<script>
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
 </script>
 </body>
 </html>
