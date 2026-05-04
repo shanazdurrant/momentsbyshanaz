@@ -19,7 +19,7 @@
 :root{--cream:#faf8f4;--warm:#fefcf8;--gold:#b8924a;--gold-l:#d4a96a;--gold-d:#8a6a28;--char:#2c2825;--mid:#6b6460;--soft:#9c958f;--border:#e8e2d9;}
 html{scroll-behavior:smooth;}
 body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);font-weight:300;line-height:1.7;overflow-x:hidden;}
- 
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,248,244,.96);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;}
 nav .logo img{height:180px;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
@@ -28,7 +28,7 @@ nav .nav-links{display:flex;gap:32px;align-items:center;}
 nav .nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
 nav .nav-links a:hover{color:var(--gold);}
 nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
- 
+
 /* HERO */
 .hero{padding:148px 40px 72px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(184,146,74,.07),transparent 70%);pointer-events:none;}
@@ -39,7 +39,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .hero-divider{display:flex;align-items:center;justify-content:center;gap:16px;}
 .hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:80px;height:1px;background:var(--border);}
 .hero-divider span{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--soft);}
- 
+
 /* HOW */
 .how{padding:56px 40px 72px;text-align:center;border-bottom:1px solid var(--border);}
 .how-steps{display:flex;justify-content:center;max-width:720px;margin:32px auto 0;position:relative;}
@@ -48,33 +48,33 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .how-num{width:40px;height:40px;border-radius:50%;background:var(--warm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.12em;color:var(--gold);position:relative;z-index:1;font-family:'Cinzel',serif;}
 .how-step h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;}
 .how-step p{font-size:12px;color:var(--mid);line-height:1.7;}
- 
+
 /* SECTION LABEL */
 .section-label{text-align:center;padding:72px 40px 48px;}
 .section-label .eyebrow{font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
 .section-label h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;line-height:1.2;}
 .section-label p{font-size:13px;color:var(--mid);margin-top:12px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.8;}
- 
+
 /* GRID */
 .presets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 40px 80px;max-width:1120px;margin:0 auto;}
- 
+
 /* PRESET CARD */
 .preset{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease;box-shadow:0 6px 24px rgba(44,40,37,.09),0 2px 8px rgba(44,40,37,.05);}
 .preset:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(44,40,37,.16),0 6px 16px rgba(44,40,37,.08);}
 .preset.open{transform:none !important;box-shadow:0 0 0 2px var(--gold),0 20px 56px rgba(44,40,37,.18) !important;}
- 
+
 /* MINI CARD */
 .mini-card{aspect-ratio:5/7;position:relative;overflow:hidden;}
 .mini-card-inner{position:absolute;inset:0;z-index:2;}
 .mini-frame{position:absolute;z-index:3;pointer-events:none;}
- 
+
 /* PRESET LABEL */
 .preset-label{padding:14px 18px;background:var(--warm);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .preset-name{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--char);margin-bottom:2px;}
 .preset-vibe{font-size:10px;color:var(--soft);}
 .preset-arrow{font-size:16px;color:var(--gold);transition:transform .25s;flex-shrink:0;margin-left:8px;}
 .preset:hover .preset-arrow,.preset.open .preset-arrow{transform:rotate(90deg);}
- 
+
 /* ORDER PANEL */
 .order-panel{display:none;background:var(--warm);border-top:2px solid var(--gold);}
 .order-panel.vis{display:block;animation:slideDown .28s ease;}
@@ -91,7 +91,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .order-submit{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:13px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:4px;}
 .order-submit:hover{background:var(--gold);}
 .order-submit:disabled{opacity:.5;cursor:not-allowed;}
- 
+
 /* BESPOKE */
 .bespoke{background:var(--char);color:var(--cream);padding:88px 40px;text-align:center;position:relative;overflow:hidden;}
 .bespoke::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 50%,rgba(184,146,74,.1),transparent 70%);}
@@ -99,7 +99,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:14px;position:relative;}
 .bespoke h2 em{font-style:italic;color:var(--gold-l);}
 .bespoke>.intro{font-size:13px;color:rgba(250,248,244,.6);max-width:460px;margin:0 auto 20px;line-height:1.9;position:relative;}
- 
+
 /* BESPOKE DEMO CARD */
 .bespoke-demo{max-width:900px;margin:0 auto 52px;display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:28px;text-align:left;position:relative;}
 .bespoke-demo-card{aspect-ratio:5/7;position:relative;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
@@ -108,7 +108,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke-demo-text p{font-size:12px;color:rgba(250,248,244,.55);line-height:1.8;margin-bottom:16px;}
 .bespoke-demo-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .bespoke-tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l);border:1px solid rgba(212,169,106,.25);padding:3px 8px;border-radius:2px;}
- 
+
 .bespoke-form{max-width:540px;margin:0 auto;position:relative;text-align:left;}
 .bespoke-form .of-field label{color:rgba(250,248,244,.45);}
 .bespoke-form .of-field input,.bespoke-form .of-field textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:var(--cream);}
@@ -116,25 +116,25 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke-form .of-field input:focus,.bespoke-form .of-field textarea:focus{border-color:var(--gold-l);}
 .bespoke-form .order-submit{background:var(--gold);color:var(--cream);}
 .bespoke-form .order-submit:hover{background:var(--gold-l);}
- 
+
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:48px 40px;text-align:center;}
 footer .footer-logo img{height:32px;margin-bottom:20px;opacity:.85;}
 footer p{font-size:12px;color:var(--soft);}
 footer a{color:var(--soft);text-decoration:none;}
 footer a:hover{color:var(--gold);}
- 
+
 /* TOAST */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--char);color:var(--cream);padding:13px 28px;border-radius:4px;font-size:12px;letter-spacing:.08em;opacity:0;transition:all .35s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(44,40,37,.25);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
- 
+
 @media(max-width:900px){.presets-grid{grid-template-columns:repeat(2,1fr);}.bespoke-demo{grid-template-columns:160px 1fr;}}
 @media(max-width:600px){nav{padding:0 20px;}nav .nav-links{gap:18px;}.hero{padding:110px 20px 56px;}.presets-grid{grid-template-columns:1fr;padding:0 20px 60px;}.how{padding:40px 20px 60px;}.how-steps{flex-direction:column;gap:24px;}.how-steps::before{display:none;}.bespoke{padding:60px 20px;}.bespoke-demo{grid-template-columns:1fr;}.bespoke-demo-card{max-width:160px;margin:0 auto;}footer{padding:36px 20px;}.of-row{grid-template-columns:1fr;}}
- 
+
 /* ══════════════════════════════
    PRESET MINI-CARD DESIGNS
 ══════════════════════════════ */
- 
+
 /* ── 1. ETERNAL ELEGANCE — cream/gold linen, text bottom-left ── */
 .p-elegant .mini-card{background:linear-gradient(160deg,#fdf8f0 0%,#f5ead8 50%,#ede0c4 100%);background-image:url("minimalistic.jpg");background-size:cover;background-position:center;}
 .p-elegant .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -150,7 +150,7 @@ footer a:hover{color:var(--gold);}
 .p-elegant .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;color:#2c2825;line-height:1.15;margin-bottom:3px;}
 .p-elegant .mc-line{width:28px;height:1px;background:rgba(184,146,74,.38);margin-bottom:7px;}
 .p-elegant .mc-detail{font-family:'Jost',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(60,55,50,.85);line-height:1.8;}
- 
+
 /* ── 2. NOIR & GOLD — dark, Cinzel, centred, herringbone ── */
 .p-noir .mini-card{background:linear-gradient(148deg,#1a1714 0%,#2c2218 60%,#1a1410 100%);background-image:url("Engaged.jpg");background-size:cover;background-position:center;}
 .p-noir .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -171,7 +171,7 @@ footer a:hover{color:var(--gold);}
 /* Gold shimmer */
 .p-noir .mini-card::after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,transparent 35%,rgba(232,200,122,.06) 50%,transparent 65%);background-size:200% 200%;animation:goldSheen 5s ease-in-out infinite;z-index:5;pointer-events:none;}
 @keyframes goldSheen{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
- 
+
 /* ── 3. BLUSH WEDDING — lace texture, arch, rings, right-aligned ── */
 .p-wedding .mini-card{background:linear-gradient(160deg,#fff5f7 0%,#fde0e8 40%,#f8d0dc 70%,#f0c8d4 100%);background-image:url("wedding2.jpg");background-size:cover;background-position:center;}
 .p-wedding .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -200,7 +200,7 @@ footer a:hover{color:var(--gold);}
 .p-wedding .mc-line{display:flex;justify-content:flex-end;margin-bottom:6px;}
 .p-wedding .mc-line svg{width:32px;opacity:.3;}
 .p-wedding .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(90,37,53,.85);line-height:1.8;}
- 
+
 /* ── 4. ENGAGEMENT — champagne velvet, ring box, left-aligned ── */
 .p-engage .mini-card{background:radial-gradient(ellipse 50% 50% at 25% 20%,#6a4a88 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 80%,rgba(30,15,50,.6) 0%,transparent 70%),linear-gradient(148deg,#3a2e42 0%,#5c4468 50%,#4a3560 100%);background-image:url("engagement.jpg");background-size:cover;background-position:center;}
 .p-engage .mini-card::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -219,7 +219,7 @@ footer a:hover{color:var(--gold);}
 .p-engage .mc-line{width:24px;height:1px;background:rgba(220,180,255,.35);margin-bottom:6px;}
 .p-engage .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(235,200,255,.9);line-height:1.8;}
 .p-engage .mc-spark{position:absolute;top:18px;left:18px;font-size:8px;opacity:.4;z-index:3;}
- 
+
 /* ── 5. GARDEN PARTY — sage linen, botanical, left offset ── */
 .p-garden .mini-card{background:linear-gradient(165deg,#f0f8f0 0%,#e4f4e4 40%,#d8eeda 70%,#c8e6cc 100%);background-image:url("Flowers.jpg");background-size:cover;background-position:center;}
 .p-garden .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -245,7 +245,7 @@ footer a:hover{color:var(--gold);}
 .p-garden .mc-name{font-family:'Dancing Script',cursive;font-size:1.55rem;font-weight:600;color:#2d5a35;line-height:1.15;margin-bottom:3px;}
 .p-garden .mc-line{font-size:11px;opacity:.35;color:#4a8a56;margin-bottom:6px;}
 .p-garden .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(30,70,38,.9);line-height:1.8;}
- 
+
 /* ── 6. STARRY NIGHT — deep navy, celestial, centred ── */
 .p-starry .mini-card{
   background:radial-gradient(ellipse 60% 50% at 35% 15%,#2a3d7a 0%,#0d1a3a 55%,#060c1e 100%);background-image:url("minimalistic.jpg");background-size:cover;background-position:center;}
@@ -261,7 +261,7 @@ footer a:hover{color:var(--gold);}
 .p-starry .mc-name{font-family:'Sacramento',cursive;font-size:1.8rem;color:#eaf0ff;line-height:1.1;margin-bottom:3px;}
 .p-starry .mc-line{font-size:9px;letter-spacing:5px;color:rgba(200,215,255,.28);margin:5px 0;}
 .p-starry .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(210,225,255,.9);line-height:1.8;}
- 
+
 /* ── 7. LITTLE EXPLORER — children's, balloon/adventure, playful layout ── */
 .p-explorer .mini-card{background:linear-gradient(170deg,#c8eeff 0%,#a0dcff 30%,#b8e8ff 60%,#d0f0ff 100%);background-image:url("party.jpg");background-size:cover;background-position:center;}
 .p-explorer .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -295,7 +295,7 @@ footer a:hover{color:var(--gold);}
 .p-explorer .mc-name{font-family:'Pacifico',cursive;font-size:1.1rem;color:#7a4a00;line-height:1.2;margin-bottom:4px;}
 .p-explorer .mc-line{font-size:11px;margin-bottom:5px;opacity:.6;}
 .p-explorer .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.06em;color:rgba(80,50,0,.9);line-height:1.7;font-weight:700;}
- 
+
 /* ── 8. WILD SAFARI — children's animal theme, vibrant, top-heavy ── */
 .p-safari .mini-card{background:linear-gradient(175deg,#f5f0d8 0%,#ede5c0 40%,#e4d8a8 70%,#d8cc90 100%);background-image:url("birthday1.jpg");background-size:cover;background-position:center;}
 .p-safari .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -323,7 +323,7 @@ footer a:hover{color:var(--gold);}
 .p-safari .mc-name{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;color:#1e5c10;line-height:1.15;margin-bottom:3px;}
 .p-safari .mc-line{font-size:13px;margin:3px 0;opacity:.5;}
 .p-safari .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.06em;color:rgba(20,70,10,.9);line-height:1.7;font-weight:700;}
- 
+
 /* ── 9. PRINCESS & FAIRY — children's, soft pink, castle, centred ── */
 .p-princess .mini-card{background:linear-gradient(160deg,#fff5fb 0%,#ffe0f4 35%,#ffd0ee 65%,#ffc8ea 100%);background-image:url("pink-watercolour.jpg");background-size:cover;background-position:center;}
 .p-princess .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -354,7 +354,7 @@ footer a:hover{color:var(--gold);}
 .p-princess .mc-name{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:600;color:#8c1a6a;line-height:1.15;margin-bottom:3px;}
 .p-princess .mc-line{font-size:12px;opacity:.4;color:#c050a0;margin:4px 0;}
 .p-princess .mc-detail{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.08em;color:rgba(110,10,90,.9);line-height:1.7;font-weight:700;}
- 
+
 /* ── 10. BOLD & PLAYFUL — coral/gold, Bebas, angled layout ── */
 .p-playful .mini-card{background:linear-gradient(135deg,#ff5f5f 0%,#ff8432 45%,#ffc94a 100%);background-image:url("bday.jpg");background-size:cover;background-position:center;}
 .p-playful .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -381,8 +381,8 @@ footer a:hover{color:var(--gold);}
 .p-playful .mc-name{font-family:'Bebas Neue',cursive;font-size:2rem;color:#fff;letter-spacing:.08em;line-height:1;margin-bottom:4px;text-shadow:0 2px 10px rgba(180,50,20,.25);}
 .p-playful .mc-line{font-size:13px;margin-bottom:4px;opacity:.8;}
 .p-playful .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;color:#fff;line-height:1.7;font-weight:700;}
- 
- 
+
+
 /* ── PHOTO OVERLAY for readability ── */
 .p-elegant .mini-card-inner::before{content:"";position:absolute;inset:0;background:rgba(240,230,210,.45);z-index:0;pointer-events:none;}
 .p-elegant .mini-card-inner > *{position:relative;z-index:1;}
@@ -404,7 +404,7 @@ footer a:hover{color:var(--gold);}
 .p-princess .mini-card-inner > *{position:relative;z-index:1;}
 .p-playful .mini-card-inner::before{content:"";position:absolute;inset:0;background:rgba(255,100,50,.35);z-index:0;pointer-events:none;}
 .p-playful .mini-card-inner > *{position:relative;z-index:1;}
- 
+
 /* ── THEME PICKER inside order panel ── */
 .theme-section{margin-bottom:16px;}
 .theme-section-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;display:block;}
@@ -419,7 +419,7 @@ footer a:hover{color:var(--gold);}
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <div class="logo"><a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></a></div>
@@ -429,7 +429,7 @@ footer a:hover{color:var(--gold);}
     <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
   </div>
 </nav>
- 
+
 <!-- HERO -->
 <div class="hero">
   <span class="hero-ornament">Digital Invitations · Crafted by Hand</span>
@@ -437,7 +437,7 @@ footer a:hover{color:var(--gold);}
   <p>Choose a style, fill in your details, and I'll craft your finished invitation — delivered to your inbox within hours.</p>
   <div class="hero-divider"><span>Choose your style below</span></div>
 </div>
- 
+
 <!-- HOW -->
 <div class="how">
   <div class="how-steps">
@@ -446,17 +446,17 @@ footer a:hover{color:var(--gold);}
     <div class="how-step"><div class="how-num">03</div><h3>Receive your invitation</h3><p>Finished, watermark-free — in your inbox within hours.</p></div>
   </div>
 </div>
- 
+
 <!-- SECTION HEADING -->
 <div class="section-label">
   <span class="eyebrow">The Collection</span>
   <h2>Ten signature styles</h2>
   <p>Click any card to open the order form. Each design is personalised fresh — your names, your details, your occasion.</p>
 </div>
- 
+
 <!-- PRESETS GRID -->
 <div class="presets-grid">
- 
+
   <!-- 1. ETERNAL ELEGANCE -->
   <div class="preset p-elegant" onclick="togglePreset(this,'elegant')">
     <div class="mini-card">
@@ -500,7 +500,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Amelia &amp; James"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Anniversary"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 14th June · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Grand Hall, London"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 1st June · With love, The Smiths"></textarea></div>
@@ -509,7 +509,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Eternal Elegance',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 2. NOIR & GOLD -->
   <div class="preset p-noir" onclick="togglePreset(this,'noir')">
     <div class="mini-card">
@@ -549,7 +549,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Sophie &amp; Rajan"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Engagement Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th September · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Claridge's, London"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 20th August · Hosted by The Patels"></textarea></div>
@@ -558,7 +558,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Noir & Gold',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 3. BLUSH WEDDING -->
   <div class="preset p-wedding" onclick="togglePreset(this,'wedding')">
     <div class="mini-card">
@@ -608,7 +608,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Charlotte &amp; Oliver"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Vow Renewal"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 8th September · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Blenheim Palace, Oxfordshire"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Morning dress · RSVP by 1st August · Reception to follow"></textarea></div>
@@ -617,7 +617,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Blush Wedding',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 4. ENGAGEMENT -->
   <div class="preset p-engage" onclick="togglePreset(this,'engage')">
     <div class="mini-card">
@@ -668,7 +668,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Priya &amp; Arjun"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Engagement Party, Proposal Reveal"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 1st February · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Ivy, Covent Garden"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart casual · RSVP by 20th January · Drinks and dancing"></textarea></div>
@@ -677,7 +677,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Engagement',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 5. GARDEN PARTY -->
   <div class="preset p-garden" onclick="togglePreset(this,'garden')">
     <div class="mini-card">
@@ -722,7 +722,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Zara, or The Johnson Family"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Garden Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 3rd May · 12 noon"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Kew Gardens Pavilion"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Garden casual · RSVP by 20th April · Children welcome"></textarea></div>
@@ -731,7 +731,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Garden Party',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 6. STARRY NIGHT -->
   <div class="preset p-starry" onclick="togglePreset(this,'starry')">
     <div class="mini-card">
@@ -768,7 +768,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Fatima's Eid, or NYE 2026"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Eid, New Year's Eve, 40th Birthday"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. 31st December · 9pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Rooftop, Canary Wharf"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart dress · RSVP by 20th Dec · Drinks and dancing"></textarea></div>
@@ -777,7 +777,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Starry Night',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 7. LITTLE EXPLORER (balloons) -->
   <div class="preset p-explorer" onclick="togglePreset(this,'explorer')">
     <div class="mini-card">
@@ -814,7 +814,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Leo Turns 5!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 10th May · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Sunshine Hall, Wimbledon"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dinosaur theme · RSVP by 3rd May · Loot bags for all!"></textarea></div>
@@ -823,7 +823,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Little Explorer',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 8. WILD SAFARI (animals) -->
   <div class="preset p-safari" onclick="togglePreset(this,'safari')">
     <div class="mini-card">
@@ -859,7 +859,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Mia's Wild 4th!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 18th May · 1pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Jungle Room, Tooting"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Animal ears welcome · RSVP by 10th May · Jungle juice provided!"></textarea></div>
@@ -868,7 +868,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Wild Safari',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 9. PRINCESS & FAIRY -->
   <div class="preset p-princess" onclick="togglePreset(this,'princess')">
     <div class="mini-card">
@@ -905,7 +905,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Isabelle Turns 6"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party, Fairy Tea Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 24th May · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Pink Palace, Sutton"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dress as your favourite princess · RSVP by 17th May · Fairy cakes for all!"></textarea></div>
@@ -914,7 +914,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Princess & Fairy',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
   <!-- 10. BOLD & PLAYFUL -->
   <div class="preset p-playful" onclick="togglePreset(this,'playful')">
     <div class="mini-card">
@@ -949,7 +949,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
- 
+
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Jade Turns 30!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Hen Do, Graduation"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th June · 8pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Rooftop Bar, Shoreditch"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Dress to impress · RSVP by 25th May · Surprises in store!"></textarea></div>
@@ -958,59 +958,208 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Bold & Playful',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
- 
+
 </div><!-- /presets-grid -->
- 
+
 <!-- BESPOKE SECTION -->
 <div class="bespoke">
   <span class="eyebrow">Something Unique</span>
   <h2>Want something <em>completely bespoke?</em></h2>
   <p class="intro">Tell me your vision and I'll create something made entirely from scratch — illustrated, textured, themed, or photo-based. No limits.</p>
- 
-  <!-- BESPOKE DEMO CARD -->
-  <!-- BESPOKE DEMO — Sonic Themed Birthday -->
-  <div class="bespoke-demo" style="grid-template-columns:220px 1fr;">
-    <div class="bespoke-demo-card" style="aspect-ratio:5/7;border-radius:8px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.55);">
-      <!-- Background photo -->
-      <div style="position:absolute;inset:0;background-image:url('Birthdaypreview.jpg');background-size:cover;background-position:center;"></div>
-      <!-- Dark overlay for text -->
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.05) 40%,rgba(0,0,0,.7) 75%,rgba(0,0,0,.88) 100%);"></div>
-      <!-- Sonic character right side -->
-      <img src="sonic__93_.png" alt="Shadow Sonic" style="position:absolute;bottom:30%;right:-8px;height:42%;z-index:3;filter:drop-shadow(-4px 0 12px rgba(0,0,0,.6));"/>
-      <!-- Speed lines -->
-      <div style="position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none;">
-        <div style="position:absolute;top:38%;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,50,50,.5),transparent);transform:rotate(-3deg);"></div>
-        <div style="position:absolute;top:41%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,80,80,.35),transparent);transform:rotate(-3deg);"></div>
+
+  <!-- BESPOKE DEMO — Sonic Shadow Birthday, pure CSS/SVG, no broken images -->
+  <div class="bespoke-demo" style="grid-template-columns:240px 1fr;gap:40px;">
+
+    <div class="bespoke-demo-card" style="aspect-ratio:5/7;border-radius:10px;overflow:hidden;
+         box-shadow:0 0 0 1px rgba(200,30,30,.4),0 40px 100px rgba(0,0,0,.8),0 0 60px rgba(180,20,20,.25),0 0 120px rgba(180,20,20,.15);">
+
+      <!-- ── LAYER 0: Deep dark background ── -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 140% 70% at 50% -10%,#1a0505 0%,#0a0008 45%,#000 100%);z-index:0;"></div>
+
+      <!-- ── LAYER 1: Dark red chaos energy glow from centre ── -->
+      <div style="position:absolute;inset:0;z-index:1;
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 55%,rgba(180,0,0,.55) 0%,transparent 65%),
+          radial-gradient(ellipse 50% 30% at 50% 80%,rgba(220,30,30,.4) 0%,transparent 60%),
+          radial-gradient(ellipse 100% 40% at 50% 100%,rgba(100,0,0,.6) 0%,transparent 70%);
+      "></div>
+
+      <!-- ── LAYER 2: Animated red lightning bolts (SVG) ── -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;" viewBox="0 0 200 280" preserveAspectRatio="none">
+        <!-- Main red lightning — left side -->
+        <polyline points="30,0 22,40 35,40 18,85 32,85 10,140"
+          stroke="#ff1a1a" stroke-width="2" fill="none" opacity=".9"
+          style="filter:drop-shadow(0 0 4px #ff0000) drop-shadow(0 0 8px #ff0000);"/>
+        <polyline points="30,0 24,38 36,38 20,82"
+          stroke="#ff8888" stroke-width=".8" fill="none" opacity=".6"/>
+
+        <!-- Main red lightning — right side -->
+        <polyline points="170,0 178,35 165,35 182,78 168,78 190,130"
+          stroke="#ff1a1a" stroke-width="2" fill="none" opacity=".85"
+          style="filter:drop-shadow(0 0 4px #ff0000) drop-shadow(0 0 8px #ff0000);"/>
+        <polyline points="170,0 176,33 164,33 180,75"
+          stroke="#ff8888" stroke-width=".8" fill="none" opacity=".55"/>
+
+        <!-- Smaller branch lightning — top centre -->
+        <polyline points="100,0 95,20 105,20 90,45 102,45 85,70"
+          stroke="#cc0000" stroke-width="1.5" fill="none" opacity=".75"
+          style="filter:drop-shadow(0 0 3px #ff0000);"/>
+        <polyline points="110,5 115,22 105,22 118,48"
+          stroke="#ff3333" stroke-width="1" fill="none" opacity=".5"/>
+
+        <!-- Crackle tendrils from edges -->
+        <polyline points="0,60 15,68 8,75 20,82 12,90 25,95"
+          stroke="#ff2222" stroke-width="1" fill="none" opacity=".6"/>
+        <polyline points="200,80 185,88 192,96 178,103 186,110"
+          stroke="#ff2222" stroke-width="1" fill="none" opacity=".55"/>
+
+        <!-- White hot cores on main bolts -->
+        <polyline points="30,0 22,40 35,40 18,85"
+          stroke="rgba(255,200,200,.6)" stroke-width=".6" fill="none"/>
+        <polyline points="170,0 178,35 165,35 182,78"
+          stroke="rgba(255,200,200,.55)" stroke-width=".6" fill="none"/>
+
+        <!-- Chaos energy arcs at bottom -->
+        <path d="M 20,200 Q 100,175 180,200" stroke="#cc0000" stroke-width="1.2" fill="none" opacity=".5"/>
+        <path d="M 10,220 Q 100,195 190,220" stroke="#990000" stroke-width=".8" fill="none" opacity=".35"/>
+      </svg>
+
+      <!-- ── LAYER 3: Chaos Emeralds ── -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;" viewBox="0 0 200 280">
+        <!-- Each emerald: octagon shape, different colours, glowing -->
+
+        <!-- Red emerald — top left -->
+        <g transform="translate(22,38) rotate(15)" style="filter:drop-shadow(0 0 6px #ff2200) drop-shadow(0 0 12px #ff0000);">
+          <polygon points="0,-12 8,-8 12,0 8,8 0,12 -8,8 -12,0 -8,-8" fill="#cc1100" opacity=".92"/>
+          <polygon points="0,-8 5,-5 8,0 5,5 0,8 -5,5 -8,0 -5,-5" fill="#ff4422" opacity=".7"/>
+          <polygon points="0,-4 3,-2 4,0 3,2 0,4 -3,2 -4,0 -3,-2" fill="#ff9988" opacity=".5"/>
+        </g>
+
+        <!-- Purple emerald — top right -->
+        <g transform="translate(175,30) rotate(-10)" style="filter:drop-shadow(0 0 6px #aa00ff) drop-shadow(0 0 12px #7700cc);">
+          <polygon points="0,-11 7,-7 11,0 7,7 0,11 -7,7 -11,0 -7,-7" fill="#6600bb" opacity=".92"/>
+          <polygon points="0,-7 5,-4 7,0 5,4 0,7 -5,4 -7,0 -5,-4" fill="#9933ff" opacity=".7"/>
+          <polygon points="0,-3 2,-2 3,0 2,2 0,3 -2,2 -3,0 -2,-2" fill="#cc88ff" opacity=".5"/>
+        </g>
+
+        <!-- Cyan emerald — right mid -->
+        <g transform="translate(183,105) rotate(5)" style="filter:drop-shadow(0 0 6px #00ffee) drop-shadow(0 0 10px #00ccbb);">
+          <polygon points="0,-10 7,-6 10,0 7,6 0,10 -7,6 -10,0 -7,-6" fill="#007799" opacity=".92"/>
+          <polygon points="0,-6 4,-4 6,0 4,4 0,6 -4,4 -6,0 -4,-4" fill="#00ccee" opacity=".7"/>
+          <polygon points="0,-3 2,-2 3,0 2,2 0,3 -2,2 -3,0 -2,-2" fill="#88ffff" opacity=".5"/>
+        </g>
+
+        <!-- Yellow emerald — left mid -->
+        <g transform="translate(16,120) rotate(-8)" style="filter:drop-shadow(0 0 6px #ffee00) drop-shadow(0 0 10px #ddaa00);">
+          <polygon points="0,-10 7,-6 10,0 7,6 0,10 -7,6 -10,0 -7,-6" fill="#aa8800" opacity=".92"/>
+          <polygon points="0,-6 4,-4 6,0 4,4 0,6 -4,4 -6,0 -4,-4" fill="#ffdd00" opacity=".7"/>
+          <polygon points="0,-3 2,-2 3,0 2,2 0,3 -2,2 -3,0 -2,-2" fill="#ffff88" opacity=".5"/>
+        </g>
+
+        <!-- Green emerald — top centre-right -->
+        <g transform="translate(148,18) rotate(20)" style="filter:drop-shadow(0 0 5px #00ff44) drop-shadow(0 0 10px #00aa22);">
+          <polygon points="0,-9 6,-5 9,0 6,5 0,9 -6,5 -9,0 -6,-5" fill="#006622" opacity=".92"/>
+          <polygon points="0,-5 3,-3 5,0 3,3 0,5 -3,3 -5,0 -3,-3" fill="#00cc44" opacity=".7"/>
+          <polygon points="0,-2 1,-1 2,0 1,1 0,2 -1,1 -2,0 -1,-1" fill="#88ff99" opacity=".5"/>
+        </g>
+
+        <!-- White/Silver emerald — top centre-left -->
+        <g transform="translate(55,15) rotate(-15)" style="filter:drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 10px #aaddff);">
+          <polygon points="0,-9 6,-5 9,0 6,5 0,9 -6,5 -9,0 -6,-5" fill="#8899bb" opacity=".92"/>
+          <polygon points="0,-5 3,-3 5,0 3,3 0,5 -3,3 -5,0 -3,-3" fill="#ccddff" opacity=".7"/>
+          <polygon points="0,-2 1,-1 2,0 1,1 0,2 -1,1 -2,0 -1,-1" fill="#ffffff" opacity=".6"/>
+        </g>
+
+        <!-- Gold rings -->
+        <circle cx="140" cy="155" r="9"  stroke="#FFD700" stroke-width="2.5" fill="none" opacity=".75"
+          style="filter:drop-shadow(0 0 4px #FFD700);"/>
+        <circle cx="60"  cy="165" r="7"  stroke="#FFD700" stroke-width="2" fill="none" opacity=".6"
+          style="filter:drop-shadow(0 0 3px #FFD700);"/>
+        <circle cx="165" cy="180" r="6"  stroke="#FFD700" stroke-width="2" fill="none" opacity=".55"
+          style="filter:drop-shadow(0 0 3px #FFD700);"/>
+      </svg>
+
+      <!-- ── LAYER 4: Shadow the Hedgehog — action pose ── -->
+      <img src="sonic__89_.png" alt="Shadow the Hedgehog"
+           style="position:absolute;
+                  bottom:25%;
+                  left:-8%;
+                  height:62%;
+                  z-index:4;
+                  object-fit:contain;
+                  filter:
+                    drop-shadow(0 0 12px rgba(255,20,20,.7))
+                    drop-shadow(0 0 30px rgba(200,0,0,.5))
+                    drop-shadow(-4px 4px 20px rgba(0,0,0,.9));
+                  transform:scaleX(-1);"/>
+
+      <!-- ── LAYER 5: Photo circle — gold bordered ── -->
+      <div style="position:absolute;top:38%;right:8%;z-index:5;
+                  width:58px;height:58px;border-radius:50%;
+                  background:linear-gradient(145deg,#1a0303,#0a0a0a);
+                  border:3px solid #FFD700;
+                  box-shadow:0 0 0 1px rgba(180,0,0,.5),0 0 14px rgba(255,215,0,.4),0 0 30px rgba(200,0,0,.3);
+                  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,200,.5)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span style="font-family:'Jost',sans-serif;font-size:5px;letter-spacing:.1em;color:rgba(255,200,200,.45);text-transform:uppercase;">Photo</span>
       </div>
-      <!-- Top badge -->
-      <div style="position:absolute;top:12px;left:12px;z-index:5;background:rgba(220,30,30,.9);padding:4px 10px;border-radius:3px;border-left:3px solid #FFD700;">
-        <span style="font-family:'Nunito',sans-serif;font-size:7px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#fff;">7th Birthday</span>
+
+      <!-- ── LAYER 6: Bottom dark fade ── -->
+      <div style="position:absolute;bottom:0;left:0;right:0;height:42%;
+                  background:linear-gradient(transparent,rgba(4,0,0,.97));z-index:6;"></div>
+
+      <!-- ── LAYER 7: Card text ── -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 14px;z-index:7;text-align:center;">
+        <!-- You are invited eyebrow -->
+        <div style="font-family:'Jost',sans-serif;font-size:6.5px;font-weight:500;letter-spacing:.38em;
+                    text-transform:uppercase;color:rgba(255,180,180,.8);margin-bottom:5px;">You Are Invited</div>
+        <!-- Name — big, bold, white with red glow -->
+        <div style="font-family:'Nunito',sans-serif;font-size:1.75rem;font-weight:900;color:#fff;
+                    line-height:.95;letter-spacing:.06em;
+                    text-shadow:0 0 15px rgba(255,30,30,.9),0 0 35px rgba(200,0,0,.6),0 2px 6px rgba(0,0,0,.8);
+                    margin-bottom:3px;">THEO</div>
+        <!-- Subtitle -->
+        <div style="font-family:'Jost',sans-serif;font-size:8px;font-weight:300;letter-spacing:.22em;
+                    color:rgba(255,220,220,.7);margin-bottom:8px;text-transform:uppercase;">IS TURNING 7</div>
+        <!-- Gold divider -->
+        <div style="width:40px;height:1px;
+                    background:linear-gradient(90deg,transparent,#FFD700,rgba(255,50,50,.8),#FFD700,transparent);
+                    margin:0 auto 8px;box-shadow:0 0 6px rgba(255,215,0,.5);"></div>
+        <!-- Details -->
+        <div style="font-family:'Jost',sans-serif;font-size:7.5px;color:rgba(255,200,200,.82);line-height:1.85;">
+          Saturday 7th June · 2pm<br/>Sunshine Hall, Croydon<br/>
+          <span style="color:rgba(255,160,160,.65);font-size:7px;">Come dressed as your favourite character!</span>
+        </div>
+        <!-- RSVP -->
+        <div style="font-family:'Jost',sans-serif;font-size:7px;color:rgba(255,215,0,.8);
+                    margin-top:7px;letter-spacing:.14em;
+                    text-shadow:0 0 8px rgba(255,215,0,.4);">RSVP BY 1ST JUNE</div>
       </div>
-      <!-- Corner rings decoration -->
-      <div style="position:absolute;top:12px;right:12px;z-index:5;font-size:11px;opacity:.7;color:#FFD700;">⬡ ⬡</div>
-      <!-- Card text bottom -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 14px 16px;z-index:5;text-align:left;">
-        <div style="font-family:'Nunito',sans-serif;font-size:8px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,200,50,.9);margin-bottom:4px;">You Are Invited!</div>
-        <div style="font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:6px;text-shadow:0 2px 12px rgba(220,30,30,.8);">Theo's<br/>Shadow Run!</div>
-        <div style="width:28px;height:2px;background:#FFD700;margin-bottom:8px;"></div>
-        <div style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.88);line-height:1.7;">Saturday 7th June · 2pm<br/>Sunshine Hall, Croydon<br/>Come in your best costume!</div>
-        <div style="font-family:'Jost',sans-serif;font-size:8px;color:rgba(255,210,50,.8);margin-top:8px;letter-spacing:.08em;">RSVP by 1st June</div>
+
+      <!-- ── LAYER 8: Watermark ── -->
+      <div style="position:absolute;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;
+                  pointer-events:none;transform:rotate(-35deg);">
+        <span style="font-family:'Jost',sans-serif;font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+                     color:rgba(255,255,255,.1);white-space:nowrap;">Moments by Shanaz · Preview Only</span>
       </div>
+
     </div>
+
     <div class="bespoke-demo-text">
-      <h3>A bespoke invitation, made just for you</h3>
-      <p>This is a fully custom design — Theo's Shadow the Hedgehog 7th birthday invitation. Your photos, your characters, your colours, your theme. Tell me the vibe and I'll build it from scratch, completely personalised.</p>
-      <p style="font-size:11px;color:rgba(250,248,244,.4);margin-top:8px;line-height:1.7;">✦ Have images or graphics for your theme? Just name the files in your order and I'll use them — game characters, florals, photos, watercolours, anything.</p>
-      <div class="bespoke-demo-tags">
-        <span class="bespoke-tag">Any theme</span>
-        <span class="bespoke-tag">Characters &amp; graphics</span>
-        <span class="bespoke-tag">Photo backgrounds</span>
-        <span class="bespoke-tag">Custom colours</span>
-        <span class="bespoke-tag">Any occasion</span>
+      <h3>Fully bespoke — built from scratch, just for you</h3>
+      <p>This is Theo's Shadow the Hedgehog 7th birthday invitation — red chaos lightning, all seven chaos emeralds, a gold photo circle, and Shadow himself in full action pose. Every detail made from scratch for one child, one party.</p>
+      <p>Your bespoke order gets the same treatment — whatever your theme, character, colour palette or vibe, I'll build it entirely by hand. Nothing off the shelf.</p>
+      <p style="font-size:11px;color:rgba(250,248,244,.38);margin-top:10px;line-height:1.85;">✦ Share your images, characters and photos with your order — I'll use them to create something that looks like it cost ten times more than it did.</p>
+      <div class="bespoke-demo-tags" style="margin-top:18px;">
+        <span class="bespoke-tag">Any theme or character</span>
+        <span class="bespoke-tag">Photo included</span>
+        <span class="bespoke-tag">Custom lightning &amp; effects</span>
+        <span class="bespoke-tag">Any colour palette</span>
+        <span class="bespoke-tag">Any age or occasion</span>
       </div>
     </div>
   </div>
- 
+
   <div class="bespoke-form">
     <div class="of-row">
       <div class="of-field"><label>Your name</label><input type="text" id="b-name" placeholder="Your full name"/></div>
@@ -1027,7 +1176,7 @@ footer a:hover{color:var(--gold);}
     <button class="order-submit" onclick="submitBespoke(this)">Send My Vision to Shanaz ✦</button>
   </div>
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></div>
@@ -1038,12 +1187,12 @@ footer a:hover{color:var(--gold);}
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Admin
   </a>
 </footer>
- 
+
 <div class="toast" id="toast"></div>
- 
+
 <script>
 let openPreset = null;
- 
+
 function togglePreset(card, id){
   if(event.target.closest('.order-panel')) return;
   const panel = document.getElementById('panel-'+id);
@@ -1057,7 +1206,7 @@ function togglePreset(card, id){
   openPreset = isOpen ? null : card;
   if(!isOpen) setTimeout(()=> card.scrollIntoView({behavior:'smooth', block:'nearest'}), 60);
 }
- 
+
 function getFields(form){
   const inputs = [...form.querySelectorAll('input:not([type=submit]),textarea')];
   return {
@@ -1067,7 +1216,7 @@ function getFields(form){
     email:inputs[6]?.value.trim()||'', etsy:inputs[7]?.value.trim()||'',
   };
 }
- 
+
 async function submitPreset(e, style, btn){
   e.stopPropagation();
   const form = btn.closest('.order-form');
@@ -1076,24 +1225,45 @@ async function submitPreset(e, style, btn){
   if(!f.email||!f.email.includes('@')){ showToast('Please enter a valid email address.'); return; }
   if(!f.names){ showToast('Please enter the name(s) for the invitation.'); return; }
   btn.textContent = 'Sending…'; btn.disabled = true;
-  const body = ['— INVITATION ORDER —','Style: '+style,'Name(s): '+f.names,
-    'Occasion: '+(f.occasion||'not specified'),'Date & Time: '+(f.date||'not specified'),
-    'Venue: '+(f.venue||'not specified'),'Extras: '+(f.extras||'none'),'',
-    '— ORDER BY —','Name: '+f.yourName,'Email: '+f.email,
-    'Etsy ref: '+(f.etsy||'none'),'Submitted: '+new Date().toLocaleString('en-GB')].join('\n');
+  const bgTheme = btn.closest('.order-panel')?.dataset?.theme || 'preset default';
+  const body = [
+    '=== INVITATION ORDER ===',
+    'Style: ' + style,
+    'Background theme: ' + bgTheme,
+    'Name(s): ' + f.names,
+    'Occasion: ' + (f.occasion||'not specified'),
+    'Date & Time: ' + (f.date||'not specified'),
+    'Venue: ' + (f.venue||'not specified'),
+    'Extras / notes: ' + (f.extras||'none'),
+    '',
+    '=== ORDER BY ===',
+    'Name: ' + f.yourName,
+    'Email: ' + f.email,
+    'Etsy ref: ' + (f.etsy||'none'),
+    'Submitted: ' + new Date().toLocaleString('en-GB')
+  ].join('\n');
   try {
-    await emailjs.send('service_q7cy9mq','template_3o0vnf5',{
-      to_email:'hello@momentsbyshanaz.co.uk', guest_name:f.yourName,
-      event_name:style+' — '+(f.occasion||'invitation')+' for '+f.names, response:body,
+    await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
+      to_email:   'hello@momentsbyshanaz.co.uk',
+      order_type: 'Invitation Order',
+      guest_name: f.yourName,
+      user_email: f.email,
+      event_name: '✉ INVITATION ORDER — ' + style + ' — ' + (f.occasion||'invitation') + ' for ' + f.names,
+      response:   body,
     });
     showToast('✦ Order sent! I\'ll be in touch within hours.');
+    // WhatsApp notification
+    try {
+      const waMsg = encodeURIComponent('✉ New Invitation Order!\nStyle: ' + style + '\nFor: ' + f.names + '\nOccasion: ' + (f.occasion||'—') + '\nFrom: ' + f.yourName + ' (' + f.email + ')');
+      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368');
+    } catch(e){}
     const card = btn.closest('.preset');
     card.querySelector('.order-panel').classList.remove('vis');
     card.classList.remove('open'); openPreset = null;
   } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
   btn.textContent = 'Send My Order to Shanaz ✦'; btn.disabled = false;
 }
- 
+
 async function submitBespoke(btn){
   const g = id => document.getElementById(id).value.trim();
   const name=g('b-name'),email=g('b-email'),occasion=g('b-occasion'),date=g('b-date');
@@ -1102,24 +1272,44 @@ async function submitBespoke(btn){
   if(!email||!email.includes('@')){ showToast('Please enter a valid email address.'); return; }
   if(!vision){ showToast('Please describe your vision — even a few words helps!'); return; }
   btn.textContent = 'Sending…'; btn.disabled = true;
-  const body = ['— BESPOKE INVITATION ORDER —','Name(s): '+(names||'not specified'),
-    'Occasion: '+(occasion||'not specified'),'Date & Time: '+(date||'not specified'),
-    'Venue: '+(venue||'not specified'),'','Vision:',vision,'',
-    '— ORDER BY —','Name: '+name,'Email: '+email,
-    'Etsy ref: '+(etsy||'none'),'Submitted: '+new Date().toLocaleString('en-GB')].join('\n');
+  const body = [
+    '=== BESPOKE INVITATION ORDER ===',
+    'Name(s): '    + (names||'not specified'),
+    'Occasion: '   + (occasion||'not specified'),
+    'Date & Time: '+ (date||'not specified'),
+    'Venue: '      + (venue||'not specified'),
+    '',
+    'VISION / DESCRIPTION:',
+    vision,
+    '',
+    '=== ORDER BY ===',
+    'Name: '     + name,
+    'Email: '    + email,
+    'Etsy ref: ' + (etsy||'none'),
+    'Submitted: '+ new Date().toLocaleString('en-GB')
+  ].join('\n');
   try {
-    await emailjs.send('service_q7cy9mq','template_3o0vnf5',{
-      to_email:'hello@momentsbyshanaz.co.uk', guest_name:name,
-      event_name:'BESPOKE — '+(occasion||'custom')+(names?' for '+names:''), response:body,
+    await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
+      to_email:   'hello@momentsbyshanaz.co.uk',
+      order_type: 'Bespoke Invitation Order',
+      guest_name: name,
+      user_email: email,
+      event_name: '✨ BESPOKE INVITATION — ' + (occasion||'custom') + (names?' for '+names:''),
+      response:   body,
     });
     showToast('✦ Vision received! I\'ll be in touch to chat it through.');
+    // WhatsApp notification
+    try {
+      const waMsg = encodeURIComponent('✨ New Bespoke Invitation!\nFor: ' + (names||'—') + '\nOccasion: ' + (occasion||'—') + '\nFrom: ' + name + ' (' + email + ')');
+      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368');
+    } catch(e){}
     ['b-name','b-email','b-occasion','b-date','b-names','b-venue','b-vision','b-etsy']
       .forEach(id=>{ document.getElementById(id).value=''; });
   } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
   btn.textContent = 'Send My Vision to Shanaz ✦'; btn.disabled = false;
 }
- 
- 
+
+
 /* ── THEME SELECTOR ── */
 let selectedTheme = {};
 function selectTheme(el, bg){
@@ -1143,4 +1333,3 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
- 
