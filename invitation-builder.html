@@ -203,15 +203,10 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
 .rsvp-fields{display:none;}
 .rsvp-fields.vis{display:block;}
 
-/* ── GUESTS ── */
-.guest-row{display:flex;gap:7px;margin-bottom:7px;align-items:center;}
-.guest-row input{flex:1;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:9px 11px;font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;}
-.guest-row input:focus{border-color:var(--gold);}
+
 .rm-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:7px 10px;color:var(--soft);cursor:pointer;font-size:12px;transition:all .15s;flex-shrink:0;}
 .rm-btn:hover{border-color:#e74c3c;color:#e74c3c;}
-.add-guest-btn{width:100%;background:transparent;border:1.5px dashed var(--border);border-radius:4px;padding:10px;color:var(--soft);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:4px;}
-.add-guest-btn:hover{border-color:var(--gold-l);color:var(--char);}
-.guest-count{font-size:11px;color:var(--gold);letter-spacing:.08em;margin-top:6px;min-height:16px;}
+
 
 /* ── CUSTOM TOGGLE ── */
 .custom-toggle{border:1px solid var(--border);border-radius:4px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .2s,background .2s;font-size:13px;}
@@ -893,31 +888,29 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
       </div>
     </div>
 
-    <!-- 10 GUEST LIST -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">10</span>Guest List (optional)</div>
-      <p class="guest-intro" style="font-size:12px;color:var(--mid);line-height:1.7;margin-bottom:12px;">If you'd like Shanaz to send the invitation directly to your guests, add their names and email addresses below.</p>
-      <div id="guest-list-c"></div>
-      <button class="add-guest-btn" onclick="addGuest()">+ Add a guest</button>
-      <p class="guest-count" id="guest-count-label"></p>
-    </div>
 
-    <!-- 11 YOUR DETAILS -->
-    <div class="form-section">
-      <div class="fs-title"><span class="fs-num">11</span>Your Details</div>
-      <div class="field"><label>Your name</label><input type="text" id="f-your-name" placeholder="Your full name"/></div>
-      <div class="field"><label>Your email</label><input type="email" id="f-your-email" placeholder="Where to send the final invitation"/></div>
-      <div class="field"><label>Etsy order number (if applicable)</label><input type="text" id="f-etsy" placeholder="e.g. 1234567890"/></div>
-    </div>
 
-    <button class="submit-btn" onclick="submitOrder()">Send My Order to Shanaz ✦</button>
-    <p class="submit-note">Your watermarked preview is shown on the right. The final invitation — without any watermark — will be sent to your email within a few hours.</p>
+    <!-- ACTION BUTTONS -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+      <button class="submit-btn" onclick="generateLink()" id="gen-link-btn">Generate Invitation Link ✦</button>
+      <button class="submit-btn" onclick="downloadPDF()" id="pdf-btn" style="background:var(--gold);margin-top:0;">
+        Download as PDF ↓
+      </button>
+      <div id="link-output" style="display:none;background:var(--warm);border:1px solid var(--gold);border-radius:4px;padding:12px 14px;">
+        <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;">Shareable Link — copy and send to your client</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="link-field" readonly style="flex:1;background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-family:'Jost',sans-serif;font-size:11px;color:var(--char);outline:none;"/>
+          <button onclick="copyLink()" style="background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;cursor:pointer;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--char)'" id="copy-btn">Copy</button>
+        </div>
+        <div id="copy-confirm" style="font-size:10px;color:var(--gold);margin-top:6px;display:none;">✓ Copied to clipboard!</div>
+      </div>
+    </div>
 
   </div>
 
   <!-- ══ PREVIEW PANEL ══ -->
   <div class="preview-panel">
-    <p class="preview-label">✦ Live Preview · Watermarked</p>
+    <p class="preview-label">✦ Live Preview</p>
 
     <div class="inv-card" id="inv-card">
       <div class="card-inner al-center" id="card-inner">
@@ -977,17 +970,16 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
 
       </div>
 
-      <!-- Watermark -->
-      <div class="card-wm" id="card-watermark"><span>Moments by Shanaz · Preview Only</span></div>
+      <!-- No watermark in admin builder -->
     </div>
 
-    <p class="preview-note"><strong>Watermarked preview.</strong> Your finished invitation — fully crafted, no watermark — arrives in your inbox within hours.</p>
+    <p class="preview-note">Build your invitation above, then click <strong>Generate Invitation Link</strong> to create a shareable link for your client.</p>
   </div>
 
 </div>
 
-<!-- SUCCESS -->
-<div id="success-modal">
+<!-- SUCCESS (kept for legacy) -->
+<div id="success-modal" style="display:none!important;">
   <div class="success-box">
     <div style="font-size:36px;margin-bottom:16px;">✉️</div>
     <h2>Order received!</h2>
@@ -996,6 +988,8 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const S = {
   bgMode:'solid', bg:'#fefcf8', textDark:true,
@@ -1401,39 +1395,129 @@ function updateCard(){
   }
 }
 
-/* ── GUEST LIST ── */
-let guestList = []; let guestIdx = 0;
-function addGuest(){
-  const idx = guestIdx++;
-  guestList.push({id:idx,name:'',email:''});
-  const container = document.getElementById('guest-list-c');
-  const row = document.createElement('div');
-  row.className = 'guest-row'; row.id = `grow-${idx}`;
-  row.innerHTML = `<input type="text" placeholder="Guest name" oninput="updateGuest(${idx},'name',this.value)"/><input type="email" placeholder="Email address" style="flex:1.3;" oninput="updateGuest(${idx},'email',this.value)"/><button class="rm-btn" onclick="removeGuest(${idx})">✕</button>`;
-  container.appendChild(row);
-  updateGuestCount();
-}
-function updateGuest(idx,field,val){ const g=guestList.find(g=>g.id===idx); if(g) g[field]=val; updateGuestCount(); }
-function removeGuest(idx){ const r=document.getElementById(`grow-${idx}`); if(r) r.remove(); guestList=guestList.filter(g=>g.id!==idx); updateGuestCount(); }
-function updateGuestCount(){
-  const valid=guestList.filter(g=>g.email.trim()).length;
-  document.getElementById('guest-count-label').textContent = valid>0?`${valid} guest${valid!==1?'s':''} added`:'';
-}
+
 
 /* ── SUBMIT ── */
-function submitOrder(){
-  const name  = document.getElementById('f-your-name').value.trim();
-  const email = document.getElementById('f-your-email').value.trim();
-  if(!name || !email){ alert('Please add your name and email before submitting.'); return; }
-  const validGuests = guestList.filter(g=>g.email.trim());
-  const hasGuests = validGuests.length > 0;
-  const msg = document.getElementById('success-msg');
-  if(msg){
-    msg.textContent = hasGuests
-      ? `Your order and guest list (${validGuests.length} guest${validGuests.length!==1?'s':''}) have been sent to Shanaz. She will review your invitation and send it directly to each guest. Thank you!`
-      : `Your invitation details have been sent to Shanaz. Your finished, watermark-free invitation will arrive in your inbox within a few hours. Thank you!`;
+/* ── DOWNLOAD AS PDF ── */
+async function downloadPDF(){
+  const btn = document.getElementById('pdf-btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Preparing PDF…';
+  btn.disabled = true;
+
+  const card = document.getElementById('inv-card');
+
+  // Temporarily hide drag hints and watermark note for clean export
+  const dragHint  = card.querySelector('.card-drag-hint');
+  const dragHandles = card.querySelectorAll('.card-el:hover::before');
+  if(dragHint) dragHint.style.display = 'none';
+
+  try {
+    // Capture card at 3x scale for high resolution
+    const canvas = await html2canvas(card, {
+      scale: 4,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      logging: false,
+      removeContainer: true,
+    });
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.97);
+
+    // A5 portrait (148mm × 210mm) — good invitation size
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a5',
+    });
+
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+
+    // Card aspect ratio 5:7 — fit to page with 8mm margin
+    const margin = 8;
+    const availW = pageW - margin * 2;
+    const availH = pageH - margin * 2;
+    const cardRatio = 5 / 7;
+    let drawW = availW;
+    let drawH = drawW / cardRatio;
+    if(drawH > availH){ drawH = availH; drawW = drawH * cardRatio; }
+    const x = (pageW - drawW) / 2;
+    const y = (pageH - drawH) / 2;
+
+    pdf.addImage(imgData, 'JPEG', x, y, drawW, drawH);
+
+    // File name based on guest name if filled in
+    const nameField = document.getElementById('f-name');
+    const guestName = nameField && nameField.value.trim() ? nameField.value.trim().replace(/\s+/g,'_') : 'Invitation';
+    pdf.save(`Moments_by_Shanaz_${guestName}.pdf`);
+
+  } catch(err){
+    console.error('PDF error:', err);
+    alert('PDF export failed — please try again. If the issue persists, try removing the background photo temporarily.');
+  } finally {
+    if(dragHint) dragHint.style.display = '';
+    btn.textContent = origText;
+    btn.disabled = false;
   }
-  document.getElementById('success-modal').classList.add('vis');
+}
+
+function generateLink(){
+  // Collect all card state into data object
+  const v = id => { const el=document.getElementById(id); return el?el.value:''; };
+  const data = {
+    name:        v('f-name')        || '',
+    headline:    v('f-headline')    || '',
+    eyebrow:     v('f-eyebrow')     || document.getElementById('card-eyebrow')?.textContent || "You're Invited",
+    date:        v('f-date')        || '',
+    venue:       v('f-venue')       || '',
+    from:        v('f-from')        || '',
+    rsvp:        true,
+    rsvpText:    v('f-rsvp-text')   || 'RSVP',
+    rsvpDeadline:v('f-rsvp-deadline')|| '',
+    rsvpEmail:   '',
+    bg:          S.bg,
+    bgMode:      S.bgMode,
+    texture:     (S.image && S.image !== 'none') ? S.image : (S.pattern !== 'none' ? S.pattern : ''),
+    font:        S.fontStyle || 'cormorant',
+    frame:       S.frame     || 'f-classic',
+    textDark:    S.textDark,
+    textColor:   S.textColor || '#2c2825',
+    foil:        S.foil      || false,
+    bgOverlay:   S.bgOverlay || 30,
+  };
+
+  // Encode as base64 URL param
+  const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
+  const base = window.location.origin + window.location.pathname.replace('invitation-builder.html','');
+  const url = base + 'invitation-preview.html?d=' + encoded;
+
+  // Show link output
+  document.getElementById('link-output').style.display = 'block';
+  document.getElementById('link-field').value = url;
+  document.getElementById('copy-confirm').style.display = 'none';
+  document.getElementById('link-field').select();
+
+  // Scroll to it
+  document.getElementById('link-output').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function copyLink(){
+  const field = document.getElementById('link-field');
+  field.select();
+  navigator.clipboard.writeText(field.value).then(()=>{
+    const confirm = document.getElementById('copy-confirm');
+    confirm.style.display = 'block';
+    setTimeout(()=>{ confirm.style.display='none'; }, 3000);
+    document.getElementById('copy-btn').textContent = 'Copied ✓';
+    setTimeout(()=>{ document.getElementById('copy-btn').textContent = 'Copy'; }, 3000);
+  }).catch(()=>{
+    // Fallback for older browsers
+    document.execCommand('copy');
+    document.getElementById('copy-confirm').style.display = 'block';
+  });
 }
 
 /* ── INDEPENDENT ELEMENT DRAG ── */
