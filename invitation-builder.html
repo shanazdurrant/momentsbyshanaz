@@ -8,9 +8,9 @@
   <meta name="robots" content="index,follow"/>
   <meta property="og:title" content="Digital Invitations · Moments by Shanaz"/>
   <meta property="og:description" content="Luxury personalised digital invitations for every occasion."/>
-  <meta property="og:url" content="https://www.momentsbyshanaz.co.uk/invitations.html"/>
+  <meta property="og:url" content="https://www.momentsbyshanaz.co.uk/invitation.html"/>
   <meta property="og:type" content="website"/>
-  <link rel="canonical" href="https://www.momentsbyshanaz.co.uk/invitations.html"/>
+  <link rel="canonical" href="https://www.momentsbyshanaz.co.uk/invitation.html"/>
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="apple-touch-icon" href="favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -376,7 +376,7 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
   <div class="nav-links">
     <a href="/">Home</a>
     <a href="/order.html">Scratchcards</a>
-    <a href="/invitations.html" class="active">Invitations</a>
+    <a href="/invitation.html" class="active">Invitations</a>
     <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
   </div>
 </nav>
@@ -1028,9 +1028,7 @@ function applyBg(){
   }
  
   const tc = S.textColor || (S.textDark ? '#2c2825' : '#f0ebe2');
-  ci.style.color = tc;
-  const tb = document.getElementById('card-text-block');
-  if(tb) tb.style.color = tc;
+  applyTextColor(tc);
   const wm = document.querySelector('#card-watermark span');
   if(wm) wm.style.color = S.textDark ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.18)';
   const si = document.getElementById('stamp-img');
@@ -1202,16 +1200,35 @@ function changeSize(key,delta){
   applyTextStyles();
 }
  
+function applyTextColor(color){
+  const ci = document.getElementById('card-inner');
+  const tb = document.getElementById('card-text-block');
+  ci.style.color = color;
+  if(tb) tb.style.color = color;
+  // Apply to every text element individually so nothing is missed
+  ['card-name','card-headline','card-eyebrow','card-date','card-body',
+   'card-venue','card-from','card-rsvp','card-rsvp-deadline'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.color = color;
+  });
+  document.querySelectorAll('.card-divider-el,.div-line-el,.div-dots,.div-floral,.div-diamond,.div-wave,.div-ornament').forEach(el=>{
+    el.style.color = color;
+    el.style.borderColor = color;
+  });
+  // Frame border colour
+  const frame = document.getElementById('card-frame');
+  if(frame) frame.style.borderColor = color;
+}
 function setTextColor(el,color){
   document.querySelectorAll('.txt-col').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   S.textColor = color;
-  document.getElementById('card-inner').style.color = color;
+  applyTextColor(color);
 }
 function setTextColorCustom(v){
   document.querySelectorAll('.txt-col').forEach(c=>c.classList.remove('sel'));
   S.textColor = v;
-  document.getElementById('card-inner').style.color = v;
+  applyTextColor(v);
 }
  
 function setLetterSpacing(v){
