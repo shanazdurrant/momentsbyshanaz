@@ -994,12 +994,16 @@ async function submitOrder(){
  
   // Email notification to Shanaz via EmailJS
   try {
-    await emailjs.send('service_q7cy9mq', 'template_3o0vnf5', {
-      to_email: 'hello@momentsbyshanaz.co.uk',
+    await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
+      to_email:   'hello@momentsbyshanaz.co.uk',
+      order_type: 'Scratchcard Order',
       guest_name: state.yourName,
-      event_name: state.occasion.charAt(0).toUpperCase() + state.occasion.slice(1) + ' — ' + state.headline,
+      user_email: state.yourEmail,
+      event_name: '🎴 SCRATCHCARD ORDER — ' + state.occasion.charAt(0).toUpperCase() + state.occasion.slice(1) + ' — ' + state.headline,
       response: [
-        'From: ' + state.yourName + ' (' + state.yourEmail + ')',
+        '=== SCRATCHCARD ORDER ===',
+        'From: ' + state.yourName,
+        'Email: ' + state.yourEmail,
         'Occasion: ' + state.occasion,
         'Layout: ' + state.layout,
         'For: ' + (state.recipient || 'not specified'),
@@ -1008,7 +1012,7 @@ async function submitOrder(){
         'Signed: ' + (state.signature || 'none'),
         'Etsy ref: ' + (state.orderNumber || 'none'),
         'Confetti: ' + (state.confetti ? 'yes' : 'no'),
-        'Time: ' + new Date().toLocaleString('en-GB')
+        'Submitted: ' + new Date().toLocaleString('en-GB')
       ].join('\n')
     });
   } catch(e){ console.error('EmailJS notification failed:', e); }
