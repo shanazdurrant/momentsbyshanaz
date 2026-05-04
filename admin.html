@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin · Moments by Shanaz</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" type="image/png" href="logo-m.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -29,7 +29,7 @@
       display: flex;
       flex-direction: column;
     }
-
+ 
     /* LOCK SCREEN */
     #lock-screen {
       position: fixed; inset: 0;
@@ -113,11 +113,11 @@
       color: #e74c3c;
       height: 16px;
     }
-
+ 
     /* ADMIN PANEL */
     #admin-panel { display: none; flex-direction: column; min-height: 100vh; }
     #admin-panel.visible { display: flex; }
-
+ 
     /* ADMIN NAV */
     .admin-nav {
       background: rgba(255,255,255,0.03);
@@ -148,7 +148,7 @@
       transition: color 0.2s;
     }
     .admin-logout:hover { color: var(--cream); }
-
+ 
     /* ADMIN MAIN */
     .admin-main { flex: 1; padding: 60px 40px; max-width: 1000px; margin: 0 auto; width: 100%; }
     .admin-main h1 {
@@ -164,7 +164,7 @@
       letter-spacing: 0.05em;
       margin-bottom: 52px;
     }
-
+ 
     /* CARDS */
     .admin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
     .admin-card {
@@ -196,7 +196,7 @@
       text-transform: uppercase;
       color: var(--gold);
     }
-
+ 
     /* ORDERS SECTION */
     .admin-section-title {
       font-size: 11px;
@@ -245,7 +245,7 @@
   </style>
 </head>
 <body>
-
+ 
   <!-- LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-logo">
@@ -265,7 +265,7 @@
       <div class="lock-error" id="lock-error"></div>
     </div>
   </div>
-
+ 
   <!-- ADMIN PANEL -->
   <div id="admin-panel">
     <nav class="admin-nav">
@@ -273,11 +273,11 @@
       <span class="admin-badge">Admin</span>
       <button class="admin-logout" onclick="logout()">Log out</button>
     </nav>
-
+ 
     <main class="admin-main">
       <h1>Welcome back, <em>Shanaz</em></h1>
       <p>Manage your digital keepsake offerings from here.</p>
-
+ 
       <div class="admin-cards">
         <a href="/scratchcard-admin.html" class="admin-card">
           <div class="admin-card-icon">✨</div>
@@ -292,19 +292,15 @@
           <span class="admin-card-cta">Go to Invitation Builder →</span>
         </a>
       </div>
-
-      <div class="admin-section-title">Recent Orders</div>
-      <div class="empty-state">
-        <span>📋</span>
-        Order tracking coming soon — link your order inbox here to manage client requests in one place.
-      </div>
+ 
+      
     </main>
   </div>
-
+ 
   <script>
     const PASS = 'moments2026';
     const KEY = 'mbs_admin_auth';
-
+ 
     function checkPassword() {
       const input = document.getElementById('pwd');
       const err = document.getElementById('lock-error');
@@ -320,7 +316,7 @@
         setTimeout(() => input.classList.remove('error'), 500);
       }
     }
-
+ 
     function logout() {
       sessionStorage.removeItem(KEY);
       document.getElementById('lock-screen').classList.remove('hidden');
@@ -328,11 +324,11 @@
       document.getElementById('pwd').value = '';
       document.getElementById('lock-error').textContent = '';
     }
-
+ 
     document.getElementById('pwd').addEventListener('keydown', e => {
       if (e.key === 'Enter') checkPassword();
     });
-
+ 
     // Auto-unlock if already authenticated this session
     if (sessionStorage.getItem(KEY) === '1') {
       document.getElementById('lock-screen').classList.add('hidden');
@@ -341,3 +337,4 @@
   </script>
 </body>
 </html>
+ 
