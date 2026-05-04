@@ -19,7 +19,7 @@
 :root{--cream:#faf8f4;--warm:#fefcf8;--gold:#b8924a;--gold-l:#d4a96a;--gold-d:#8a6a28;--char:#2c2825;--mid:#6b6460;--soft:#9c958f;--border:#e8e2d9;}
 html{scroll-behavior:smooth;}
 body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);font-weight:300;line-height:1.7;overflow-x:hidden;}
-
+ 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,248,244,.96);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;}
 nav .logo img{height:180px;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
@@ -28,7 +28,7 @@ nav .nav-links{display:flex;gap:32px;align-items:center;}
 nav .nav-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
 nav .nav-links a:hover{color:var(--gold);}
 nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
-
+ 
 /* HERO */
 .hero{padding:148px 40px 72px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(184,146,74,.07),transparent 70%);pointer-events:none;}
@@ -39,7 +39,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .hero-divider{display:flex;align-items:center;justify-content:center;gap:16px;}
 .hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:80px;height:1px;background:var(--border);}
 .hero-divider span{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--soft);}
-
+ 
 /* HOW */
 .how{padding:56px 40px 72px;text-align:center;border-bottom:1px solid var(--border);}
 .how-steps{display:flex;justify-content:center;max-width:720px;margin:32px auto 0;position:relative;}
@@ -48,33 +48,33 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .how-num{width:40px;height:40px;border-radius:50%;background:var(--warm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.12em;color:var(--gold);position:relative;z-index:1;font-family:'Cinzel',serif;}
 .how-step h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;}
 .how-step p{font-size:12px;color:var(--mid);line-height:1.7;}
-
+ 
 /* SECTION LABEL */
 .section-label{text-align:center;padding:72px 40px 48px;}
 .section-label .eyebrow{font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
 .section-label h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;line-height:1.2;}
 .section-label p{font-size:13px;color:var(--mid);margin-top:12px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.8;}
-
+ 
 /* GRID */
 .presets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 40px 80px;max-width:1120px;margin:0 auto;}
-
+ 
 /* PRESET CARD */
 .preset{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease;box-shadow:0 6px 24px rgba(44,40,37,.09),0 2px 8px rgba(44,40,37,.05);}
 .preset:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(44,40,37,.16),0 6px 16px rgba(44,40,37,.08);}
 .preset.open{transform:none !important;box-shadow:0 0 0 2px var(--gold),0 20px 56px rgba(44,40,37,.18) !important;}
-
+ 
 /* MINI CARD */
 .mini-card{aspect-ratio:5/7;position:relative;overflow:hidden;}
 .mini-card-inner{position:absolute;inset:0;z-index:2;}
 .mini-frame{position:absolute;z-index:3;pointer-events:none;}
-
+ 
 /* PRESET LABEL */
 .preset-label{padding:14px 18px;background:var(--warm);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .preset-name{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--char);margin-bottom:2px;}
 .preset-vibe{font-size:10px;color:var(--soft);}
 .preset-arrow{font-size:16px;color:var(--gold);transition:transform .25s;flex-shrink:0;margin-left:8px;}
 .preset:hover .preset-arrow,.preset.open .preset-arrow{transform:rotate(90deg);}
-
+ 
 /* ORDER PANEL */
 .order-panel{display:none;background:var(--warm);border-top:2px solid var(--gold);}
 .order-panel.vis{display:block;animation:slideDown .28s ease;}
@@ -91,7 +91,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .order-submit{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:13px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:4px;}
 .order-submit:hover{background:var(--gold);}
 .order-submit:disabled{opacity:.5;cursor:not-allowed;}
-
+ 
 /* BESPOKE */
 .bespoke{background:var(--char);color:var(--cream);padding:88px 40px;text-align:center;position:relative;overflow:hidden;}
 .bespoke::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 50%,rgba(184,146,74,.1),transparent 70%);}
@@ -99,7 +99,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:14px;position:relative;}
 .bespoke h2 em{font-style:italic;color:var(--gold-l);}
 .bespoke>.intro{font-size:13px;color:rgba(250,248,244,.6);max-width:460px;margin:0 auto 20px;line-height:1.9;position:relative;}
-
+ 
 /* BESPOKE DEMO CARD */
 .bespoke-demo{max-width:900px;margin:0 auto 52px;display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:28px;text-align:left;position:relative;}
 .bespoke-demo-card{aspect-ratio:5/7;position:relative;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
@@ -108,7 +108,7 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke-demo-text p{font-size:12px;color:rgba(250,248,244,.55);line-height:1.8;margin-bottom:16px;}
 .bespoke-demo-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .bespoke-tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l);border:1px solid rgba(212,169,106,.25);padding:3px 8px;border-radius:2px;}
-
+ 
 .bespoke-form{max-width:540px;margin:0 auto;position:relative;text-align:left;}
 .bespoke-form .of-field label{color:rgba(250,248,244,.45);}
 .bespoke-form .of-field input,.bespoke-form .of-field textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:var(--cream);}
@@ -116,25 +116,25 @@ nav .nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);pa
 .bespoke-form .of-field input:focus,.bespoke-form .of-field textarea:focus{border-color:var(--gold-l);}
 .bespoke-form .order-submit{background:var(--gold);color:var(--cream);}
 .bespoke-form .order-submit:hover{background:var(--gold-l);}
-
+ 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:48px 40px;text-align:center;}
 footer .footer-logo img{height:32px;margin-bottom:20px;opacity:.85;}
 footer p{font-size:12px;color:var(--soft);}
 footer a{color:var(--soft);text-decoration:none;}
 footer a:hover{color:var(--gold);}
-
+ 
 /* TOAST */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--char);color:var(--cream);padding:13px 28px;border-radius:4px;font-size:12px;letter-spacing:.08em;opacity:0;transition:all .35s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(44,40,37,.25);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
+ 
 @media(max-width:900px){.presets-grid{grid-template-columns:repeat(2,1fr);}.bespoke-demo{grid-template-columns:160px 1fr;}}
 @media(max-width:600px){nav{padding:0 20px;}nav .nav-links{gap:18px;}.hero{padding:110px 20px 56px;}.presets-grid{grid-template-columns:1fr;padding:0 20px 60px;}.how{padding:40px 20px 60px;}.how-steps{flex-direction:column;gap:24px;}.how-steps::before{display:none;}.bespoke{padding:60px 20px;}.bespoke-demo{grid-template-columns:1fr;}.bespoke-demo-card{max-width:160px;margin:0 auto;}footer{padding:36px 20px;}.of-row{grid-template-columns:1fr;}}
-
+ 
 /* ══════════════════════════════
    PRESET MINI-CARD DESIGNS
 ══════════════════════════════ */
-
+ 
 /* ── 1. ETERNAL ELEGANCE — cream/gold linen, text bottom-left ── */
 .p-elegant .mini-card{background:linear-gradient(160deg,#fdf8f0 0%,#f5ead8 50%,#ede0c4 100%);background-image:url("minimalistic.jpg");background-size:cover;background-position:center;}
 .p-elegant .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -150,7 +150,7 @@ footer a:hover{color:var(--gold);}
 .p-elegant .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;color:#2c2825;line-height:1.15;margin-bottom:3px;}
 .p-elegant .mc-line{width:28px;height:1px;background:rgba(184,146,74,.38);margin-bottom:7px;}
 .p-elegant .mc-detail{font-family:'Jost',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(60,55,50,.85);line-height:1.8;}
-
+ 
 /* ── 2. NOIR & GOLD — dark, Cinzel, centred, herringbone ── */
 .p-noir .mini-card{background:linear-gradient(148deg,#1a1714 0%,#2c2218 60%,#1a1410 100%);background-image:url("Engaged.jpg");background-size:cover;background-position:center;}
 .p-noir .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -171,7 +171,7 @@ footer a:hover{color:var(--gold);}
 /* Gold shimmer */
 .p-noir .mini-card::after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,transparent 35%,rgba(232,200,122,.06) 50%,transparent 65%);background-size:200% 200%;animation:goldSheen 5s ease-in-out infinite;z-index:5;pointer-events:none;}
 @keyframes goldSheen{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-
+ 
 /* ── 3. BLUSH WEDDING — lace texture, arch, rings, right-aligned ── */
 .p-wedding .mini-card{background:linear-gradient(160deg,#fff5f7 0%,#fde0e8 40%,#f8d0dc 70%,#f0c8d4 100%);background-image:url("wedding2.jpg");background-size:cover;background-position:center;}
 .p-wedding .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -200,7 +200,7 @@ footer a:hover{color:var(--gold);}
 .p-wedding .mc-line{display:flex;justify-content:flex-end;margin-bottom:6px;}
 .p-wedding .mc-line svg{width:32px;opacity:.3;}
 .p-wedding .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(90,37,53,.85);line-height:1.8;}
-
+ 
 /* ── 4. ENGAGEMENT — champagne velvet, ring box, left-aligned ── */
 .p-engage .mini-card{background:radial-gradient(ellipse 50% 50% at 25% 20%,#6a4a88 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 80%,rgba(30,15,50,.6) 0%,transparent 70%),linear-gradient(148deg,#3a2e42 0%,#5c4468 50%,#4a3560 100%);background-image:url("engagement.jpg");background-size:cover;background-position:center;}
 .p-engage .mini-card::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -219,7 +219,7 @@ footer a:hover{color:var(--gold);}
 .p-engage .mc-line{width:24px;height:1px;background:rgba(220,180,255,.35);margin-bottom:6px;}
 .p-engage .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(235,200,255,.9);line-height:1.8;}
 .p-engage .mc-spark{position:absolute;top:18px;left:18px;font-size:8px;opacity:.4;z-index:3;}
-
+ 
 /* ── 5. GARDEN PARTY — sage linen, botanical, left offset ── */
 .p-garden .mini-card{background:linear-gradient(165deg,#f0f8f0 0%,#e4f4e4 40%,#d8eeda 70%,#c8e6cc 100%);background-image:url("Flowers.jpg");background-size:cover;background-position:center;}
 .p-garden .mini-card::before{content:'';position:absolute;inset:0;z-index:1;
@@ -245,7 +245,7 @@ footer a:hover{color:var(--gold);}
 .p-garden .mc-name{font-family:'Dancing Script',cursive;font-size:1.55rem;font-weight:600;color:#2d5a35;line-height:1.15;margin-bottom:3px;}
 .p-garden .mc-line{font-size:11px;opacity:.35;color:#4a8a56;margin-bottom:6px;}
 .p-garden .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(30,70,38,.9);line-height:1.8;}
-
+ 
 /* ── 6. STARRY NIGHT — deep navy, celestial, centred ── */
 .p-starry .mini-card{
   background:radial-gradient(ellipse 60% 50% at 35% 15%,#2a3d7a 0%,#0d1a3a 55%,#060c1e 100%);background-image:url("minimalistic.jpg");background-size:cover;background-position:center;}
@@ -261,7 +261,7 @@ footer a:hover{color:var(--gold);}
 .p-starry .mc-name{font-family:'Sacramento',cursive;font-size:1.8rem;color:#eaf0ff;line-height:1.1;margin-bottom:3px;}
 .p-starry .mc-line{font-size:9px;letter-spacing:5px;color:rgba(200,215,255,.28);margin:5px 0;}
 .p-starry .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(210,225,255,.9);line-height:1.8;}
-
+ 
 /* ── 7. LITTLE EXPLORER — children's, balloon/adventure, playful layout ── */
 .p-explorer .mini-card{background:linear-gradient(170deg,#c8eeff 0%,#a0dcff 30%,#b8e8ff 60%,#d0f0ff 100%);background-image:url("party.jpg");background-size:cover;background-position:center;}
 .p-explorer .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -295,7 +295,7 @@ footer a:hover{color:var(--gold);}
 .p-explorer .mc-name{font-family:'Pacifico',cursive;font-size:1.1rem;color:#7a4a00;line-height:1.2;margin-bottom:4px;}
 .p-explorer .mc-line{font-size:11px;margin-bottom:5px;opacity:.6;}
 .p-explorer .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.06em;color:rgba(80,50,0,.9);line-height:1.7;font-weight:700;}
-
+ 
 /* ── 8. WILD SAFARI — children's animal theme, vibrant, top-heavy ── */
 .p-safari .mini-card{background:linear-gradient(175deg,#f5f0d8 0%,#ede5c0 40%,#e4d8a8 70%,#d8cc90 100%);background-image:url("birthday1.jpg");background-size:cover;background-position:center;}
 .p-safari .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -323,7 +323,7 @@ footer a:hover{color:var(--gold);}
 .p-safari .mc-name{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;color:#1e5c10;line-height:1.15;margin-bottom:3px;}
 .p-safari .mc-line{font-size:13px;margin:3px 0;opacity:.5;}
 .p-safari .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.06em;color:rgba(20,70,10,.9);line-height:1.7;font-weight:700;}
-
+ 
 /* ── 9. PRINCESS & FAIRY — children's, soft pink, castle, centred ── */
 .p-princess .mini-card{background:linear-gradient(160deg,#fff5fb 0%,#ffe0f4 35%,#ffd0ee 65%,#ffc8ea 100%);background-image:url("pink-watercolour.jpg");background-size:cover;background-position:center;}
 .p-princess .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -354,7 +354,7 @@ footer a:hover{color:var(--gold);}
 .p-princess .mc-name{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:600;color:#8c1a6a;line-height:1.15;margin-bottom:3px;}
 .p-princess .mc-line{font-size:12px;opacity:.4;color:#c050a0;margin:4px 0;}
 .p-princess .mc-detail{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.08em;color:rgba(110,10,90,.9);line-height:1.7;font-weight:700;}
-
+ 
 /* ── 10. BOLD & PLAYFUL — coral/gold, Bebas, angled layout ── */
 .p-playful .mini-card{background:linear-gradient(135deg,#ff5f5f 0%,#ff8432 45%,#ffc94a 100%);background-image:url("bday.jpg");background-size:cover;background-position:center;}
 .p-playful .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -381,8 +381,8 @@ footer a:hover{color:var(--gold);}
 .p-playful .mc-name{font-family:'Bebas Neue',cursive;font-size:2rem;color:#fff;letter-spacing:.08em;line-height:1;margin-bottom:4px;text-shadow:0 2px 10px rgba(180,50,20,.25);}
 .p-playful .mc-line{font-size:13px;margin-bottom:4px;opacity:.8;}
 .p-playful .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;color:#fff;line-height:1.7;font-weight:700;}
-
-
+ 
+ 
 /* ── PHOTO OVERLAY for readability ── */
 .p-elegant .mini-card-inner::before{content:"";position:absolute;inset:0;background:rgba(240,230,210,.45);z-index:0;pointer-events:none;}
 .p-elegant .mini-card-inner > *{position:relative;z-index:1;}
@@ -404,7 +404,7 @@ footer a:hover{color:var(--gold);}
 .p-princess .mini-card-inner > *{position:relative;z-index:1;}
 .p-playful .mini-card-inner::before{content:"";position:absolute;inset:0;background:rgba(255,100,50,.35);z-index:0;pointer-events:none;}
 .p-playful .mini-card-inner > *{position:relative;z-index:1;}
-
+ 
 /* ── THEME PICKER inside order panel ── */
 .theme-section{margin-bottom:16px;}
 .theme-section-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;display:block;}
@@ -419,7 +419,7 @@ footer a:hover{color:var(--gold);}
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <div class="logo"><a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></a></div>
@@ -429,7 +429,7 @@ footer a:hover{color:var(--gold);}
     <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
   </div>
 </nav>
-
+ 
 <!-- HERO -->
 <div class="hero">
   <span class="hero-ornament">Digital Invitations · Crafted by Hand</span>
@@ -437,7 +437,7 @@ footer a:hover{color:var(--gold);}
   <p>Choose a style, fill in your details, and I'll craft your finished invitation — delivered to your inbox within hours.</p>
   <div class="hero-divider"><span>Choose your style below</span></div>
 </div>
-
+ 
 <!-- HOW -->
 <div class="how">
   <div class="how-steps">
@@ -446,17 +446,17 @@ footer a:hover{color:var(--gold);}
     <div class="how-step"><div class="how-num">03</div><h3>Receive your invitation</h3><p>Finished, watermark-free — in your inbox within hours.</p></div>
   </div>
 </div>
-
+ 
 <!-- SECTION HEADING -->
 <div class="section-label">
   <span class="eyebrow">The Collection</span>
   <h2>Ten signature styles</h2>
   <p>Click any card to open the order form. Each design is personalised fresh — your names, your details, your occasion.</p>
 </div>
-
+ 
 <!-- PRESETS GRID -->
 <div class="presets-grid">
-
+ 
   <!-- 1. ETERNAL ELEGANCE -->
   <div class="preset p-elegant" onclick="togglePreset(this,'elegant')">
     <div class="mini-card">
@@ -500,7 +500,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Amelia &amp; James"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Anniversary"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 14th June · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Grand Hall, London"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 1st June · With love, The Smiths"></textarea></div>
@@ -509,7 +509,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Eternal Elegance',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 2. NOIR & GOLD -->
   <div class="preset p-noir" onclick="togglePreset(this,'noir')">
     <div class="mini-card">
@@ -549,7 +549,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Sophie &amp; Rajan"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Engagement Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th September · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Claridge's, London"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Black tie · RSVP by 20th August · Hosted by The Patels"></textarea></div>
@@ -558,7 +558,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Noir & Gold',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 3. BLUSH WEDDING -->
   <div class="preset p-wedding" onclick="togglePreset(this,'wedding')">
     <div class="mini-card">
@@ -608,7 +608,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Charlotte &amp; Oliver"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Wedding, Vow Renewal"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 8th September · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Blenheim Palace, Oxfordshire"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Morning dress · RSVP by 1st August · Reception to follow"></textarea></div>
@@ -617,7 +617,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Blush Wedding',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 4. ENGAGEMENT -->
   <div class="preset p-engage" onclick="togglePreset(this,'engage')">
     <div class="mini-card">
@@ -668,7 +668,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Priya &amp; Arjun"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Engagement Party, Proposal Reveal"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 1st February · 7pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Ivy, Covent Garden"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart casual · RSVP by 20th January · Drinks and dancing"></textarea></div>
@@ -677,7 +677,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Engagement',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 5. GARDEN PARTY -->
   <div class="preset p-garden" onclick="togglePreset(this,'garden')">
     <div class="mini-card">
@@ -722,7 +722,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Zara, or The Johnson Family"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Garden Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 3rd May · 12 noon"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Kew Gardens Pavilion"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Garden casual · RSVP by 20th April · Children welcome"></textarea></div>
@@ -731,7 +731,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Garden Party',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 6. STARRY NIGHT -->
   <div class="preset p-starry" onclick="togglePreset(this,'starry')">
     <div class="mini-card">
@@ -768,7 +768,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Fatima's Eid, or NYE 2026"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Eid, New Year's Eve, 40th Birthday"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. 31st December · 9pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Rooftop, Canary Wharf"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Smart dress · RSVP by 20th Dec · Drinks and dancing"></textarea></div>
@@ -777,7 +777,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Starry Night',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 7. LITTLE EXPLORER (balloons) -->
   <div class="preset p-explorer" onclick="togglePreset(this,'explorer')">
     <div class="mini-card">
@@ -814,7 +814,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Leo Turns 5!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 10th May · 2pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Sunshine Hall, Wimbledon"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dinosaur theme · RSVP by 3rd May · Loot bags for all!"></textarea></div>
@@ -823,7 +823,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Little Explorer',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 8. WILD SAFARI (animals) -->
   <div class="preset p-safari" onclick="togglePreset(this,'safari')">
     <div class="mini-card">
@@ -859,7 +859,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Mia's Wild 4th!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Sunday 18th May · 1pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Jungle Room, Tooting"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Animal ears welcome · RSVP by 10th May · Jungle juice provided!"></textarea></div>
@@ -868,7 +868,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Wild Safari',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 9. PRINCESS & FAIRY -->
   <div class="preset p-princess" onclick="togglePreset(this,'princess')">
     <div class="mini-card">
@@ -905,7 +905,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Child's name &amp; age</label><input type="text" placeholder="e.g. Isabelle Turns 6"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday Party, Fairy Tea Party"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Saturday 24th May · 3pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. The Pink Palace, Sutton"/></div></div>
       <div class="of-field"><label>Any extras (theme, RSVP, message)</label><textarea placeholder="e.g. Dress as your favourite princess · RSVP by 17th May · Fairy cakes for all!"></textarea></div>
@@ -914,7 +914,7 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Princess & Fairy',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
   <!-- 10. BOLD & PLAYFUL -->
   <div class="preset p-playful" onclick="togglePreset(this,'playful')">
     <div class="mini-card">
@@ -949,7 +949,7 @@ footer a:hover{color:var(--gold);}
         </div>
         <p style="font-size:10px;color:var(--soft);line-height:1.6;">Choose a background to mix with this style — or keep the preset. I'll use your selection when crafting the final design.</p>
       </div>
-
+ 
       <div class="of-row"><div class="of-field"><label>Name(s) on the invite</label><input type="text" placeholder="e.g. Jade Turns 30!"/></div><div class="of-field"><label>Occasion</label><input type="text" placeholder="e.g. Birthday, Hen Do, Graduation"/></div></div>
       <div class="of-row"><div class="of-field"><label>Date &amp; Time</label><input type="text" placeholder="e.g. Friday 6th June · 8pm"/></div><div class="of-field"><label>Venue</label><input type="text" placeholder="e.g. Rooftop Bar, Shoreditch"/></div></div>
       <div class="of-field"><label>Any extras (dress code, RSVP, message)</label><textarea placeholder="e.g. Dress to impress · RSVP by 25th May · Surprises in store!"></textarea></div>
@@ -958,15 +958,15 @@ footer a:hover{color:var(--gold);}
       <button class="order-submit" onclick="submitPreset(event,'Bold & Playful',this)">Send My Order to Shanaz ✦</button>
     </div></div>
   </div>
-
+ 
 </div><!-- /presets-grid -->
-
+ 
 <!-- BESPOKE SECTION -->
 <div class="bespoke">
   <span class="eyebrow">Something Unique</span>
   <h2>Want something <em>completely bespoke?</em></h2>
   <p class="intro">Tell me your vision and I'll create something made entirely from scratch — illustrated, textured, themed, or photo-based. No limits.</p>
-
+ 
   <!-- BESPOKE DEMO CARD -->
   <!-- BESPOKE DEMO — Sonic Themed Birthday -->
   <div class="bespoke-demo" style="grid-template-columns:220px 1fr;">
@@ -1010,7 +1010,7 @@ footer a:hover{color:var(--gold);}
       </div>
     </div>
   </div>
-
+ 
   <div class="bespoke-form">
     <div class="of-row">
       <div class="of-field"><label>Your name</label><input type="text" id="b-name" placeholder="Your full name"/></div>
@@ -1027,7 +1027,7 @@ footer a:hover{color:var(--gold);}
     <button class="order-submit" onclick="submitBespoke(this)">Send My Vision to Shanaz ✦</button>
   </div>
 </div>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></div>
@@ -1038,12 +1038,12 @@ footer a:hover{color:var(--gold);}
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Admin
   </a>
 </footer>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 let openPreset = null;
-
+ 
 function togglePreset(card, id){
   if(event.target.closest('.order-panel')) return;
   const panel = document.getElementById('panel-'+id);
@@ -1057,7 +1057,7 @@ function togglePreset(card, id){
   openPreset = isOpen ? null : card;
   if(!isOpen) setTimeout(()=> card.scrollIntoView({behavior:'smooth', block:'nearest'}), 60);
 }
-
+ 
 function getFields(form){
   const inputs = [...form.querySelectorAll('input:not([type=submit]),textarea')];
   return {
@@ -1067,7 +1067,7 @@ function getFields(form){
     email:inputs[6]?.value.trim()||'', etsy:inputs[7]?.value.trim()||'',
   };
 }
-
+ 
 async function submitPreset(e, style, btn){
   e.stopPropagation();
   const form = btn.closest('.order-form');
@@ -1093,7 +1093,7 @@ async function submitPreset(e, style, btn){
   } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
   btn.textContent = 'Send My Order to Shanaz ✦'; btn.disabled = false;
 }
-
+ 
 async function submitBespoke(btn){
   const g = id => document.getElementById(id).value.trim();
   const name=g('b-name'),email=g('b-email'),occasion=g('b-occasion'),date=g('b-date');
@@ -1118,8 +1118,8 @@ async function submitBespoke(btn){
   } catch(err){ console.error(err); showToast('Something went wrong — please email hello@momentsbyshanaz.co.uk'); }
   btn.textContent = 'Send My Vision to Shanaz ✦'; btn.disabled = false;
 }
-
-
+ 
+ 
 /* ── THEME SELECTOR ── */
 let selectedTheme = {};
 function selectTheme(el, bg){
@@ -1143,3 +1143,4 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
+ 
