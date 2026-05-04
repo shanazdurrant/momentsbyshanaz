@@ -994,39 +994,53 @@ async function submitOrder(){
 
   // Email notification to Shanaz via EmailJS
   try {
+    const orderBody = [
+      '=== SCRATCHCARD ORDER ===',
+      '',
+      'From: '     + state.yourName,
+      'Email: '    + state.yourEmail,
+      'Etsy ref: ' + (state.orderNumber || 'none'),
+      '',
+      '--- ORDER DETAILS ---',
+      'Occasion: '  + state.occasion,
+      'Layout: '    + state.layout,
+      'For: '       + (state.recipient || 'not specified'),
+      'Headline: '  + state.headline,
+      'Message: '   + (state.message || 'none'),
+      'Signed: '    + (state.signature || 'none'),
+      'Confetti: '  + (state.confetti ? 'yes' : 'no'),
+      '',
+      'Submitted: ' + new Date().toLocaleString('en-GB')
+    ].join('\n');
+
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      to_email:   'hello@momentsbyshanaz.co.uk',
+      to_name:    'Shanaz',
+      from_name:  state.yourName || 'Customer',
+      from_email: state.yourEmail,
+      subject:    '🎴 Scratchcard Order — ' + state.occasion + ' — ' + state.headline,
+      message:    orderBody,
       order_type: 'Scratchcard Order',
-      guest_name: state.yourName,
-      user_email: state.yourEmail,
-      event_name: '🎴 SCRATCHCARD ORDER — ' + state.occasion.charAt(0).toUpperCase() + state.occasion.slice(1) + ' — ' + state.headline,
-      response: [
-        '=== SCRATCHCARD ORDER ===',
-        'From: ' + state.yourName,
-        'Email: ' + state.yourEmail,
-        'Occasion: ' + state.occasion,
-        'Layout: ' + state.layout,
-        'For: ' + (state.recipient || 'not specified'),
-        'Headline: ' + state.headline,
-        'Message: ' + (state.message || 'none'),
-        'Signed: ' + (state.signature || 'none'),
-        'Etsy ref: ' + (state.orderNumber || 'none'),
-        'Confetti: ' + (state.confetti ? 'yes' : 'no'),
-        'Submitted: ' + new Date().toLocaleString('en-GB')
-      ].join('\n')
+      name:       state.yourName,
+      email:      state.yourEmail,
+      reply_to:   state.yourEmail,
     });
   } catch(e){ console.error('EmailJS notification failed:', e); }
 
   // WhatsApp notification via CallMeBot
   try {
     const waMsg = encodeURIComponent(
-      '🎴 New Scratchcard Order!\n' +
-      'From: ' + state.yourName + '\n' +
-      'Occasion: ' + state.occasion + '\n' +
-      'Headline: ' + state.headline + '\n' +
-      'Email: ' + state.yourEmail
+      'New Scratchcard Order from ' + state.yourName +
+      ' | ' + state.occasion +
+      ' | ' + state.headline +
+      ' | ' + state.yourEmail
     );
-    await fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368');
+    // Use no-cors + img tag fallback to bypass CORS restriction
+    try {
+      await fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368', {mode:'no-cors'});
+    } catch(e2){
+      const img = new Image();
+      img.src = 'https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368';
+    }
   } catch(e){ console.error('WhatsApp ping failed:', e); }
 
   setTimeout(()=>{ document.getElementById('successModal').classList.add('active'); btn.textContent='Send my order to Shanaz'; btn.disabled=false; },800);
