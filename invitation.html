@@ -1244,18 +1244,23 @@ async function submitPreset(e, style, btn){
   ].join('\n');
   try {
     await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
-      to_email:   'hello@momentsbyshanaz.co.uk',
+      to_name:    'Shanaz',
+      from_name:  f.yourName || 'Customer',
+      from_email: f.email,
+      subject:    'Invitation Order — ' + style + ' — ' + (f.occasion||'invitation') + ' for ' + f.names,
+      message:    body,
       order_type: 'Invitation Order',
-      guest_name: f.yourName,
-      user_email: f.email,
-      event_name: '✉ INVITATION ORDER — ' + style + ' — ' + (f.occasion||'invitation') + ' for ' + f.names,
-      response:   body,
+      name:       f.yourName,
+      email:      f.email,
+      reply_to:   f.email,
     });
     showToast('✦ Order sent! I\'ll be in touch within hours.');
     // WhatsApp notification
     try {
-      const waMsg = encodeURIComponent('✉ New Invitation Order!\nStyle: ' + style + '\nFor: ' + f.names + '\nOccasion: ' + (f.occasion||'—') + '\nFrom: ' + f.yourName + ' (' + f.email + ')');
-      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368');
+      const waMsg = encodeURIComponent('Invitation Order: ' + style + ' for ' + f.names + ' | ' + (f.occasion||'—') + ' | From: ' + f.yourName);
+      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368', {mode:'no-cors'}).catch(()=>{
+        const img = new Image(); img.src = 'https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368';
+      });
     } catch(e){}
     const card = btn.closest('.preset');
     card.querySelector('.order-panel').classList.remove('vis');
@@ -1290,18 +1295,23 @@ async function submitBespoke(btn){
   ].join('\n');
   try {
     await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
-      to_email:   'hello@momentsbyshanaz.co.uk',
+      to_name:    'Shanaz',
+      from_name:  name || 'Customer',
+      from_email: email,
+      subject:    'BESPOKE Invitation — ' + (occasion||'custom') + (names?' for '+names:''),
+      message:    body,
       order_type: 'Bespoke Invitation Order',
-      guest_name: name,
-      user_email: email,
-      event_name: '✨ BESPOKE INVITATION — ' + (occasion||'custom') + (names?' for '+names:''),
-      response:   body,
+      name:       name,
+      email:      email,
+      reply_to:   email,
     });
     showToast('✦ Vision received! I\'ll be in touch to chat it through.');
     // WhatsApp notification
     try {
-      const waMsg = encodeURIComponent('✨ New Bespoke Invitation!\nFor: ' + (names||'—') + '\nOccasion: ' + (occasion||'—') + '\nFrom: ' + name + ' (' + email + ')');
-      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368');
+      const waMsg = encodeURIComponent('BESPOKE Invitation for ' + (names||'—') + ' | ' + (occasion||'—') + ' | From: ' + name);
+      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368', {mode:'no-cors'}).catch(()=>{
+        const img = new Image(); img.src = 'https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368';
+      });
     } catch(e){}
     ['b-name','b-email','b-occasion','b-date','b-names','b-venue','b-vision','b-etsy']
       .forEach(id=>{ document.getElementById(id).value=''; });
