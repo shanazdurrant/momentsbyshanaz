@@ -234,12 +234,14 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
 /* card-inner is now a pure positioned container — no flex */
 .card-inner{position:absolute;inset:0;background:#fefcf8;color:#2c2825;overflow:hidden;transition:background .35s,color .35s;}
  
-/* ── DRAGGABLE TEXT BLOCK ── */
-#card-text-block{position:absolute;cursor:grab;user-select:none;z-index:5;display:flex;flex-direction:column;width:84%;box-sizing:border-box;padding:0 4px;touch-action:none;align-items:center;text-align:center;}
-#card-text-block:active{cursor:grabbing;}
-.card-inner.al-left  #card-text-block{align-items:flex-start;text-align:left;}
-.card-inner.al-right #card-text-block{align-items:flex-end;text-align:right;}
-.card-inner.al-center #card-text-block{align-items:center;text-align:center;}
+/* ── INDEPENDENTLY DRAGGABLE CARD ELEMENTS ── */
+.card-el{position:absolute;cursor:grab;user-select:none;z-index:5;touch-action:none;box-sizing:border-box;max-width:88%;width:max-content;}
+.card-el:active{cursor:grabbing;}
+.card-el:hover::before{content:"⠿";position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.6);background:rgba(0,0,0,.3);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none;font-family:sans-serif;}
+/* alignment utility applied per element */
+.card-el.al-left{text-align:left;}
+.card-el.al-right{text-align:right;}
+.card-el.al-center{text-align:center;}
  
 /* ── DRAG HINT ── */
 .card-drag-hint{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);font-size:6.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;color:rgba(255,255,255,.9);background:rgba(0,0,0,.32);padding:3px 10px;border-radius:10px;pointer-events:none;transition:opacity .3s;white-space:nowrap;z-index:20;}
@@ -293,8 +295,8 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
 .card-body{font-size:9px;letter-spacing:.06em;line-height:2;opacity:.62;margin-bottom:8px;position:relative;z-index:1;}
 .card-date{font-family:'Cormorant Garamond',serif;font-size:.84rem;font-weight:300;margin-bottom:4px;opacity:.88;position:relative;z-index:1;}
 .card-from{font-size:9px;letter-spacing:.1em;opacity:.45;margin-top:10px;font-style:italic;position:relative;z-index:1;}
-.card-rsvp{display:none;font-size:8px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:10px;position:relative;z-index:1;}
-.card-rsvp.vis{display:block;}
+.card-rsvp{font-size:8px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:10px;position:relative;z-index:1;}
+ 
 .card-rsvp-deadline{display:none;font-size:8px;letter-spacing:.08em;opacity:.4;position:relative;z-index:1;}
 .card-rsvp-deadline.vis{display:block;}
 .card-stamp{position:absolute;bottom:10px;right:10px;width:20px;height:20px;opacity:.15;z-index:3;}
@@ -839,13 +841,15 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
     <!-- RSVP -->
     <div class="form-section">
       <div class="fs-title"><span class="fs-num">✉</span>RSVP</div>
-      <div class="rsvp-toggle-row" id="rsvp-toggle" onclick="toggleRsvp()">
-        <span class="rsvp-toggle-label"><span style="font-size:16px;">📩</span> Include RSVP on the invitation</span>
-        <div class="rsvp-switch"></div>
+      <div class="field">
+        <label>RSVP wording (shown on card)</label>
+        <input type="text" id="f-rsvp-text" placeholder="e.g. RSVP" value="RSVP" oninput="updateCard()"/>
+        <p class="hint">Edit the RSVP label shown on the invitation</p>
       </div>
-      <div class="rsvp-fields" id="rsvp-fields">
-        <div class="field"><label>RSVP by (deadline)</label><input type="text" id="f-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateCard()"/><p class="hint">Shown on the invitation card</p></div>
-        <div class="field"><label>Your email (for RSVP responses)</label><input type="email" id="f-rsvp-email" placeholder="Guests will reply directly to this email"/><p class="hint">When guests tap Yes / No / Maybe, their response emails you directly</p></div>
+      <div class="field">
+        <label>RSVP by (deadline)</label>
+        <input type="text" id="f-rsvp-deadline" placeholder="e.g. 1st June 2025" oninput="updateCard()"/>
+        <p class="hint">Leave blank to hide the deadline</p>
       </div>
     </div>
  
@@ -907,47 +911,42 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
         <!-- Foil sheen -->
         <div class="card-foil" id="card-foil"></div>
  
-        <!-- DRAGGABLE TEXT BLOCK — contains everything readable -->
-        <div id="card-text-block" style="top:50%;left:50%;transform:translate(-50%,-50%);">
+        <!-- INDEPENDENTLY DRAGGABLE CARD ELEMENTS -->
+        <!-- Each element can be dragged freely anywhere on the card -->
  
-          <!-- Photo (portrait / shape) — shown inside text block when "Add photo" toggled -->
-          <div class="card-photo-wrap hide" id="card-photo-wrap" style="margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
-            <div class="card-ph sh-circle" id="card-ph">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Photo</span>
-            </div>
-            <img class="card-photo sh-circle" id="card-photo" src="" alt="" style="display:none;"/>
-          </div>
- 
-          <!-- Eyebrow -->
+        <div class="card-el" id="el-eyebrow" style="top:8%;left:50%;transform:translateX(-50%);text-align:center;">
           <div class="card-eyebrow" id="card-eyebrow">You're Invited</div>
- 
-          <!-- Divider top -->
           <div class="card-divider-el" id="card-div-top"><div class="div-line-el" style="width:40px;"></div></div>
+        </div>
  
-          <!-- Name -->
+        <div class="card-el" id="el-name" style="top:22%;left:50%;transform:translateX(-50%);text-align:center;">
           <div class="card-name" id="card-name">Your Name</div>
- 
-          <!-- Headline -->
           <div class="card-headline" id="card-headline">A Special Celebration</div>
- 
-          <!-- Divider mid -->
           <div class="card-divider-el" id="card-div-mid"><div class="div-line-el" style="width:40px;"></div></div>
+        </div>
  
-          <!-- Venue -->
+        <div class="card-el" id="el-details" style="top:50%;left:50%;transform:translateX(-50%);text-align:center;">
           <div class="card-body"><span id="card-venue">Join us for a celebration to remember</span></div>
- 
-          <!-- Date -->
           <div class="card-date" id="card-date">Date &amp; Time</div>
+        </div>
  
-          <!-- From -->
+        <div class="card-el" id="el-from" style="bottom:18%;left:50%;transform:translateX(-50%);text-align:center;">
           <div class="card-from" id="card-from"></div>
+        </div>
  
-          <!-- RSVP -->
-          <div class="card-rsvp" id="card-rsvp">RSVP</div>
+        <div class="card-el" id="el-rsvp" style="bottom:7%;left:50%;transform:translateX(-50%);text-align:center;">
+          <div class="card-rsvp vis" id="card-rsvp">RSVP</div>
           <div class="card-rsvp-deadline" id="card-rsvp-deadline"></div>
+        </div>
  
-        </div><!-- /card-text-block -->
+        <!-- Photo (draggable separately) -->
+        <div class="card-el card-photo-wrap hide" id="card-photo-wrap" style="top:10%;left:50%;transform:translateX(-50%);">
+          <div class="card-ph sh-circle" id="card-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Photo</span>
+          </div>
+          <img class="card-photo sh-circle" id="card-photo" src="" alt="" style="display:none;"/>
+        </div>
  
         <!-- Stamp -->
         <div class="card-stamp"><img src="logo-m.png" alt="M" id="stamp-img"/></div>
@@ -1202,9 +1201,9 @@ function changeSize(key,delta){
  
 function applyTextColor(color){
   const ci = document.getElementById('card-inner');
-  const tb = document.getElementById('card-text-block');
   ci.style.color = color;
-  if(tb) tb.style.color = color;
+  // Apply to all draggable elements
+  document.querySelectorAll('.card-el').forEach(el => el.style.color = color);
   // Apply to every text element individually so nothing is missed
   ['card-name','card-headline','card-eyebrow','card-date','card-body',
    'card-venue','card-from','card-rsvp','card-rsvp-deadline'].forEach(id=>{
@@ -1250,23 +1249,29 @@ function setPos(el,pos){
   document.querySelectorAll('.pos-chip').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   S.pos = pos;
-  const tb = document.getElementById('card-text-block');
-  const presets = {
-    'pos-top':       {top:'10%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'0', aln:'al-center'},
-    'pos-center':    {top:'50%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'-50%', aln:'al-center'},
-    'pos-bottom':    {top:'auto',left:'50%', right:'auto', bottom:'10%', tx:'-50%', ty:'0', aln:'al-center'},
-    'pos-top-left':  {top:'10%', left:'5%',  right:'auto', bottom:'auto', tx:'0', ty:'0', aln:'al-left'},
-    'pos-top-right': {top:'10%', left:'auto',right:'5%',   bottom:'auto', tx:'0', ty:'0', aln:'al-right'},
-    'pos-split':     {top:'12%', left:'50%', right:'auto', bottom:'auto', tx:'-50%', ty:'0', aln:'al-center'},
+  // Reset all elements to their default stacked positions
+  const defaults = {
+    'el-eyebrow': {top:'8%',   left:'50%', tx:'-50%'},
+    'el-name':    {top:'22%',  left:'50%', tx:'-50%'},
+    'el-details': {top:'50%',  left:'50%', tx:'-50%'},
+    'el-from':    {top:'72%',  left:'50%', tx:'-50%'},
+    'el-rsvp':    {top:'83%',  left:'50%', tx:'-50%'},
   };
-  const p = presets[pos] || presets['pos-center'];
-  tb.style.top=p.top; tb.style.bottom=p.bottom;
-  tb.style.left=p.left; tb.style.right=p.right;
-  tb.style.transform=`translate(${p.tx},${p.ty})`;
-  const ci = document.getElementById('card-inner');
-  alnClasses.forEach(c=>ci.classList.remove(c));
-  ci.classList.add(p.aln);
-  isDragged = false;
+  // Adjust for left/right presets
+  const leftOffset  = pos === 'pos-top-left'  ? '5%'  : '50%';
+  const rightOffset = pos === 'pos-top-right' ? '95%' : null;
+  const tx = (pos==='pos-top-left'||pos==='pos-top-right') ? '0' : '-50%';
+  Object.entries(defaults).forEach(([id, d])=>{
+    const el2 = document.getElementById(id);
+    if(!el2) return;
+    el2.style.transform = `translateX(${tx})`;
+    el2.style.left  = rightOffset ? 'auto' : leftOffset;
+    el2.style.right = rightOffset || 'auto';
+    el2.style.top   = d.top;
+    el2.style.bottom = 'auto';
+    alnClasses.forEach(c=>el2.classList.remove(c));
+    el2.classList.add(pos.includes('left')?'al-left':pos.includes('right')?'al-right':'al-center');
+  });
 }
 const alnClasses = ['al-left','al-center','al-right'];
 function setAlign(el,aln){
@@ -1327,15 +1332,7 @@ function toggleCustom(){
   document.getElementById('custom-box').classList.toggle('vis');
 }
  
-/* ── RSVP ── */
-let rsvpEnabled = false;
-function toggleRsvp(){
-  rsvpEnabled = !rsvpEnabled;
-  document.getElementById('rsvp-toggle').classList.toggle('on',rsvpEnabled);
-  document.getElementById('rsvp-fields').classList.toggle('vis',rsvpEnabled);
-  document.getElementById('card-rsvp').classList.toggle('vis',rsvpEnabled);
-  updateCard();
-}
+/* ── RSVP is always visible — no toggle needed ── */
  
 /* ── PHOTO ── */
 function handlePhoto(e){
@@ -1352,7 +1349,7 @@ function handlePhoto(e){
     document.getElementById('photo-shapes').style.display = 'flex';
   };
   r.readAsDataURL(file);
-  document.getElementById('card-photo-wrap').classList.remove('hide');
+  const pw=document.getElementById('card-photo-wrap'); pw.classList.remove('hide'); pw.style.display='flex';
 }
 function setPhotoShape(el,shape){
   document.querySelectorAll('.psb').forEach(b=>b.classList.remove('on'));
@@ -1366,17 +1363,20 @@ function setPhotoShape(el,shape){
  
 /* ── UPDATE CARD TEXT ── */
 function updateCard(){
-  const v = id => document.getElementById(id).value;
-  document.getElementById('card-name').textContent    = v('f-name')    || 'Your Name';
-  document.getElementById('card-headline').textContent= v('f-headline')|| 'A Special Celebration';
-  document.getElementById('card-date').textContent    = v('f-date')    || 'Date & Time';
-  document.getElementById('card-venue').textContent   = v('f-venue')   || 'Join us for a celebration to remember';
-  document.getElementById('card-from').textContent    = v('f-from') ? 'With love, '+v('f-from') : '';
-  if(rsvpEnabled){
+  const v = id => { const el=document.getElementById(id); return el?el.value:''; };
+  document.getElementById('card-name').textContent     = v('f-name')     || 'Your Name';
+  document.getElementById('card-headline').textContent = v('f-headline') || 'A Special Celebration';
+  document.getElementById('card-date').textContent     = v('f-date')     || 'Date & Time';
+  document.getElementById('card-venue').textContent    = v('f-venue')    || 'Join us for a celebration to remember';
+  document.getElementById('card-from').textContent     = v('f-from') ? 'With love, '+v('f-from') : '';
+  // RSVP — always shown, just update text
+  const rsvpEl = document.getElementById('card-rsvp');
+  if(rsvpEl) rsvpEl.textContent = v('f-rsvp-text') || 'RSVP';
+  const dl = document.getElementById('card-rsvp-deadline');
+  if(dl){
     const deadline = v('f-rsvp-deadline');
-    const dl = document.getElementById('card-rsvp-deadline');
     dl.textContent = deadline ? 'Kindly reply by '+deadline : '';
-    dl.classList.toggle('vis',!!deadline);
+    dl.classList.toggle('vis', !!deadline);
   }
 }
  
@@ -1415,39 +1415,53 @@ function submitOrder(){
   document.getElementById('success-modal').classList.add('vis');
 }
  
-/* ── DRAG TO REPOSITION ── */
-let isDragged = false;
+/* ── INDEPENDENT ELEMENT DRAG ── */
 (function initDrag(){
-  const tb   = document.getElementById('card-text-block');
   const card = document.getElementById('inv-card');
-  let dragging=false, ox=0, oy=0;
+  let active = null, ox = 0, oy = 0;
  
-  function startDrag(cx,cy){
-    const tr = tb.getBoundingClientRect();
-    ox = cx - tr.left; oy = cy - tr.top;
-    dragging = true; isDragged = true;
-    tb.style.cursor = 'grabbing';
-    tb.style.transition = 'none';
-    tb.style.transform = 'none';
+  function startDrag(el, cx, cy){
+    active = el;
+    const r = el.getBoundingClientRect();
+    ox = cx - r.left; oy = cy - r.top;
+    el.style.transition = 'none';
+    el.style.transform  = 'none';
+    el.style.bottom     = 'auto';
+    el.style.cursor     = 'grabbing';
   }
-  function moveDrag(cx,cy){
-    if(!dragging) return;
+ 
+  function moveDrag(cx, cy){
+    if(!active) return;
     const cr = card.getBoundingClientRect();
-    const tw = tb.offsetWidth, th = tb.offsetHeight;
+    const ew = active.offsetWidth, eh = active.offsetHeight;
     let x = cx - cr.left - ox;
     let y = cy - cr.top  - oy;
-    x = Math.max(0, Math.min(cr.width  - tw, x));
-    y = Math.max(0, Math.min(cr.height - th, y));
-    tb.style.left   = x+'px'; tb.style.top  = y+'px';
-    tb.style.right  = 'auto'; tb.style.bottom = 'auto';
+    x = Math.max(0, Math.min(cr.width  - ew, x));
+    y = Math.max(0, Math.min(cr.height - eh, y));
+    active.style.left = x + 'px';
+    active.style.top  = y + 'px';
   }
-  function endDrag(){ dragging=false; tb.style.cursor='grab'; tb.style.transition=''; }
  
-  tb.addEventListener('mousedown', e=>{ startDrag(e.clientX,e.clientY); e.preventDefault(); });
-  window.addEventListener('mousemove', e=>moveDrag(e.clientX,e.clientY));
+  function endDrag(){
+    if(active){ active.style.cursor = 'grab'; active = null; }
+  }
+ 
+  // Attach to card — delegate to .card-el children
+  card.addEventListener('mousedown', e => {
+    const el = e.target.closest('.card-el');
+    if(el){ startDrag(el, e.clientX, e.clientY); e.preventDefault(); }
+  });
+  window.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
   window.addEventListener('mouseup', endDrag);
-  tb.addEventListener('touchstart', e=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); },{passive:true});
-  window.addEventListener('touchmove', e=>{ if(!dragging) return; const t=e.touches[0]; moveDrag(t.clientX,t.clientY); e.preventDefault(); },{passive:false});
+ 
+  card.addEventListener('touchstart', e => {
+    const el = e.target.closest('.card-el');
+    if(el){ const t=e.touches[0]; startDrag(el, t.clientX, t.clientY); }
+  }, {passive:true});
+  window.addEventListener('touchmove', e => {
+    if(!active) return;
+    const t=e.touches[0]; moveDrag(t.clientX, t.clientY); e.preventDefault();
+  }, {passive:false});
   window.addEventListener('touchend', endDrag);
 })();
  
