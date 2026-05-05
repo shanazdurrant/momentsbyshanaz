@@ -46,24 +46,13 @@
       background: rgba(250,248,244,0.95);
       backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
-      padding: 16px 40px;
-      height: auto;
-      min-height: 88px;
-      transition: padding 0.4s ease;
+      padding: 0 40px;
+      height: 56px;
+      transition: all 0.4s ease;
       box-shadow: 0 1px 0 rgba(0,0,0,0.04);
     }
-    nav.scrolled { padding: 8px 40px; }
-    nav .logo {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center;
-      overflow: visible;
-    }
-    nav .logo img {
-      height: 120px;
-      transition: height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.3s ease;
-    }
-    nav.scrolled .logo img { height: 56px; }
-    nav .nav-links { display: flex; gap: 36px; align-items: center; margin-left: auto; }
+    nav.scrolled { height: 48px; }
+    nav .nav-links { display: flex; gap: 36px; align-items: center; }
     nav .nav-links a {
       font-family: 'Jost', sans-serif;
       font-size: 13px;
@@ -93,7 +82,7 @@
       min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center;
-      padding: 120px 40px 80px;
+      padding: 80px 40px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -102,11 +91,18 @@
       position: absolute; inset: 0;
       background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(184,146,74,0.06), transparent);
     }
-    .hero-ornament {
-      font-size: 13px;
-      letter-spacing: 0.25em;
-      color: var(--gold);
+    .hero-logo {
+      width: 200px;
+      height: 200px;
       margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 20px rgba(184,146,74,0.15));
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -313,7 +309,7 @@
     footer p { font-size: 12px; color: var(--soft); letter-spacing: 0.1em; }
 
     @media (max-width: 768px) {
-      nav { padding: 0 20px; }
+      nav { padding: 0 20px; height: 48px; }
       nav .nav-links { display: none; }
       section { padding: 60px 20px; }
       .how-wrap { grid-template-columns: 1fr 1fr; }
@@ -324,19 +320,21 @@
 
   <!-- NAV -->
   <nav>
-    <div class="logo">
-      <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></a>
-    </div>
     <div class="nav-links">
       <a href="/order.html">Scratchcards</a>
       <a href="/invitation.html">Invitations</a>
       <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
-      </div>
+    </div>
+    <a href="/admin.html" class="admin-link" style="position:absolute;right:40px;" aria-label="Admin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </a>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <p class="hero-ornament">Digital Keepsakes · Made With Care</p>
+    <div class="hero-logo">
+      <img src="logo-main.png" alt="Moments by Shanaz — Digital Keepsakes, Made With Care" />
+    </div>
     <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
     <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
     <div class="hero-divider-line"></div>
