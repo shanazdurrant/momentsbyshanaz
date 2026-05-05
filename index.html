@@ -233,14 +233,9 @@
       padding: 36px 28px;
       text-align: center;
       box-shadow: 0 16px 48px rgba(44,40,37,.2);
+      position: relative;
     }
-    .flip-back::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(184,146,74,.12), transparent 70%);
-      z-index: 0;
-    }
+    /* flip-back::before removed */
     .flip-back-eyebrow {
       font-size: 9px;
       letter-spacing: .32em;
@@ -367,11 +362,11 @@
 
           <!-- Front: Proposal.jpg image -->
           <div class="flip-front">
-            <div class="flip-front-visual" style="background:#f0ebe0;">
-              <img src="Proposal.jpg" alt="Scratchcard reveal example"
-                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"/>
-              <!-- Gold "Scratch to reveal" overlay badge -->
-              <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(44,40,37,.55);backdrop-filter:blur(4px);padding:5px 14px;border-radius:20px;white-space:nowrap;">
+            <div class="flip-front-visual" style="background-image:url('Proposal.jpg');background-size:cover;background-position:center;background-color:#f0e8d8;">
+              <!-- Fallback gradient shown if Proposal.jpg not yet in repo -->
+              <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(253,248,240,0) 0%,rgba(240,230,200,0) 100%);"></div>
+              <!-- Gold scratch badge -->
+              <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(44,40,37,.55);backdrop-filter:blur(4px);padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:2;">
                 <span style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85);">Scratch to reveal</span>
               </div>
             </div>
