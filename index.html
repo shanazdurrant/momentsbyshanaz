@@ -59,10 +59,10 @@
       overflow: visible;
     }
     nav .logo img {
-      height: 200px;
+      height: 120px;
       transition: height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.3s ease;
     }
-    nav.scrolled .logo img { height: 80px; }
+    nav.scrolled .logo img { height: 56px; }
     nav .nav-links { display: flex; gap: 36px; align-items: center; margin-left: auto; }
     nav .nav-links a {
       font-family: 'Jost', sans-serif;
@@ -204,7 +204,7 @@
     }
 
     /* HOW IT WORKS */
-    .how-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .how-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
     .step { border-top: 1px solid var(--gold); padding-top: 32px; }
     .step-num {
       font-family: 'Cormorant Garamond', serif;
@@ -235,7 +235,7 @@
       nav { padding: 0 20px; }
       nav .nav-links { display: none; }
       section { padding: 60px 20px; }
-      .how-wrap { grid-template-columns: 1fr; }
+      .how-wrap { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -258,7 +258,7 @@
     <p class="hero-ornament">Digital Keepsakes · Made With Care</p>
     <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
     <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
-    <span class="divider">✦</span>
+    <div class="hero-divider-line"></div>
   </div>
 
   <!-- SERVICES TILES -->
@@ -269,7 +269,9 @@
 
       <!-- SCRATCHCARD — clickable -->
       <a href="/order.html" class="tile clickable">
-        <div class="tile-icon">✨</div>
+        <div class="tile-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold)"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 14h4M6 17h2" stroke-dasharray="2 1"/></svg>
+          </div>
         <div class="tile-name">Scratchcard Reveals</div>
         <div class="tile-status available">Available Now</div>
         <span class="tile-arrow">→</span>
@@ -277,60 +279,150 @@
 
       <!-- INVITATIONS — clickable -->
       <a href="/invitation.html" class="tile clickable">
-        <div class="tile-icon">💌</div>
+        <div class="tile-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
         <div class="tile-name">Digital Invitations</div>
         <div class="tile-status available">Available Now</div>
         <span class="tile-arrow">→</span>
       </a>
 
-      <div class="tile">
-        <div class="tile-icon">💍</div>
-        <div class="tile-name">Wedding Experiences</div>
-        <div class="tile-status soon">Coming Soon</div>
+
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section style="padding:72px 40px;text-align:center;background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <p class="section-label">Pricing</p>
+    <h2 class="section-title">Simple, <em>honest pricing</em></h2>
+    <p style="font-size:14px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is crafted by hand and delivered within hours. No hidden fees — what you see is what you pay.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto 32px;">
+
+      <!-- Scratchcard -->
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
+        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Scratchcard Reveal</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£5</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">per card</div>
+        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Fully personalised message</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ One Big Reveal or Three Match</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Shareable link — works on any device</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within hours</p>
+        </div>
+        <a href="/order.html" style="display:block;margin-top:24px;background:var(--char);color:var(--cream);padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--char)'">Order Now</a>
       </div>
 
-      <div class="tile">
-        <div class="tile-icon">🎉</div>
-        <div class="tile-name">Birthday Reveals</div>
-        <div class="tile-status soon">Coming Soon</div>
+      <!-- Invitation Preset -->
+      <div style="background:var(--cream);border:1px solid var(--gold);border-radius:8px;padding:32px 24px;text-align:center;position:relative;box-shadow:0 8px 32px rgba(184,146,74,.12);">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 14px;border-radius:10px;white-space:nowrap;">Most Popular</div>
+        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Digital Invitation</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£8</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">per invitation</div>
+        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Choose from 10 signature styles</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Personalised with your details</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Shareable preview link for client</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within hours</p>
+        </div>
+        <a href="/invitation.html" style="display:block;margin-top:24px;background:var(--gold);color:#fff;padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--char)'" onmouseout="this.style.background='var(--gold)'">Order Now</a>
       </div>
 
-      <div class="tile">
-        <div class="tile-icon">🎄</div>
-        <div class="tile-name">Digital Advent</div>
-        <div class="tile-status soon">Coming Soon</div>
+      <!-- Bespoke -->
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
+        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Bespoke Invitation</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£15</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">from</div>
+        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Fully custom design from scratch</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Your theme, characters &amp; photos</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Unlimited revisions until perfect</p>
+          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within 24 hours</p>
+        </div>
+        <a href="/invitation.html#bespoke" style="display:block;margin-top:24px;background:var(--char);color:var(--cream);padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--char)'">Get a Quote</a>
       </div>
 
     </div>
+    <p style="font-size:11px;color:var(--soft);margin-top:8px;line-height:1.8;">Also available on <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Etsy</a> · Pay securely through the platform you trust most</p>
   </section>
 
   <!-- HOW IT WORKS -->
   <section>
     <p class="section-label">The Process</p>
     <h2 class="section-title">How it <em>works</em></h2>
-    <div class="how-wrap">
+    <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">You can order directly here or through Etsy — either way, I'll craft your item by hand and deliver it within hours.</p>
+    <div class="how-wrap" style="grid-template-columns:repeat(4,1fr);">
       <div class="step">
         <div class="step-num">01</div>
-        <h3>Choose your experience</h3>
-        <p>Pick from scratchcards, invitations and more based on the moment you want to create.</p>
+        <h3>Choose &amp; personalise</h3>
+        <p>Pick your product, fill in all the details — names, message, occasion — using the form on this site.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <h3>Personalise your message</h3>
-        <p>Add names, headlines, and the details that make it uniquely theirs.</p>
+        <h3>Pay securely</h3>
+        <p>You'll be directed to Etsy to complete payment — fast, safe and familiar. Or find me directly on Etsy to browse and pay there.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <h3>Receive your digital reveal</h3>
-        <p>Crafted by hand and delivered in hours — ready to share with the person who matters.</p>
+        <h3>I craft your item</h3>
+        <p>Once payment is confirmed I get to work — your order is crafted by hand and unique to you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Delivered to you</h3>
+        <p>Your finished, watermark-free digital item arrives in your inbox — ready to share within hours.</p>
       </div>
     </div>
+
+    <!-- Two-path callout -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:40px auto 0;">
+      <div style="border:1px solid var(--border);border-radius:6px;padding:20px 22px;text-align:left;">
+        <div style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Found us on Google or social?</div>
+        <p style="font-size:12px;color:var(--mid);line-height:1.8;margin-bottom:12px;">Fill in your details on our order form, then you'll be taken to Etsy to pay. Your order details come straight to us — nothing gets lost.</p>
+        <a href="/order.html" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;">Start your order →</a>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:20px 22px;text-align:left;">
+        <div style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Already on Etsy?</div>
+        <p style="font-size:12px;color:var(--mid);line-height:1.8;margin-bottom:12px;">Purchase through our Etsy shop, then come back here to fill in your personalisation details. Pop your Etsy order number in the form so I can match everything up.</p>
+        <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;">Visit Etsy shop →</a>
+      </div>
+    </div>
+
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></div>
     <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
+
+    <!-- Social links -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/yourmoments_bys?igsh=MWJleTJva2UzYjNyZA==" target="_blank" rel="noopener" aria-label="Follow Moments by Shanaz on Instagram"
+         style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--soft)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/people/Moments-by-Shanaz/61558569213927/" target="_blank" rel="noopener" aria-label="Find Moments by Shanaz on Facebook"
+         style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--soft)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Facebook
+      </a>
+
+      <!-- Etsy -->
+      <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" aria-label="Shop Moments by Shanaz on Etsy"
+         style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--soft)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V10h2v6zm0-8H9V6h2v2zm4 8h-2v-3.5c0-.83-.67-1.5-1.5-1.5S10 13.67 10 14.5V16H8v-6h2v1.1c.52-.84 1.38-1.1 2-1.1 1.66 0 3 1.34 3 3V16z"/></svg>
+        Etsy Shop
+      </a>
+    </div>
     <p style="margin-top:12px;">
       <a href="mailto:hello@momentsbyshanaz.co.uk" style="color:var(--gold);text-decoration:none;font-size:13px;letter-spacing:0.06em;">hello@momentsbyshanaz.co.uk</a>
     </p>
