@@ -93,22 +93,7 @@
     /* PREVIEW COLUMN */
     .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
     .card-wrap { position: relative; }
-    /* Client-matching scratch canvas styles */
-    .scratch-single { position:absolute; inset:0; z-index:5; touch-action:none; cursor:grab; }
-    .scratch-single:active { cursor:grabbing; }
-    .scratch-single canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
-    .scratch-single-hint { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; z-index:6; text-align:center; }
-    .scratch-single-hint .icon-big { font-size:28px; margin-bottom:8px; animation:gentleBob 2s ease-in-out infinite; }
-    @keyframes gentleBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
-    .scratch-single-hint .title { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
-    .scratch-single-hint .sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; letter-spacing:1px; opacity:.7; }
-    .scratch-single-hint.faded { opacity:0; transition:opacity .4s; }
-    .tri-panel { position:relative; width:80px; height:80px; border-radius:50%; overflow:hidden; flex-shrink:0; }
-    .tri-panel canvas { position:absolute; inset:0; width:100%; height:100%; display:block; border-radius:50%; }
-    .tri-panel-content { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:28px; z-index:0; }
-    .tri-ping { position:absolute; inset:0; border-radius:50%; border:2px solid var(--gold); opacity:0; }
-    .tri-ping.active { animation:triPing .6s ease-out forwards; }
-    @keyframes triPing { 0%{opacity:.8;transform:scale(1)} 100%{opacity:0;transform:scale(1.4)} }
+    /* scratch CSS now matches order.html exactly — see injected block below */
     .scratch-reset-btn {
       margin-top: 10px;
       background: none;
@@ -169,13 +154,175 @@
       .layout { grid-template-columns: 1fr; }
       .preview-col { display: none; }
     }
+  
+    /* ── SCRATCH PREVIEW (copied from order.html) ── */
+.preview-card{
+  max-width:360px;margin:0 auto;
+  aspect-ratio:3/4;
+  border-radius:6px;
+  position:relative;overflow:hidden;
+  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
+  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
+  transition:box-shadow 0.6s,background 0.8s ease;
+}
+
+/* ══ BACKGROUND IMAGES ══ */
+.theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
+.theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-girl{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-holiday{background-image:url('Holiday.jpg');background-size:cover;background-position:center;}
+.theme-pregnancy{background-image:url('image.png');background-size:cover;background-position:center;}
+.theme-wedding{background-image:url('Wedding.jpg');background-size:cover;background-position:center;}
+.theme-birthday{background-image:url('birthday.jpg');background-size:cover;background-position:center;}
+.theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
+.theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
+
+.theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
+.theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
+
+/* ══ WATERMARK ══ */
+.preview-card::after{
+  content:'PREVIEW';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,10vw,72px);font-weight:500;letter-spacing:14px;
+  color:rgba(168,136,67,0.28);transform:rotate(-22deg);
+  pointer-events:none;z-index:10;
+  text-shadow:0 2px 4px rgba(255,255,255,0.5);
+}
+.preview-card::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(-22deg,transparent 0,transparent 50px,rgba(168,136,67,0.05) 50px,rgba(168,136,67,0.05) 52px);
+  pointer-events:none;z-index:9;
+}
+
+/* ══ M STAMP ══ */
+.m-stamp{
+  position:absolute;bottom:16px;right:16px;
+  width:32px;height:32px;opacity:0.18;
+  pointer-events:none;z-index:8;
+}
+.m-stamp img{width:100%;height:100%;object-fit:contain;}
+
+/* ══ REVEAL LAYER ══ */
+.reveal-layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;color:var(--theme-text,var(--ink));z-index:2;gap:0;}
+.reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:10px;opacity:0.9;}
+.reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,30px);font-weight:500;line-height:1.2;margin-bottom:14px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
+.reveal-divider-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 12px;}
+.reveal-divider-wrap .line{width:30px;height:1px;background:var(--gold);}
+.reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:260px;}
+.reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:12px;margin-bottom:4px;}
+.reveal-signoff{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
+.reveal-signoff-name{font-family:'Allura',cursive;font-size:36px;color:var(--gold-deep);line-height:1;}
+.reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.reveal-signoff-leaf .line{width:18px;height:1px;background:var(--gold);opacity:0.6;}
+
+/* ══ REVEAL ANIMATIONS ══ */
+@keyframes textReveal{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:translateY(0);}}
+.preview-card.just-revealed .reveal-greeting{animation:textReveal 0.45s cubic-bezier(.16,1,.3,1) 0.35s both;}
+.preview-card.just-revealed .reveal-headline{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both;}
+.preview-card.just-revealed .reveal-divider-wrap{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
+.preview-card.just-revealed .reveal-text{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.75s both;}
+.preview-card.just-revealed .reveal-date{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
+.preview-card.just-revealed .reveal-signoff{animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;}
+.preview-card.just-revealed .reveal-signoff-name{animation:signatureBreath 5s ease-in-out 2s infinite;}
+@keyframes signatureBreath{0%,100%{opacity:0.85;text-shadow:0 2px 8px rgba(201,169,97,0.15);}50%{opacity:1;text-shadow:0 2px 14px rgba(201,169,97,0.45);}}
+
+/* ══ FRAME CORNERS ══ */
+.frame-corner{position:absolute;width:42px;height:42px;pointer-events:none;z-index:6;opacity:0;transition:opacity 0.8s ease 0.6s;}
+.preview-card.just-revealed .frame-corner{opacity:0.9;}
+.frame-corner.tl{top:8px;left:8px;}
+.frame-corner.tr{top:8px;right:8px;transform:scaleX(-1);}
+.frame-corner.bl{bottom:8px;left:8px;transform:scaleY(-1);}
+.frame-corner.br{bottom:8px;right:8px;transform:scale(-1,-1);}
+
+/* Wax seal */
+.frame-seal{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) scale(0.4) rotate(-12deg);width:44px;height:44px;opacity:0;pointer-events:none;z-index:7;filter:drop-shadow(0 3px 6px rgba(74,18,41,0.35));transition:opacity 0.6s ease 1.2s,transform 0.8s cubic-bezier(.34,1.56,.64,1) 1.2s;}
+.preview-card.just-revealed .frame-seal{opacity:1;transform:translateX(-50%) scale(1) rotate(-6deg);}
+.preview-card.just-revealed .frame-seal{bottom:62px;}
+
+/* Replay */
+.replay-invitation{position:absolute;bottom:18px;left:50%;transform:translateX(-50%) translateY(8px);display:flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(250,246,240,0.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(201,169,97,0.35);border-radius:100px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:1.5px;color:var(--gold-deep);cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.6s ease 1.8s,transform 0.6s cubic-bezier(.34,1.56,.64,1) 1.8s,background 0.3s,color 0.3s,border-color 0.3s;z-index:8;white-space:nowrap;user-select:none;}
+.replay-invitation .replay-arrow{font-size:15px;display:inline-block;transition:transform 0.5s;}
+.replay-invitation:hover{background:var(--gold);color:var(--ivory);border-color:var(--gold);}
+.replay-invitation:hover .replay-arrow{transform:rotate(-360deg);}
+.preview-card.just-revealed .replay-invitation{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Flash */
+.card-flash{position:absolute;inset:0;background:radial-gradient(circle at center,var(--gold-shimmer) 0%,var(--gold-light) 30%,transparent 70%);opacity:0;pointer-events:none;z-index:8;}
+.card-flash.active{animation:flashBurst 1.2s cubic-bezier(.16,1,.3,1);}
+@keyframes flashBurst{0%{opacity:0;transform:scale(0.5);}30%{opacity:0.7;transform:scale(1);}100%{opacity:0;transform:scale(1.3);}}
+
+/* Ambient motes */
+.ambient-motes{position:absolute;inset:0;pointer-events:none;z-index:11;opacity:0;transition:opacity 1.2s ease;overflow:hidden;}
+.preview-card.just-revealed .ambient-motes{opacity:1;transition-delay:1.8s;}
+.mote{position:absolute;width:3px;height:3px;background:radial-gradient(circle,rgba(232,212,160,0.95) 0%,rgba(201,169,97,0.6) 40%,transparent 70%);border-radius:50%;filter:blur(0.3px);animation:moteDrift linear infinite;will-change:transform,opacity;}
+@keyframes moteDrift{0%{transform:translate(0,100%) scale(0.6);opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{transform:translate(var(--mx,20px),-20%) scale(1);opacity:0;}}
+
+/* Confetti */
+.confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;}
+.confetti-piece{position:absolute;top:-40px;will-change:transform;animation:confettiFall linear forwards;}
+.confetti-piece svg{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 3px rgba(60,40,20,0.25));}
+@keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}}
+
+/* ══ SCRATCH LAYER (single) ══ */
+.scratch-single{position:absolute;inset:0;z-index:5;touch-action:none;cursor:grab;}
+.scratch-single:active{cursor:grabbing;}
+.scratch-single canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none;}
+.scratch-single-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:6;text-align:center;}
+.scratch-single-hint .icon-big{font-size:28px;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));animation:gentleBob 2s ease-in-out infinite;}
+@keyframes gentleBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.scratch-single-hint .title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.scratch-single-hint .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--ink-soft);letter-spacing:1px;}
+.scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
+.triple-wrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:30px 24px 24px;}
+.triple-header{text-align:center;margin-bottom:auto;padding-bottom:16px;}
+.triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--ink-soft);font-style:italic;letter-spacing:1px;}
+.triple-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:auto 0;padding:0 4px;}
+.tri-panel{aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,0.3) 0%,transparent 45%),radial-gradient(circle at 70% 75%,rgba(255,255,255,0.1) 0%,transparent 45%),linear-gradient(135deg,var(--gold-deep) 0%,var(--gold) 40%,var(--gold-light) 55%,var(--gold) 70%,var(--gold-deep) 100%);background-size:150% 150%;animation:shimmer 8s ease-in-out infinite;box-shadow:inset 0 2px 4px rgba(255,255,255,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),0 6px 14px rgba(201,169,97,0.35);cursor:grab;touch-action:none;overflow:hidden;}
+.tri-panel:active{cursor:grabbing;}
+.tri-panel:nth-child(2){animation-delay:-2.5s;}
+.tri-panel:nth-child(3){animation-delay:-5s;}
+.tri-panel canvas{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:50%;outline:none;}
+.tri-panel-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;z-index:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));}
+.tri-panel.just-revealed{animation:panelReveal 0.6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes panelReveal{0%{transform:scale(1);}50%{transform:scale(1.15);box-shadow:0 10px 30px rgba(201,169,97,0.6),0 0 40px rgba(232,212,160,0.8);}100%{transform:scale(1);}}
+.tri-ping{position:absolute;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;border:2px solid var(--gold);border-radius:50%;opacity:0;pointer-events:none;z-index:5;}
+.tri-ping.active{animation:triPingExpand 1s cubic-bezier(.16,1,.3,1);}
+@keyframes triPingExpand{0%{opacity:0;transform:scale(0.3);border-width:3px;}40%{opacity:0.9;border-width:2px;}100%{opacity:0;transform:scale(3);border-width:0.5px;}}
+  
+    /* Winner + confetti from order.html */
+    .confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;}
+    .confetti-piece{position:absolute;top:-40px;will-change:transform;animation:confettiFall linear forwards;}
+    @keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}}
+    .winner-message{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;background:transparent;opacity:0;pointer-events:none;transition:opacity .8s cubic-bezier(.16,1,.3,1) .3s;z-index:4;gap:6px;}
+    .winner-message.show{opacity:1;}
+    .winner-message .reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--gold-deep);letter-spacing:1.5px;opacity:0.9;}
+    .winner-message .reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,28px);font-weight:500;line-height:1.2;margin:6px 0 10px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
+    .winner-message .reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:240px;}
+    .winner-message .reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:8px;}
+    .winner-message .reveal-signoff{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+    .winner-message .reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
+    .winner-message .reveal-signoff-name{font-family:'Allura',cursive;font-size:32px;color:var(--gold-deep);line-height:1;}
+    .winner-message .reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:3px;}
+    .winner-message .reveal-signoff-leaf .line{width:14px;height:1px;background:var(--gold);opacity:0.6;}
+    @keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}
+      /* Accessibility */
+    .skip-link{position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;letter-spacing:.06em;text-decoration:none;z-index:9999;transition:top .2s;}
+    .skip-link:focus{top:0;}
+    *:focus-visible{outline:2px solid #b8924a;outline-offset:3px;border-radius:2px;}
+    button:focus-visible,a:focus-visible{outline:2px solid #b8924a;outline-offset:3px;}
   </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-brand">
-    <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+    <img src="logo-horizontal.png" alt="Moments by Shanaz"/>
     <span class="nav-tag">Scratchcard Builder</span>
   </div>
   <a href="/admin.html">← Admin Home</a>
@@ -191,7 +338,7 @@
       <div class="ctrl-label">Order Details</div>
       <div class="field">
         <label>Customer name</label>
-        <input type="text" id="customerName" placeholder="e.g. Sarah Ahmed" />
+        <input type="text" id="customerName" aria-label="Customer full name" placeholder="e.g. Sarah Ahmed" />
       </div>
       <div class="field">
         <label>Customer email</label>
@@ -298,45 +445,71 @@
     <div class="preview-title">✦ Live Preview — No Watermark ✦</div>
     <div class="card-wrap">
       <div class="preview-card theme-proposal" id="previewCard">
-        <div class="card-tint"></div>
-        <div class="card-frame"></div>
 
-        <!-- Single layout content -->
-        <div class="card-content" id="cardContent">
-          <div class="card-greeting" id="pGreeting">For Amelia</div>
-          <div class="card-headline" id="pHeadline">Will you marry me?</div>
-          <div class="card-date" id="pDate" style="display:none;"></div>
-          <div class="card-divider"><span class="line"></span><svg width="12" height="5" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
-          <div class="card-message" id="pMessage">Your message will appear here.</div>
-          <div class="card-signoff" id="pSignoff" style="display:none;">
-            <div class="card-signoff-prefix">with love,</div>
-            <div class="card-signoff-name" id="pSig"></div>
+        <!-- Reveal layer (single layout) -->
+        <div class="reveal-layer" id="revealLayer">
+          <div class="reveal-greeting" id="pGreeting">For Amelia</div>
+          <div class="reveal-headline" id="pHeadline">Will you marry me?</div>
+          <div class="reveal-date" id="pDate" style="display:none;"></div>
+          <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
+          <div class="reveal-text" id="pMessage">Your message will appear here.</div>
+          <div class="reveal-signoff" id="pSignoff" style="display:none;">
+            <div class="reveal-signoff-prefix">with love,</div>
+            <div class="reveal-signoff-name" id="pSig"></div>
           </div>
         </div>
 
-        <!-- Triple layout — with scratchable canvas circles -->
-        <div class="triple-inner" id="tripleInner" style="display:none;">
-          <div class="th">✦ Scratch &amp; Match ✦</div>
-          <div class="triple-circles">
-            <div class="tri-panel" data-idx="0"><div class="tri-panel-content" id="tc0">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-            <div class="tri-panel" data-idx="1"><div class="tri-panel-content" id="tc1">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-            <div class="tri-panel" data-idx="2"><div class="tri-panel-content" id="tc2">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-          </div>
-          <div class="triple-foot">Scratch all three to reveal</div>
-        </div>
-
-        <!-- Single scratch layer — client-matching canvas -->
+        <!-- Single scratch canvas -->
         <div class="scratch-single" id="scratchSingle">
           <canvas id="singleCanvas"></canvas>
           <div class="scratch-single-hint" id="singleHint">
             <div class="icon-big" id="hintIcon">💍</div>
-            <div class="title">Scratch Here</div>
-            <div class="sub">Drag to reveal</div>
+            <div class="title">Scratch to Reveal</div>
+            <div class="sub">Use your finger or mouse</div>
           </div>
         </div>
 
-        <!-- Seal — no watermark on admin -->
-        <svg class="card-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
+        <!-- Triple match layout -->
+        <div class="triple-wrap" id="tripleWrap" style="display:none;">
+          <div class="triple-header">
+            <div class="title">✦ Scratch &amp; Match ✦</div>
+            <div class="sub">Scratch all three to reveal</div>
+          </div>
+          <div class="triple-panels" id="triplePanels">
+            <div class="tri-panel" data-idx="0"><div class="tri-panel-content" id="tc0">💍</div><canvas></canvas><div class="tri-ping"></div></div>
+            <div class="tri-panel" data-idx="1"><div class="tri-panel-content" id="tc1">💍</div><canvas></canvas><div class="tri-ping"></div></div>
+            <div class="tri-panel" data-idx="2"><div class="tri-panel-content" id="tc2">💍</div><canvas></canvas><div class="tri-ping"></div></div>
+          </div>
+          <div class="triple-footer"><div class="triple-status" id="tripleStatus">0 of 3 matched</div></div>
+        </div>
+
+        <!-- M Stamp — no watermark text -->
+        <div class="m-stamp"><img src="logo-m.png" alt="" aria-hidden="true"/></div>
+
+        <!-- Frame corners -->
+        <svg class="frame-corner tl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+        <svg class="frame-corner tr" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+        <svg class="frame-corner bl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+        <svg class="frame-corner br" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+
+        <div class="card-flash" id="cardFlash"></div>
+        <div class="ambient-motes" id="ambientMotes"></div>
+        <!-- Winner message overlay -->
+        
+        <!-- Winner message — same structure as order.html -->
+        <div class="winner-message" id="winnerMessage">
+          <div class="reveal-greeting" id="wGreeting"></div>
+          <div class="reveal-headline" id="wHeadline"></div>
+          <div class="reveal-text" id="wMessage"></div>
+          <div class="reveal-date" id="wDate" style="display:none;"></div>
+          <div class="reveal-signoff" id="wSignoff" style="display:none;">
+            <div class="reveal-signoff-prefix">with love,</div>
+            <div class="reveal-signoff-name" id="wSig"></div>
+            <div class="reveal-signoff-leaf"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
+          </div>
+        </div>
+        <!-- Confetti layer -->
+        <div class="confetti-layer" id="confettiLayer"></div>
       </div>
     </div>
 
@@ -352,6 +525,7 @@
 </div>
 
 <script>
+
 // ══════ STATE ══════
 const S = {
   occasion: 'proposal', icon: '💍', layout: 'single',
@@ -373,7 +547,7 @@ function selectOcc(el) {
   }
   hInput.placeholder = el.dataset.headline;
   updatePreview();
-  setTimeout(resetScratch, 80);
+  setTimeout(()=>{ resetScratch(); }, 80);
 }
 
 // ══════ LAYOUT ══════
@@ -396,22 +570,36 @@ function updatePreview() {
   const sig       = document.getElementById('signature').value || '';
   const wDate     = document.getElementById('weddingDate').value || '';
 
-  document.getElementById('pGreeting').textContent = 'For ' + recipient;
-  document.getElementById('pHeadline').textContent = headline;
-  document.getElementById('pMessage').textContent  = message;
+  document.getElementById('rGreeting').textContent = 'For ' + recipient;
+  document.getElementById('rHeadline').textContent = headline;
+  document.getElementById('rMessage').textContent  = message;
 
-  const pDate = document.getElementById('pDate');
+  const pDate = document.getElementById('rDate');
   if (S.occasion === 'wedding' && wDate) { pDate.textContent = wDate; pDate.style.display = 'block'; }
   else pDate.style.display = 'none';
 
-  const pSig = document.getElementById('pSignoff');
-  if (sig) { pSig.style.display = 'flex'; document.getElementById('pSig').textContent = sig; }
+  const pSig = document.getElementById('rSignoff');
+  if (sig) { pSig.style.display = 'flex'; document.getElementById('rSig').textContent = sig; }
   else pSig.style.display = 'none';
 
   // Triple circles icon
   ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).textContent = S.icon);
 
-  // Layout display is handled entirely by updateAdminLayout() — not here
+  // Update triple icons
+  ['tc0','tc1','tc2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=S.icon; });
+  // Populate winner message with same content as reveal layer
+  const g = id => document.getElementById(id);
+  if(g('wGreeting'))  g('wGreeting').textContent  = g('pGreeting')?.textContent || '';
+  if(g('wHeadline'))  g('wHeadline').textContent  = g('pHeadline')?.textContent || '';
+  if(g('wMessage'))   g('wMessage').textContent   = g('pMessage')?.textContent  || '';
+  if(g('wDate'))      { g('wDate').textContent    = g('pDate')?.textContent || ''; g('wDate').style.display = g('pDate')?.style.display || 'none'; }
+  if(g('wSignoff'))   g('wSignoff').style.display = g('pSignoff')?.style.display || 'none';
+  if(g('wSig'))       g('wSig').textContent       = g('pSig')?.textContent || '';
+  const _s=(a,b)=>{const ea=document.getElementById(a),eb=document.getElementById(b);if(ea&&eb)eb.textContent=ea.textContent;};
+  _s('rGreeting','wGreeting');_s('rHeadline','wHeadline');_s('rMessage','wMessage');
+  const hi=document.getElementById('hintIcon');if(hi)hi.textContent=S.icon;
+  ['tc0','tc1','tc2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=S.icon;});
+  // Layout handled by updateAdminLayout
 }
 
 // ══════ GENERATE CUSTOMER LINK ══════
@@ -459,19 +647,23 @@ document.getElementById('headline').addEventListener('input', function() {
 });
 updatePreview();
 
-/* ══════ SCRATCH ENGINE — matches client card exactly, no watermark ══════ */
-let panelsRevealed = [false,false,false];
+/* ══════ SCRATCH ENGINE — direct from order.html ══════ */
+let panelsRevealed = [false, false, false];
 let winnerShown = false;
 
 function paintGoldOverlay(ctx,w,h){
-  ctx.globalCompositeOperation='source-over';
   const grad=ctx.createLinearGradient(0,0,w,h);
-  grad.addColorStop(0,'#a88843'); grad.addColorStop(0.3,'#c9a961');
-  grad.addColorStop(0.5,'#e8d4a0'); grad.addColorStop(0.7,'#c9a961');
+  grad.addColorStop(0,'#a88843');
+  grad.addColorStop(0.3,'#c9a961');
+  grad.addColorStop(0.5,'#e8d4a0');
+  grad.addColorStop(0.7,'#c9a961');
   grad.addColorStop(1,'#a88843');
-  ctx.fillStyle=grad; ctx.fillRect(0,0,w,h);
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,w,h);
+  // Highlight
   const hg=ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
-  hg.addColorStop(0,'rgba(255,255,255,0.25)'); hg.addColorStop(1,'rgba(255,255,255,0)');
+  hg.addColorStop(0,'rgba(255,255,255,0.25)');
+  hg.addColorStop(1,'rgba(255,255,255,0)');
   ctx.fillStyle=hg; ctx.fillRect(0,0,w,h);
 }
 
@@ -481,13 +673,19 @@ function setupSingleCanvas(){
   const canvas=document.getElementById('singleCanvas'); if(!canvas) return;
   const ctx=canvas.getContext('2d');
   const rect=canvas.getBoundingClientRect();
-  if(rect.width===0||rect.height===0){ setTimeout(setupSingleCanvas,150); return; }
+  if(rect.width===0||rect.height===0){
+    // Element not visible yet — try again shortly
+    setTimeout(setupSingleCanvas, 150); return;
+  }
   const dpr=window.devicePixelRatio||1;
   canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
   ctx.scale(dpr,dpr);
+
+  // Fill with opaque gold overlay BEFORE any scratching
   ctx.globalCompositeOperation='source-over';
   paintGoldOverlay(ctx,rect.width,rect.height);
-  let isDrawing=false,lastX,lastY;
+
+  let isDrawing=false,lastX,lastY,revealed=false;
   const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
   const scratch=e=>{
     if(!isDrawing) return; e.preventDefault();
@@ -497,56 +695,41 @@ function setupSingleCanvas(){
     ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
     lastX=x; lastY=y;
     document.getElementById('singleHint').classList.add('faded');
+    checkSingleProgress(canvas,ctx);
   };
   const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
   const end=()=>{ isDrawing=false; };
-  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch);
-  canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
-  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false});
-  canvas.addEventListener('touchend',end);
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
+
+  function checkSingleProgress(cv,context){
+    if(revealed) return;
+    const img=context.getImageData(0,0,cv.width,cv.height); let transparent=0;
+    for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
+    if(transparent/(img.data.length/40)>0.4){
+      revealed=true; cv.style.transition='opacity 0.6s'; cv.style.opacity='0';
+      setTimeout(()=>{ cv.style.display='none'; },650);
+      document.getElementById('singleHint').style.display='none';
+      triggerFullReveal();
+    }
+  }
 }
 
 function setupTripleCanvases(){
-  panelsRevealed=[false,false,false]; winnerShown=false;
-  const panels = document.querySelectorAll('.tri-panel');
-  // Check first panel has size — if not, retry entire setup
-  const firstRect = panels[0]?.getBoundingClientRect();
-  if(!firstRect || firstRect.width===0){
-    setTimeout(setupTripleCanvases, 200); return;
-  }
-  panels.forEach((panel,idx)=>{
+  document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
     const canvas=panel.querySelector('canvas'); if(!canvas) return;
-    // Remove old listeners by replacing canvas with a clone
-    const newCanvas = canvas.cloneNode(false);
-    canvas.parentNode.replaceChild(newCanvas, canvas);
-    const ctx=newCanvas.getContext('2d');
-    const size=80; // fixed size matches CSS
+    const ctx=canvas.getContext('2d');
+    const rect=panel.getBoundingClientRect();
     const dpr=window.devicePixelRatio||1;
-    newCanvas.width=size*dpr; newCanvas.height=size*dpr;
+    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
+    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
     ctx.scale(dpr,dpr);
+    // Ensure we're in normal drawing mode then clip+paint gold
     ctx.globalCompositeOperation='source-over';
-    ctx.beginPath(); ctx.arc(size/2,size/2,size/2,0,Math.PI*2); ctx.clip();
-    paintGoldOverlay(ctx,size,size);
-    const canvas2=newCanvas; // reference for closures
-    let isDrawing=false,lastX,lastY;
-    const getPos=e=>{ const r=canvas2.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
-    const scratch=e=>{
-      if(!isDrawing) return; e.preventDefault();
-      const {x,y}=getPos(e);
-      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
-      ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
-      lastX=x; lastY=y;
-      if(!panelsRevealed[idx]){
-        const img=ctx.getImageData(0,0,canvas2.width,canvas2.height); let transparent=0;
-        for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-        if(transparent/(img.data.length/40)>0.5){
-          panelsRevealed[idx]=true; canvas2.style.transition='opacity 0.5s'; canvas2.style.opacity='0';
-          panel.classList.add('just-revealed');
-          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
-        }
-      }
-    };
-    let isDrawing=false,lastX,lastY;
+    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,rect.width,rect.height);
+
+    let isDrawing=false,lastX,lastY,revealed=false;
     const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
     const scratch=e=>{
       if(!isDrawing) return; e.preventDefault();
@@ -554,81 +737,120 @@ function setupTripleCanvases(){
       ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
       ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
       lastX=x; lastY=y;
-      if(!panelsRevealed[idx]){
+      if(!revealed){
         const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
         for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
         if(transparent/(img.data.length/40)>0.5){
-          panelsRevealed[idx]=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
+          revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
           panel.classList.add('just-revealed');
-          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
+          const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
+          panelsRevealed[idx]=true; checkWinner();
         }
       }
     };
     const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
     const end=()=>{ isDrawing=false; };
-    canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch);
-    canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
-    canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false});
-    canvas.addEventListener('touchend',end);
+    canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+    canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
   });
+  updateTripleStatus();
+}
+
+function checkWinner(){
+  updateTripleStatus();
+  if(panelsRevealed.filter(Boolean).length===3&&!winnerShown){
+    winnerShown=true;
+    setTimeout(()=>{ document.getElementById('tripleWrap').classList.add('winner'); setTimeout(()=>{ document.getElementById('winnerMessage').classList.add('show'); triggerFullReveal(); },400); },300);
+  }
+}
+
+function updateTripleStatus(){
+  const count=panelsRevealed.filter(Boolean).length;
+  const status=document.getElementById('tripleStatus');
+  if(count===0) status.textContent='0 of 3 matched';
+  else if(count<3) status.textContent=count+' of 3 matched…';
+  else status.textContent='✦ A perfect match ✦';
+}
+
+function triggerFullReveal(){
+  const card=document.getElementById('previewCard');
+  card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed');
+  const flash=document.getElementById('cardFlash'); flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active');
+  fireConfetti(); startAmbientMotes();
+}
+
+function fireConfetti(){
+  if(!document.getElementById('confettiToggle').classList.contains('on')) return;
+  const container=document.getElementById('confettiLayer'); if(!container) return;
+  const shapes=CONFETTI_SHAPES[state.occasion]||CONFETTI_SHAPES.custom;
+  container.innerHTML='';
+  for(let i=0;i<40;i++){
+    const piece=document.createElement('div'); piece.className='confetti-piece'; piece.innerHTML=shapes[Math.floor(Math.random()*shapes.length)];
+    const size=16+Math.random()*16,drift=(Math.random()-0.5)*120,spin=(Math.random()>0.5?1:-1)*(360+Math.random()*720),duration=2.5+Math.random()*2,delay=Math.random()*0.4;
+    piece.style.left=Math.random()*100+'%'; piece.style.width=size+'px'; piece.style.height=size+'px';
+    piece.style.setProperty('--drift',drift+'px'); piece.style.setProperty('--spin',spin+'deg');
+    piece.style.animationDuration=duration+'s'; piece.style.animationDelay=delay+'s';
+    container.appendChild(piece); setTimeout(()=>piece.remove(),(duration+delay)*1000+100);
+  }
+}
+
+function stopAmbientMotes(){
+  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
+  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
+}
+
+function startAmbientMotes(){
+  const container=document.getElementById('ambientMotes'); if(!container) return;
+  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
+  const spawn=()=>{
+    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
+    const mote=document.createElement('div'); mote.className='mote';
+    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
+    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
+    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
+    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
+  };
+  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
 }
 
 function resetScratch(){
-  // Reset single canvas
-  const sc=document.getElementById('singleCanvas');
-  if(sc){ const ctx=sc.getContext('2d'); const dpr=window.devicePixelRatio||1;
-    const w=sc.width/dpr; const h=sc.height/dpr;
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    paintGoldOverlay(ctx,w,h); }
-  document.getElementById('singleHint')?.classList.remove('faded');
-  // Reset triple canvases
-  document.querySelectorAll('.tri-panel').forEach(p=>{
-    p.classList.remove('just-revealed');
-    const c=p.querySelector('canvas');
-    if(c){ c.style.opacity='1'; c.style.transition='none'; }
-  });
-  if(S.layout === 'triple') setTimeout(setupTripleCanvases, 80);
+  // Reset composite ops before repaint
+  panelsRevealed=[false,false,false]; winnerShown=false;
+  document.getElementById('previewCard').classList.remove('just-revealed');
+  stopAmbientMotes();
+  document.getElementById('tripleWrap').classList.remove('winner');
+  document.getElementById('winnerMessage').classList.remove('show');
+  document.querySelectorAll('.tri-panel').forEach(p=>{ p.classList.remove('just-revealed'); const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; } });
+  document.querySelectorAll('.tri-ping').forEach(p=>p.classList.remove('active'));
+  document.getElementById('cardFlash').classList.remove('active');
+  document.getElementById('confettiLayer').innerHTML='';
+  const single=document.getElementById('singleCanvas');
+  if(single){ single.style.opacity='1'; single.style.transition='none'; single.style.display='block'; }
+  document.getElementById('singleHint').classList.remove('faded');
+  document.getElementById('singleHint').style.display='flex';
+  setTimeout(()=>initCanvases(),50);
 }
 
-// Update layout display — mirror client card logic
-function updateAdminLayout(){
-  const scratchSingle = document.getElementById('scratchSingle');
-  const tripleInner   = document.getElementById('tripleInner');
-  const cardContent   = document.getElementById('cardContent');
-
-  if(S.layout === 'triple'){
-    // Hide single elements, show triple
-    if(scratchSingle) scratchSingle.style.display = 'none';
-    if(cardContent)   cardContent.style.display   = 'none';
-    if(tripleInner)   tripleInner.style.display   = 'flex';
-    // Reset all triple panels
-    panelsRevealed = [false,false,false];
-    winnerShown    = false;
-    document.querySelectorAll('.tri-panel').forEach(p => {
-      p.classList.remove('just-revealed');
-      const c = p.querySelector('canvas');
-      if(c){ c.style.opacity='1'; c.style.transition='none'; }
-    });
-    // Small delay to ensure flex layout has rendered before measuring
-    setTimeout(setupTripleCanvases, 200);
+function updateAdminLayout() {
+  const ss = document.getElementById('scratchSingle');
+  const tw = document.getElementById('tripleWrap');
+  const rl = document.getElementById('revealLayer');
+  if (S.layout === 'triple') {
+    if (ss) ss.style.display = 'none';
+    if (rl) rl.style.display = 'none';
+    if (tw) tw.style.display = 'flex';
+    panelsRevealed = [false,false,false]; winnerShown = false;
+    setTimeout(() => { setupTripleCanvases(); updateTripleStatus(); }, 150);
   } else {
-    // Show single elements, hide triple
-    if(tripleInner)   tripleInner.style.display   = 'none';
-    if(cardContent)   cardContent.style.display   = 'flex';
-    if(scratchSingle) scratchSingle.style.display = 'block';
+    if (tw) tw.style.display = 'none';
+    if (rl) rl.style.display = 'flex';
+    if (ss) ss.style.display = 'block';
     setTimeout(setupSingleCanvas, 150);
   }
 }
 
-// Init on load
-requestAnimationFrame(()=>requestAnimationFrame(()=>{
-  setTimeout(()=>{
-    updateAdminLayout(); // sets correct display states then inits canvases
-  },150);
-}));
-window.addEventListener('resize',()=>setTimeout(initCanvases,250));
-
+requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(updateAdminLayout, 150)));
+window.addEventListener('resize', () => setTimeout(() => { resetScratch(); updateAdminLayout(); }, 250));
 </script>
-
 </body>
 </html>
