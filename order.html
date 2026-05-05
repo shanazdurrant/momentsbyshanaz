@@ -115,7 +115,7 @@ body::after{
 }
 .top-bar.scrolled{padding:8px 20px;}
 .top-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.top-bar-logo{height:160px;width:auto;display:block;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
+.top-bar-logo{height:120px;width:auto;display:block;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
 .top-bar-logo:hover{transform:scale(1.03);}
 .top-bar.scrolled .top-bar-logo{height:70px;}
 .top-bar-nav{display:flex;gap:28px;align-items:center;}
@@ -554,10 +554,53 @@ body::after{
         <div class="section-hint">So I can send your final card back to you.</div>
         <div class="form-row"><label>Your name</label><input type="text" id="yourName" placeholder="What should I call you?" maxlength="50" required></div>
         <div class="form-row"><label>Your email</label><input type="email" id="yourEmail" placeholder="you@example.com" required></div>
-        <div class="form-row"><label>Etsy order number <span class="required-note">If applicable</span></label><input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50"></div>
+
+        <!-- Etsy yes/no -->
+        <div class="form-row" style="margin-top:4px;">
+          <label style="margin-bottom:10px;display:block;">Have you already purchased on Etsy?</label>
+          <div style="display:flex;gap:10px;">
+            <button type="button" id="etsy-yes-btn" onclick="setEtsyAnswer(true)"
+              style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;background:var(--warm);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.06em;cursor:pointer;transition:all .2s;"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(!window.etsyPaid)this.style.borderColor='var(--border)'">
+              Yes, I've paid on Etsy
+            </button>
+            <button type="button" id="etsy-no-btn" onclick="setEtsyAnswer(false)"
+              style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;background:var(--warm);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.06em;cursor:pointer;transition:all .2s;"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(window.etsyPaid!==false)this.style.borderColor='var(--border)'">
+              No, not yet
+            </button>
+          </div>
+        </div>
+
+        <!-- If YES — show order number field -->
+        <div id="etsy-yes-panel" style="display:none;margin-top:2px;">
+          <div class="form-row">
+            <label>Your Etsy order number</label>
+            <input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50"/>
+            <span style="font-size:11px;color:var(--soft);margin-top:5px;display:block;line-height:1.6;">Found in your Etsy purchase confirmation email — helps me match your order instantly.</span>
+          </div>
+        </div>
+
+        <!-- If NO — explain what happens next -->
+        <div id="etsy-no-panel" style="display:none;margin-top:2px;">
+          <div style="background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.2);border-radius:4px;padding:14px 16px;">
+            <p style="font-size:12px;color:var(--mid);line-height:1.8;margin-bottom:0;">
+              No problem — click <strong>Submit &amp; Pay on Etsy</strong> below. Your order details will be sent to me straight away, then you'll be taken to my Etsy listing to complete payment securely. Once paid, I'll get started on your card.
+            </p>
+          </div>
+          <!-- order number not provided via Etsy -->
+        </div>
+
       </div>
 
-      <button class="submit-btn" onclick="submitOrder()" id="submitBtn">Send my order to Shanaz</button>
+      <!-- Submit buttons — shown based on Etsy answer -->
+      <div id="submit-already-paid" style="display:none;">
+        <button class="submit-btn" onclick="submitOrder(false)" id="submitBtn">Send my order to Shanaz ✦</button>
+      </div>
+      <div id="submit-pay-now" style="display:none;">
+        <button class="submit-btn" onclick="submitOrder(true)" id="submitBtnPay" style="background:var(--gold);">Submit &amp; Pay on Etsy ✦</button>
+        <p style="font-size:11px;color:var(--soft);text-align:center;margin-top:8px;line-height:1.6;">Your details are sent to me first, then you'll be redirected to Etsy to pay.</p>
+      </div>
     </div>
 
     <!-- ══ PREVIEW ══ -->
@@ -659,7 +702,7 @@ body::after{
   <div class="modal">
     <div class="modal-ornament">✦</div>
     <h2>Your order is on its <em>way to me</em></h2>
-    <p>I'll craft your scratchcard by hand and send the final link to your email within a few hours.</p>
+    <p>I'll craft your scratchcard by hand and send the final link to your email within a few hours.<span id="etsy-redirect-note" style="display:none;"> You'll be redirected to Etsy to complete payment in a moment...</span></p>
     <p style="font-size:13px;">Want to include a photo? Just reply to the confirmation email with it attached.</p>
     <button class="submit-btn" style="margin-top:10px;" onclick="document.getElementById('successModal').classList.remove('active');">Close</button>
     <div class="signature">Shanaz</div>
@@ -981,12 +1024,40 @@ function resetScratch(){
   setTimeout(()=>initCanvases(),50);
 }
 
-async function submitOrder(){
+/* ── ETSY YES/NO ── */
+window.etsyPaid = null;
+function setEtsyAnswer(paid){
+  window.etsyPaid = paid;
+  const yBtn = document.getElementById('etsy-yes-btn');
+  const nBtn = document.getElementById('etsy-no-btn');
+  const yPanel = document.getElementById('etsy-yes-panel');
+  const nPanel = document.getElementById('etsy-no-panel');
+  const sPaid = document.getElementById('submit-already-paid');
+  const sNow  = document.getElementById('submit-pay-now');
+
+  // Style buttons
+  yBtn.style.borderColor = paid ? 'var(--gold)' : 'var(--border)';
+  yBtn.style.background  = paid ? 'rgba(184,146,74,.08)' : 'var(--warm)';
+  yBtn.style.color       = paid ? 'var(--gold)' : '';
+  nBtn.style.borderColor = !paid ? 'var(--gold)' : 'var(--border)';
+  nBtn.style.background  = !paid ? 'rgba(184,146,74,.08)' : 'var(--warm)';
+  nBtn.style.color       = !paid ? 'var(--gold)' : '';
+
+  // Show panels
+  yPanel.style.display = paid ? 'block' : 'none';
+  nPanel.style.display = !paid ? 'block' : 'none';
+  sPaid.style.display  = paid ? 'block' : 'none';
+  sNow.style.display   = !paid ? 'block' : 'none';
+}
+
+async function submitOrder(redirectToEtsy = false){
   state.confetti=document.getElementById('confettiToggle').classList.contains('on');
   if(!state.yourName.trim()){ alert('Please add your name in section five so I know who to reply to.'); document.getElementById('yourName').focus(); return; }
   if(!state.yourEmail.trim()||!state.yourEmail.includes('@')){ alert('Please add a valid email in section five so I can send your final card.'); document.getElementById('yourEmail').focus(); return; }
   if(!state.headline.trim()){ alert('Please write a headline for the reveal in section three.'); document.getElementById('headline').focus(); return; }
-  const btn=document.getElementById('submitBtn'); btn.textContent='Sending…'; btn.disabled=true;
+  if(window.etsyPaid === null){ alert('Please let me know whether you have already paid on Etsy.'); return; }
+  const btn = redirectToEtsy ? document.getElementById('submitBtnPay') : document.getElementById('submitBtn');
+  btn.textContent='Sending…'; btn.disabled=true;
   const payload={timestamp:new Date().toISOString(),occasion:state.occasion,layout:state.layout,recipient:state.recipient,headline:state.headline,message:state.message,signature:state.signature,confetti:state.confetti,yourName:state.yourName,yourEmail:state.yourEmail,orderNumber:state.orderNumber,status:'pending'};
 
   // Save to Google Sheets (best effort)
@@ -994,34 +1065,23 @@ async function submitOrder(){
 
   // Email notification to Shanaz via EmailJS
   try {
-    const orderBody = [
-      '=== SCRATCHCARD ORDER ===',
-      '',
-      'From: '     + state.yourName,
-      'Email: '    + state.yourEmail,
-      'Etsy ref: ' + (state.orderNumber || 'none'),
-      '',
-      '--- ORDER DETAILS ---',
-      'Occasion: '  + state.occasion,
-      'Layout: '    + state.layout,
-      'For: '       + (state.recipient || 'not specified'),
-      'Headline: '  + state.headline,
-      'Message: '   + (state.message || 'none'),
-      'Signed: '    + (state.signature || 'none'),
-      'Confetti: '  + (state.confetti ? 'yes' : 'no'),
-      '',
-      'Submitted: ' + new Date().toLocaleString('en-GB')
-    ].join('\n');
-
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      to_name:    'Shanaz',
-      from_name:  state.yourName || 'Customer',
-      from_email: state.yourEmail,
-      subject:    '🎴 Scratchcard Order — ' + state.occasion + ' — ' + state.headline,
-      message:    orderBody,
       order_type: 'Scratchcard Order',
+      timestamp:  new Date().toLocaleString('en-GB'),
       name:       state.yourName,
       email:      state.yourEmail,
+      etsy_ref:   state.orderNumber || 'none',
+      occasion:   state.occasion,
+      layout:     state.layout,
+      style:      state.layout,
+      headline:   state.headline,
+      message:    state.message || 'none',
+      names:      state.recipient || 'not specified',
+      date:       'n/a',
+      venue:      'n/a',
+      extras:     'Signed: ' + (state.signature||'none') + ' | Confetti: ' + (state.confetti?'yes':'no'),
+      from_name:  state.yourName,
+      from_email: state.yourEmail,
       reply_to:   state.yourEmail,
     });
   } catch(e){ console.error('EmailJS notification failed:', e); }
@@ -1043,7 +1103,21 @@ async function submitOrder(){
     }
   } catch(e){ console.error('WhatsApp ping failed:', e); }
 
-  setTimeout(()=>{ document.getElementById('successModal').classList.add('active'); btn.textContent='Send my order to Shanaz'; btn.disabled=false; },800);
+  setTimeout(()=>{
+    if(redirectToEtsy){
+      // Show modal briefly then redirect
+      document.getElementById('successModal').classList.add('active');
+      document.getElementById('etsy-redirect-note').style.display = redirectToEtsy ? 'inline' : 'none';
+      setTimeout(()=>{
+        window.location.href = 'https://www.etsy.com/shop/momentsbyshanaz';
+      }, 3000);
+      btn.textContent = 'Redirecting to Etsy…';
+    } else {
+      document.getElementById('successModal').classList.add('active');
+      btn.textContent = 'Send my order to Shanaz';
+      btn.disabled = false;
+    }
+  }, 800);
 }
 </script>
 </body>
