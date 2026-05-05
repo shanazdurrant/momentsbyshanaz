@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
- 
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -16,7 +16,7 @@
       --border: #e8e2d9; --green: #3a7d57;
     }
     body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); font-weight: 300; min-height: 100vh; }
- 
+
     /* NAV */
     nav { background: rgba(250,248,244,0.96); backdrop-filter: blur(12px);  display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; position: sticky; top: 0; z-index: 50; }
     nav .nav-brand { display: flex; align-items: center; gap: 12px; }
@@ -24,18 +24,18 @@
     nav .nav-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); border-left: 1px solid var(--border); padding-left: 12px; }
     nav a { font-size: 12px; letter-spacing: 0.1em; color: var(--soft); text-decoration: none; text-transform: uppercase; }
     nav a:hover { color: var(--gold); }
- 
+
     /* LAYOUT */
     .layout { display: grid; grid-template-columns: 440px 1fr; gap: 0; min-height: calc(100vh - 64px); }
     .controls { border-right: 1px solid var(--border); padding: 32px 28px; overflow-y: auto; }
     .preview-col { padding: 40px 32px; background: #f5f2ed; display: flex; flex-direction: column; align-items: center; }
- 
+
     /* SECTION BLOCKS */
     .ctrl-section { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
     .ctrl-section:last-child { border-bottom: none; }
     .ctrl-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
     .ctrl-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
- 
+
     /* FORM ELEMENTS */
     .field { margin-bottom: 14px; }
     .field label { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
@@ -48,7 +48,7 @@
     }
     .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
     .field textarea { resize: vertical; min-height: 60px; }
- 
+
     /* OCCASION CHIPS */
     .occ-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
     .occ-chip { padding: 10px 6px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
@@ -56,7 +56,7 @@
     .occ-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.08); }
     .occ-icon { font-size: 18px; display: block; margin-bottom: 3px; }
     .occ-name { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
- 
+
     /* LAYOUT CHIPS */
     .layout-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .layout-chip { padding: 14px 10px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
@@ -68,7 +68,7 @@
     .layout-panel { background: linear-gradient(135deg, #c9a961, #a88843); border-radius: 2px; }
     .layout-chip[data-layout="single"] .layout-panel { width: 36px; height: 24px; }
     .layout-chip[data-layout="triple"] .layout-panel { width: 14px; height: 14px; border-radius: 50%; }
- 
+
     /* TOGGLE */
     .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 3px; background: white; margin-bottom: 8px; }
     .toggle-info { font-size: 13px; color: var(--charcoal); }
@@ -77,9 +77,9 @@
     .tog::before { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
     .tog.on { background: var(--gold); }
     .tog.on::before { transform: translateX(18px); }
- 
+
     /* EMAIL PANEL */
- 
+
     /* BUTTONS */
     .btn { width: 100%; padding: 13px; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; }
     .btn-primary { background: var(--charcoal); color: var(--cream); }
@@ -89,10 +89,35 @@
     .btn-green { background: rgba(58,125,87,0.1); border: 1px solid rgba(58,125,87,0.35); color: var(--green); }
     .btn-green:hover { background: rgba(58,125,87,0.18); }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; }
- 
+
     /* PREVIEW COLUMN */
     .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
     .card-wrap { position: relative; }
+    /* Scratch overlay canvas */
+    #scratchOverlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: crosshair;
+      touch-action: none;
+      border-radius: inherit;
+    }
+    .scratch-reset-btn {
+      margin-top: 10px;
+      background: none;
+      border: 1px solid var(--gold);
+      border-radius: 3px;
+      padding: 6px 18px;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .scratch-reset-btn:hover { background: var(--gold); color: #fff; }
+
     .preview-card {
       width: 340px; aspect-ratio: 3/4; border-radius: 6px;
       position: relative; overflow: hidden;
@@ -107,10 +132,10 @@
     .theme-birthday { background-image: url('birthday.jpg'); background-size: cover; background-position: center; }
     .theme-christmas { background-image: url('christmas.jpg'); background-size: cover; background-position: center; }
     .theme-custom { background-image: url('Other.jpg'); background-size: cover; background-position: center; }
- 
+
     .card-tint { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(253,251,246,0.2) 0%, rgba(250,246,240,0.08) 40%, rgba(242,236,223,0.22) 100%); z-index: 1; }
     .card-frame { position: absolute; inset: 12px; border: 1px solid rgba(201,169,97,0.3); border-radius: 1px; z-index: 2; pointer-events: none; }
- 
+
     /* No watermark on admin version */
     .card-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; z-index: 3; gap: 0; }
     .card-greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #a88843; letter-spacing: 1.5px; margin-bottom: 8px; opacity: 0.9; }
@@ -123,16 +148,16 @@
     .card-signoff-prefix { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: rgba(44,40,37,0.6); letter-spacing: 1.5px; }
     .card-signoff-name { font-family: 'Allura', cursive; font-size: 34px; color: #a88843; line-height: 1; }
     .card-seal { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; z-index: 4; opacity: 0.75; }
- 
+
     /* TRIPLE LAYOUT */
     .triple-inner { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; padding: 28px 20px 20px; }
     .triple-inner .th { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 3px; text-transform: uppercase; margin-bottom: auto; padding-bottom: 12px; }
     .triple-circles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: auto 0; }
     .tri-circle { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: linear-gradient(135deg, #a88843, #c9a961, #e8d4a0, #c9a961, #a88843); box-shadow: 0 4px 12px rgba(201,169,97,0.4); }
     .triple-foot { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: rgba(44,40,37,0.5); padding-top: 16px; margin-top: auto; }
- 
+
     /* SEND SUCCESS */
- 
+
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
       .preview-col { display: none; }
@@ -140,7 +165,7 @@
   </style>
 </head>
 <body>
- 
+
 <nav>
   <div class="nav-brand">
     <img src="logo-horizontal.png" alt="Moments by Shanaz" />
@@ -148,12 +173,12 @@
   </div>
   <a href="/admin.html">← Admin Home</a>
 </nav>
- 
+
 <div class="layout">
- 
+
   <!-- ══ CONTROLS ══ -->
   <div class="controls">
- 
+
     <!-- ORDER REF -->
     <div class="ctrl-section">
       <div class="ctrl-label">Order Details</div>
@@ -170,7 +195,7 @@
         <input type="text" id="orderRef" placeholder="e.g. 1234567890" />
       </div>
     </div>
- 
+
     <!-- OCCASION -->
     <div class="ctrl-section">
       <div class="ctrl-label">Occasion</div>
@@ -185,7 +210,7 @@
         <div class="occ-chip" data-occ="custom" data-icon="✨" data-headline="A little something for you" onclick="selectOcc(this)"><span class="occ-icon">✨</span><span class="occ-name">Other</span></div>
       </div>
     </div>
- 
+
     <!-- LAYOUT -->
     <div class="ctrl-section">
       <div class="ctrl-label">Layout</div>
@@ -202,7 +227,7 @@
         </div>
       </div>
     </div>
- 
+
     <!-- MESSAGE -->
     <div class="ctrl-section">
       <div class="ctrl-label">The Message</div>
@@ -227,7 +252,7 @@
         <input type="text" id="signature" placeholder="e.g. James" oninput="updatePreview()" maxlength="30" />
       </div>
     </div>
- 
+
     <!-- FINISHING TOUCHES -->
     <div class="ctrl-section">
       <div class="ctrl-label">Finishing Touches</div>
@@ -236,7 +261,7 @@
         <div class="tog on" id="confettiToggle" onclick="this.classList.toggle('on')"></div>
       </div>
     </div>
- 
+
     <!-- SEND -->
     <div class="ctrl-section">
       <div class="ctrl-label">Send to Customer</div>
@@ -258,9 +283,9 @@
         </p>
       </div>
     </div>
- 
+
   </div>
- 
+
   <!-- ══ PREVIEW ══ -->
   <div class="preview-col">
     <div class="preview-title">✦ Live Preview — No Watermark ✦</div>
@@ -268,7 +293,7 @@
       <div class="preview-card theme-proposal" id="previewCard">
         <div class="card-tint"></div>
         <div class="card-frame"></div>
- 
+
         <!-- Single layout content -->
         <div class="card-content" id="cardContent">
           <div class="card-greeting" id="pGreeting">For Amelia</div>
@@ -281,7 +306,7 @@
             <div class="card-signoff-name" id="pSig"></div>
           </div>
         </div>
- 
+
         <!-- Triple layout -->
         <div class="triple-inner" id="tripleInner" style="display:none;">
           <div class="th">✦ Scratch &amp; Match ✦</div>
@@ -292,27 +317,33 @@
           </div>
           <div class="triple-foot">Scratch all three to reveal</div>
         </div>
- 
+
+        <!-- Scratch overlay canvas — gold layer on top that you can scratch away -->
+        <canvas id="scratchOverlay"></canvas>
+
         <!-- Seal -->
         <svg class="card-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
       </div>
     </div>
- 
+
     <!-- Note below card -->
-    <div style="margin-top:20px;padding:14px 20px;background:rgba(184,146,74,0.07);border:1px solid rgba(184,146,74,0.2);border-radius:4px;text-align:center;max-width:340px;">
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mid);line-height:1.6;">This is the final card your customer receives — fully scratchable, no watermark.</p>
+    <div style="margin-top:16px;text-align:center;">
+      <button class="scratch-reset-btn" onclick="resetAdminScratch()">↺ Reset scratch overlay</button>
+    </div>
+    <div style="margin-top:12px;padding:14px 20px;background:rgba(184,146,74,0.07);border:1px solid rgba(184,146,74,0.2);border-radius:4px;text-align:center;max-width:340px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mid);line-height:1.6;">Gold overlay covers the card as it would appear to your customer — scratch to preview the reveal.</p>
     </div>
   </div>
- 
+
 </div>
- 
+
 <script>
 // ══════ STATE ══════
 const S = {
   occasion: 'proposal', icon: '💍', layout: 'single',
   defaultHeadline: 'Will you marry me?'
 };
- 
+
 // ══════ OCCASION ══════
 function selectOcc(el) {
   document.querySelectorAll('.occ-chip').forEach(c => c.classList.remove('sel'));
@@ -329,7 +360,7 @@ function selectOcc(el) {
   hInput.placeholder = el.dataset.headline;
   updatePreview();
 }
- 
+
 // ══════ LAYOUT ══════
 function selectLayout(el) {
   document.querySelectorAll('.layout-chip').forEach(c => c.classList.remove('sel'));
@@ -337,40 +368,40 @@ function selectLayout(el) {
   S.layout = el.dataset.layout;
   updatePreview();
 }
- 
+
 // ══════ PREVIEW ══════
 function updatePreview() {
   const card = document.getElementById('previewCard');
   card.className = 'preview-card theme-' + S.occasion;
- 
+
   const recipient = document.getElementById('recipient').value || 'Amelia';
   const headline  = document.getElementById('headline').value  || S.defaultHeadline;
   const message   = document.getElementById('message').value   || 'Your message will appear here.';
   const sig       = document.getElementById('signature').value || '';
   const wDate     = document.getElementById('weddingDate').value || '';
- 
+
   document.getElementById('pGreeting').textContent = 'For ' + recipient;
   document.getElementById('pHeadline').textContent = headline;
   document.getElementById('pMessage').textContent  = message;
- 
+
   const pDate = document.getElementById('pDate');
   if (S.occasion === 'wedding' && wDate) { pDate.textContent = wDate; pDate.style.display = 'block'; }
   else pDate.style.display = 'none';
- 
+
   const pSig = document.getElementById('pSignoff');
   if (sig) { pSig.style.display = 'flex'; document.getElementById('pSig').textContent = sig; }
   else pSig.style.display = 'none';
- 
+
   // Triple circles icon
   ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).textContent = S.icon);
- 
+
   // Layout toggle
   const cc = document.getElementById('cardContent');
   const ti = document.getElementById('tripleInner');
   if (S.layout === 'triple') { cc.style.display = 'none'; ti.style.display = 'flex'; }
   else { cc.style.display = 'flex'; ti.style.display = 'none'; }
 }
- 
+
 // ══════ GENERATE CUSTOMER LINK ══════
 function generateScLink() {
   const recipient = document.getElementById('recipient').value.trim();
@@ -379,17 +410,17 @@ function generateScLink() {
   const sig       = document.getElementById('signature').value.trim();
   const wDate     = document.getElementById('weddingDate').value.trim();
   const confetti  = document.getElementById('confettiToggle').classList.contains('on');
- 
+
   const data = {
     occasion: S.occasion, icon: S.icon, layout: S.layout,
     recipient, headline, message, signature: sig,
     weddingDate: wDate, confetti
   };
- 
+
   try {
     const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
     const url = window.location.origin + '/order.html?reveal=' + encoded;
- 
+
     document.getElementById('sc-link-url').style.display = 'block';
     document.getElementById('sc-link-url').value = url;
     document.getElementById('sc-copy-btn').style.display = 'block';
@@ -398,7 +429,7 @@ function generateScLink() {
     alert('Could not generate link. Please check all fields are filled in.');
   }
 }
- 
+
 function copyScLink() {
   const ta = document.getElementById('sc-link-url');
   navigator.clipboard.writeText(ta.value).then(() => {
@@ -407,7 +438,7 @@ function copyScLink() {
     setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
   });
 }
- 
+
 // ══════ INIT ══════
 document.getElementById('headline').value = S.defaultHeadline;
 document.getElementById('headline').dataset.auto = 'true';
@@ -415,8 +446,89 @@ document.getElementById('headline').addEventListener('input', function() {
   delete this.dataset.auto;
 });
 updatePreview();
+
+/* ══════ SCRATCH OVERLAY ══════ */
+function paintAdminGold(ctx, w, h2) {
+  ctx.globalCompositeOperation = 'source-over';
+  const grad = ctx.createLinearGradient(0, 0, w, h2);
+  grad.addColorStop(0,   '#a88843');
+  grad.addColorStop(0.3, '#c9a961');
+  grad.addColorStop(0.5, '#e8d4a0');
+  grad.addColorStop(0.7, '#c9a961');
+  grad.addColorStop(1,   '#a88843');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h2);
+  const shine = ctx.createRadialGradient(w*0.3, h2*0.2, 0, w*0.3, h2*0.2, w*0.5);
+  shine.addColorStop(0, 'rgba(255,255,255,0.28)');
+  shine.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = shine;
+  ctx.fillRect(0, 0, w, h2);
+  ctx.fillStyle = 'rgba(100,70,10,0.45)';
+  ctx.font = 'italic 13px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Scratch to preview', w/2, h2/2);
+}
+
+function initAdminScratch() {
+  const canvas = document.getElementById('scratchOverlay');
+  if (!canvas) return;
+  const card = document.getElementById('previewCard');
+  const rect = card.getBoundingClientRect();
+  if (rect.width === 0) { setTimeout(initAdminScratch, 150); return; }
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = rect.width  * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width  = rect.width  + 'px';
+  canvas.style.height = rect.height + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  paintAdminGold(ctx, rect.width, rect.height);
+  let drawing = false, lx, ly;
+  const getPos = e => {
+    const r = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - r.left, y: src.clientY - r.top };
+  };
+  const doScratch = e => {
+    if (!drawing) return;
+    e.preventDefault();
+    const {x, y} = getPos(e);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 38; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
+    lx = x; ly = y;
+  };
+  canvas.addEventListener('mousedown',  e => { drawing=true; const p=getPos(e); lx=p.x; ly=p.y; doScratch(e); });
+  canvas.addEventListener('mousemove',  doScratch);
+  canvas.addEventListener('mouseup',    () => drawing=false);
+  canvas.addEventListener('mouseleave', () => drawing=false);
+  canvas.addEventListener('touchstart', e => { drawing=true; const p=getPos(e); lx=p.x; ly=p.y; }, {passive:true});
+  canvas.addEventListener('touchmove',  doScratch, {passive:false});
+  canvas.addEventListener('touchend',   () => drawing=false);
+}
+
+function resetAdminScratch() {
+  const canvas = document.getElementById('scratchOverlay');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.width / dpr;
+  const h2 = canvas.height / dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  paintAdminGold(ctx, w, h2);
+}
+
+// Init on load
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  initAdminScratch();
+  // Reset gold overlay whenever occasion or layout changes
+  document.querySelectorAll('.occ-chip, .layout-chip').forEach(btn => {
+    btn.addEventListener('click', () => setTimeout(resetAdminScratch, 100));
+  });
+}));
+window.addEventListener('resize', () => setTimeout(initAdminScratch, 250));
+
 </script>
- 
+
 </body>
 </html>
- 
