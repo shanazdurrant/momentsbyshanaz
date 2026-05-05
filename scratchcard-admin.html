@@ -93,15 +93,22 @@
     /* PREVIEW COLUMN */
     .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
     .card-wrap { position: relative; }
-    /* Scratch overlay canvas */
-    #scratchOverlay {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      cursor: crosshair;
-      touch-action: none;
-      border-radius: inherit;
-    }
+    /* Client-matching scratch canvas styles */
+    .scratch-single { position:absolute; inset:0; z-index:5; touch-action:none; cursor:grab; }
+    .scratch-single:active { cursor:grabbing; }
+    .scratch-single canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+    .scratch-single-hint { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; z-index:6; text-align:center; }
+    .scratch-single-hint .icon-big { font-size:28px; margin-bottom:8px; animation:gentleBob 2s ease-in-out infinite; }
+    @keyframes gentleBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+    .scratch-single-hint .title { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+    .scratch-single-hint .sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; letter-spacing:1px; opacity:.7; }
+    .scratch-single-hint.faded { opacity:0; transition:opacity .4s; }
+    .tri-panel { position:relative; aspect-ratio:1; border-radius:50%; overflow:hidden; }
+    .tri-panel canvas { position:absolute; inset:0; width:100%; height:100%; display:block; border-radius:50%; }
+    .tri-panel-content { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:28px; z-index:0; }
+    .tri-ping { position:absolute; inset:0; border-radius:50%; border:2px solid var(--gold); opacity:0; }
+    .tri-ping.active { animation:triPing .6s ease-out forwards; }
+    @keyframes triPing { 0%{opacity:.8;transform:scale(1)} 100%{opacity:0;transform:scale(1.4)} }
     .scratch-reset-btn {
       margin-top: 10px;
       background: none;
@@ -307,28 +314,35 @@
           </div>
         </div>
 
-        <!-- Triple layout -->
+        <!-- Triple layout — with scratchable canvas circles -->
         <div class="triple-inner" id="tripleInner" style="display:none;">
           <div class="th">✦ Scratch &amp; Match ✦</div>
           <div class="triple-circles">
-            <div class="tri-circle" id="tc0">💍</div>
-            <div class="tri-circle" id="tc1">💍</div>
-            <div class="tri-circle" id="tc2">💍</div>
+            <div class="tri-panel" data-idx="0"><div class="tri-panel-content" id="tc0">💍</div><canvas></canvas><div class="tri-ping"></div></div>
+            <div class="tri-panel" data-idx="1"><div class="tri-panel-content" id="tc1">💍</div><canvas></canvas><div class="tri-ping"></div></div>
+            <div class="tri-panel" data-idx="2"><div class="tri-panel-content" id="tc2">💍</div><canvas></canvas><div class="tri-ping"></div></div>
           </div>
           <div class="triple-foot">Scratch all three to reveal</div>
         </div>
 
-        <!-- Scratch overlay canvas — gold layer on top that you can scratch away -->
-        <canvas id="scratchOverlay"></canvas>
+        <!-- Single scratch layer — client-matching canvas -->
+        <div class="scratch-single" id="scratchSingle">
+          <canvas id="singleCanvas"></canvas>
+          <div class="scratch-single-hint" id="singleHint">
+            <div class="icon-big" id="hintIcon">💍</div>
+            <div class="title">Scratch Here</div>
+            <div class="sub">Drag to reveal</div>
+          </div>
+        </div>
 
-        <!-- Seal -->
+        <!-- Seal — no watermark on admin -->
         <svg class="card-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
       </div>
     </div>
 
     <!-- Note below card -->
     <div style="margin-top:16px;text-align:center;">
-      <button class="scratch-reset-btn" onclick="resetAdminScratch()">↺ Reset scratch overlay</button>
+      <button class="scratch-reset-btn" onclick="resetScratch()">↺ Reset scratch</button>
     </div>
     <div style="margin-top:12px;padding:14px 20px;background:rgba(184,146,74,0.07);border:1px solid rgba(184,146,74,0.2);border-radius:4px;text-align:center;max-width:340px;">
       <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mid);line-height:1.6;">Gold overlay covers the card as it would appear to your customer — scratch to preview the reveal.</p>
@@ -359,6 +373,7 @@ function selectOcc(el) {
   }
   hInput.placeholder = el.dataset.headline;
   updatePreview();
+  setTimeout(resetScratch, 80);
 }
 
 // ══════ LAYOUT ══════
@@ -367,6 +382,8 @@ function selectLayout(el) {
   el.classList.add('sel');
   S.layout = el.dataset.layout;
   updatePreview();
+  // Reinitialise scratch canvases for the newly shown layout
+  setTimeout(updateAdminLayout, 80);
 }
 
 // ══════ PREVIEW ══════
@@ -447,86 +464,140 @@ document.getElementById('headline').addEventListener('input', function() {
 });
 updatePreview();
 
-/* ══════ SCRATCH OVERLAY ══════ */
-function paintAdminGold(ctx, w, h2) {
-  ctx.globalCompositeOperation = 'source-over';
-  const grad = ctx.createLinearGradient(0, 0, w, h2);
-  grad.addColorStop(0,   '#a88843');
-  grad.addColorStop(0.3, '#c9a961');
-  grad.addColorStop(0.5, '#e8d4a0');
-  grad.addColorStop(0.7, '#c9a961');
-  grad.addColorStop(1,   '#a88843');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, w, h2);
-  const shine = ctx.createRadialGradient(w*0.3, h2*0.2, 0, w*0.3, h2*0.2, w*0.5);
-  shine.addColorStop(0, 'rgba(255,255,255,0.28)');
-  shine.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = shine;
-  ctx.fillRect(0, 0, w, h2);
-  ctx.fillStyle = 'rgba(100,70,10,0.45)';
-  ctx.font = 'italic 13px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Scratch to preview', w/2, h2/2);
+/* ══════ SCRATCH ENGINE — matches client card exactly, no watermark ══════ */
+let panelsRevealed = [false,false,false];
+let winnerShown = false;
+
+function paintGoldOverlay(ctx,w,h){
+  ctx.globalCompositeOperation='source-over';
+  const grad=ctx.createLinearGradient(0,0,w,h);
+  grad.addColorStop(0,'#a88843'); grad.addColorStop(0.3,'#c9a961');
+  grad.addColorStop(0.5,'#e8d4a0'); grad.addColorStop(0.7,'#c9a961');
+  grad.addColorStop(1,'#a88843');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,w,h);
+  const hg=ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
+  hg.addColorStop(0,'rgba(255,255,255,0.25)'); hg.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=hg; ctx.fillRect(0,0,w,h);
 }
 
-function initAdminScratch() {
-  const canvas = document.getElementById('scratchOverlay');
-  if (!canvas) return;
-  const card = document.getElementById('previewCard');
-  const rect = card.getBoundingClientRect();
-  if (rect.width === 0) { setTimeout(initAdminScratch, 150); return; }
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width  = rect.width  * dpr;
-  canvas.height = rect.height * dpr;
-  canvas.style.width  = rect.width  + 'px';
-  canvas.style.height = rect.height + 'px';
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-  paintAdminGold(ctx, rect.width, rect.height);
-  let drawing = false, lx, ly;
-  const getPos = e => {
-    const r = canvas.getBoundingClientRect();
-    const src = e.touches ? e.touches[0] : e;
-    return { x: src.clientX - r.left, y: src.clientY - r.top };
+function initCanvases(){ setupSingleCanvas(); setupTripleCanvases(); }
+
+function setupSingleCanvas(){
+  const canvas=document.getElementById('singleCanvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const rect=canvas.getBoundingClientRect();
+  if(rect.width===0||rect.height===0){ setTimeout(setupSingleCanvas,150); return; }
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+  ctx.scale(dpr,dpr);
+  ctx.globalCompositeOperation='source-over';
+  paintGoldOverlay(ctx,rect.width,rect.height);
+  let isDrawing=false,lastX,lastY;
+  const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
+  const scratch=e=>{
+    if(!isDrawing) return; e.preventDefault();
+    const {x,y}=getPos(e);
+    ctx.globalCompositeOperation='destination-out';
+    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=30;
+    ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+    lastX=x; lastY=y;
+    document.getElementById('singleHint').classList.add('faded');
   };
-  const doScratch = e => {
-    if (!drawing) return;
-    e.preventDefault();
-    const {x, y} = getPos(e);
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineWidth = 38; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
-    lx = x; ly = y;
-  };
-  canvas.addEventListener('mousedown',  e => { drawing=true; const p=getPos(e); lx=p.x; ly=p.y; doScratch(e); });
-  canvas.addEventListener('mousemove',  doScratch);
-  canvas.addEventListener('mouseup',    () => drawing=false);
-  canvas.addEventListener('mouseleave', () => drawing=false);
-  canvas.addEventListener('touchstart', e => { drawing=true; const p=getPos(e); lx=p.x; ly=p.y; }, {passive:true});
-  canvas.addEventListener('touchmove',  doScratch, {passive:false});
-  canvas.addEventListener('touchend',   () => drawing=false);
+  const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
+  const end=()=>{ isDrawing=false; };
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch);
+  canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false});
+  canvas.addEventListener('touchend',end);
 }
 
-function resetAdminScratch() {
-  const canvas = document.getElementById('scratchOverlay');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  const w = canvas.width / dpr;
-  const h2 = canvas.height / dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  paintAdminGold(ctx, w, h2);
+function setupTripleCanvases(){
+  panelsRevealed=[false,false,false]; winnerShown=false;
+  document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
+    const canvas=panel.querySelector('canvas'); if(!canvas) return;
+    const ctx=canvas.getContext('2d');
+    const rect=panel.getBoundingClientRect();
+    const dpr=window.devicePixelRatio||1;
+    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
+    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+    ctx.scale(dpr,dpr);
+    ctx.globalCompositeOperation='source-over';
+    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,rect.width,rect.height);
+    let isDrawing=false,lastX,lastY;
+    const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
+    const scratch=e=>{
+      if(!isDrawing) return; e.preventDefault();
+      const {x,y}=getPos(e);
+      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
+      ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+      lastX=x; lastY=y;
+      if(!panelsRevealed[idx]){
+        const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
+        for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
+        if(transparent/(img.data.length/40)>0.5){
+          panelsRevealed[idx]=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
+          panel.classList.add('just-revealed');
+          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
+        }
+      }
+    };
+    const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
+    const end=()=>{ isDrawing=false; };
+    canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch);
+    canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+    canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false});
+    canvas.addEventListener('touchend',end);
+  });
+}
+
+function resetScratch(){
+  // Reset single canvas
+  const sc=document.getElementById('singleCanvas');
+  if(sc){ const ctx=sc.getContext('2d'); const dpr=window.devicePixelRatio||1;
+    const w=sc.width/dpr; const h=sc.height/dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    paintGoldOverlay(ctx,w,h); }
+  document.getElementById('singleHint')?.classList.remove('faded');
+  // Reset triple canvases
+  document.querySelectorAll('.tri-panel').forEach(p=>{
+    p.classList.remove('just-revealed');
+    const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; }
+  });
+  setTimeout(setupTripleCanvases, 50);
+}
+
+// Update layout display — mirror client card logic
+function updateAdminLayout(){
+  const scratchSingle = document.getElementById('scratchSingle');
+  const tripleInner   = document.getElementById('tripleInner');
+  if(S.layout === 'triple'){
+    scratchSingle.style.display = 'none';
+    tripleInner.style.display   = 'flex';
+    // Reset panel state and re-init canvases after layout is visible
+    panelsRevealed = [false,false,false];
+    winnerShown    = false;
+    document.querySelectorAll('.tri-panel').forEach(p => {
+      p.classList.remove('just-revealed');
+      const c = p.querySelector('canvas');
+      if(c){ c.style.opacity='1'; c.style.transition='none'; }
+    });
+    setTimeout(setupTripleCanvases, 120);
+  } else {
+    scratchSingle.style.display = 'block';
+    tripleInner.style.display   = 'none';
+    setTimeout(setupSingleCanvas, 120);
+  }
 }
 
 // Init on load
-requestAnimationFrame(() => requestAnimationFrame(() => {
-  initAdminScratch();
-  // Reset gold overlay whenever occasion or layout changes
-  document.querySelectorAll('.occ-chip, .layout-chip').forEach(btn => {
-    btn.addEventListener('click', () => setTimeout(resetAdminScratch, 100));
-  });
+requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  setTimeout(()=>{
+    initCanvases();
+    updateAdminLayout();
+  },100);
 }));
-window.addEventListener('resize', () => setTimeout(initAdminScratch, 250));
+window.addEventListener('resize',()=>setTimeout(initCanvases,250));
 
 </script>
 
