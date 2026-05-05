@@ -128,8 +128,20 @@ footer a:hover{color:var(--gold);}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--char);color:var(--cream);padding:13px 28px;border-radius:4px;font-size:12px;letter-spacing:.08em;opacity:0;transition:all .35s;z-index:500;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(44,40,37,.25);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-@media(max-width:600px){.presets-grid{grid-template-columns:repeat(1,1fr);}.bespoke-demo{grid-template-columns:160px 1fr;}}
-@media(max-width:600px){nav{padding:0 20px;}nav .nav-links{gap:18px;}.hero{padding:110px 20px 56px;}.presets-grid{grid-template-columns:1fr;padding:0 20px 60px;}.how{padding:40px 20px 60px;}.how-steps{flex-direction:column;gap:24px;}.how-steps::before{display:none;}.bespoke{padding:60px 20px;}.bespoke-demo{grid-template-columns:1fr;}.bespoke-demo-card{max-width:160px;margin:0 auto;}footer{padding:36px 20px;}.of-row{grid-template-columns:1fr;}}
+@media(max-width:600px){
+    .mc-name{font-size:1.6rem!important;}
+    .mc-detail{font-size:11px!important;letter-spacing:.05em!important;}
+    .mc-eyebrow{font-size:9px!important;}
+    .mini-card{min-height:380px!important;}
+    .presets-grid{grid-template-columns:1fr!important;}
+    .presets-grid{grid-template-columns:repeat(1,1fr);}.bespoke-demo{grid-template-columns:160px 1fr;}}
+@media(max-width:600px){
+    .mc-name{font-size:1.6rem!important;}
+    .mc-detail{font-size:11px!important;letter-spacing:.05em!important;}
+    .mc-eyebrow{font-size:9px!important;}
+    .mini-card{min-height:380px!important;}
+    .presets-grid{grid-template-columns:1fr!important;}
+    nav{padding:0 20px;}nav .nav-links{gap:18px;}.hero{padding:110px 20px 56px;}.presets-grid{grid-template-columns:1fr;padding:0 20px 60px;}.how{padding:40px 20px 60px;}.how-steps{flex-direction:column;gap:24px;}.how-steps::before{display:none;}.bespoke{padding:60px 20px;}.bespoke-demo{grid-template-columns:1fr;}.bespoke-demo-card{max-width:160px;margin:0 auto;}footer{padding:36px 20px;}.of-row{grid-template-columns:1fr;}}
 
 /* ══════════════════════════════
    PRESET MINI-CARD DESIGNS
@@ -165,9 +177,9 @@ footer a:hover{color:var(--gold);}
 /* Rings SVG top */
 .p-noir .mc-rings{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:3;width:44px;opacity:.7;}
 .p-noir .mc-eyebrow{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,169,106,.9);margin-bottom:10px;margin-top:30px;}
-.p-noir .mc-name{font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:#e8d5a8;letter-spacing:.1em;line-height:1.3;margin-bottom:3px;}
+.p-noir .mc-name{font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:#e8d5a8;letter-spacing:.1em;line-height:1.3;margin-bottom:3px;text-shadow:0 1px 4px rgba(0,0,0,.5);}
 .p-noir .mc-line{width:36px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,169,106,.45),transparent);margin:8px auto;}
-.p-noir .mc-detail{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,169,106,.9);line-height:1.8;}
+.p-noir .mc-detail{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,169,106,1);line-height:1.8;}
 /* Gold shimmer */
 .p-noir .mini-card::after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,transparent 35%,rgba(232,200,122,.06) 50%,transparent 65%);background-size:200% 200%;animation:goldSheen 5s ease-in-out infinite;z-index:5;pointer-events:none;}
 @keyframes goldSheen{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
@@ -215,9 +227,9 @@ footer a:hover{color:var(--gold);}
 /* Ring box SVG */
 .p-engage .mc-ringbox{position:absolute;top:14px;right:14px;z-index:4;width:52px;opacity:.8;}
 .p-engage .mc-eyebrow{font-family:'Sacramento',cursive;font-size:1.1rem;color:rgba(235,200,255,.95);margin-bottom:4px;}
-.p-engage .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#f0e4ff;line-height:1.2;margin-bottom:3px;}
+.p-engage .mc-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#fff;line-height:1.2;margin-bottom:3px;text-shadow:0 1px 6px rgba(0,0,0,.5);}
 .p-engage .mc-line{width:24px;height:1px;background:rgba(220,180,255,.35);margin-bottom:6px;}
-.p-engage .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(235,200,255,.9);line-height:1.8;}
+.p-engage .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,210,255,1);line-height:1.8;}
 .p-engage .mc-spark{position:absolute;top:18px;left:18px;font-size:8px;opacity:.4;z-index:3;}
 
 /* ── 5. GARDEN PARTY — sage linen, botanical, left offset ── */
@@ -258,9 +270,9 @@ footer a:hover{color:var(--gold);}
 /* Crescent moon */
 .p-starry .mc-moon{position:absolute;top:12px;right:14px;z-index:3;font-size:18px;opacity:.35;}
 .p-starry .mc-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:rgba(200,220,255,.9);margin-bottom:8px;}
-.p-starry .mc-name{font-family:'Sacramento',cursive;font-size:1.8rem;color:#eaf0ff;line-height:1.1;margin-bottom:3px;}
+.p-starry .mc-name{font-family:'Sacramento',cursive;font-size:1.8rem;color:#fff;line-height:1.1;margin-bottom:3px;text-shadow:0 1px 6px rgba(0,0,0,.6);}
 .p-starry .mc-line{font-size:9px;letter-spacing:5px;color:rgba(200,215,255,.28);margin:5px 0;}
-.p-starry .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(210,225,255,.9);line-height:1.8;}
+.p-starry .mc-detail{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(220,235,255,1);line-height:1.8;}
 
 /* ── 7. LITTLE EXPLORER — children's, balloon/adventure, playful layout ── */
 .p-explorer .mini-card{background:linear-gradient(170deg,#c8eeff 0%,#a0dcff 30%,#b8e8ff 60%,#d0f0ff 100%);background-image:url("party.jpg");background-size:cover;background-position:center;}
@@ -984,186 +996,28 @@ footer a:hover{color:var(--gold);}
   <h2>Want something <em>completely bespoke?</em></h2>
   <p class="intro">Tell me your vision and I'll create something made entirely from scratch — illustrated, textured, themed, or photo-based. No limits.</p>
 
-  <!-- BESPOKE DEMO — Sonic Shadow Birthday, pure CSS/SVG, no broken images -->
-  <div class="bespoke-demo" style="grid-template-columns:240px 1fr;gap:40px;">
+  <!-- BESPOKE DEMO — replaced with real example image -->
+  <div class="bespoke-demo" style="grid-template-columns:220px 1fr;gap:36px;">
 
     <div class="bespoke-demo-card" style="aspect-ratio:5/7;border-radius:10px;overflow:hidden;
-         box-shadow:0 0 0 2px rgba(220,30,30,.6),0 40px 100px rgba(0,0,0,.9),0 0 80px rgba(220,0,0,.3);">
-
-      <!-- ── LAYER 0: Deep black/dark red bg ── -->
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 160% 80% at 50% 0%,#1a0000 0%,#050000 50%,#000 100%);z-index:0;"></div>
-
-      <!-- ── LAYER 1: Chaos energy glow ── -->
-      <div style="position:absolute;inset:0;z-index:1;
-        background:
-          radial-gradient(ellipse 90% 50% at 50% 60%,rgba(200,0,0,.5) 0%,transparent 65%),
-          radial-gradient(ellipse 60% 30% at 50% 90%,rgba(150,0,0,.6) 0%,transparent 60%),
-          radial-gradient(ellipse 40% 20% at 20% 40%,rgba(180,0,0,.25) 0%,transparent 60%),
-          radial-gradient(ellipse 40% 20% at 80% 40%,rgba(180,0,0,.25) 0%,transparent 60%);
-      "></div>
-
-      <!-- ── LAYER 2: Red lightning bolts ── -->
-      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;" viewBox="0 0 200 280" preserveAspectRatio="none">
-        <!-- Left main bolt -->
-        <polyline points="15,0 8,38 22,38 5,80 20,80 0,130" stroke="#ff0000" stroke-width="2.5" fill="none" opacity=".95" style="filter:drop-shadow(0 0 6px #ff0000) drop-shadow(0 0 14px #ff0000);"/>
-        <polyline points="15,0 9,36 22,36 6,77" stroke="rgba(255,180,180,.7)" stroke-width=".8" fill="none"/>
-        <!-- Right main bolt -->
-        <polyline points="185,0 192,35 178,35 196,76 180,76 200,128" stroke="#ff0000" stroke-width="2.5" fill="none" opacity=".9" style="filter:drop-shadow(0 0 6px #ff0000) drop-shadow(0 0 14px #ff0000);"/>
-        <polyline points="185,0 191,33 178,33 195,73" stroke="rgba(255,180,180,.65)" stroke-width=".8" fill="none"/>
-        <!-- Centre top split bolt -->
-        <polyline points="100,0 92,28 106,28 88,58 104,58 80,95" stroke="#cc0000" stroke-width="2" fill="none" opacity=".85" style="filter:drop-shadow(0 0 5px #ff0000);"/>
-        <polyline points="100,0 108,25 94,25 112,52" stroke="#ff2200" stroke-width="1.5" fill="none" opacity=".7" style="filter:drop-shadow(0 0 4px #ff0000);"/>
-        <!-- Branch crackles left -->
-        <polyline points="5,55 18,62 11,70 24,77 15,88" stroke="#ff1100" stroke-width="1.2" fill="none" opacity=".65"/>
-        <polyline points="0,95 14,102 8,110 20,118" stroke="#cc0000" stroke-width="1" fill="none" opacity=".5"/>
-        <!-- Branch crackles right -->
-        <polyline points="195,60 182,67 189,75 176,83 185,92" stroke="#ff1100" stroke-width="1.2" fill="none" opacity=".6"/>
-        <!-- Ground arc energy -->
-        <path d="M 0,240 Q 100,215 200,240" stroke="#cc0000" stroke-width="1.5" fill="none" opacity=".55" style="filter:drop-shadow(0 0 4px #ff0000);"/>
-        <path d="M 10,255 Q 100,232 190,255" stroke="#990000" stroke-width="1" fill="none" opacity=".35"/>
-        <!-- Hot white cores -->
-        <polyline points="15,0 8,38 22,38 5,80" stroke="rgba(255,220,220,.5)" stroke-width=".5" fill="none"/>
-        <polyline points="185,0 192,35 178,35 196,76" stroke="rgba(255,220,220,.45)" stroke-width=".5" fill="none"/>
-      </svg>
-
-      <!-- ── LAYER 3: Chaos emeralds floating ── -->
-      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;" viewBox="0 0 200 280">
-        <!-- Red emerald — far left -->
-        <g transform="translate(18,52) rotate(12)" style="filter:drop-shadow(0 0 8px #ff2200) drop-shadow(0 0 16px #ff0000);">
-          <polygon points="0,-14 9,-9 14,0 9,9 0,14 -9,9 -14,0 -9,-9" fill="#aa1100" opacity=".95"/>
-          <polygon points="0,-9 6,-5 9,0 6,5 0,9 -6,5 -9,0 -6,-5" fill="#ff3311" opacity=".75"/>
-          <polygon points="0,-4 3,-2 4,0 3,2 0,4 -3,2 -4,0 -3,-2" fill="#ff9977" opacity=".6"/>
-          <line x1="-7" y1="-7" x2="7" y2="7" stroke="rgba(255,150,150,.2)" stroke-width=".5"/>
-        </g>
-        <!-- Purple emerald — top right -->
-        <g transform="translate(178,28) rotate(-14)" style="filter:drop-shadow(0 0 8px #bb00ff) drop-shadow(0 0 16px #8800cc);">
-          <polygon points="0,-13 8,-8 13,0 8,8 0,13 -8,8 -13,0 -8,-8" fill="#7700bb" opacity=".95"/>
-          <polygon points="0,-8 5,-5 8,0 5,5 0,8 -5,5 -8,0 -5,-5" fill="#aa33ff" opacity=".75"/>
-          <polygon points="0,-4 2,-2 4,0 2,2 0,4 -2,2 -4,0 -2,-2" fill="#dd99ff" opacity=".55"/>
-        </g>
-        <!-- Cyan emerald — right side -->
-        <g transform="translate(188,108) rotate(6)" style="filter:drop-shadow(0 0 7px #00ffee) drop-shadow(0 0 14px #00bbaa);">
-          <polygon points="0,-11 7,-7 11,0 7,7 0,11 -7,7 -11,0 -7,-7" fill="#006688" opacity=".95"/>
-          <polygon points="0,-7 4,-4 7,0 4,4 0,7 -4,4 -7,0 -4,-4" fill="#00ccdd" opacity=".75"/>
-          <polygon points="0,-3 2,-2 3,0 2,2 0,3 -2,2 -3,0 -2,-2" fill="#88ffff" opacity=".55"/>
-        </g>
-        <!-- Yellow emerald — left side -->
-        <g transform="translate(12,125) rotate(-10)" style="filter:drop-shadow(0 0 7px #ffee00) drop-shadow(0 0 14px #ddaa00);">
-          <polygon points="0,-11 7,-7 11,0 7,7 0,11 -7,7 -11,0 -7,-7" fill="#998800" opacity=".95"/>
-          <polygon points="0,-7 4,-4 7,0 4,4 0,7 -4,4 -7,0 -4,-4" fill="#ffdd00" opacity=".75"/>
-          <polygon points="0,-3 2,-2 3,0 2,2 0,3 -2,2 -3,0 -2,-2" fill="#ffff88" opacity=".55"/>
-        </g>
-        <!-- Green emerald — top centre-right -->
-        <g transform="translate(152,16) rotate(22)" style="filter:drop-shadow(0 0 6px #00ff44) drop-shadow(0 0 12px #00aa22);">
-          <polygon points="0,-10 6,-6 10,0 6,6 0,10 -6,6 -10,0 -6,-6" fill="#005522" opacity=".95"/>
-          <polygon points="0,-6 4,-3 6,0 4,3 0,6 -4,3 -6,0 -4,-3" fill="#00bb33" opacity=".75"/>
-          <polygon points="0,-3 2,-1 3,0 2,1 0,3 -2,1 -3,0 -2,-1" fill="#88ff99" opacity=".55"/>
-        </g>
-        <!-- Silver emerald — top centre-left -->
-        <g transform="translate(50,12) rotate(-18)" style="filter:drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px #aaddff);">
-          <polygon points="0,-10 6,-6 10,0 6,6 0,10 -6,6 -10,0 -6,-6" fill="#7788aa" opacity=".95"/>
-          <polygon points="0,-6 4,-3 6,0 4,3 0,6 -4,3 -6,0 -4,-3" fill="#bbccee" opacity=".75"/>
-          <polygon points="0,-3 2,-1 3,0 2,1 0,3 -2,1 -3,0 -2,-1" fill="#ffffff" opacity=".65"/>
-        </g>
-        <!-- Blue emerald — mid left -->
-        <g transform="translate(22,88) rotate(8)" style="filter:drop-shadow(0 0 6px #4488ff) drop-shadow(0 0 12px #2255cc);">
-          <polygon points="0,-10 6,-6 10,0 6,6 0,10 -6,6 -10,0 -6,-6" fill="#1133aa" opacity=".95"/>
-          <polygon points="0,-6 4,-3 6,0 4,3 0,6 -4,3 -6,0 -4,-3" fill="#3366ff" opacity=".75"/>
-          <polygon points="0,-3 2,-1 3,0 2,1 0,3 -2,1 -3,0 -2,-1" fill="#99bbff" opacity=".55"/>
-        </g>
-        <!-- Gold rings -->
-        <circle cx="145" cy="158" r="10" stroke="#FFD700" stroke-width="3" fill="none" opacity=".8" style="filter:drop-shadow(0 0 5px #FFD700);"/>
-        <circle cx="58"  cy="168" r="8"  stroke="#FFD700" stroke-width="2.5" fill="none" opacity=".65" style="filter:drop-shadow(0 0 4px #FFD700);"/>
-        <circle cx="170" cy="190" r="7"  stroke="#FFD700" stroke-width="2" fill="none" opacity=".55" style="filter:drop-shadow(0 0 3px #FFD700);"/>
-      </svg>
-
-      <!-- ── LAYER 4: Shadow the Hedgehog — real image ── -->
-      <img src="sonic (89).png" alt="Shadow the Hedgehog"
-           style="position:absolute;
-                  bottom:22%;
-                  left:-12%;
-                  height:68%;
-                  z-index:5;
-                  object-fit:contain;
-                  transform:scaleX(-1);
-                  filter:
-                    drop-shadow(0 0 15px rgba(255,0,0,.85))
-                    drop-shadow(0 0 35px rgba(200,0,0,.6))
-                    drop-shadow(0 0 60px rgba(150,0,0,.35))
-                    drop-shadow(-2px 4px 18px rgba(0,0,0,.95));"/>
-
-      <!-- ── LAYER 5: "SHADOW THE HEDGEHOG" title stamp top ── -->
-      <div style="position:absolute;top:0;left:0;right:0;z-index:6;
-                  background:linear-gradient(rgba(0,0,0,.75),transparent);
-                  padding:12px 10px 18px;text-align:center;">
-        <div style="font-family:'Nunito',sans-serif;font-size:7px;font-weight:900;
-                    letter-spacing:.35em;text-transform:uppercase;
-                    color:rgba(255,50,50,.95);
-                    text-shadow:0 0 10px rgba(255,0,0,.8),0 0 20px rgba(255,0,0,.5);">
-          ✦ Shadow The Hedgehog ✦
-        </div>
-      </div>
-
-      <!-- ── LAYER 6: Photo circle ── -->
-      <div style="position:absolute;top:36%;right:6%;z-index:6;
-                  width:64px;height:64px;border-radius:50%;
-                  background:radial-gradient(circle,#1a0000,#000);
-                  border:3px solid #FFD700;
-                  box-shadow:0 0 0 2px rgba(220,0,0,.6),0 0 20px rgba(255,215,0,.5),0 0 40px rgba(220,0,0,.4);
-                  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,180,180,.5)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span style="font-family:'Jost',sans-serif;font-size:5px;letter-spacing:.1em;color:rgba(255,200,200,.45);text-transform:uppercase;">Theo</span>
-      </div>
-
-      <!-- ── LAYER 7: Bottom dark fade ── -->
-      <div style="position:absolute;bottom:0;left:0;right:0;height:44%;
-                  background:linear-gradient(transparent,rgba(2,0,0,.98));z-index:4;"></div>
-
-      <!-- ── LAYER 8: Card text ── -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 14px;z-index:7;text-align:center;">
-        <div style="font-family:'Jost',sans-serif;font-size:6px;font-weight:600;letter-spacing:.45em;
-                    text-transform:uppercase;color:rgba(255,80,80,.85);margin-bottom:4px;
-                    text-shadow:0 0 8px rgba(255,0,0,.6);">You Are Invited</div>
-        <div style="font-family:'Nunito',sans-serif;font-size:2rem;font-weight:900;color:#fff;
-                    line-height:.9;letter-spacing:.08em;
-                    text-shadow:0 0 20px rgba(255,0,0,1),0 0 45px rgba(200,0,0,.7),0 2px 8px rgba(0,0,0,.9);
-                    margin-bottom:3px;">THEO</div>
-        <div style="font-family:'Jost',sans-serif;font-size:7.5px;letter-spacing:.28em;
-                    color:rgba(255,200,200,.72);margin-bottom:8px;text-transform:uppercase;">IS TURNING 7</div>
-        <div style="width:50px;height:1px;
-                    background:linear-gradient(90deg,transparent,#ff2200,#FFD700,#ff2200,transparent);
-                    margin:0 auto 9px;box-shadow:0 0 8px rgba(255,50,0,.6);"></div>
-        <div style="font-family:'Jost',sans-serif;font-size:7.5px;color:rgba(255,190,190,.85);line-height:1.85;">
-          Saturday 7th June · 2pm<br/>Sunshine Hall, Croydon<br/>
-          <span style="font-size:7px;color:rgba(255,140,140,.6);">Come dressed as your favourite character!</span>
-        </div>
-        <div style="font-family:'Jost',sans-serif;font-size:7px;letter-spacing:.18em;
-                    color:rgba(255,215,0,.9);margin-top:7px;
-                    text-shadow:0 0 10px rgba(255,215,0,.5);">RSVP BY 1ST JUNE</div>
-      </div>
-
-      <!-- ── LAYER 9: Watermark ── -->
-      <div style="position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
-                  pointer-events:none;transform:rotate(-35deg);">
-        <span style="font-family:'Jost',sans-serif;font-size:8px;letter-spacing:.22em;text-transform:uppercase;
-                     color:rgba(255,255,255,.1);white-space:nowrap;">Moments by Shanaz · Preview Only</span>
-      </div>
-
-    </div>    </div>
+         box-shadow:0 8px 40px rgba(0,0,0,.5);">
+      <img src="bespoke.png" alt="Bespoke invitation example created by Moments by Shanaz"
+           style="width:100%;height:100%;object-fit:cover;display:block;"/>
+    </div>
 
     <div class="bespoke-demo-text">
       <h3>Fully bespoke — built from scratch, just for you</h3>
-      <p>This is Theo's Shadow the Hedgehog 7th birthday invitation — red chaos lightning, all seven chaos emeralds, a gold photo circle, and Shadow himself in full action pose. Every detail made from scratch for one child, one party.</p>
-      <p>Your bespoke order gets the same treatment — whatever your theme, character, colour palette or vibe, I'll build it entirely by hand. Nothing off the shelf.</p>
+      <p>This is a real bespoke invitation made by Shanaz — completely custom, from the background and colours to the layout and every detail. Your theme, your vision, built entirely by hand.</p>
       <p style="font-size:11px;color:rgba(250,248,244,.38);margin-top:10px;line-height:1.85;">✦ Share your images, characters and photos with your order — I'll use them to create something that looks like it cost ten times more than it did.</p>
       <div class="bespoke-demo-tags" style="margin-top:18px;">
         <span class="bespoke-tag">Any theme or character</span>
         <span class="bespoke-tag">Photo included</span>
-        <span class="bespoke-tag">Custom lightning &amp; effects</span>
+        <span class="bespoke-tag">Custom effects</span>
         <span class="bespoke-tag">Any colour palette</span>
         <span class="bespoke-tag">Any age or occasion</span>
       </div>
     </div>
+
   </div>
 
   <div class="bespoke-form">
