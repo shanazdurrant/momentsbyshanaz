@@ -225,68 +225,61 @@
     /* BACK — description + CTA */
     .flip-back {
       transform: rotateY(180deg);
-      background: var(--char);
+      background: #2c2825 !important;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 36px 28px;
       text-align: center;
-      box-shadow: 0 16px 48px rgba(44,40,37,.2);
       position: relative;
+      isolation: isolate;
     }
-    /* flip-back::before removed */
+    .flip-back * { position: relative; z-index: 2; }
     .flip-back-eyebrow {
-      font-size: 9px;
+      font-size: 9px !important;
       letter-spacing: .32em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: #b8924a !important;
       margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
     }
     .flip-back h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: #fff;
-      line-height: 1.2;
+      font-family: 'Cormorant Garamond', serif !important;
+      font-size: 1.55rem !important;
+      font-weight: 300 !important;
+      color: #ffffff !important;
+      line-height: 1.25;
       margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
     }
     .flip-back p {
-      font-size: 12px;
-      color: rgba(255,255,255,.82);
+      font-size: 12px !important;
+      color: rgba(255,255,255,.88) !important;
       line-height: 1.8;
       margin-bottom: 24px;
-      position: relative;
-      z-index: 1;
     }
     .flip-back-btn {
       display: inline-block;
       padding: 11px 28px;
-      border: 1px solid var(--gold);
+      border: 1px solid #b8924a;
       border-radius: 3px;
       font-family: 'Jost', sans-serif;
       font-size: 10px;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: #b8924a !important;
       text-decoration: none;
       transition: background .2s, color .2s;
-      position: relative;
-      z-index: 1;
+      background: transparent;
     }
     .flip-back-btn:hover {
-      background: var(--gold);
-      color: var(--cream);
+      background: #b8924a !important;
+      color: #faf8f4 !important;
     }
     .flip-hint {
       font-size: 9px;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: var(--soft);
+      color: rgba(255,255,255,.4) !important;
       margin-top: 10px;
       opacity: .7;
     }
