@@ -79,6 +79,7 @@
 
     /* HERO */
     .hero {
+      background-color: var(--cream);
       min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center;
@@ -97,12 +98,14 @@
       margin-bottom: 40px;
       position: relative;
       z-index: 1;
+      background: transparent;
     }
     .hero-logo img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       mix-blend-mode: multiply;
+      display: block;
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -314,9 +317,16 @@
       section { padding: 60px 20px; }
       .how-wrap { grid-template-columns: 1fr 1fr; }
     }
+      /* Accessibility */
+    .skip-link{position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;letter-spacing:.06em;text-decoration:none;z-index:9999;transition:top .2s;}
+    .skip-link:focus{top:0;}
+    *:focus-visible{outline:2px solid #b8924a;outline-offset:3px;border-radius:2px;}
+    button:focus-visible,a:focus-visible{outline:2px solid #b8924a;outline-offset:3px;}
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
   <!-- NAV -->
   <nav>
@@ -331,6 +341,7 @@
   </nav>
 
   <!-- HERO -->
+  <main id="main-content">
   <div class="hero">
     <div class="hero-logo">
       <img src="logo-main.png" alt="Moments by Shanaz — Digital Keepsakes, Made With Care" />
@@ -338,6 +349,15 @@
     <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
     <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
     <div class="hero-divider-line"></div>
+  </div>
+
+  <!-- DECORATIVE QUOTE BAND -->
+  <div style="background:var(--char);padding:40px 40px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;font-weight:300;
+              color:rgba(250,248,244,.75);letter-spacing:.04em;max-width:560px;margin:0 auto;line-height:1.7;">
+      "Every moment deserves to be remembered beautifully."
+    </p>
+    <div style="width:32px;height:1px;background:var(--gold);opacity:.5;margin:18px auto 0;"></div>
   </div>
 
   <!-- SERVICES TILES — Flip Cards -->
@@ -510,6 +530,7 @@
   </section>
 
   <!-- FOOTER -->
+  </main>
   <footer>
     <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></div>
     <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
