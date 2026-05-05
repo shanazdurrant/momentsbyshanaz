@@ -103,7 +103,7 @@
     .scratch-single-hint .title { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
     .scratch-single-hint .sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; letter-spacing:1px; opacity:.7; }
     .scratch-single-hint.faded { opacity:0; transition:opacity .4s; }
-    .tri-panel { position:relative; aspect-ratio:1; border-radius:50%; overflow:hidden; }
+    .tri-panel { position:relative; width:80px; height:80px; border-radius:50%; overflow:hidden; flex-shrink:0; }
     .tri-panel canvas { position:absolute; inset:0; width:100%; height:100%; display:block; border-radius:50%; }
     .tri-panel-content { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:28px; z-index:0; }
     .tri-ping { position:absolute; inset:0; border-radius:50%; border:2px solid var(--gold); opacity:0; }
@@ -159,7 +159,7 @@
     /* TRIPLE LAYOUT */
     .triple-inner { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; padding: 28px 20px 20px; }
     .triple-inner .th { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 3px; text-transform: uppercase; margin-bottom: auto; padding-bottom: 12px; }
-    .triple-circles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: auto 0; }
+    .triple-circles { display: flex; gap: 16px; justify-content: center; align-items: center; margin: auto 0; }
     .tri-circle { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: linear-gradient(135deg, #a88843, #c9a961, #e8d4a0, #c9a961, #a88843); box-shadow: 0 4px 12px rgba(201,169,97,0.4); }
     .triple-foot { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: rgba(44,40,37,0.5); padding-top: 16px; margin-top: auto; }
 
@@ -382,8 +382,7 @@ function selectLayout(el) {
   el.classList.add('sel');
   S.layout = el.dataset.layout;
   updatePreview();
-  // Reinitialise scratch canvases for the newly shown layout
-  setTimeout(updateAdminLayout, 80);
+  updateAdminLayout();
 }
 
 // ══════ PREVIEW ══════
@@ -412,11 +411,7 @@ function updatePreview() {
   // Triple circles icon
   ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).textContent = S.icon);
 
-  // Layout toggle
-  const cc = document.getElementById('cardContent');
-  const ti = document.getElementById('tripleInner');
-  if (S.layout === 'triple') { cc.style.display = 'none'; ti.style.display = 'flex'; }
-  else { cc.style.display = 'flex'; ti.style.display = 'none'; }
+  // Layout display is handled entirely by updateAdminLayout() — not here
 }
 
 // ══════ GENERATE CUSTOMER LINK ══════
@@ -513,17 +508,44 @@ function setupSingleCanvas(){
 
 function setupTripleCanvases(){
   panelsRevealed=[false,false,false]; winnerShown=false;
-  document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
+  const panels = document.querySelectorAll('.tri-panel');
+  // Check first panel has size — if not, retry entire setup
+  const firstRect = panels[0]?.getBoundingClientRect();
+  if(!firstRect || firstRect.width===0){
+    setTimeout(setupTripleCanvases, 200); return;
+  }
+  panels.forEach((panel,idx)=>{
     const canvas=panel.querySelector('canvas'); if(!canvas) return;
-    const ctx=canvas.getContext('2d');
-    const rect=panel.getBoundingClientRect();
+    // Remove old listeners by replacing canvas with a clone
+    const newCanvas = canvas.cloneNode(false);
+    canvas.parentNode.replaceChild(newCanvas, canvas);
+    const ctx=newCanvas.getContext('2d');
+    const size=80; // fixed size matches CSS
     const dpr=window.devicePixelRatio||1;
-    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
-    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+    newCanvas.width=size*dpr; newCanvas.height=size*dpr;
     ctx.scale(dpr,dpr);
     ctx.globalCompositeOperation='source-over';
-    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
-    paintGoldOverlay(ctx,rect.width,rect.height);
+    ctx.beginPath(); ctx.arc(size/2,size/2,size/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,size,size);
+    const canvas2=newCanvas; // reference for closures
+    let isDrawing=false,lastX,lastY;
+    const getPos=e=>{ const r=canvas2.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
+    const scratch=e=>{
+      if(!isDrawing) return; e.preventDefault();
+      const {x,y}=getPos(e);
+      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
+      ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+      lastX=x; lastY=y;
+      if(!panelsRevealed[idx]){
+        const img=ctx.getImageData(0,0,canvas2.width,canvas2.height); let transparent=0;
+        for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
+        if(transparent/(img.data.length/40)>0.5){
+          panelsRevealed[idx]=true; canvas2.style.transition='opacity 0.5s'; canvas2.style.opacity='0';
+          panel.classList.add('just-revealed');
+          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
+        }
+      }
+    };
     let isDrawing=false,lastX,lastY;
     const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
     const scratch=e=>{
@@ -562,19 +584,24 @@ function resetScratch(){
   // Reset triple canvases
   document.querySelectorAll('.tri-panel').forEach(p=>{
     p.classList.remove('just-revealed');
-    const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; }
+    const c=p.querySelector('canvas');
+    if(c){ c.style.opacity='1'; c.style.transition='none'; }
   });
-  setTimeout(setupTripleCanvases, 50);
+  if(S.layout === 'triple') setTimeout(setupTripleCanvases, 80);
 }
 
 // Update layout display — mirror client card logic
 function updateAdminLayout(){
   const scratchSingle = document.getElementById('scratchSingle');
   const tripleInner   = document.getElementById('tripleInner');
+  const cardContent   = document.getElementById('cardContent');
+
   if(S.layout === 'triple'){
-    scratchSingle.style.display = 'none';
-    tripleInner.style.display   = 'flex';
-    // Reset panel state and re-init canvases after layout is visible
+    // Hide single elements, show triple
+    if(scratchSingle) scratchSingle.style.display = 'none';
+    if(cardContent)   cardContent.style.display   = 'none';
+    if(tripleInner)   tripleInner.style.display   = 'flex';
+    // Reset all triple panels
     panelsRevealed = [false,false,false];
     winnerShown    = false;
     document.querySelectorAll('.tri-panel').forEach(p => {
@@ -582,20 +609,22 @@ function updateAdminLayout(){
       const c = p.querySelector('canvas');
       if(c){ c.style.opacity='1'; c.style.transition='none'; }
     });
-    setTimeout(setupTripleCanvases, 120);
+    // Small delay to ensure flex layout has rendered before measuring
+    setTimeout(setupTripleCanvases, 200);
   } else {
-    scratchSingle.style.display = 'block';
-    tripleInner.style.display   = 'none';
-    setTimeout(setupSingleCanvas, 120);
+    // Show single elements, hide triple
+    if(tripleInner)   tripleInner.style.display   = 'none';
+    if(cardContent)   cardContent.style.display   = 'flex';
+    if(scratchSingle) scratchSingle.style.display = 'block';
+    setTimeout(setupSingleCanvas, 150);
   }
 }
 
 // Init on load
 requestAnimationFrame(()=>requestAnimationFrame(()=>{
   setTimeout(()=>{
-    initCanvases();
-    updateAdminLayout();
-  },100);
+    updateAdminLayout(); // sets correct display states then inits canvases
+  },150);
 }));
 window.addEventListener('resize',()=>setTimeout(initCanvases,250));
 
