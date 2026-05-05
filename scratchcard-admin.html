@@ -619,7 +619,7 @@ function generateScLink() {
 
   try {
     const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
-    const url = window.location.origin + '/order.html?reveal=' + encoded;
+    const url = window.location.origin + '/scratchcard-reveal.html?d=' + encoded;
 
     document.getElementById('sc-link-url').style.display = 'block';
     document.getElementById('sc-link-url').value = url;
