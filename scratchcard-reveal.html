@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Your Scratchcard Reveal · Moments by Shanaz</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="icon" href="favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Allura&family=Great+Vibes&family=Sacramento&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&family=Pacifico&family=Nunito:wght@400;700;800;900&display=swap"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --cream:#faf8f4;--warm:#f5f0e8;--border:#e8e0d0;
+      --char:#2c2825;--mid:#6b6460;--soft:#9c9490;
+      --gold:#b8924a;--gold-deep:#a07838;--gold-l:rgba(184,146,74,.6);
+      --ink:#2c2825;--ink-soft:#6b6460;
+    }
+    body{background:var(--cream);font-family:'Jost',sans-serif;min-height:100vh;
+         display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;}
+    .page{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;gap:18px;}
+    .brand{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+           color:var(--soft);text-align:center;}
+    .brand a{color:inherit;text-decoration:none;}
+    .preview-wrap{width:100%;position:relative;}
+    .reset-btn{background:none;border:1px solid var(--gold);border-radius:3px;padding:8px 20px;
+               font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+               color:var(--gold);cursor:pointer;transition:all .2s;}
+    .reset-btn:hover{background:var(--gold);color:#fff;}
+    .error{text-align:center;padding:40px 20px;color:var(--mid);}
+    .error h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:8px;}
+.preview-card{
+  max-width:360px;margin:0 auto;
+  aspect-ratio:3/4;
+  border-radius:6px;
+  position:relative;overflow:hidden;
+  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
+  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
+  transition:box-shadow 0.6s,background 0.8s ease;
+}
+
+/* ══ BACKGROUND IMAGES ══ */
+.theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
+.theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-girl{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-holiday{background-image:url('Holiday.jpg');background-size:cover;background-position:center;}
+.theme-pregnancy{background-image:url('image.png');background-size:cover;background-position:center;}
+.theme-wedding{background-image:url('Wedding.jpg');background-size:cover;background-position:center;}
+.theme-birthday{background-image:url('birthday.jpg');background-size:cover;background-position:center;}
+.theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
+.theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
+
+.theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
+.theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
+
+/* ══ WATERMARK ══ */
+.preview-card::after{
+  content:'PREVIEW';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,10vw,72px);font-weight:500;letter-spacing:14px;
+  color:rgba(168,136,67,0.28);transform:rotate(-22deg);
+  pointer-events:none;z-index:10;
+  text-shadow:0 2px 4px rgba(255,255,255,0.5);
+}
+.preview-card::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(-22deg,transparent 0,transparent 50px,rgba(168,136,67,0.05) 50px,rgba(168,136,67,0.05) 52px);
+  pointer-events:none;z-index:9;
+}
+
+/* ══ M STAMP ══ */
+.m-stamp{
+  position:absolute;bottom:16px;right:16px;
+  width:32px;height:32px;opacity:0.18;
+  pointer-events:none;z-index:8;
+}
+.m-stamp img{width:100%;height:100%;object-fit:contain;}
+
+/* ══ REVEAL LAYER ══ */
+.reveal-layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;color:var(--theme-text,var(--ink));z-index:2;gap:0;}
+.reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:10px;opacity:0.9;}
+.reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,30px);font-weight:500;line-height:1.2;margin-bottom:14px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
+.reveal-divider-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 12px;}
+.reveal-divider-wrap .line{width:30px;height:1px;background:var(--gold);}
+.reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:260px;}
+.reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:12px;margin-bottom:4px;}
+.reveal-signoff{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
+.reveal-signoff-name{font-family:'Allura',cursive;font-size:36px;color:var(--gold-deep);line-height:1;}
+.reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.reveal-signoff-leaf .line{width:18px;height:1px;background:var(--gold);opacity:0.6;}
+
+/* ══ REVEAL ANIMATIONS ══ */
+@keyframes textReveal{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:translateY(0);}}
+.preview-card.just-revealed .reveal-greeting{animation:textReveal 0.45s cubic-bezier(.16,1,.3,1) 0.35s both;}
+.preview-card.just-revealed .reveal-headline{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both;}
+.preview-card.just-revealed .reveal-divider-wrap{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
+.preview-card.just-revealed .reveal-text{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.75s both;}
+.preview-card.just-revealed .reveal-date{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
+.preview-card.just-revealed .reveal-signoff{animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;}
+.preview-card.just-revealed .reveal-signoff-name{animation:signatureBreath 5s ease-in-out 2s infinite;}
+@keyframes signatureBreath{0%,100%{opacity:0.85;text-shadow:0 2px 8px rgba(201,169,97,0.15);}50%{opacity:1;text-shadow:0 2px 14px rgba(201,169,97,0.45);}}
+
+/* ══ FRAME CORNERS ══ */
+.frame-corner{position:absolute;width:42px;height:42px;pointer-events:none;z-index:6;opacity:0;transition:opacity 0.8s ease 0.6s;}
+.preview-card.just-revealed .frame-corner{opacity:0.9;}
+.frame-corner.tl{top:8px;left:8px;}
+.frame-corner.tr{top:8px;right:8px;transform:scaleX(-1);}
+.frame-corner.bl{bottom:8px;left:8px;transform:scaleY(-1);}
+.frame-corner.br{bottom:8px;right:8px;transform:scale(-1,-1);}
+
+/* Wax seal */
+.frame-seal{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) scale(0.4) rotate(-12deg);width:44px;height:44px;opacity:0;pointer-events:none;z-index:7;filter:drop-shadow(0 3px 6px rgba(74,18,41,0.35));transition:opacity 0.6s ease 1.2s,transform 0.8s cubic-bezier(.34,1.56,.64,1) 1.2s;}
+.preview-card.just-revealed .frame-seal{opacity:1;transform:translateX(-50%) scale(1) rotate(-6deg);}
+.preview-card.just-revealed .frame-seal{bottom:62px;}
+
+/* Replay */
+.replay-invitation{position:absolute;bottom:18px;left:50%;transform:translateX(-50%) translateY(8px);display:flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(250,246,240,0.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(201,169,97,0.35);border-radius:100px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:1.5px;color:var(--gold-deep);cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.6s ease 1.8s,transform 0.6s cubic-bezier(.34,1.56,.64,1) 1.8s,background 0.3s,color 0.3s,border-color 0.3s;z-index:8;white-space:nowrap;user-select:none;}
+.replay-invitation .replay-arrow{font-size:15px;display:inline-block;transition:transform 0.5s;}
+.replay-invitation:hover{background:var(--gold);color:var(--ivory);border-color:var(--gold);}
+.replay-invitation:hover .replay-arrow{transform:rotate(-360deg);}
+.preview-card.just-revealed .replay-invitation{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+
+/* Flash */
+.card-flash{position:absolute;inset:0;background:radial-gradient(circle at center,var(--gold-shimmer) 0%,var(--gold-light) 30%,transparent 70%);opacity:0;pointer-events:none;z-index:8;}
+.card-flash.active{animation:flashBurst 1.2s cubic-bezier(.16,1,.3,1);}
+@keyframes flashBurst{0%{opacity:0;transform:scale(0.5);}30%{opacity:0.7;transform:scale(1);}100%{opacity:0;transform:scale(1.3);}}
+
+/* Ambient motes */
+.ambient-motes{position:absolute;inset:0;pointer-events:none;z-index:11;opacity:0;transition:opacity 1.2s ease;overflow:hidden;}
+.preview-card.just-revealed .ambient-motes{opacity:1;transition-delay:1.8s;}
+.mote{position:absolute;width:3px;height:3px;background:radial-gradient(circle,rgba(232,212,160,0.95) 0%,rgba(201,169,97,0.6) 40%,transparent 70%);border-radius:50%;filter:blur(0.3px);animation:moteDrift linear infinite;will-change:transform,opacity;}
+@keyframes moteDrift{0%{transform:translate(0,100%) scale(0.6);opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{transform:translate(var(--mx,20px),-20%) scale(1);opacity:0;}}
+
+/* Confetti */
+.confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;}
+.confetti-piece{position:absolute;top:-40px;will-change:transform;animation:confettiFall linear forwards;}
+.confetti-piece svg{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 3px rgba(60,40,20,0.25));}
+@keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}}
+
+/* ══ SCRATCH LAYER (single) ══ */
+.scratch-single{position:absolute;inset:0;z-index:5;touch-action:none;cursor:grab;}
+.scratch-single:active{cursor:grabbing;}
+.scratch-single canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none;}
+.scratch-single-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:6;text-align:center;}
+.scratch-single-hint .icon-big{font-size:28px;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));animation:gentleBob 2s ease-in-out infinite;}
+@keyframes gentleBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.scratch-single-hint .title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.scratch-single-hint .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--ink-soft);letter-spacing:1px;}
+.scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
+
+/* ══ TRIPLE LAYOUT ══ */
+.triple-wrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:30px 24px 24px;}
+.triple-header{text-align:center;margin-bottom:auto;padding-bottom:16px;}
+.triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--ink-soft);font-style:italic;letter-spacing:1px;}
+.triple-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:auto 0;padding:0 4px;}
+.tri-panel{aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,0.3) 0%,transparent 45%),radial-gradient(circle at 70% 75%,rgba(255,255,255,0.1) 0%,transparent 45%),linear-gradient(135deg,var(--gold-deep) 0%,var(--gold) 40%,var(--gold-light) 55%,var(--gold) 70%,var(--gold-deep) 100%);background-size:150% 150%;animation:shimmer 8s ease-in-out infinite;box-shadow:inset 0 2px 4px rgba(255,255,255,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),0 6px 14px rgba(201,169,97,0.35);cursor:grab;touch-action:none;overflow:hidden;}
+.tri-panel:active{cursor:grabbing;}
+.tri-panel:nth-child(2){animation-delay:-2.5s;}
+.tri-panel:nth-child(3){animation-delay:-5s;}
+.tri-panel canvas{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:50%;outline:none;}
+.tri-panel-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;z-index:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));}
+.tri-panel.just-revealed{animation:panelReveal 0.6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes panelReveal{0%{transform:scale(1);}50%{transform:scale(1.15);box-shadow:0 10px 30px rgba(201,169,97,0.6),0 0 40px rgba(232,212,160,0.8);}100%{transform:scale(1);}}
+.tri-ping{position:absolute;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;border:2px solid var(--gold);border-radius:50%;opacity:0;pointer-events:none;z-index:5;}
+.tri-ping.active{animation:triPingExpand 1s cubic-bezier(.16,1,.3,1);}
+@keyframes triPingExpand{0%{opacity:0;transform:scale(0.3);border-width:3px;}40%{opacity:0.9;border-width:2px;}100%{opacity:0;transform:scale(3);border-width:0.5px;}}
+.triple-footer{margin-top:auto;padding-top:20px;text-align:center;min-height:70px;}
+.triple-status{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);letter-spacing:1px;transition:all .4s;}
+.triple-wrap.winner .triple-panels{animation:winnerPulse 0.8s cubic-bezier(.16,1,.3,1);opacity:0;transition:opacity 0.5s ease 0.5s;}
+@keyframes winnerPulse{0%{transform:scale(1);}30%{transform:scale(1.08);}60%{transform:scale(0.98);}100%{transform:scale(1);}}
+.triple-wrap.winner .triple-header{opacity:0;transition:opacity 0.3s ease;}
+.triple-wrap.winner .triple-footer{opacity:0;transition:opacity 0.3s ease;}
+
+/* Winner message */
+.winner-message{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;background:transparent;opacity:0;pointer-events:none;transition:opacity .8s cubic-bezier(.16,1,.3,1) .3s;z-index:4;gap:6px;}
+.winner-message.show{opacity:1;}
+.winner-message .reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--gold-deep);letter-spacing:1.5px;opacity:0.9;}
+.winner-message .reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,28px);font-weight:500;line-height:1.2;margin:6px 0 10px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
+.winner-message .reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:240px;}
+.winner-message .reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:8px;}
+.winner-message .reveal-signoff{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.winner-message .reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
+.winner-message .reveal-signoff-name{font-family:'Allura',cursive;font-size:32px;color:var(--gold-deep);line-height:1;}
+.winner-message .reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:3px;}
+.winner-message .reveal-signoff-leaf .line{width:14px;height:1px;background:var(--gold);opacity:0.6;}
+
+/* Reset */
+.preview-reset{margin-top:12px;text-align:center;position:relative;z-index:1;}
+.preview-reset button{background:transparent;border:none;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-deep);font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:8px 16px;transition:all .3s;}
+.theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
+.theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-gender-girl{background-image:url('gender.jpg');background-size:cover;background-position:center;}
+.theme-holiday{background-image:url('Holiday.jpg');background-size:cover;background-position:center;}
+.theme-pregnancy{background-image:url('image.png');background-size:cover;background-position:center;}
+.theme-wedding{background-image:url('Wedding.jpg');background-size:cover;background-position:center;}
+.theme-birthday{background-image:url('birthday.jpg');background-size:cover;background-position:center;}
+.theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
+.theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
+.theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
+.theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="brand"><a href="/">Moments by Shanaz</a></div>
+  <div class="preview-wrap" id="previewWrap"></div>
+  <div id="resetRow" style="display:none;text-align:center;">
+    <button class="reset-btn" onclick="resetScratch()">&#8635; Scratch again</button>
+  </div>
+</div>
+<script>
+let panelsRevealed=[false,false,false];
+let winnerShown=false;
+let S={};
+
+function paintGoldOverlay(ctx,w,h){
+  const grad=ctx.createLinearGradient(0,0,w,h);
+  grad.addColorStop(0,'#a88843');
+  grad.addColorStop(0.3,'#c9a961');
+  grad.addColorStop(0.5,'#e8d4a0');
+  grad.addColorStop(0.7,'#c9a961');
+  grad.addColorStop(1,'#a88843');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,w,h);
+  // Highlight
+  const hg=ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
+  hg.addColorStop(0,'rgba(255,255,255,0.25)');
+  hg.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=hg; ctx.fillRect(0,0,w,h);
+}
+
+function initCanvases(){ setupSingleCanvas(); setupTripleCanvases(); }
+
+function setupSingleCanvas(){
+  const canvas=document.getElementById('singleCanvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const rect=canvas.getBoundingClientRect();
+  if(rect.width===0||rect.height===0){
+    // Element not visible yet — try again shortly
+    setTimeout(setupSingleCanvas, 150); return;
+  }
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+  ctx.scale(dpr,dpr);
+
+  // Fill with opaque gold overlay BEFORE any scratching
+  ctx.globalCompositeOperation='source-over';
+  paintGoldOverlay(ctx,rect.width,rect.height);
+
+  let isDrawing=false,lastX,lastY,revealed=false;
+  const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
+  const scratch=e=>{
+    if(!isDrawing) return; e.preventDefault();
+    const {x,y}=getPos(e);
+    ctx.globalCompositeOperation='destination-out';
+    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=30;
+    ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+    lastX=x; lastY=y;
+    document.getElementById('singleHint').classList.add('faded');
+    checkSingleProgress(canvas,ctx);
+  };
+  const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
+  const end=()=>{ isDrawing=false; };
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
+
+  function checkSingleProgress(cv,context){
+    if(revealed) return;
+    const img=context.getImageData(0,0,cv.width,cv.height); let transparent=0;
+    for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
+    if(transparent/(img.data.length/40)>0.4){
+      revealed=true; cv.style.transition='opacity 0.6s'; cv.style.opacity='0';
+      setTimeout(()=>{ cv.style.display='none'; },650);
+      document.getElementById('singleHint').style.display='none';
+      triggerFullReveal();
+    }
+  }
+}
+
+function setupTripleCanvases(){
+  document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
+    const canvas=panel.querySelector('canvas'); if(!canvas) return;
+    const ctx=canvas.getContext('2d');
+    const rect=panel.getBoundingClientRect();
+    const dpr=window.devicePixelRatio||1;
+    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
+    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+    ctx.scale(dpr,dpr);
+    // Ensure we're in normal drawing mode then clip+paint gold
+    ctx.globalCompositeOperation='source-over';
+    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,rect.width,rect.height);
+
+    let isDrawing=false,lastX,lastY,revealed=false;
+    const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
+    const scratch=e=>{
+      if(!isDrawing) return; e.preventDefault();
+      const {x,y}=getPos(e);
+      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
+      ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+      lastX=x; lastY=y;
+      if(!revealed){
+        const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
+        for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
+        if(transparent/(img.data.length/40)>0.5){
+          revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
+          panel.classList.add('just-revealed');
+          const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
+          panelsRevealed[idx]=true; checkWinner();
+        }
+      }
+    };
+    const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
+    const end=()=>{ isDrawing=false; };
+    canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
+    canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
+  });
+  updateTripleStatus();
+}
+
+function checkWinner(){
+  updateTripleStatus();
+  if(panelsRevealed.filter(Boolean).length===3&&!winnerShown){
+    winnerShown=true;
+    setTimeout(()=>{ document.getElementById('tripleWrap').classList.add('winner'); setTimeout(()=>{ document.getElementById('winnerMessage').classList.add('show'); triggerFullReveal(); },400); },300);
+  }
+}
+
+function updateTripleStatus(){
+  const count=panelsRevealed.filter(Boolean).length;
+  const status=document.getElementById('tripleStatus');
+  if(count===0) status.textContent='0 of 3 matched';
+  else if(count<3) status.textContent=count+' of 3 matched…';
+  else status.textContent='✦ A perfect match ✦';
+}
+
+function triggerFullReveal(){
+  const card=document.getElementById('previewCard');
+  card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed');
+  const flash=document.getElementById('cardFlash'); flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active');
+  fireConfetti(); startAmbientMotes();
+}
+
+function fireConfetti(){
+  if(!document.getElementById('confettiToggle').classList.contains('on')) return;
+  const container=document.getElementById('confettiLayer'); if(!container) return;
+  const shapes=CONFETTI_SHAPES[state.occasion]||CONFETTI_SHAPES.custom;
+  container.innerHTML='';
+  for(let i=0;i<40;i++){
+    const piece=document.createElement('div'); piece.className='confetti-piece'; piece.innerHTML=shapes[Math.floor(Math.random()*shapes.length)];
+    const size=16+Math.random()*16,drift=(Math.random()-0.5)*120,spin=(Math.random()>0.5?1:-1)*(360+Math.random()*720),duration=2.5+Math.random()*2,delay=Math.random()*0.4;
+    piece.style.left=Math.random()*100+'%'; piece.style.width=size+'px'; piece.style.height=size+'px';
+    piece.style.setProperty('--drift',drift+'px'); piece.style.setProperty('--spin',spin+'deg');
+    piece.style.animationDuration=duration+'s'; piece.style.animationDelay=delay+'s';
+    container.appendChild(piece); setTimeout(()=>piece.remove(),(duration+delay)*1000+100);
+  }
+}
+
+function stopAmbientMotes(){
+  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
+  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
+}
+
+function startAmbientMotes(){
+  const container=document.getElementById('ambientMotes'); if(!container) return;
+  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
+  const spawn=()=>{
+    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
+    const mote=document.createElement('div'); mote.className='mote';
+    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
+    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
+    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
+    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
+  };
+  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
+}
+
+function resetScratch(){
+  // Reset composite ops before repaint
+  panelsRevealed=[false,false,false]; winnerShown=false;
+  document.getElementById('previewCard').classList.remove('just-revealed');
+  stopAmbientMotes();
+  document.getElementById('tripleWrap').classList.remove('winner');
+  document.getElementById('winnerMessage').classList.remove('show');
+  document.querySelectorAll('.tri-panel').forEach(p=>{ p.classList.remove('just-revealed'); const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; } });
+  document.querySelectorAll('.tri-ping').forEach(p=>p.classList.remove('active'));
+  document.getElementById('cardFlash').classList.remove('active');
+  document.getElementById('confettiLayer').innerHTML='';
+  const single=document.getElementById('singleCanvas');
+  if(single){ single.style.opacity='1'; single.style.transition='none'; single.style.display='block'; }
+  document.getElementById('singleHint').classList.remove('faded');
+  document.getElementById('singleHint').style.display='flex';
+  setTimeout(()=>initCanvases(),50);
+}
+
+function decodeData(p){
+  try{return JSON.parse(decodeURIComponent(atob(p)));}catch(e){return null;}
+}
+
+function buildCard(d){
+  const themeClass='theme-'+(d.occasion||'proposal');
+  const icon=d.icon||'\u2728';
+  const isTriple=d.layout==='triple';
+  document.getElementById('previewWrap').innerHTML=`
+    <div class="preview-card ${themeClass}" id="previewCard">
+      <div class="theme-bg-layer"></div>
+      <div class="theme-bg-tint"></div>
+      <div class="reveal-layer" id="revealLayer">
+        ${d.recipient?`<div class="reveal-greeting">For ${d.recipient}</div>`:''}
+        <div class="reveal-headline" id="rHeadline">${d.headline||''}</div>
+        ${d.weddingDate?`<div class="reveal-date">${d.weddingDate}</div>`:''}
+        <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
+        <div class="reveal-text">${d.message||''}</div>
+        ${d.signature?`<div class="reveal-signoff"><div class="reveal-signoff-prefix">with love,</div><div class="reveal-signoff-name">${d.signature}</div></div>`:''}
+      </div>
+      <div class="scratch-single" id="scratchSingle" style="${isTriple?'display:none':''}">
+        <canvas id="singleCanvas"></canvas>
+        <div class="scratch-single-hint" id="singleHint">
+          <div class="icon-big">${icon}</div>
+          <div class="title">Scratch to Reveal</div>
+          <div class="sub">Use your finger or mouse</div>
+        </div>
+      </div>
+      <div class="triple-wrap" id="tripleWrap" style="${isTriple?'display:flex':'display:none'}">
+        <div class="triple-header"><div class="title">&#10022; Scratch &amp; Match &#10022;</div><div class="sub">Scratch all three to reveal</div></div>
+        <div class="triple-panels" id="triplePanels">
+          <div class="tri-panel" data-idx="0"><div class="tri-panel-content">${icon}</div><canvas></canvas><div class="tri-ping"></div></div>
+          <div class="tri-panel" data-idx="1"><div class="tri-panel-content">${icon}</div><canvas></canvas><div class="tri-ping"></div></div>
+          <div class="tri-panel" data-idx="2"><div class="tri-panel-content">${icon}</div><canvas></canvas><div class="tri-ping"></div></div>
+        </div>
+        <div class="triple-footer"><div class="triple-status" id="tripleStatus">0 of 3 matched</div></div>
+      </div>
+      <div class="winner-message" id="winnerMessage">
+        ${d.recipient?`<div class="reveal-greeting">For ${d.recipient}</div>`:''}
+        <div class="reveal-headline">${d.headline||''}</div>
+        <div class="reveal-text">${d.message||''}</div>
+      </div>
+      <div class="confetti-layer" id="confettiLayer"></div>
+      <div class="card-flash" id="cardFlash"></div>
+      <div class="ambient-motes" id="ambientMotes"></div>
+      <div class="m-stamp" aria-hidden="true"><img src="logo-m.png" alt=""/></div>
+      <svg class="frame-corner tl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+      <svg class="frame-corner tr" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+      <svg class="frame-corner bl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+      <svg class="frame-corner br" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
+      <svg class="frame-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
+    </div>`;
+  document.getElementById('resetRow').style.display='block';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(isTriple){setupTripleCanvases();updateTripleStatus();}
+    else{setupSingleCanvas();}
+  }));
+}
+
+(function(){
+  const p=new URLSearchParams(location.search).get('d');
+  if(!p){
+    document.getElementById('previewWrap').innerHTML='<div class="error"><h2>Card not found</h2><p>This link may be invalid. Please contact Moments by Shanaz.</p></div>';
+    return;
+  }
+  const d=decodeData(p);
+  if(!d){
+    document.getElementById('previewWrap').innerHTML='<div class="error"><h2>Unable to load</h2><p>Please contact Moments by Shanaz for a new link.</p></div>';
+    return;
+  }
+  S=d; buildCard(d);
+})();
+</script>
+</body>
+</html>
