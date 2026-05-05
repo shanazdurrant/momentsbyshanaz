@@ -153,54 +153,142 @@
     .section-title em { font-style: italic; color: var(--gold); }
 
     /* TILES */
+    /* ── FLIP CARDS ── */
     .tiles {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 40px;
     }
-    .tile {
-      background: var(--warm-white);
+    .flip-card {
+      width: 300px;
+      height: 380px;
+      perspective: 1000px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .flip-card:hover .flip-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+    /* FRONT — visual preview */
+    .flip-front {
       border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 36px 24px;
-      text-align: center;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      background: var(--warm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(44,40,37,.08);
+    }
+    .flip-front-visual {
+      width: 100%;
+      flex: 1;
       position: relative;
       overflow: hidden;
     }
-    .tile.clickable {
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
+    .flip-front-label {
+      padding: 18px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      width: 100%;
     }
-    .tile.clickable:hover {
-      border-color: var(--gold);
-      box-shadow: 0 12px 40px rgba(184,146,74,0.12);
-      transform: translateY(-2px);
-    }
-    .tile.clickable:hover .tile-arrow { opacity: 1; transform: translateX(0); }
-    .tile-icon { font-size: 28px; margin-bottom: 16px; }
-    .tile-name {
+    .flip-front-label h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 400;
-      margin-bottom: 8px;
+      color: var(--char);
+      margin-bottom: 4px;
     }
-    .tile-status {
-      font-size: 11px;
-      letter-spacing: 0.15em;
+    .flip-front-label p {
+      font-size: 10px;
+      letter-spacing: .18em;
       text-transform: uppercase;
+      color: var(--soft);
     }
-    .tile-status.available { color: var(--gold); }
-    .tile-status.soon { color: var(--soft); }
-    .tile-arrow {
+    /* BACK — description + CTA */
+    .flip-back {
+      transform: rotateY(180deg);
+      background: var(--char);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(44,40,37,.2);
+    }
+    .flip-back::before {
+      content: '';
       position: absolute;
-      bottom: 16px; right: 20px;
-      font-size: 18px;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(184,146,74,.12), transparent 70%);
+    }
+    .flip-back-eyebrow {
+      font-size: 9px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
       color: var(--gold);
-      opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.2s, transform 0.2s;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .flip-back h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .flip-back p {
+      font-size: 12px;
+      color: rgba(250,248,244,.6);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .flip-back-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 1px solid var(--gold);
+      border-radius: 3px;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      transition: background .2s, color .2s;
+      position: relative;
+    }
+    .flip-back-btn:hover {
+      background: var(--gold);
+      color: var(--cream);
+    }
+    .flip-hint {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-top: 10px;
+      opacity: .7;
     }
 
     /* HOW IT WORKS */
@@ -261,33 +349,85 @@
     <div class="hero-divider-line"></div>
   </div>
 
-  <!-- SERVICES TILES -->
-  <section>
+  <!-- SERVICES TILES — Flip Cards -->
+  <section style="padding:72px 40px;text-align:center;">
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Designed for every <em>special moment</em></h2>
+    <p style="font-size:13px;color:var(--mid);max-width:440px;margin:0 auto 48px;line-height:1.9;">Hover a card to find out more — then click through to start your order.</p>
     <div class="tiles">
 
-      <!-- SCRATCHCARD — clickable -->
-      <a href="/order.html" class="tile clickable">
-        <div class="tile-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold)"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 14h4M6 17h2" stroke-dasharray="2 1"/></svg>
+      <!-- SCRATCHCARD FLIP CARD -->
+      <div class="flip-card" role="article" aria-label="Scratchcard Reveals — hover to learn more">
+        <div class="flip-inner">
+
+          <!-- Front: mini scratchcard visual -->
+          <div class="flip-front">
+            <div class="flip-front-visual">
+              <!-- Illustrated scratchcard preview -->
+              <div style="position:absolute;inset:0;background:linear-gradient(160deg,#fdf8f0,#f0e8d4);display:flex;align-items:center;justify-content:center;">
+                <!-- Card body -->
+                <div style="width:160px;height:110px;background:linear-gradient(135deg,#fefcf8,#f5eddd);border:1px solid rgba(184,146,74,.3);border-radius:6px;position:relative;box-shadow:0 8px 28px rgba(44,40,37,.12);">
+                  <!-- Scratch area (grey overlay with partial reveal) -->
+                  <div style="position:absolute;inset:8px;background:linear-gradient(145deg,#d8d0c4,#c8c0b4);border-radius:3px;overflow:hidden;">
+                    <!-- Partially scratched area -->
+                    <div style="position:absolute;top:0;left:0;width:65%;height:100%;background:linear-gradient(135deg,#fdf8f0,#f5eddd);clip-path:polygon(0 0,100% 15%,85% 100%,0 100%);"></div>
+                    <!-- Revealed text underneath -->
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:6px;">
+                      <div style="font-family:'Cormorant Garamond',serif;font-size:.7rem;font-style:italic;color:var(--gold);text-align:center;line-height:1.3;z-index:1;">She Said<br/>Yes! ✦</div>
+                    </div>
+                  </div>
+                  <!-- Gold header bar -->
+                  <div style="position:absolute;top:0;left:0;right:0;height:7px;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-d));border-radius:5px 5px 0 0;opacity:.7;"></div>
+                  <!-- Scratch hint -->
+                  <div style="position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.12em;color:var(--soft);text-transform:uppercase;">Scratch to reveal</div>
+                </div>
+              </div>
+            </div>
+            <div class="flip-front-label">
+              <h3>Scratchcard Reveals</h3>
+              <p>Tap or hover to discover more</p>
+            </div>
           </div>
-        <div class="tile-name">Scratchcard Reveals</div>
-        <div class="tile-status available">Available Now</div>
-        <span class="tile-arrow">→</span>
-      </a>
 
-      <!-- INVITATIONS — clickable -->
-      <a href="/invitation.html" class="tile clickable">
-        <div class="tile-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <!-- Back: description -->
+          <div class="flip-back">
+            <div class="flip-back-eyebrow">Scratchcard Reveals</div>
+            <h3>A reveal they'll never forget</h3>
+            <p>Personalised digital scratchcards for proposals, gender reveals, holiday surprises and more. Crafted by hand — they scratch on their phone to discover your message.</p>
+            <a href="/order.html" class="flip-back-btn">Create yours →</a>
+            <div class="flip-hint">Click to order</div>
           </div>
-        <div class="tile-name">Digital Invitations</div>
-        <div class="tile-status available">Available Now</div>
-        <span class="tile-arrow">→</span>
-      </a>
 
+        </div>
+      </div>
 
+      <!-- INVITATIONS FLIP CARD -->
+      <div class="flip-card" role="article" aria-label="Digital Invitations — hover to learn more">
+        <div class="flip-inner">
+
+          <!-- Front: real invitation image -->
+          <div class="flip-front">
+            <div class="flip-front-visual" style="background:#f5eaec;">
+              <img src="Wedding_invitation.png" alt="Blush Wedding invitation example"
+                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"/>
+            </div>
+            <div class="flip-front-label">
+              <h3>Digital Invitations</h3>
+              <p>Tap or hover to discover more</p>
+            </div>
+          </div>
+
+          <!-- Back: description -->
+          <div class="flip-back">
+            <div class="flip-back-eyebrow">Digital Invitations</div>
+            <h3>Invitations as beautiful as the moment</h3>
+            <p>Choose from 10 signature styles or go fully bespoke. Weddings, birthdays, Eid, gender reveals — every occasion, crafted by hand and delivered within hours.</p>
+            <a href="/invitation.html" class="flip-back-btn">Browse styles →</a>
+            <div class="flip-hint">Click to order</div>
+          </div>
+
+        </div>
+      </div>
 
     </div>
   </section>
