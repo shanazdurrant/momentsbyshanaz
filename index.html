@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --cream: #faf8f4;
       --warm-white: #fefcf8;
@@ -29,9 +29,9 @@
       --soft: #9c958f;
       --border: #e8e2d9;
     }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       font-family: 'Jost', sans-serif;
       background: var(--cream);
@@ -39,7 +39,7 @@
       font-weight: 300;
       line-height: 1.7;
     }
-
+ 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -76,7 +76,7 @@
     }
     nav .admin-link:hover { color: var(--gold); }
     nav .admin-link svg { width: 14px; height: 14px; }
-
+ 
     /* HERO */
     .hero {
       min-height: 100vh;
@@ -124,7 +124,7 @@
       margin-bottom: 60px;
     }
     .divider { color: var(--gold); font-size: 18px; margin: 8px 0; }
-
+ 
     /* SECTION */
     section {
       padding: 100px 40px;
@@ -147,7 +147,7 @@
       text-align: center;
     }
     .section-title em { font-style: italic; color: var(--gold); }
-
+ 
     /* TILES */
     /* ── FLIP CARDS ── */
     .tiles {
@@ -279,7 +279,7 @@
       margin-top: 10px;
       opacity: .7;
     }
-
+ 
     /* HOW IT WORKS */
     .how-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
     .step { border-top: 1px solid var(--gold); padding-top: 32px; }
@@ -298,7 +298,7 @@
       margin-bottom: 12px;
     }
     .step p { font-size: 14px; color: var(--mid); line-height: 1.7; }
-
+ 
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -307,7 +307,7 @@
     }
     footer .footer-logo img { height: 36px; margin-bottom: 24px; }
     footer p { font-size: 12px; color: var(--soft); letter-spacing: 0.1em; }
-
+ 
     @media (max-width: 768px) {
       nav { padding: 0 20px; height: 48px; }
       nav .nav-links { display: none; }
@@ -317,7 +317,7 @@
   </style>
 </head>
 <body>
-
+ 
   <!-- NAV -->
   <nav>
     <div class="nav-links">
@@ -329,7 +329,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </a>
   </nav>
-
+ 
   <!-- HERO -->
   <div class="hero">
     <div class="hero-logo">
@@ -339,18 +339,18 @@
     <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
     <div class="hero-divider-line"></div>
   </div>
-
+ 
   <!-- SERVICES TILES — Flip Cards -->
   <section style="padding:72px 40px;text-align:center;">
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Designed for every <em>special moment</em></h2>
     <p style="font-size:13px;color:var(--mid);max-width:440px;margin:0 auto 48px;line-height:1.9;">Hover a card to find out more — then click through to start your order.</p>
     <div class="tiles">
-
+ 
       <!-- SCRATCHCARD FLIP CARD -->
       <div class="flip-card" role="article" aria-label="Scratchcard Reveals — hover to learn more">
         <div class="flip-inner">
-
+ 
           <!-- Front: Proposal.jpg image -->
           <div class="flip-front">
             <div class="flip-front-visual" style="background-image:url('Proposal.jpg');background-size:cover;background-position:center;background-color:#f0e8d8;">
@@ -366,7 +366,7 @@
               <p>Tap or hover to discover more</p>
             </div>
           </div>
-
+ 
           <!-- Back: description -->
           <div class="flip-back">
             <div class="flip-back-eyebrow">Scratchcard Reveals</div>
@@ -375,14 +375,14 @@
             <a href="/order.html" class="flip-back-btn">Create yours →</a>
             <div class="flip-hint">Click to order</div>
           </div>
-
+ 
         </div>
       </div>
-
+ 
       <!-- INVITATIONS FLIP CARD -->
       <div class="flip-card" role="article" aria-label="Digital Invitations — hover to learn more">
         <div class="flip-inner">
-
+ 
           <!-- Front: real invitation image -->
           <div class="flip-front">
             <div class="flip-front-visual" style="background:#f5eaec;">
@@ -394,7 +394,7 @@
               <p>Tap or hover to discover more</p>
             </div>
           </div>
-
+ 
           <!-- Back: description -->
           <div class="flip-back">
             <div class="flip-back-eyebrow">Digital Invitations</div>
@@ -403,21 +403,21 @@
             <a href="/invitation.html" class="flip-back-btn">Browse styles →</a>
             <div class="flip-hint">Click to order</div>
           </div>
-
+ 
         </div>
       </div>
-
+ 
     </div>
   </section>
-
+ 
   <!-- PRICING -->
   <section style="padding:72px 40px;text-align:center;background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <p class="section-label">Pricing</p>
     <h2 class="section-title">Simple, <em>honest pricing</em></h2>
     <p style="font-size:14px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is crafted by hand and delivered within hours. No hidden fees — what you see is what you pay.</p>
-
+ 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto 32px;">
-
+ 
       <!-- Scratchcard -->
       <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
         <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Scratchcard Reveal</div>
@@ -431,7 +431,7 @@
         </div>
         <a href="/order.html" style="display:block;margin-top:24px;background:var(--char);color:var(--cream);padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--char)'">Order Now</a>
       </div>
-
+ 
       <!-- Invitation Preset -->
       <div style="background:var(--cream);border:1px solid var(--gold);border-radius:8px;padding:32px 24px;text-align:center;position:relative;box-shadow:0 8px 32px rgba(184,146,74,.12);">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 14px;border-radius:10px;white-space:nowrap;">Most Popular</div>
@@ -446,7 +446,7 @@
         </div>
         <a href="/invitation.html" style="display:block;margin-top:24px;background:var(--gold);color:#fff;padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--char)'" onmouseout="this.style.background='var(--gold)'">Order Now</a>
       </div>
-
+ 
       <!-- Bespoke -->
       <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
         <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Bespoke Invitation</div>
@@ -460,11 +460,11 @@
         </div>
         <a href="/invitation.html#bespoke" style="display:block;margin-top:24px;background:var(--char);color:var(--cream);padding:12px;border-radius:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--char)'">Get a Quote</a>
       </div>
-
+ 
     </div>
     <p style="font-size:11px;color:var(--soft);margin-top:8px;line-height:1.8;">Also available on <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Etsy</a> · Pay securely through the platform you trust most</p>
   </section>
-
+ 
   <!-- HOW IT WORKS -->
   <section>
     <p class="section-label">The Process</p>
@@ -492,7 +492,7 @@
         <p>Your finished, watermark-free digital item arrives in your inbox — ready to share within hours.</p>
       </div>
     </div>
-
+ 
     <!-- Two-path callout -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:40px auto 0;">
       <div style="border:1px solid var(--border);border-radius:6px;padding:20px 22px;text-align:left;">
@@ -506,17 +506,17 @@
         <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;">Visit Etsy shop →</a>
       </div>
     </div>
-
+ 
   </section>
-
+ 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo"><img src="logo-horizontal.png" alt="Moments by Shanaz" /></div>
     <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
-
+ 
     <!-- Social links -->
     <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;">
-
+ 
       <!-- Instagram -->
       <a href="https://www.instagram.com/yourmoments_bys?igsh=MWJleTJva2UzYjNyZA==" target="_blank" rel="noopener" aria-label="Follow Moments by Shanaz on Instagram"
          style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
@@ -524,7 +524,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
         Instagram
       </a>
-
+ 
       <!-- Facebook -->
       <a href="https://www.facebook.com/people/Moments-by-Shanaz/61558569213927/" target="_blank" rel="noopener" aria-label="Find Moments by Shanaz on Facebook"
          style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
@@ -532,7 +532,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         Facebook
       </a>
-
+ 
       <!-- Etsy -->
       <a href="https://www.etsy.com/shop/momentsbyshanaz" target="_blank" rel="noopener" aria-label="Shop Moments by Shanaz on Etsy"
          style="display:flex;align-items:center;gap:7px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:color .2s;"
@@ -554,7 +554,7 @@
       Admin
     </a>
   </footer>
-
+ 
   <script>
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
@@ -563,3 +563,4 @@
   </script>
 </body>
 </html>
+ 
