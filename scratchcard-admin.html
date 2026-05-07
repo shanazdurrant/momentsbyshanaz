@@ -28,7 +28,7 @@
     /* LAYOUT */
     .layout { display: grid; grid-template-columns: 440px 1fr; gap: 0; min-height: calc(100vh - 64px); }
     .controls { border-right: 1px solid var(--border); padding: 32px 28px; overflow-y: auto; }
-    .preview-col { padding: 40px 32px; background: #f5f2ed; display: flex; flex-direction: column; align-items: center; }
+    .preview-col { padding: 40px 32px; background: #f5f2ed; display: flex; flex-direction: column; align-items: center; min-width: 420px; }
 
     /* SECTION BLOCKS */
     .ctrl-section { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
@@ -92,7 +92,7 @@
 
     /* PREVIEW COLUMN */
     .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
-    .card-wrap { position: relative; }
+    .card-wrap { position: relative; width: 340px; max-width: 100%; }
     /* scratch CSS now matches order.html exactly — see injected block below */
     .scratch-reset-btn {
       margin-top: 10px;
@@ -110,23 +110,9 @@
     }
     .scratch-reset-btn:hover { background: var(--gold); color: #fff; }
 
-    .preview-card {
-      width: 340px; aspect-ratio: 3/4; border-radius: 6px;
-      position: relative; overflow: hidden;
-      box-shadow: 0 20px 60px rgba(44,40,37,0.25);
-      background: var(--theme-bg, linear-gradient(145deg, #fdfbf6, #f2ecdf));
-    }
-    .theme-proposal { background-image: url('Proposal.jpg'); background-size: cover; background-position: center; }
-    .theme-gender { background-image: url('gender.jpg'); background-size: cover; background-position: center; }
-    .theme-holiday { background-image: url('Holiday.jpg'); background-size: cover; background-position: center; }
-    .theme-pregnancy { background-image: url('image.png'); background-size: cover; background-position: center; }
-    .theme-wedding { background-image: url('Wedding.jpg'); background-size: cover; background-position: center; }
-    .theme-birthday { background-image: url('birthday.jpg'); background-size: cover; background-position: center; }
-    .theme-christmas { background-image: url('christmas.jpg'); background-size: cover; background-position: center; }
-    .theme-custom { background-image: url('Other.jpg'); background-size: cover; background-position: center; }
-
-    .card-tint { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(253,251,246,0.2) 0%, rgba(250,246,240,0.08) 40%, rgba(242,236,223,0.22) 100%); z-index: 1; }
-    .card-frame { position: absolute; inset: 12px; border: 1px solid rgba(201,169,97,0.3); border-radius: 1px; z-index: 2; pointer-events: none; }
+    /* preview-card CSS defined below in injected block */
+    /* Override width to fill admin preview column */
+    .preview-card { width: 100% !important; max-width: 340px !important; }
 
     /* No watermark on admin version */
     .card-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; z-index: 3; gap: 0; }
@@ -156,6 +142,12 @@
     }
   
     /* ── SCRATCH PREVIEW (copied from order.html) ── */
+:root {
+  --ivory: #fdf9f2;
+  --cream-soft: #f8f2e8;
+  --cream-deep: #f0e6d2;
+}
+
 .preview-card{
   max-width:360px;margin:0 auto;
   aspect-ratio:3/4;
@@ -181,8 +173,8 @@
 .theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
 .theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
 
-/* ══ WATERMARK ══ */
-.preview-card::after{
+/* ══ WATERMARK — hidden on admin ══ */
+.preview-card::after{display:none !important;} .preview-card.WM::after{
   content:'PREVIEW';
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
@@ -448,14 +440,14 @@
 
         <!-- Reveal layer (single layout) -->
         <div class="reveal-layer" id="revealLayer">
-          <div class="reveal-greeting" id="pGreeting">For Amelia</div>
-          <div class="reveal-headline" id="pHeadline">Will you marry me?</div>
-          <div class="reveal-date" id="pDate" style="display:none;"></div>
+          <div class="reveal-greeting" id="rGreeting">For Amelia</div>
+          <div class="reveal-headline" id="rHeadline">Will you marry me?</div>
+          <div class="reveal-date" id="rDate" style="display:none;"></div>
           <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
-          <div class="reveal-text" id="pMessage">Your message will appear here.</div>
-          <div class="reveal-signoff" id="pSignoff" style="display:none;">
+          <div class="reveal-text" id="rMessage">Your message will appear here.</div>
+          <div class="reveal-signoff" id="rSignoff" style="display:none;">
             <div class="reveal-signoff-prefix">with love,</div>
-            <div class="reveal-signoff-name" id="pSig"></div>
+            <div class="reveal-signoff-name" id="rSig"></div>
           </div>
         </div>
 
@@ -464,7 +456,7 @@
           <canvas id="singleCanvas"></canvas>
           <div class="scratch-single-hint" id="singleHint">
             <div class="icon-big" id="hintIcon">💍</div>
-            <div class="title">Scratch to Reveal</div>
+            <div class="title">SCRATCH TO REVEAL</div>
             <div class="sub">Use your finger or mouse</div>
           </div>
         </div>
@@ -583,18 +575,16 @@ function updatePreview() {
   else pSig.style.display = 'none';
 
   // Triple circles icon
-  ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).textContent = S.icon);
-
-  // Update triple icons
+    // Update triple icons
   ['tc0','tc1','tc2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=S.icon; });
   // Populate winner message with same content as reveal layer
   const g = id => document.getElementById(id);
   if(g('wGreeting'))  g('wGreeting').textContent  = g('pGreeting')?.textContent || '';
   if(g('wHeadline'))  g('wHeadline').textContent  = g('pHeadline')?.textContent || '';
   if(g('wMessage'))   g('wMessage').textContent   = g('pMessage')?.textContent  || '';
-  if(g('wDate'))      { g('wDate').textContent    = g('pDate')?.textContent || ''; g('wDate').style.display = g('pDate')?.style.display || 'none'; }
-  if(g('wSignoff'))   g('wSignoff').style.display = g('pSignoff')?.style.display || 'none';
-  if(g('wSig'))       g('wSig').textContent       = g('pSig')?.textContent || '';
+  // wDate sync handled below
+
+
   const _s=(a,b)=>{const ea=document.getElementById(a),eb=document.getElementById(b);if(ea&&eb)eb.textContent=ea.textContent;};
   _s('rGreeting','wGreeting');_s('rHeadline','wHeadline');_s('rMessage','wMessage');
   const hi=document.getElementById('hintIcon');if(hi)hi.textContent=S.icon;
@@ -646,6 +636,29 @@ document.getElementById('headline').addEventListener('input', function() {
   delete this.dataset.auto;
 });
 updatePreview();
+
+const CONFETTI_SHAPES={proposal:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="11" cy="6" r="2" fill="#e8d4a0"/><path d="M11 6 L9 10 L13 10 Z" fill="#f0dca8"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],gender:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="#e8c4cc" stroke="#a88843" stroke-width="1"/><rect x="10" y="16" width="4" height="6" rx="2" fill="#c9a961"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5" fill="#a8b89f"/><rect x="11" y="12" width="2" height="8" fill="#a88843"/><circle cx="12" cy="21" r="2" fill="#a88843"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],holiday:[`<svg viewBox="0 0 24 24"><path d="M2 12 L22 4 L18 22 L14 14 L6 12 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/><g stroke="#c9a961" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></g></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 22 Q12 14 8 6 Q10 10 12 10 Q14 10 16 6 Q12 14 12 22" fill="#7d8f74"/></svg>`],pregnancy:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="5" ry="7" fill="#e8c4cc"/><circle cx="8" cy="5" r="1.5" fill="#e8c4cc"/><circle cx="16" cy="5" r="1.5" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],wedding:[`<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="15" cy="12" r="6" fill="none" stroke="#a88843" stroke-width="2"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5" fill="#e8c4cc"/><circle cx="12" cy="10" r="3" fill="#d4a0ac"/><path d="M12 15 L10 22 M12 15 L14 22" stroke="#7d8f74" stroke-width="1" fill="none"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M8 4 L16 4 L14 12 Q14 14 12 14 Q10 14 10 12 Z" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><line x1="12" y1="14" x2="12" y2="20" stroke="#a88843" stroke-width="0.8"/></svg>`],birthday:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="6" ry="7" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><line x1="12" y1="17" x2="10" y2="24" stroke="#a88843" stroke-width="0.8"/></svg>`,`<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="12" rx="1" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/><rect x="4" y="8" width="16" height="3" fill="#a88843"/><rect x="11" y="8" width="2" height="14" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/></svg>`],christmas:[`<svg viewBox="0 0 24 24"><g stroke="#a88843" stroke-width="1.2" fill="none" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></g><circle cx="12" cy="12" r="1.5" fill="#e8d4a0"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L7 9 L9 9 L5 14 L8 14 L3 20 L21 20 L16 14 L19 14 L15 9 L17 9 Z" fill="#7d8f74"/><rect x="10" y="20" width="4" height="3" fill="#5c3e30"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],custom:[`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="#a8b89f"/></svg>`]};
+
+let motesInterval=null;
+function startAmbientMotes(){
+  const container=document.getElementById('ambientMotes'); if(!container) return;
+  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
+  const spawn=()=>{
+    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
+    const mote=document.createElement('div'); mote.className='mote';
+    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
+    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
+    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
+    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
+  };
+  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
+}
+
+function stopAmbientMotes(){
+  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
+  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
+}
+
 
 /* ══════ SCRATCH ENGINE — direct from order.html ══════ */
 let panelsRevealed = [false, false, false];
@@ -780,9 +793,8 @@ function triggerFullReveal(){
 }
 
 function fireConfetti(){
-  if(!document.getElementById('confettiToggle').classList.contains('on')) return;
   const container=document.getElementById('confettiLayer'); if(!container) return;
-  const shapes=CONFETTI_SHAPES[state.occasion]||CONFETTI_SHAPES.custom;
+  const shapes=CONFETTI_SHAPES[S.occasion]||CONFETTI_SHAPES.custom;
   container.innerHTML='';
   for(let i=0;i<40;i++){
     const piece=document.createElement('div'); piece.className='confetti-piece'; piece.innerHTML=shapes[Math.floor(Math.random()*shapes.length)];
