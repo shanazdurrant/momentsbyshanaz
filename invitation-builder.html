@@ -401,14 +401,14 @@ nav .nav-links a:hover,nav .nav-links a.active{color:var(--gold);}
       <div class="fs-title"><span class="fs-num">✦</span>Start from a Preset</div>
       <p style="font-size:11px;color:var(--soft);margin-bottom:12px;line-height:1.7;">Load one of the client-facing styles as a starting point — then customise fonts, colours, backgrounds and text to match your client's order.</p>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-        <button class="preset-load-btn" onclick="loadPreset('elegant')">Eternal Elegance</button>
+        <button class="preset-load-btn" onclick="loadPreset('elegant')">Rainforest Adventure</button>
         <button class="preset-load-btn" onclick="loadPreset('noir')">Noir &amp; Gold</button>
         <button class="preset-load-btn" onclick="loadPreset('wedding')">Blush Wedding</button>
         <button class="preset-load-btn" onclick="loadPreset('engage')">Engagement</button>
         <button class="preset-load-btn" onclick="loadPreset('garden')">Garden Party</button>
         <button class="preset-load-btn" onclick="loadPreset('starry')">Starry Night</button>
         <button class="preset-load-btn" onclick="loadPreset('explorer')">Little Explorer</button>
-        <button class="preset-load-btn" onclick="loadPreset('safari')">Wild Safari</button>
+        <button class="preset-load-btn" onclick="loadPreset('safari')">Wild Birthday</button>
         <button class="preset-load-btn" onclick="loadPreset('princess')">Princess &amp; Fairy</button>
         <button class="preset-load-btn" onclick="loadPreset('playful')">Bold &amp; Playful</button>
       </div>
@@ -1577,14 +1577,14 @@ function copyLink(){
 
 /* ── LOAD PRESET ── */
 const PRESETS = {
-  elegant:  { bg:'#f5eddd', bgMode:'solid', font:'cormorant', textColor:'#2c2825', textDark:true,  frame:'f-classic', div:'line',    eyebrow:"You're Invited",    image:'minimalistic.jpg', occasion:'wedding'   },
+  elegant:  { bg:'#2d5a2d', bgMode:'solid', font:'nunito', textColor:'#ffffff', textDark:false, frame:'f-minimal', div:'line',    eyebrow:'Welcome to the Jungle!', image:'rainforest.jpg', occasion:'birthday'  },
   noir:     { bg:'#1a1714', bgMode:'solid', font:'cinzel',    textColor:'#e8d5a8', textDark:false, frame:'f-double',  div:'line',    eyebrow:'Cordially Invited', image:'Engaged.jpg',      occasion:'wedding'   },
   wedding:  { bg:'#fdf0f4', bgMode:'solid', font:'greatvibes',textColor:'#5a2535', textDark:true,  frame:'f-arch',    div:'ornament',eyebrow:'Together With Their Families', image:'wedding2.jpg', occasion:'wedding' },
   engage:   { bg:'#3a2e42', bgMode:'solid', font:'sacramento',textColor:'#f0e4ff', textDark:false, frame:'f-corners', div:'line',    eyebrow:'She Said Yes',      image:'engagement.jpg',   occasion:'engagement'},
   garden:   { bg:'#eef5ee', bgMode:'solid', font:'dancing',   textColor:'#2d5a35', textDark:true,  frame:'f-minimal', div:'ornament',eyebrow:'You Are Invited',   image:'Flowers.jpg',      occasion:'birthday'  },
   starry:   { bg:'#0d1a3a', bgMode:'solid', font:'sacramento',textColor:'#eaf0ff', textDark:false, frame:'f-minimal', div:'line',    eyebrow:'An Evening to Remember', image:'minimalistic.jpg', occasion:'other' },
   explorer: { bg:'#fff9e6', bgMode:'solid', font:'pacifico',  textColor:'#7a4a00', textDark:true,  frame:'f-classic', div:'line',    eyebrow:"It's Party Time!", image:'party.jpg',        occasion:'birthday'  },
-  safari:   { bg:'#eef5ee', bgMode:'solid', font:'nunito',    textColor:'#1e5c10', textDark:true,  frame:'f-minimal', div:'line',    eyebrow:'Join the Adventure!', image:'birthday1.jpg',  occasion:'birthday'  },
+  safari:   { bg:'#c8a050', bgMode:'solid', font:'nunito',    textColor:'#ffffff', textDark:false, frame:'f-minimal', div:'line',    eyebrow:'Party Time!',         image:'Safari.jpg',     occasion:'birthday'  },
   princess: { bg:'#fff0f8', bgMode:'solid', font:'dancing',   textColor:'#8c1a6a', textDark:true,  frame:'f-classic', div:'ornament',eyebrow:"You're Invited to the Royal Party!", image:'pink-watercolour.jpg', occasion:'birthday' },
   playful:  { bg:'#ff6b6b', bgMode:'gradient', font:'bebas', textColor:'#ffffff', textDark:false, frame:'f-double',  div:'line',    eyebrow:'Come Celebrate!',   image:'bday.jpg',         occasion:'birthday'  },
 };
