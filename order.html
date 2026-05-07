@@ -115,9 +115,9 @@ body::after{
 }
 .top-bar.scrolled{padding:8px 20px;}
 .top-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.top-bar-logo{height:48px;width:auto;display:block;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
+.top-bar-logo{height:48px;width:48px;object-fit:contain;border-radius:50%;display:block;transition:height 0.4s cubic-bezier(.4,0,.2,1);}
 .top-bar-logo:hover{transform:scale(1.03);}
-.top-bar.scrolled .top-bar-logo{height:40px;}
+.top-bar.scrolled .top-bar-logo{height:40px;width:40px;}
 .top-bar-nav{display:flex;gap:28px;align-items:center;}
 .top-bar-nav a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--ink-soft);text-decoration:none;letter-spacing:0.5px;transition:color 0.2s;}
 .top-bar-nav a:hover,.top-bar-nav a.active{color:var(--gold-deep);}
@@ -482,7 +482,7 @@ body::after{
 
 <header class="top-bar" id="top-bar">
   <div class="top-bar-inner">
-    <a href="/"><img src="logo-horizontal.png" alt="Moments by Shanaz"/></a>
+    <a href="/"><img src="logo-main.png" alt="Moments by Shanaz"/></a>
     <nav class="top-bar-nav">
       <a href="/order.html" class="active">Scratchcards</a>
       <a href="/invitation.html">Invitations</a>
