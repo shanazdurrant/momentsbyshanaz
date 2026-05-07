@@ -314,7 +314,7 @@
 
 <nav>
   <div class="nav-brand">
-    <img src="logo-horizontal.png" alt="Moments by Shanaz"/>
+    <img src="logo-main.png" alt="Moments by Shanaz" style="height:48px;width:48px;object-fit:contain;border-radius:50%;vertical-align:middle;"/>
     <span class="nav-tag">Scratchcard Builder</span>
   </div>
   <a href="/admin.html">← Admin Home</a>
@@ -455,7 +455,6 @@
         <div class="scratch-single" id="scratchSingle">
           <canvas id="singleCanvas"></canvas>
           <div class="scratch-single-hint" id="singleHint">
-            <div class="icon-big" id="hintIcon">💍</div>
             <div class="title">SCRATCH TO REVEAL</div>
             <div class="sub">Use your finger or mouse</div>
           </div>
@@ -587,7 +586,7 @@ function updatePreview() {
 
   const _s=(a,b)=>{const ea=document.getElementById(a),eb=document.getElementById(b);if(ea&&eb)eb.textContent=ea.textContent;};
   _s('rGreeting','wGreeting');_s('rHeadline','wHeadline');_s('rMessage','wMessage');
-  const hi=document.getElementById('hintIcon');if(hi)hi.textContent=S.icon;
+  // hintIcon removed
   ['tc0','tc1','tc2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=S.icon;});
   // Layout handled by updateAdminLayout
 }
@@ -753,7 +752,7 @@ function setupTripleCanvases(){
       if(!revealed){
         const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
         for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-        if(transparent/(img.data.length/40)>0.5){
+        if(transparent/(img.data.length/40)>0.4){
           revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
           panel.classList.add('just-revealed');
           const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
