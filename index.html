@@ -93,8 +93,8 @@
       background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(184,146,74,0.06), transparent);
     }
     .hero-logo {
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       margin-bottom: 40px;
       position: relative;
       z-index: 1;
@@ -104,9 +104,13 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      mix-blend-mode: multiply;
       display: block;
+      mix-blend-mode: multiply;
+      /* Multiply makes white pixels transparent against cream background */
+      /* This works best when hero background matches body exactly */
     }
+    /* Ensure the hero background is identical to body so multiply works */
+    .hero { background: #faf8f4 !important; }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.8rem, 5vw, 4.2rem);
@@ -349,6 +353,10 @@
     <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
     <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
     <div class="hero-divider-line"></div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Explore</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
   </div>
 
   <!-- DECORATIVE QUOTE BAND -->
