@@ -1,867 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scratchcard Builder · Admin · Moments by Shanaz</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Scratchcard Builder · Moments by Shanaz</title>
+  <link rel="icon" href="favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #faf8f4; --gold: #b8924a; --gold-light: #d4a96a;
-      --charcoal: #2c2825; --mid: #6b6460; --soft: #9c958f;
-      --border: #e8e2d9; --green: #3a7d57;
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --cream:#faf8f4;--warm:#f5f0e8;--border:#e8e0d0;
+      --char:#2c2825;--mid:#6b6460;--soft:#9c9490;
+      --gold:#b8924a;--gold-l:rgba(184,146,74,.15);
     }
-    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); font-weight: 300; min-height: 100vh; }
+    body{background:var(--cream);font-family:'Jost',sans-serif;color:var(--char);min-height:100vh;}
 
-    /* NAV */
-    nav { background: rgba(250,248,244,0.96); backdrop-filter: blur(12px);  display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; position: sticky; top: 0; z-index: 50; }
-    nav .nav-brand { display: flex; align-items: center; gap: 12px; }
-    nav img { height: 32px; }
-    nav .nav-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); border-left: 1px solid var(--border); padding-left: 12px; }
-    nav a { font-size: 12px; letter-spacing: 0.1em; color: var(--soft); text-decoration: none; text-transform: uppercase; }
-    nav a:hover { color: var(--gold); }
+    /* ── TOP BAR ── */
+    .top-bar{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;border-bottom:1px solid var(--border);background:var(--cream);}
+    .top-bar-brand{display:flex;align-items:center;gap:12px;}
+    .top-bar-brand img{height:36px;width:36px;object-fit:contain;border-radius:50%;}
+    .top-bar-brand span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--mid);}
+    .top-bar a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);text-decoration:none;transition:color .2s;}
+    .top-bar a:hover{color:var(--gold);}
 
-    /* LAYOUT */
-    .layout { display: grid; grid-template-columns: 440px 1fr; gap: 0; min-height: calc(100vh - 64px); }
-    .controls { border-right: 1px solid var(--border); padding: 32px 28px; overflow-y: auto; }
-    .preview-col { padding: 40px 32px; background: #f5f2ed; display: flex; flex-direction: column; align-items: center; min-width: 420px; }
+    /* ── PAGE ── */
+    .page{max-width:680px;margin:0 auto;padding:48px 24px 80px;}
+    .page-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;margin-bottom:6px;}
+    .page-sub{font-size:12px;color:var(--mid);margin-bottom:40px;line-height:1.7;}
 
-    /* SECTION BLOCKS */
-    .ctrl-section { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-    .ctrl-section:last-child { border-bottom: none; }
-    .ctrl-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-    .ctrl-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    /* ── SECTIONS ── */
+    .section{margin-bottom:36px;}
+    .section-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
 
-    /* FORM ELEMENTS */
-    .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
-    .field input, .field textarea, .field select {
-      width: 100%; padding: 9px 12px;
-      border: 1px solid var(--border); border-radius: 3px;
-      font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
-      background: white; color: var(--charcoal);
-      transition: border-color 0.2s;
-    }
-    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); }
-    .field textarea { resize: vertical; min-height: 60px; }
+    /* ── OCCASION CHIPS ── */
+    .occ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .occ-chip{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;user-select:none;}
+    .occ-chip:hover{border-color:var(--gold);}
+    .occ-chip.sel{border-color:var(--gold);background:var(--gold-l);}
+    .occ-chip .oc-icon{font-size:22px;margin-bottom:5px;}
+    .occ-chip .oc-name{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);}
+    .occ-chip.sel .oc-name{color:var(--gold);}
 
-    /* OCCASION CHIPS */
-    .occ-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-    .occ-chip { padding: 10px 6px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
-    .occ-chip:hover { border-color: var(--gold); }
-    .occ-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.08); }
-    .occ-icon { font-size: 18px; display: block; margin-bottom: 3px; }
-    .occ-name { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+    /* ── LAYOUT CHIPS ── */
+    .layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .layout-chip{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:16px;cursor:pointer;transition:all .2s;text-align:center;user-select:none;}
+    .layout-chip:hover{border-color:var(--gold);}
+    .layout-chip.sel{border-color:var(--gold);background:var(--gold-l);}
+    .layout-chip .lc-icon{font-size:20px;margin-bottom:6px;}
+    .layout-chip .lc-name{font-size:12px;font-weight:500;color:var(--char);margin-bottom:2px;}
+    .layout-chip .lc-sub{font-size:10px;color:var(--soft);}
+    .layout-chip.sel .lc-name{color:var(--gold);}
 
-    /* LAYOUT CHIPS */
-    .layout-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .layout-chip { padding: 14px 10px; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; text-align: center; background: white; transition: all 0.2s; }
-    .layout-chip:hover { border-color: var(--gold); }
-    .layout-chip.sel { border-color: var(--gold); background: rgba(184,146,74,0.08); }
-    .layout-chip-name { font-size: 12px; font-weight: 500; color: var(--charcoal); margin-bottom: 2px; }
-    .layout-chip-sub { font-size: 10px; color: var(--soft); font-style: italic; }
-    .layout-visual { display: flex; gap: 3px; justify-content: center; margin-bottom: 8px; height: 28px; align-items: center; }
-    .layout-panel { background: linear-gradient(135deg, #c9a961, #a88843); border-radius: 2px; }
-    .layout-chip[data-layout="single"] .layout-panel { width: 36px; height: 24px; }
-    .layout-chip[data-layout="triple"] .layout-panel { width: 14px; height: 14px; border-radius: 50%; }
+    /* ── FIELDS ── */
+    .field{margin-bottom:16px;}
+    .field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:7px;}
+    .field input,.field textarea{width:100%;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:11px 14px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;resize:vertical;}
+    .field input:focus,.field textarea:focus{border-color:var(--gold);}
+    .field textarea{min-height:90px;}
+    .field .hint{font-size:10px;color:var(--soft);margin-top:5px;}
 
-    /* TOGGLE */
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 3px; background: white; margin-bottom: 8px; }
-    .toggle-info { font-size: 13px; color: var(--charcoal); }
-    .toggle-info small { display: block; font-size: 10px; color: var(--soft); margin-top: 1px; }
-    .tog { width: 40px; height: 22px; background: var(--border); border-radius: 100px; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
-    .tog::before { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
-    .tog.on { background: var(--gold); }
-    .tog.on::before { transform: translateX(18px); }
+    /* ── CONFETTI TOGGLE ── */
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:14px 16px;cursor:pointer;user-select:none;}
+    .toggle-row span{font-size:12px;color:var(--char);}
+    .tog{width:36px;height:20px;border-radius:10px;background:var(--border);position:relative;transition:background .2s;flex-shrink:0;}
+    .tog::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s;}
+    .tog.on{background:var(--gold);}
+    .tog.on::after{transform:translateX(16px);}
 
-    /* EMAIL PANEL */
+    /* ── GENERATE BUTTON ── */
+    .gen-btn{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:5px;padding:16px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:8px;}
+    .gen-btn:hover{background:var(--gold);}
 
-    /* BUTTONS */
-    .btn { width: 100%; padding: 13px; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; }
-    .btn-primary { background: var(--charcoal); color: var(--cream); }
-    .btn-primary:hover { background: #1a1210; }
-    .btn-gold { background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.4); color: var(--gold); }
-    .btn-gold:hover { background: rgba(184,146,74,0.22); }
-    .btn-green { background: rgba(58,125,87,0.1); border: 1px solid rgba(58,125,87,0.35); color: var(--green); }
-    .btn-green:hover { background: rgba(58,125,87,0.18); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    /* ── LINK OUTPUT ── */
+    .link-box{display:none;margin-top:16px;background:var(--warm);border:1px solid var(--gold);border-radius:5px;padding:16px;}
+    .link-box .lb-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+    .link-box .lb-row{display:flex;gap:8px;}
+    .link-box input{flex:1;background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:10px 12px;font-family:monospace;font-size:11px;color:var(--char);outline:none;}
+    .link-box .copy-btn{background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:10px 18px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    .link-box .copy-btn:hover{background:var(--gold);}
+    .link-box .confirm{font-size:10px;color:var(--gold);margin-top:8px;display:none;}
 
-    /* PREVIEW COLUMN */
-    .preview-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
-    .card-wrap { position: relative; width: 340px; max-width: 100%; }
-    /* scratch CSS now matches order.html exactly — see injected block below */
-    .scratch-reset-btn {
-      margin-top: 10px;
-      background: none;
-      border: 1px solid var(--gold);
-      border-radius: 3px;
-      padding: 6px 18px;
-      font-family: 'Jost', sans-serif;
-      font-size: 10px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      cursor: pointer;
-      transition: background .2s, color .2s;
-    }
-    .scratch-reset-btn:hover { background: var(--gold); color: #fff; }
-
-    /* preview-card CSS defined below in injected block */
-    /* Override width to fill admin preview column */
-    .preview-card { width: 100% !important; max-width: 340px !important; }
-
-    /* No watermark on admin version */
-    .card-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; z-index: 3; gap: 0; }
-    .card-greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #a88843; letter-spacing: 1.5px; margin-bottom: 8px; opacity: 0.9; }
-    .card-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 5vw, 28px); font-weight: 500; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.3px; color: var(--charcoal); }
-    .card-divider { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 10px; }
-    .card-divider .line { width: 28px; height: 1px; background: #c9a961; }
-    .card-message { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.5; color: rgba(44,40,37,0.7); max-width: 240px; }
-    .card-date { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; }
-    .card-signoff { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .card-signoff-prefix { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: rgba(44,40,37,0.6); letter-spacing: 1.5px; }
-    .card-signoff-name { font-family: 'Allura', cursive; font-size: 34px; color: #a88843; line-height: 1; }
-    .card-seal { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; z-index: 4; opacity: 0.75; }
-
-    /* TRIPLE LAYOUT */
-    .triple-inner { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; padding: 28px 20px 20px; }
-    .triple-inner .th { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: #a88843; letter-spacing: 3px; text-transform: uppercase; margin-bottom: auto; padding-bottom: 12px; }
-    .triple-circles { display: flex; gap: 16px; justify-content: center; align-items: center; margin: auto 0; }
-    .tri-circle { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; background: linear-gradient(135deg, #a88843, #c9a961, #e8d4a0, #c9a961, #a88843); box-shadow: 0 4px 12px rgba(201,169,97,0.4); }
-    .triple-foot { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: rgba(44,40,37,0.5); padding-top: 16px; margin-top: auto; }
-
-    /* SEND SUCCESS */
-
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .preview-col { display: none; }
-    }
-  
-    /* ── SCRATCH PREVIEW (copied from order.html) ── */
-:root {
-  --ivory: #fdf9f2;
-  --cream-soft: #f8f2e8;
-  --cream-deep: #f0e6d2;
-}
-
-.preview-card{
-  max-width:360px;margin:0 auto;
-  aspect-ratio:3/4;
-  border-radius:6px;
-  position:relative;overflow:hidden;
-  box-shadow:0 20px 50px -10px rgba(60,40,20,0.35);
-  background:var(--theme-bg,linear-gradient(145deg,var(--cream-soft),var(--cream-deep)));
-  transition:box-shadow 0.6s,background 0.8s ease;
-}
-
-/* ══ BACKGROUND IMAGES ══ */
-.theme-proposal{background-image:url('Proposal.jpg');background-size:cover;background-position:center;}
-.theme-gender{background-image:url('gender.jpg');background-size:cover;background-position:center;}
-.theme-gender-boy{background-image:url('gender.jpg');background-size:cover;background-position:center;}
-.theme-gender-girl{background-image:url('gender.jpg');background-size:cover;background-position:center;}
-.theme-holiday{background-image:url('Holiday.jpg');background-size:cover;background-position:center;}
-.theme-pregnancy{background-image:url('image.png');background-size:cover;background-position:center;}
-.theme-wedding{background-image:url('Wedding.jpg');background-size:cover;background-position:center;}
-.theme-birthday{background-image:url('birthday.jpg');background-size:cover;background-position:center;}
-.theme-christmas{background-image:url('christmas.jpg');background-size:cover;background-position:center;}
-.theme-custom{background-image:url('Other.jpg');background-size:cover;background-position:center;}
-
-.theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
-.theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
-
-/* ══ WATERMARK — hidden on admin ══ */
-.preview-card::after{display:none !important;} .preview-card.WM::after{
-  content:'PREVIEW';
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(44px,10vw,72px);font-weight:500;letter-spacing:14px;
-  color:rgba(168,136,67,0.28);transform:rotate(-22deg);
-  pointer-events:none;z-index:10;
-  text-shadow:0 2px 4px rgba(255,255,255,0.5);
-}
-.preview-card::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(-22deg,transparent 0,transparent 50px,rgba(168,136,67,0.05) 50px,rgba(168,136,67,0.05) 52px);
-  pointer-events:none;z-index:9;
-}
-
-/* ══ M STAMP ══ */
-.m-stamp{
-  position:absolute;bottom:16px;right:16px;
-  width:32px;height:32px;opacity:0.18;
-  pointer-events:none;z-index:8;
-}
-.m-stamp img{width:100%;height:100%;object-fit:contain;}
-
-/* ══ REVEAL LAYER ══ */
-.reveal-layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;color:var(--theme-text,var(--ink));z-index:2;gap:0;}
-.reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:10px;opacity:0.9;}
-.reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,30px);font-weight:500;line-height:1.2;margin-bottom:14px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
-.reveal-divider-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 12px;}
-.reveal-divider-wrap .line{width:30px;height:1px;background:var(--gold);}
-.reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:260px;}
-.reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:12px;margin-bottom:4px;}
-.reveal-signoff{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
-.reveal-signoff-name{font-family:'Allura',cursive;font-size:36px;color:var(--gold-deep);line-height:1;}
-.reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:4px;}
-.reveal-signoff-leaf .line{width:18px;height:1px;background:var(--gold);opacity:0.6;}
-
-/* ══ REVEAL ANIMATIONS ══ */
-@keyframes textReveal{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:translateY(0);}}
-.preview-card.just-revealed .reveal-greeting{animation:textReveal 0.45s cubic-bezier(.16,1,.3,1) 0.35s both;}
-.preview-card.just-revealed .reveal-headline{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.5s both;}
-.preview-card.just-revealed .reveal-divider-wrap{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
-.preview-card.just-revealed .reveal-text{animation:textReveal 0.55s cubic-bezier(.16,1,.3,1) 0.75s both;}
-.preview-card.just-revealed .reveal-date{animation:textReveal 0.5s cubic-bezier(.16,1,.3,1) 0.65s both;}
-.preview-card.just-revealed .reveal-signoff{animation:textReveal 0.6s cubic-bezier(.16,1,.3,1) 0.95s both;}
-.preview-card.just-revealed .reveal-signoff-name{animation:signatureBreath 5s ease-in-out 2s infinite;}
-@keyframes signatureBreath{0%,100%{opacity:0.85;text-shadow:0 2px 8px rgba(201,169,97,0.15);}50%{opacity:1;text-shadow:0 2px 14px rgba(201,169,97,0.45);}}
-
-/* ══ FRAME CORNERS ══ */
-.frame-corner{position:absolute;width:42px;height:42px;pointer-events:none;z-index:6;opacity:0;transition:opacity 0.8s ease 0.6s;}
-.preview-card.just-revealed .frame-corner{opacity:0.9;}
-.frame-corner.tl{top:8px;left:8px;}
-.frame-corner.tr{top:8px;right:8px;transform:scaleX(-1);}
-.frame-corner.bl{bottom:8px;left:8px;transform:scaleY(-1);}
-.frame-corner.br{bottom:8px;right:8px;transform:scale(-1,-1);}
-
-/* Wax seal */
-.frame-seal{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) scale(0.4) rotate(-12deg);width:44px;height:44px;opacity:0;pointer-events:none;z-index:7;filter:drop-shadow(0 3px 6px rgba(74,18,41,0.35));transition:opacity 0.6s ease 1.2s,transform 0.8s cubic-bezier(.34,1.56,.64,1) 1.2s;}
-.preview-card.just-revealed .frame-seal{opacity:1;transform:translateX(-50%) scale(1) rotate(-6deg);}
-.preview-card.just-revealed .frame-seal{bottom:62px;}
-
-/* Replay */
-.replay-invitation{position:absolute;bottom:18px;left:50%;transform:translateX(-50%) translateY(8px);display:flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(250,246,240,0.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(201,169,97,0.35);border-radius:100px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:1.5px;color:var(--gold-deep);cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.6s ease 1.8s,transform 0.6s cubic-bezier(.34,1.56,.64,1) 1.8s,background 0.3s,color 0.3s,border-color 0.3s;z-index:8;white-space:nowrap;user-select:none;}
-.replay-invitation .replay-arrow{font-size:15px;display:inline-block;transition:transform 0.5s;}
-.replay-invitation:hover{background:var(--gold);color:var(--ivory);border-color:var(--gold);}
-.replay-invitation:hover .replay-arrow{transform:rotate(-360deg);}
-.preview-card.just-revealed .replay-invitation{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
-
-/* Flash */
-.card-flash{position:absolute;inset:0;background:radial-gradient(circle at center,var(--gold-shimmer) 0%,var(--gold-light) 30%,transparent 70%);opacity:0;pointer-events:none;z-index:8;}
-.card-flash.active{animation:flashBurst 1.2s cubic-bezier(.16,1,.3,1);}
-@keyframes flashBurst{0%{opacity:0;transform:scale(0.5);}30%{opacity:0.7;transform:scale(1);}100%{opacity:0;transform:scale(1.3);}}
-
-/* Ambient motes */
-.ambient-motes{position:absolute;inset:0;pointer-events:none;z-index:11;opacity:0;transition:opacity 1.2s ease;overflow:hidden;}
-.preview-card.just-revealed .ambient-motes{opacity:1;transition-delay:1.8s;}
-.mote{position:absolute;width:3px;height:3px;background:radial-gradient(circle,rgba(232,212,160,0.95) 0%,rgba(201,169,97,0.6) 40%,transparent 70%);border-radius:50%;filter:blur(0.3px);animation:moteDrift linear infinite;will-change:transform,opacity;}
-@keyframes moteDrift{0%{transform:translate(0,100%) scale(0.6);opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{transform:translate(var(--mx,20px),-20%) scale(1);opacity:0;}}
-
-/* Confetti */
-.confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;}
-.confetti-piece{position:absolute;top:-40px;will-change:transform;animation:confettiFall linear forwards;}
-.confetti-piece svg{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 3px rgba(60,40,20,0.25));}
-@keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}}
-
-/* ══ SCRATCH LAYER (single) ══ */
-.scratch-single{position:absolute;inset:0;z-index:5;touch-action:none;cursor:grab;}
-.scratch-single:active{cursor:grabbing;}
-.scratch-single canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none;}
-.scratch-single-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:6;text-align:center;}
-.scratch-single-hint .icon-big{font-size:28px;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));animation:gentleBob 2s ease-in-out infinite;}
-@keyframes gentleBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
-.scratch-single-hint .title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
-.scratch-single-hint .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--ink-soft);letter-spacing:1px;}
-.scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
-.triple-wrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:30px 24px 24px;}
-.triple-header{text-align:center;margin-bottom:auto;padding-bottom:16px;}
-.triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
-.triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--ink-soft);font-style:italic;letter-spacing:1px;}
-.triple-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:auto 0;padding:0 4px;}
-.tri-panel{aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,0.3) 0%,transparent 45%),radial-gradient(circle at 70% 75%,rgba(255,255,255,0.1) 0%,transparent 45%),linear-gradient(135deg,var(--gold-deep) 0%,var(--gold) 40%,var(--gold-light) 55%,var(--gold) 70%,var(--gold-deep) 100%);background-size:150% 150%;animation:shimmer 8s ease-in-out infinite;box-shadow:inset 0 2px 4px rgba(255,255,255,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),0 6px 14px rgba(201,169,97,0.35);cursor:grab;touch-action:none;overflow:hidden;}
-.tri-panel:active{cursor:grabbing;}
-.tri-panel:nth-child(2){animation-delay:-2.5s;}
-.tri-panel:nth-child(3){animation-delay:-5s;}
-.tri-panel canvas{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:50%;outline:none;}
-.tri-panel-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;z-index:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));}
-.tri-panel.just-revealed{animation:panelReveal 0.6s cubic-bezier(.34,1.56,.64,1);}
-@keyframes panelReveal{0%{transform:scale(1);}50%{transform:scale(1.15);box-shadow:0 10px 30px rgba(201,169,97,0.6),0 0 40px rgba(232,212,160,0.8);}100%{transform:scale(1);}}
-.tri-ping{position:absolute;top:50%;left:50%;width:40px;height:40px;margin-left:-20px;margin-top:-20px;border:2px solid var(--gold);border-radius:50%;opacity:0;pointer-events:none;z-index:5;}
-.tri-ping.active{animation:triPingExpand 1s cubic-bezier(.16,1,.3,1);}
-@keyframes triPingExpand{0%{opacity:0;transform:scale(0.3);border-width:3px;}40%{opacity:0.9;border-width:2px;}100%{opacity:0;transform:scale(3);border-width:0.5px;}}
-  
-    /* Winner + confetti from order.html */
-    .confetti-layer{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;}
-    .confetti-piece{position:absolute;top:-40px;will-change:transform;animation:confettiFall linear forwards;}
-    @keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--drift,0px),600px) rotate(var(--spin,720deg));opacity:0;}}
-    .winner-message{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;background:transparent;opacity:0;pointer-events:none;transition:opacity .8s cubic-bezier(.16,1,.3,1) .3s;z-index:4;gap:6px;}
-    .winner-message.show{opacity:1;}
-    .winner-message .reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--gold-deep);letter-spacing:1.5px;opacity:0.9;}
-    .winner-message .reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,28px);font-weight:500;line-height:1.2;margin:6px 0 10px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
-    .winner-message .reveal-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--theme-text-soft,var(--ink-soft));max-width:240px;}
-    .winner-message .reveal-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--gold-deep);letter-spacing:2px;text-transform:uppercase;margin-top:8px;}
-    .winner-message .reveal-signoff{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:3px;}
-    .winner-message .reveal-signoff-prefix{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-soft);letter-spacing:1.5px;opacity:0.8;}
-    .winner-message .reveal-signoff-name{font-family:'Allura',cursive;font-size:32px;color:var(--gold-deep);line-height:1;}
-    .winner-message .reveal-signoff-leaf{display:flex;align-items:center;gap:8px;margin-top:3px;}
-    .winner-message .reveal-signoff-leaf .line{width:14px;height:1px;background:var(--gold);opacity:0.6;}
-    @keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:0;}10%{opacity:1;}
-      /* Accessibility */
-    .skip-link{position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;letter-spacing:.06em;text-decoration:none;z-index:9999;transition:top .2s;}
-    .skip-link:focus{top:0;}
-    *:focus-visible{outline:2px solid #b8924a;outline-offset:3px;border-radius:2px;}
-    button:focus-visible,a:focus-visible{outline:2px solid #b8924a;outline-offset:3px;}
+    /* ── DIVIDER ── */
+    .divider{height:1px;background:var(--border);margin:32px 0;}
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-brand">
-    <img src="logo-main.png" alt="Moments by Shanaz" style="height:48px;width:48px;object-fit:contain;border-radius:50%;vertical-align:middle;"/>
-    <span class="nav-tag">Scratchcard Builder</span>
+<div class="top-bar">
+  <div class="top-bar-brand">
+    <img src="logo-main.png" alt="Moments by Shanaz"/>
+    <span>Scratchcard Builder</span>
   </div>
   <a href="/admin.html">← Admin Home</a>
-</nav>
+</div>
 
-<div class="layout">
+<div class="page">
+  <h1 class="page-title">Generate a scratchcard link</h1>
+  <p class="page-sub">Fill in the customer's order details below, then click Generate Link. Copy the link and send it directly to them.</p>
 
-  <!-- ══ CONTROLS ══ -->
-  <div class="controls">
-
-    <!-- ORDER REF -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">Order Details</div>
-      <div class="field">
-        <label>Customer name</label>
-        <input type="text" id="customerName" aria-label="Customer full name" placeholder="e.g. Sarah Ahmed" />
+  <!-- OCCASION -->
+  <div class="section">
+    <div class="section-label">1 · Occasion</div>
+    <div class="occ-grid">
+      <div class="occ-chip sel" onclick="selectOcc(this)" data-occ="proposal" data-icon="💍" data-headline="Will you marry me?">
+        <div class="oc-icon">💍</div><div class="oc-name">Proposal</div>
       </div>
-      <div class="field">
-        <label>Customer email</label>
-        <input type="email" id="customerEmail" placeholder="sarah@example.com" />
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="gender" data-icon="🎀" data-headline="Boy or Girl?">
+        <div class="oc-icon">🤰</div><div class="oc-name">Gender</div>
       </div>
-      <div class="field">
-        <label>Etsy order ref (optional)</label>
-        <input type="text" id="orderRef" placeholder="e.g. 1234567890" />
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="holiday" data-icon="✈️" data-headline="We're going on holiday!">
+        <div class="oc-icon">✈️</div><div class="oc-name">Holiday</div>
       </div>
-    </div>
-
-    <!-- OCCASION -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">Occasion</div>
-      <div class="occ-grid" id="occGrid">
-        <div class="occ-chip sel" data-occ="proposal" data-icon="💍" data-headline="Will you marry me?" onclick="selectOcc(this)"><span class="occ-icon">💍</span><span class="occ-name">Proposal</span></div>
-        <div class="occ-chip" data-occ="gender" data-icon="👶" data-headline="It's a…" onclick="selectOcc(this)"><span class="occ-icon">👶</span><span class="occ-name">Gender</span></div>
-        <div class="occ-chip" data-occ="holiday" data-icon="✈️" data-headline="Pack your bags" onclick="selectOcc(this)"><span class="occ-icon">✈️</span><span class="occ-name">Holiday</span></div>
-        <div class="occ-chip" data-occ="pregnancy" data-icon="🤰" data-headline="You're going to be grandparents" onclick="selectOcc(this)"><span class="occ-icon">🤰</span><span class="occ-name">Pregnancy</span></div>
-        <div class="occ-chip" data-occ="wedding" data-icon="💐" data-headline="Save the date" onclick="selectOcc(this)"><span class="occ-icon">💐</span><span class="occ-name">Wedding</span></div>
-        <div class="occ-chip" data-occ="birthday" data-icon="🎁" data-headline="Happy birthday!" onclick="selectOcc(this)"><span class="occ-icon">🎁</span><span class="occ-name">Birthday</span></div>
-        <div class="occ-chip" data-occ="christmas" data-icon="🎄" data-headline="A Christmas surprise" onclick="selectOcc(this)"><span class="occ-icon">🎄</span><span class="occ-name">Christmas</span></div>
-        <div class="occ-chip" data-occ="custom" data-icon="✨" data-headline="A little something for you" onclick="selectOcc(this)"><span class="occ-icon">✨</span><span class="occ-name">Other</span></div>
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="pregnancy" data-icon="🍼" data-headline="A baby is on the way!">
+        <div class="oc-icon">🤱</div><div class="oc-name">Pregnancy</div>
+      </div>
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="wedding" data-icon="💒" data-headline="We're getting married!">
+        <div class="oc-icon">💒</div><div class="oc-name">Wedding</div>
+      </div>
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="birthday" data-icon="🎂" data-headline="Happy Birthday!">
+        <div class="oc-icon">🎉</div><div class="oc-name">Birthday</div>
+      </div>
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="christmas" data-icon="🎄" data-headline="Happy Christmas!">
+        <div class="oc-icon">🎄</div><div class="oc-name">Christmas</div>
+      </div>
+      <div class="occ-chip" onclick="selectOcc(this)" data-occ="custom" data-icon="✨" data-headline="A special surprise awaits...">
+        <div class="oc-icon">✨</div><div class="oc-name">Other</div>
       </div>
     </div>
-
-    <!-- LAYOUT -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">Layout</div>
-      <div class="layout-chips">
-        <div class="layout-chip sel" data-layout="single" onclick="selectLayout(this)">
-          <div class="layout-visual"><div class="layout-panel"></div></div>
-          <div class="layout-chip-name">One Big Reveal</div>
-          <div class="layout-chip-sub">Single scratch moment</div>
-        </div>
-        <div class="layout-chip" data-layout="triple" onclick="selectLayout(this)">
-          <div class="layout-visual"><div class="layout-panel"></div><div class="layout-panel"></div><div class="layout-panel"></div></div>
-          <div class="layout-chip-name">Three Matches</div>
-          <div class="layout-chip-sub">Scratch to match &amp; win</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MESSAGE -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">The Message</div>
-      <div class="field">
-        <label>Who is it for?</label>
-        <input type="text" id="recipient" placeholder="e.g. Amelia" oninput="updatePreview()" maxlength="30" />
-      </div>
-      <div class="field">
-        <label>Headline — the big reveal</label>
-        <input type="text" id="headline" placeholder="e.g. Will you marry me?" oninput="updatePreview()" maxlength="50" />
-      </div>
-      <div class="field" id="weddingDateField" style="display:none;">
-        <label>Wedding date</label>
-        <input type="text" id="weddingDate" placeholder="e.g. 14th June 2026" oninput="updatePreview()" />
-      </div>
-      <div class="field">
-        <label>Your message</label>
-        <textarea id="message" placeholder="e.g. I've been waiting for the right moment. This is it." oninput="updatePreview()" maxlength="180"></textarea>
-      </div>
-      <div class="field">
-        <label>Signed from (optional)</label>
-        <input type="text" id="signature" placeholder="e.g. James" oninput="updatePreview()" maxlength="30" />
-      </div>
-    </div>
-
-    <!-- FINISHING TOUCHES -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">Finishing Touches</div>
-      <div class="toggle-row">
-        <div class="toggle-info">Confetti on reveal<small>Gold, sage &amp; themed colours</small></div>
-        <div class="tog on" id="confettiToggle" onclick="this.classList.toggle('on')"></div>
-      </div>
-    </div>
-
-    <!-- SEND -->
-    <div class="ctrl-section">
-      <div class="ctrl-label">Send to Customer</div>
-      <p style="font-size:12px;color:var(--mid);margin-bottom:14px;line-height:1.6;">
-        Paste the customer's order details below to generate their unique scratchcard link — no PDF needed. They open the link and scratch on any device.
-      </p>
-      <div style="background:white;border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:10px;">
-        <div id="sc-link-box" style="font-size:11px;color:var(--soft);font-style:italic;text-align:center;padding:8px 0;">
-          Fill in the details above, then click Generate to create the customer link.
-        </div>
-        <textarea id="sc-link-url" readonly style="display:none;width:100%;padding:8px;border:1px solid var(--border);border-radius:3px;font-size:11px;font-family:monospace;resize:none;height:60px;margin-top:8px;background:#fafafa;color:var(--charcoal);"></textarea>
-        <button id="sc-copy-btn" style="display:none;width:100%;margin-top:8px;padding:9px;background:rgba(184,146,74,0.1);border:1px solid rgba(184,146,74,0.35);border-radius:3px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);cursor:pointer;" onclick="copyScLink()">Copy Link</button>
-      </div>
-      <button class="btn btn-primary" onclick="generateScLink()">⚡ Generate Customer Link</button>
-      <div style="margin-top:12px;padding:10px;background:rgba(184,146,74,0.06);border-radius:3px;">
-        <p style="font-size:11px;color:var(--soft);line-height:1.7;text-align:center;">
-          The link is the finished product — fully scratchable, no watermark.<br>
-          Send via email, WhatsApp or however you prefer. No app needed.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ══ PREVIEW ══ -->
-  <div class="preview-col">
-    <div class="preview-title">✦ Live Preview — No Watermark ✦</div>
-    <div class="card-wrap">
-      <div class="preview-card theme-proposal" id="previewCard">
-
-        <!-- Reveal layer (single layout) -->
-        <div class="reveal-layer" id="revealLayer">
-          <div class="reveal-greeting" id="rGreeting">For Amelia</div>
-          <div class="reveal-headline" id="rHeadline">Will you marry me?</div>
-          <div class="reveal-date" id="rDate" style="display:none;"></div>
-          <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
-          <div class="reveal-text" id="rMessage">Your message will appear here.</div>
-          <div class="reveal-signoff" id="rSignoff" style="display:none;">
-            <div class="reveal-signoff-prefix">with love,</div>
-            <div class="reveal-signoff-name" id="rSig"></div>
-          </div>
-        </div>
-
-        <!-- Single scratch canvas -->
-        <div class="scratch-single" id="scratchSingle">
-          <canvas id="singleCanvas"></canvas>
-          <div class="scratch-single-hint" id="singleHint">
-            <div class="title">SCRATCH TO REVEAL</div>
-            <div class="sub">Use your finger or mouse</div>
-          </div>
-        </div>
-
-        <!-- Triple match layout -->
-        <div class="triple-wrap" id="tripleWrap" style="display:none;">
-          <div class="triple-header">
-            <div class="title">✦ Scratch &amp; Match ✦</div>
-            <div class="sub">Scratch all three to reveal</div>
-          </div>
-          <div class="triple-panels" id="triplePanels">
-            <div class="tri-panel" data-idx="0"><div class="tri-panel-content" id="tc0">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-            <div class="tri-panel" data-idx="1"><div class="tri-panel-content" id="tc1">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-            <div class="tri-panel" data-idx="2"><div class="tri-panel-content" id="tc2">💍</div><canvas></canvas><div class="tri-ping"></div></div>
-          </div>
-          <div class="triple-footer"><div class="triple-status" id="tripleStatus">0 of 3 matched</div></div>
-        </div>
-
-        <!-- M Stamp — no watermark text -->
-        <div class="m-stamp"><img src="logo-m.png" alt="" aria-hidden="true"/></div>
-
-        <!-- Frame corners -->
-        <svg class="frame-corner tl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
-        <svg class="frame-corner tr" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
-        <svg class="frame-corner bl" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
-        <svg class="frame-corner br" viewBox="0 0 42 42" fill="none"><path d="M 2 20 L 2 4 Q 2 2 4 2 L 20 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round"/></svg>
-
-        <div class="card-flash" id="cardFlash"></div>
-        <div class="ambient-motes" id="ambientMotes"></div>
-        <!-- Winner message overlay -->
-        
-        <!-- Winner message — same structure as order.html -->
-        <div class="winner-message" id="winnerMessage">
-          <div class="reveal-greeting" id="wGreeting"></div>
-          <div class="reveal-headline" id="wHeadline"></div>
-          <div class="reveal-text" id="wMessage"></div>
-          <div class="reveal-date" id="wDate" style="display:none;"></div>
-          <div class="reveal-signoff" id="wSignoff" style="display:none;">
-            <div class="reveal-signoff-prefix">with love,</div>
-            <div class="reveal-signoff-name" id="wSig"></div>
-            <div class="reveal-signoff-leaf"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
-          </div>
-        </div>
-        <!-- Confetti layer -->
-        <div class="confetti-layer" id="confettiLayer"></div>
-      </div>
-    </div>
-
-    <!-- Note below card -->
-    <div style="margin-top:16px;text-align:center;">
-      <button class="scratch-reset-btn" onclick="resetScratch()">↺ Reset scratch</button>
-    </div>
-    <div style="margin-top:12px;padding:14px 20px;background:rgba(184,146,74,0.07);border:1px solid rgba(184,146,74,0.2);border-radius:4px;text-align:center;max-width:340px;">
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--mid);line-height:1.6;">Gold overlay covers the card as it would appear to your customer — scratch to preview the reveal.</p>
+    <!-- Wedding date — shown only for wedding -->
+    <div class="field" id="weddingDateField" style="display:none;margin-top:14px;">
+      <label>Wedding date</label>
+      <input type="text" id="weddingDate" placeholder="e.g. Saturday 14th June 2026"/>
     </div>
   </div>
 
+  <!-- LAYOUT -->
+  <div class="section">
+    <div class="section-label">2 · Layout</div>
+    <div class="layout-grid">
+      <div class="layout-chip sel" onclick="selectLayout(this)" data-layout="single">
+        <div class="lc-icon">▬</div>
+        <div class="lc-name">One Big Reveal</div>
+        <div class="lc-sub">Single scratch moment</div>
+      </div>
+      <div class="layout-chip" onclick="selectLayout(this)" data-layout="triple">
+        <div class="lc-icon">⬤ ⬤ ⬤</div>
+        <div class="lc-name">Three Matches</div>
+        <div class="lc-sub">Scratch to match &amp; win</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MESSAGE -->
+  <div class="section">
+    <div class="section-label">3 · The Message</div>
+    <div class="field">
+      <label>Who is it for?</label>
+      <input type="text" id="recipient" placeholder="e.g. Amelia"/>
+      <div class="hint">Shown as "For Amelia" on the card</div>
+    </div>
+    <div class="field">
+      <label>Headline</label>
+      <input type="text" id="headline" placeholder="e.g. Will you marry me?"/>
+    </div>
+    <div class="field">
+      <label>Message</label>
+      <textarea id="message" placeholder="The message revealed after scratching…"></textarea>
+    </div>
+    <div class="field">
+      <label>Sign off (optional)</label>
+      <input type="text" id="signature" placeholder="e.g. With all my love, James"/>
+    </div>
+  </div>
+
+  <!-- CONFETTI -->
+  <div class="section">
+    <div class="section-label">4 · Extras</div>
+    <div class="toggle-row" onclick="document.getElementById('confettiTog').classList.toggle('on')">
+      <span>🎊 Confetti burst on reveal</span>
+      <div class="tog on" id="confettiTog"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GENERATE -->
+  <button class="gen-btn" onclick="generateLink()">Generate Scratchcard Link ✦</button>
+
+  <div class="link-box" id="linkBox">
+    <div class="lb-label">Shareable link — copy and send to your customer</div>
+    <div class="lb-row">
+      <input type="text" id="linkField" readonly/>
+      <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copy</button>
+    </div>
+    <div class="confirm" id="copyConfirm">✓ Copied to clipboard!</div>
+  </div>
 </div>
 
 <script>
+  const S = { occ:'proposal', icon:'💍', layout:'single' };
 
-// ══════ STATE ══════
-const S = {
-  occasion: 'proposal', icon: '💍', layout: 'single',
-  defaultHeadline: 'Will you marry me?'
-};
-
-// ══════ OCCASION ══════
-function selectOcc(el) {
-  document.querySelectorAll('.occ-chip').forEach(c => c.classList.remove('sel'));
-  el.classList.add('sel');
-  S.occasion = el.dataset.occ;
-  S.icon = el.dataset.icon;
-  S.defaultHeadline = el.dataset.headline;
-  document.getElementById('weddingDateField').style.display = S.occasion === 'wedding' ? 'block' : 'none';
-  const hInput = document.getElementById('headline');
-  if (!hInput.value.trim() || hInput.dataset.auto) {
-    hInput.value = el.dataset.headline;
-    hInput.dataset.auto = 'true';
+  function selectOcc(el) {
+    document.querySelectorAll('.occ-chip').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel');
+    S.occ = el.dataset.occ;
+    S.icon = el.dataset.icon;
+    // Pre-fill headline if empty
+    const hl = document.getElementById('headline');
+    if (!hl.value.trim()) hl.value = el.dataset.headline;
+    // Show wedding date field
+    document.getElementById('weddingDateField').style.display = S.occ==='wedding' ? 'block' : 'none';
   }
-  hInput.placeholder = el.dataset.headline;
-  updatePreview();
-  setTimeout(()=>{ resetScratch(); }, 80);
-}
 
-// ══════ LAYOUT ══════
-function selectLayout(el) {
-  document.querySelectorAll('.layout-chip').forEach(c => c.classList.remove('sel'));
-  el.classList.add('sel');
-  S.layout = el.dataset.layout;
-  updatePreview();
-  updateAdminLayout();
-}
+  function selectLayout(el) {
+    document.querySelectorAll('.layout-chip').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel');
+    S.layout = el.dataset.layout;
+  }
 
-// ══════ PREVIEW ══════
-function updatePreview() {
-  const card = document.getElementById('previewCard');
-  card.className = 'preview-card theme-' + S.occasion;
+  function generateLink() {
+    const recipient  = document.getElementById('recipient').value.trim();
+    const headline   = document.getElementById('headline').value.trim();
+    const message    = document.getElementById('message').value.trim();
+    const signature  = document.getElementById('signature').value.trim();
+    const weddingDate= document.getElementById('weddingDate').value.trim();
+    const confetti   = document.getElementById('confettiTog').classList.contains('on');
 
-  const recipient = document.getElementById('recipient').value || 'Amelia';
-  const headline  = document.getElementById('headline').value  || S.defaultHeadline;
-  const message   = document.getElementById('message').value   || 'Your message will appear here.';
-  const sig       = document.getElementById('signature').value || '';
-  const wDate     = document.getElementById('weddingDate').value || '';
+    if (!headline) { alert('Please add a headline before generating.'); return; }
+    if (!message)  { alert('Please add a message before generating.'); return; }
 
-  document.getElementById('rGreeting').textContent = 'For ' + recipient;
-  document.getElementById('rHeadline').textContent = headline;
-  document.getElementById('rMessage').textContent  = message;
+    const data = {
+      occasion: S.occ,
+      icon:     S.icon,
+      layout:   S.layout,
+      recipient, headline, message,
+      signature, weddingDate, confetti
+    };
 
-  const pDate = document.getElementById('rDate');
-  if (S.occasion === 'wedding' && wDate) { pDate.textContent = wDate; pDate.style.display = 'block'; }
-  else pDate.style.display = 'none';
-
-  const pSig = document.getElementById('rSignoff');
-  if (sig) { pSig.style.display = 'flex'; document.getElementById('rSig').textContent = sig; }
-  else pSig.style.display = 'none';
-
-  // Triple circles icon
-    // Update triple icons
-  ['tc0','tc1','tc2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=S.icon; });
-  // Populate winner message with same content as reveal layer
-  const g = id => document.getElementById(id);
-  if(g('wGreeting'))  g('wGreeting').textContent  = g('pGreeting')?.textContent || '';
-  if(g('wHeadline'))  g('wHeadline').textContent  = g('pHeadline')?.textContent || '';
-  if(g('wMessage'))   g('wMessage').textContent   = g('pMessage')?.textContent  || '';
-  // wDate sync handled below
-
-
-  const _s=(a,b)=>{const ea=document.getElementById(a),eb=document.getElementById(b);if(ea&&eb)eb.textContent=ea.textContent;};
-  _s('rGreeting','wGreeting');_s('rHeadline','wHeadline');_s('rMessage','wMessage');
-  // hintIcon removed
-  ['tc0','tc1','tc2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=S.icon;});
-  // Layout handled by updateAdminLayout
-}
-
-// ══════ GENERATE CUSTOMER LINK ══════
-function generateScLink() {
-  const recipient = document.getElementById('recipient').value.trim();
-  const headline  = document.getElementById('headline').value.trim() || S.defaultHeadline;
-  const message   = document.getElementById('message').value.trim();
-  const sig       = document.getElementById('signature').value.trim();
-  const wDate     = document.getElementById('weddingDate').value.trim();
-  const confetti  = document.getElementById('confettiToggle').classList.contains('on');
-
-  const data = {
-    occasion: S.occasion, icon: S.icon, layout: S.layout,
-    recipient, headline, message, signature: sig,
-    weddingDate: wDate, confetti
-  };
-
-  try {
     const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
     const url = window.location.origin + '/scratchcard-reveal.html?d=' + encoded;
 
-    document.getElementById('sc-link-url').style.display = 'block';
-    document.getElementById('sc-link-url').value = url;
-    document.getElementById('sc-copy-btn').style.display = 'block';
-    document.getElementById('sc-link-box').style.display = 'none';
-  } catch(e) {
-    alert('Could not generate link. Please check all fields are filled in.');
+    const box   = document.getElementById('linkBox');
+    const field = document.getElementById('linkField');
+    box.style.display   = 'block';
+    field.value = url;
+    document.getElementById('copyConfirm').style.display = 'none';
+    document.getElementById('copyBtn').textContent = 'Copy';
+    field.select();
+    box.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }
-}
 
-function copyScLink() {
-  const ta = document.getElementById('sc-link-url');
-  navigator.clipboard.writeText(ta.value).then(() => {
-    const btn = document.getElementById('sc-copy-btn');
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
-  });
-}
-
-// ══════ INIT ══════
-document.getElementById('headline').value = S.defaultHeadline;
-document.getElementById('headline').dataset.auto = 'true';
-document.getElementById('headline').addEventListener('input', function() {
-  delete this.dataset.auto;
-});
-updatePreview();
-
-const CONFETTI_SHAPES={proposal:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="11" cy="6" r="2" fill="#e8d4a0"/><path d="M11 6 L9 10 L13 10 Z" fill="#f0dca8"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],gender:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="#e8c4cc" stroke="#a88843" stroke-width="1"/><rect x="10" y="16" width="4" height="6" rx="2" fill="#c9a961"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5" fill="#a8b89f"/><rect x="11" y="12" width="2" height="8" fill="#a88843"/><circle cx="12" cy="21" r="2" fill="#a88843"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],holiday:[`<svg viewBox="0 0 24 24"><path d="M2 12 L22 4 L18 22 L14 14 L6 12 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/><g stroke="#c9a961" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></g></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 22 Q12 14 8 6 Q10 10 12 10 Q14 10 16 6 Q12 14 12 22" fill="#7d8f74"/></svg>`],pregnancy:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="5" ry="7" fill="#e8c4cc"/><circle cx="8" cy="5" r="1.5" fill="#e8c4cc"/><circle cx="16" cy="5" r="1.5" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],wedding:[`<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="15" cy="12" r="6" fill="none" stroke="#a88843" stroke-width="2"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5" fill="#e8c4cc"/><circle cx="12" cy="10" r="3" fill="#d4a0ac"/><path d="M12 15 L10 22 M12 15 L14 22" stroke="#7d8f74" stroke-width="1" fill="none"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M8 4 L16 4 L14 12 Q14 14 12 14 Q10 14 10 12 Z" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><line x1="12" y1="14" x2="12" y2="20" stroke="#a88843" stroke-width="0.8"/></svg>`],birthday:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="6" ry="7" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><line x1="12" y1="17" x2="10" y2="24" stroke="#a88843" stroke-width="0.8"/></svg>`,`<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="12" rx="1" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/><rect x="4" y="8" width="16" height="3" fill="#a88843"/><rect x="11" y="8" width="2" height="14" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/></svg>`],christmas:[`<svg viewBox="0 0 24 24"><g stroke="#a88843" stroke-width="1.2" fill="none" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></g><circle cx="12" cy="12" r="1.5" fill="#e8d4a0"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L7 9 L9 9 L5 14 L8 14 L3 20 L21 20 L16 14 L19 14 L15 9 L17 9 Z" fill="#7d8f74"/><rect x="10" y="20" width="4" height="3" fill="#5c3e30"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],custom:[`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="#a8b89f"/></svg>`]};
-
-let motesInterval=null;
-function startAmbientMotes(){
-  const container=document.getElementById('ambientMotes'); if(!container) return;
-  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
-  const spawn=()=>{
-    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
-    const mote=document.createElement('div'); mote.className='mote';
-    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
-    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
-    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
-    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
-  };
-  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
-}
-
-function stopAmbientMotes(){
-  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
-  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
-}
-
-
-/* ══════ SCRATCH ENGINE — direct from order.html ══════ */
-let panelsRevealed = [false, false, false];
-let winnerShown = false;
-
-function paintGoldOverlay(ctx,w,h){
-  const grad=ctx.createLinearGradient(0,0,w,h);
-  grad.addColorStop(0,'#a88843');
-  grad.addColorStop(0.3,'#c9a961');
-  grad.addColorStop(0.5,'#e8d4a0');
-  grad.addColorStop(0.7,'#c9a961');
-  grad.addColorStop(1,'#a88843');
-  ctx.fillStyle=grad;
-  ctx.fillRect(0,0,w,h);
-  // Highlight
-  const hg=ctx.createRadialGradient(w*0.3,h*0.2,0,w*0.3,h*0.2,w*0.4);
-  hg.addColorStop(0,'rgba(255,255,255,0.25)');
-  hg.addColorStop(1,'rgba(255,255,255,0)');
-  ctx.fillStyle=hg; ctx.fillRect(0,0,w,h);
-}
-
-function initCanvases(){ setupSingleCanvas(); setupTripleCanvases(); }
-
-function setupSingleCanvas(){
-  const canvas=document.getElementById('singleCanvas'); if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const rect=canvas.getBoundingClientRect();
-  if(rect.width===0||rect.height===0){
-    // Element not visible yet — try again shortly
-    setTimeout(setupSingleCanvas, 150); return;
+  function copyLink() {
+    const field = document.getElementById('linkField');
+    navigator.clipboard.writeText(field.value).then(() => {
+      document.getElementById('copyBtn').textContent = '✓ Copied!';
+      document.getElementById('copyConfirm').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('copyBtn').textContent = 'Copy';
+        document.getElementById('copyConfirm').style.display = 'none';
+      }, 3000);
+    }).catch(() => {
+      field.select();
+      document.execCommand('copy');
+      document.getElementById('copyConfirm').style.display = 'block';
+    });
   }
-  const dpr=window.devicePixelRatio||1;
-  canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
-  ctx.scale(dpr,dpr);
-
-  // Fill with opaque gold overlay BEFORE any scratching
-  ctx.globalCompositeOperation='source-over';
-  paintGoldOverlay(ctx,rect.width,rect.height);
-
-  let isDrawing=false,lastX,lastY,revealed=false;
-  const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
-  const scratch=e=>{
-    if(!isDrawing) return; e.preventDefault();
-    const {x,y}=getPos(e);
-    ctx.globalCompositeOperation='destination-out';
-    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=30;
-    ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
-    lastX=x; lastY=y;
-    document.getElementById('singleHint').classList.add('faded');
-    checkSingleProgress(canvas,ctx);
-  };
-  const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
-  const end=()=>{ isDrawing=false; };
-  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
-  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
-
-  function checkSingleProgress(cv,context){
-    if(revealed) return;
-    const img=context.getImageData(0,0,cv.width,cv.height); let transparent=0;
-    for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-    if(transparent/(img.data.length/40)>0.4){
-      revealed=true; cv.style.transition='opacity 0.6s'; cv.style.opacity='0';
-      setTimeout(()=>{ cv.style.display='none'; },650);
-      document.getElementById('singleHint').style.display='none';
-      triggerFullReveal();
-    }
-  }
-}
-
-function setupTripleCanvases(){
-  document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
-    const canvas=panel.querySelector('canvas'); if(!canvas) return;
-    const ctx=canvas.getContext('2d');
-    const rect=panel.getBoundingClientRect();
-    const dpr=window.devicePixelRatio||1;
-    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
-    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
-    ctx.scale(dpr,dpr);
-    // Ensure we're in normal drawing mode then clip+paint gold
-    ctx.globalCompositeOperation='source-over';
-    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
-    paintGoldOverlay(ctx,rect.width,rect.height);
-
-    let isDrawing=false,lastX,lastY,revealed=false;
-    const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
-    const scratch=e=>{
-      if(!isDrawing) return; e.preventDefault();
-      const {x,y}=getPos(e);
-      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
-      ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
-      lastX=x; lastY=y;
-      if(!revealed){
-        const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
-        for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-        if(transparent/(img.data.length/40)>0.4){
-          revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
-          panel.classList.add('just-revealed');
-          const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
-          panelsRevealed[idx]=true; checkWinner();
-        }
-      }
-    };
-    const start=e=>{ isDrawing=true; const {x,y}=getPos(e); lastX=x; lastY=y; scratch(e); };
-    const end=()=>{ isDrawing=false; };
-    canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',scratch); canvas.addEventListener('mouseup',end); canvas.addEventListener('mouseleave',end);
-    canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',end);
-  });
-  updateTripleStatus();
-}
-
-function checkWinner(){
-  updateTripleStatus();
-  if(panelsRevealed.filter(Boolean).length===3&&!winnerShown){
-    winnerShown=true;
-    setTimeout(()=>{ document.getElementById('tripleWrap').classList.add('winner'); setTimeout(()=>{ document.getElementById('winnerMessage').classList.add('show'); triggerFullReveal(); },400); },300);
-  }
-}
-
-function updateTripleStatus(){
-  const count=panelsRevealed.filter(Boolean).length;
-  const status=document.getElementById('tripleStatus');
-  if(count===0) status.textContent='0 of 3 matched';
-  else if(count<3) status.textContent=count+' of 3 matched…';
-  else status.textContent='✦ A perfect match ✦';
-}
-
-function triggerFullReveal(){
-  const card=document.getElementById('previewCard');
-  card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed');
-  const flash=document.getElementById('cardFlash'); flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active');
-  fireConfetti(); startAmbientMotes();
-}
-
-function fireConfetti(){
-  const container=document.getElementById('confettiLayer'); if(!container) return;
-  const shapes=CONFETTI_SHAPES[S.occasion]||CONFETTI_SHAPES.custom;
-  container.innerHTML='';
-  for(let i=0;i<40;i++){
-    const piece=document.createElement('div'); piece.className='confetti-piece'; piece.innerHTML=shapes[Math.floor(Math.random()*shapes.length)];
-    const size=16+Math.random()*16,drift=(Math.random()-0.5)*120,spin=(Math.random()>0.5?1:-1)*(360+Math.random()*720),duration=2.5+Math.random()*2,delay=Math.random()*0.4;
-    piece.style.left=Math.random()*100+'%'; piece.style.width=size+'px'; piece.style.height=size+'px';
-    piece.style.setProperty('--drift',drift+'px'); piece.style.setProperty('--spin',spin+'deg');
-    piece.style.animationDuration=duration+'s'; piece.style.animationDelay=delay+'s';
-    container.appendChild(piece); setTimeout(()=>piece.remove(),(duration+delay)*1000+100);
-  }
-}
-
-function stopAmbientMotes(){
-  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
-  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
-}
-
-function startAmbientMotes(){
-  const container=document.getElementById('ambientMotes'); if(!container) return;
-  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
-  const spawn=()=>{
-    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
-    const mote=document.createElement('div'); mote.className='mote';
-    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
-    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
-    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
-    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
-  };
-  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
-}
-
-function resetScratch(){
-  // Reset composite ops before repaint
-  panelsRevealed=[false,false,false]; winnerShown=false;
-  document.getElementById('previewCard').classList.remove('just-revealed');
-  stopAmbientMotes();
-  document.getElementById('tripleWrap').classList.remove('winner');
-  document.getElementById('winnerMessage').classList.remove('show');
-  document.querySelectorAll('.tri-panel').forEach(p=>{ p.classList.remove('just-revealed'); const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; } });
-  document.querySelectorAll('.tri-ping').forEach(p=>p.classList.remove('active'));
-  document.getElementById('cardFlash').classList.remove('active');
-  document.getElementById('confettiLayer').innerHTML='';
-  const single=document.getElementById('singleCanvas');
-  if(single){ single.style.opacity='1'; single.style.transition='none'; single.style.display='block'; }
-  document.getElementById('singleHint').classList.remove('faded');
-  document.getElementById('singleHint').style.display='flex';
-  setTimeout(()=>initCanvases(),50);
-}
-
-function updateAdminLayout() {
-  const ss = document.getElementById('scratchSingle');
-  const tw = document.getElementById('tripleWrap');
-  const rl = document.getElementById('revealLayer');
-  if (S.layout === 'triple') {
-    if (ss) ss.style.display = 'none';
-    if (rl) rl.style.display = 'none';
-    if (tw) tw.style.display = 'flex';
-    panelsRevealed = [false,false,false]; winnerShown = false;
-    setTimeout(() => { setupTripleCanvases(); updateTripleStatus(); }, 150);
-  } else {
-    if (tw) tw.style.display = 'none';
-    if (rl) rl.style.display = 'flex';
-    if (ss) ss.style.display = 'block';
-    setTimeout(setupSingleCanvas, 150);
-  }
-}
-
-requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(updateAdminLayout, 150)));
-window.addEventListener('resize', () => setTimeout(() => { resetScratch(); updateAdminLayout(); }, 250));
 </script>
 </body>
 </html>
