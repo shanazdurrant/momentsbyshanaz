@@ -309,7 +309,7 @@ footer a:hover{color:var(--gold);}
 .p-explorer .mc-detail{font-family:'Nunito',sans-serif;font-size:8.5px;letter-spacing:.06em;color:rgba(80,50,0,.9);line-height:1.7;font-weight:700;}
 
 /* ── 8. WILD SAFARI — children's animal theme, vibrant, top-heavy ── */
-.p-safari .mini-card{background:linear-gradient(175deg,#f5f0d8 0%,#ede5c0 40%,#e4d8a8 70%,#d8cc90 100%);background-image:url("Safari.jpg");background-size:cover;background-position:center;}
+.p-safari .mini-card{background-color:#c8a050;background-image:url("Safari.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;}
 .p-safari .mini-card::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
   /* sandy ground band at bottom */
@@ -1079,4 +1079,8 @@ function getFields(form){
     names:inputs[0]?.value.trim()||'', occasion:inputs[1]?.value.trim()||'',
     date:inputs[2]?.value.trim()||'', venue:inputs[3]?.value.trim()||'',
     extras:inputs[4]?.value.trim()||'', yourName:inputs[5]?.value.trim()||'',
-    email:inputs[6]?.value.trim()||'', etsy:inputs[7]?.value.trim()||
+    email:inputs[6]?.value.trim()||'', etsy:inputs[7]?.value.trim()||'',
+  };
+}
+
+async function sub
