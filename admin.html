@@ -29,7 +29,7 @@
       display: flex;
       flex-direction: column;
     }
- 
+
     /* LOCK SCREEN */
     #lock-screen {
       position: fixed; inset: 0;
@@ -113,11 +113,11 @@
       color: #e74c3c;
       height: 16px;
     }
- 
+
     /* ADMIN PANEL */
     #admin-panel { display: none; flex-direction: column; min-height: 100vh; }
     #admin-panel.visible { display: flex; }
- 
+
     /* ADMIN NAV */
     .admin-nav {
       background: rgba(255,255,255,0.03);
@@ -148,7 +148,7 @@
       transition: color 0.2s;
     }
     .admin-logout:hover { color: var(--cream); }
- 
+
     /* ADMIN MAIN */
     .admin-main { flex: 1; padding: 60px 40px; max-width: 1000px; margin: 0 auto; width: 100%; }
     .admin-main h1 {
@@ -164,7 +164,7 @@
       letter-spacing: 0.05em;
       margin-bottom: 52px;
     }
- 
+
     /* CARDS */
     .admin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
     .admin-card {
@@ -196,7 +196,7 @@
       text-transform: uppercase;
       color: var(--gold);
     }
- 
+
     /* ORDERS SECTION */
     .admin-section-title {
       font-size: 11px;
@@ -245,11 +245,11 @@
   </style>
 </head>
 <body>
- 
+
   <!-- LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-logo">
-      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+      <img src="logo-main.png" alt="Moments by Shanaz" style="height:48px;width:48px;object-fit:contain;border-radius:50%;vertical-align:middle;" />
     </div>
     <div class="lock-box">
       <div class="lock-icon">
@@ -265,19 +265,19 @@
       <div class="lock-error" id="lock-error"></div>
     </div>
   </div>
- 
+
   <!-- ADMIN PANEL -->
   <div id="admin-panel">
     <nav class="admin-nav">
-      <img src="logo-horizontal.png" alt="Moments by Shanaz" />
+      <img src="logo-main.png" alt="Moments by Shanaz" style="height:48px;width:48px;object-fit:contain;border-radius:50%;vertical-align:middle;" />
       <span class="admin-badge">Admin</span>
       <button class="admin-logout" onclick="logout()">Log out</button>
     </nav>
- 
+
     <main class="admin-main">
       <h1>Welcome back, <em>Shanaz</em></h1>
       <p>Manage your digital keepsake offerings from here.</p>
- 
+
       <div class="admin-cards">
         <a href="/scratchcard-admin.html" class="admin-card">
           <div class="admin-card-icon">✨</div>
@@ -285,22 +285,22 @@
           <p>Build a finalised scratchcard for a client — no watermark, ready to send. Email the PDF directly from here.</p>
           <span class="admin-card-cta">Go to Scratchcard Builder →</span>
         </a>
-        <a href="/invitation-builder.html" class="admin-card">
+        <a href="/invitation-admin.html" class="admin-card">
           <div class="admin-card-icon">💌</div>
-          <h2>Create an Invitation</h2>
-          <p>Build a luxury digital invitation — choose a theme, personalise the details and generate a watermarked preview.</p>
-          <span class="admin-card-cta">Go to Invitation Builder →</span>
+          <h2>Invitation Orders</h2>
+          <p>View preset styles, send personalisation instructions to clients, and manage invitation orders.</p>
+          <span class="admin-card-cta">Go to Invitation Admin →</span>
         </a>
       </div>
- 
+
       
     </main>
   </div>
- 
+
   <script>
     const PASS = 'moments2026';
     const KEY = 'mbs_admin_auth';
- 
+
     function checkPassword() {
       const input = document.getElementById('pwd');
       const err = document.getElementById('lock-error');
@@ -316,7 +316,7 @@
         setTimeout(() => input.classList.remove('error'), 500);
       }
     }
- 
+
     function logout() {
       sessionStorage.removeItem(KEY);
       document.getElementById('lock-screen').classList.remove('hidden');
@@ -324,11 +324,11 @@
       document.getElementById('pwd').value = '';
       document.getElementById('lock-error').textContent = '';
     }
- 
+
     document.getElementById('pwd').addEventListener('keydown', e => {
       if (e.key === 'Enter') checkPassword();
     });
- 
+
     // Auto-unlock if already authenticated this session
     if (sessionStorage.getItem(KEY) === '1') {
       document.getElementById('lock-screen').classList.add('hidden');
@@ -337,4 +337,3 @@
   </script>
 </body>
 </html>
- 
