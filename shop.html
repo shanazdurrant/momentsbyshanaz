@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Shop · Moments by Shanaz</title>
+  <meta name="description" content="Handmade physical keepsakes — personalised clothing, glassware, mugs and printed scratchcards. Made to order by Shanaz."/>
+  <link rel="icon" href="favicon.png"/>
+  <link rel="canonical" href="https://momentsbyshanaz.co.uk/shop.html"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{--cream:#faf8f4;--warm:#f5f0e8;--border:#e8e0d0;--char:#2c2825;--mid:#6b6460;--soft:#9c9490;--gold:#b8924a;--gold-l:rgba(184,146,74,.1);}
+    body{background:var(--cream);font-family:'Jost',sans-serif;color:var(--char);}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;height:56px;box-shadow:0 1px 0 rgba(0,0,0,.04);}
+    .nav-links{display:flex;gap:32px;align-items:center;}
+    .nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-logo{position:absolute;left:24px;}
+    .nav-logo img{height:36px;width:36px;object-fit:contain;border-radius:50%;}
+
+    /* ── HERO ── */
+    .shop-hero{padding:110px 40px 64px;text-align:center;border-bottom:1px solid var(--border);}
+    .shop-hero .eyebrow{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+    .shop-hero h1{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;line-height:1.15;margin-bottom:16px;}
+    .shop-hero h1 em{font-style:italic;color:var(--gold);}
+    .shop-hero p{font-size:13px;color:var(--mid);max-width:540px;margin:0 auto;line-height:1.9;}
+
+    /* ── PRODUCTS SECTION ── */
+    .products{padding:64px 40px;max-width:1100px;margin:0 auto;}
+    .products-title{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;text-align:center;}
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;}
+    .product-card{background:var(--warm);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    .product-img{width:100%;aspect-ratio:4/3;background:linear-gradient(145deg,#f0e8d8,#e8dcc8);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;overflow:hidden;}
+    .product-img img{width:100%;height:100%;object-fit:cover;display:block;}
+    .product-img .img-placeholder{font-size:40px;opacity:.3;}
+    .product-body{padding:20px;}
+    .product-name{font-size:13px;font-weight:500;margin-bottom:4px;}
+    .product-desc{font-size:11px;color:var(--mid);line-height:1.7;margin-bottom:12px;}
+    .product-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--char);margin-bottom:4px;}
+    .product-note{font-size:10px;color:var(--soft);}
+    .product-tag{display:inline-block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin-bottom:10px;}
+    .tag-etsy{background:rgba(235,105,35,.1);color:#d45a10;}
+    .tag-request{background:var(--gold-l);color:var(--gold);}
+    .product-cta{display:inline-block;margin-top:12px;padding:9px 18px;border-radius:3px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:all .2s;}
+    .cta-etsy{background:#eb6819;color:#fff;}
+    .cta-etsy:hover{background:#c9520a;}
+    .cta-request{background:var(--char);color:var(--cream);}
+    .cta-request:hover{background:var(--gold);}
+
+    /* ── DIVIDER ── */
+    .section-divider{height:1px;background:var(--border);max-width:1100px;margin:0 auto;}
+
+    /* ── REQUEST FORM ── */
+    .form-section{padding:64px 40px;max-width:740px;margin:0 auto;}
+    .form-section .sec-eyebrow{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center;}
+    .form-section h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;text-align:center;margin-bottom:8px;}
+    .form-section .form-sub{font-size:12px;color:var(--mid);text-align:center;margin-bottom:36px;line-height:1.8;}
+
+    .form-group{margin-bottom:20px;}
+    .form-group label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
+    .form-group input,.form-group textarea,.form-group select{width:100%;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:11px 14px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;-webkit-appearance:none;}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
+    .form-group textarea{min-height:90px;resize:vertical;}
+    .form-group .hint{font-size:10px;color:var(--soft);margin-top:5px;line-height:1.6;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+    /* Radio / checkbox groups */
+    .radio-group,.check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+    .radio-chip,.check-chip{position:relative;}
+    .radio-chip input,.check-chip input{position:absolute;opacity:0;width:0;height:0;}
+    .radio-chip label,.check-chip label{display:block;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:9px 14px;font-size:12px;cursor:pointer;transition:all .18s;user-select:none;}
+    .radio-chip input:checked+label,.check-chip input:checked+label{border-color:var(--gold);background:var(--gold-l);color:var(--gold);}
+    .radio-chip label:hover,.check-chip label:hover{border-color:var(--gold);}
+
+    /* Conditional panels */
+    .conditional{display:none;margin-top:16px;padding:16px;background:var(--cream);border:1px solid var(--border);border-radius:4px;}
+    .conditional.show{display:block;}
+
+    /* Submit */
+    .submit-btn{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:15px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:8px;}
+    .submit-btn:hover{background:var(--gold);}
+    .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+    /* Success */
+    .success-msg{display:none;text-align:center;padding:28px 24px;background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.2);border-radius:6px;margin-top:16px;}
+    .success-msg p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--char);line-height:1.7;}
+
+    /* ── FOOTER ── */
+    footer{text-align:center;padding:40px;border-top:1px solid var(--border);font-size:11px;color:var(--soft);}
+    footer a{color:var(--soft);text-decoration:none;}
+    footer a:hover{color:var(--gold);}
+
+    @media(max-width:700px){
+      .product-grid{grid-template-columns:1fr;}
+      .form-row{grid-template-columns:1fr;}
+      .shop-hero h1{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link" style="position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;text-decoration:none;z-index:9999;transition:top .2s;" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">Skip to main content</a>
+
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Moments by Shanaz — Home">
+    <img src="logo-main.png" alt="Moments by Shanaz"/>
+  </a>
+  <div class="nav-links">
+    <a href="/order.html">Scratchcards</a>
+    <a href="/invitation.html">Invitations</a>
+    <a href="/shop.html" class="active">Shop</a>
+    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
+  </div>
+</nav>
+
+<main id="main-content">
+
+  <!-- HERO -->
+  <div class="shop-hero">
+    <p class="eyebrow">Handmade · Made to order</p>
+    <h1>Physical keepsakes, <em>made with love</em></h1>
+    <p>Not everything I make is listed on the site — physical items are available by request. Tell me what you're looking for and I'll let you know if I can help.</p>
+  </div>
+
+  <!-- WHAT I CAN MAKE — simple list -->
+  <div style="max-width:640px;margin:0 auto;padding:48px 40px 0;text-align:center;">
+    <p style="font-size:12px;color:var(--mid);line-height:2;margin-bottom:32px;">I can personalise a range of physical items by request — including heat transfer clothing designs, printed scratchcards with envelopes, champagne flutes, wine glasses, mugs, and more. If you have something specific in mind that isn't listed, just ask in the form below.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:16px;">
+      <span style="background:var(--warm);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:11px;color:var(--mid);">👕 Clothing designs</span>
+      <span style="background:var(--warm);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:11px;color:var(--mid);">🥂 Glassware</span>
+      <span style="background:var(--warm);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:11px;color:var(--mid);">☕ Mugs</span>
+      <span style="background:var(--warm);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:11px;color:var(--mid);">🎴 Printed scratchcards</span>
+      <span style="background:var(--warm);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:11px;color:var(--mid);">✨ Something else? Just ask</span>
+    </div>
+    <p style="font-size:11px;color:var(--soft);line-height:1.8;">All physical items are made to order. I'll confirm pricing and timelines once I know what you need — no payment required to enquire.</p>
+  </div>
+
+
+
+  <!-- REQUEST FORM -->
+  <div class="form-section" id="request-form">
+    <p class="sec-eyebrow">Place a request</p>
+    <h2>Tell me what you'd like</h2>
+    <p class="form-sub">Fill in the form below and I'll get back to you within 24 hours to confirm details and pricing. No payment needed yet.</p>
+
+    <!-- PRODUCT TYPE -->
+    <div class="form-group">
+      <label>What would you like? <span style="color:#c0392b;">*</span></label>
+      <div class="radio-group" id="productTypeGroup">
+        <div class="radio-chip"><input type="radio" name="product_type" id="pt-clothing" value="Heat Transfer Clothing" onchange="showConditional()"/><label for="pt-clothing">👕 Clothing design</label></div>
+        <div class="radio-chip"><input type="radio" name="product_type" id="pt-glass" value="Personalised Glassware" onchange="showConditional()"/><label for="pt-glass">🥂 Glassware</label></div>
+        <div class="radio-chip"><input type="radio" name="product_type" id="pt-mug" value="Personalised Mug" onchange="showConditional()"/><label for="pt-mug">☕ Mug</label></div>
+        <div class="radio-chip"><input type="radio" name="product_type" id="pt-scratch" value="Printed Scratchcard" onchange="showConditional()"/><label for="pt-scratch">🎴 Printed scratchcard</label></div>
+        <div class="radio-chip"><input type="radio" name="product_type" id="pt-other" value="Other" onchange="showConditional()"/><label for="pt-other">✨ Something else</label></div>
+      </div>
+    </div>
+
+    <!-- CLOTHING OPTIONS (conditional) -->
+    <div class="conditional" id="cond-clothing">
+      <div class="form-group">
+        <label>Type of clothing</label>
+        <div class="radio-group">
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-tshirt" value="T-shirt"/><label for="ct-tshirt">T-shirt</label></div>
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-hoodie" value="Hoodie"/><label for="ct-hoodie">Hoodie</label></div>
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-babygrow" value="Baby grow"/><label for="ct-babygrow">Baby grow</label></div>
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-vest" value="Vest top"/><label for="ct-vest">Vest top</label></div>
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-own" value="My own item"/><label for="ct-own">I'll supply the item</label></div>
+          <div class="radio-chip"><input type="radio" name="clothing_type" id="ct-unsure" value="Not sure yet"/><label for="ct-unsure">Not sure yet</label></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Finish</label>
+        <div class="check-group">
+          <div class="check-chip"><input type="checkbox" id="fin-standard" value="Standard"/><label for="fin-standard">Standard</label></div>
+          <div class="check-chip"><input type="checkbox" id="fin-glitter" value="Glitter"/><label for="fin-glitter">✨ Glitter</label></div>
+          <div class="check-chip"><input type="checkbox" id="fin-holographic" value="Holographic"/><label for="fin-holographic">🌈 Holographic</label></div>
+          <div class="check-chip"><input type="checkbox" id="fin-heat" value="Heat reactive"/><label for="fin-heat">🌡 Heat reactive</label></div>
+          <div class="check-chip"><input type="checkbox" id="fin-glow" value="Glow in the dark"/><label for="fin-glow">🌙 Glow in the dark</label></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>How many items?</label>
+        <input type="number" id="clothing-qty" min="1" placeholder="e.g. 2"/>
+      </div>
+    </div>
+
+    <!-- GLASSWARE OPTIONS (conditional) -->
+    <div class="conditional" id="cond-glassware">
+      <div class="form-group">
+        <label>Type of glassware</label>
+        <div class="radio-group">
+          <div class="radio-chip"><input type="radio" name="glass_type" id="gt-flute" value="Champagne flute"/><label for="gt-flute">🥂 Champagne flute</label></div>
+          <div class="radio-chip"><input type="radio" name="glass_type" id="gt-wine" value="Wine glass"/><label for="gt-wine">🍷 Wine glass</label></div>
+          <div class="radio-chip"><input type="radio" name="glass_type" id="gt-shot" value="Shot glass"/><label for="gt-shot">🥃 Shot glass</label></div>
+          <div class="radio-chip"><input type="radio" name="glass_type" id="gt-other" value="Other glassware"/><label for="gt-other">Other</label></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>How many?</label>
+        <input type="number" id="glass-qty" min="1" placeholder="e.g. 2 flutes"/>
+      </div>
+    </div>
+
+    <!-- SCRATCHCARD OPTIONS (conditional) -->
+    <div class="conditional" id="cond-scratchcard">
+      <div class="form-group">
+        <label>How many scratchcards?</label>
+        <div class="radio-group">
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-1" value="1 card — £5"/><label for="sc-1">1 card — £5</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-3" value="3 cards — £12"/><label for="sc-3">3 cards — £12</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-6" value="6 cards — £20"/><label for="sc-6">6 cards — £20</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-more" value="More than 6"/><label for="sc-more">More than 6</label></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Occasion</label>
+        <select id="sc-occasion">
+          <option value="">Select occasion…</option>
+          <option>Proposal</option>
+          <option>Gender reveal</option>
+          <option>Holiday surprise</option>
+          <option>Birthday</option>
+          <option>Wedding</option>
+          <option>Christmas</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:8px;">
+      <label>Occasion / what it's for</label>
+      <input type="text" id="occasion" placeholder="e.g. Wedding anniversary, Birthday, Baby shower…"/>
+    </div>
+
+    <!-- PERSONALISATION -->
+    <div class="form-group">
+      <label>Names or text for personalisation <span style="color:#c0392b;">*</span></label>
+      <input type="text" id="personalisation-text" placeholder="e.g. Sarah & James · Est. 2024"/>
+      <div class="hint">Exactly as you'd like it to appear — spelling and capitalisation matter</div>
+    </div>
+
+    <!-- COLOUR -->
+    <div class="form-group">
+      <label>Colour preference</label>
+      <div class="check-group">
+        <div class="check-chip"><input type="checkbox" id="col-gold" value="Gold"/><label for="col-gold">Gold</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-silver" value="Silver"/><label for="col-silver">Silver</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-rose" value="Rose gold"/><label for="col-rose">Rose gold</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-black" value="Black"/><label for="col-black">Black</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-white" value="White"/><label for="col-white">White</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-pink" value="Pink"/><label for="col-pink">Pink</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-blue" value="Blue"/><label for="col-blue">Blue</label></div>
+        <div class="check-chip"><input type="checkbox" id="col-other" value="Other"/><label for="col-other">Other (specify below)</label></div>
+      </div>
+    </div>
+
+    <!-- SPECIAL EFFECTS -->
+    <div class="form-group">
+      <label>Special finish or effects (if applicable)</label>
+      <div class="check-group">
+        <div class="check-chip"><input type="checkbox" id="ef-glitter" value="Glitter"/><label for="ef-glitter">✨ Glitter</label></div>
+        <div class="check-chip"><input type="checkbox" id="ef-holo" value="Holographic"/><label for="ef-holo">🌈 Holographic</label></div>
+        <div class="check-chip"><input type="checkbox" id="ef-heat" value="Heat reactive"/><label for="ef-heat">🌡 Heat reactive (changes colour)</label></div>
+        <div class="check-chip"><input type="checkbox" id="ef-glow" value="Glow in the dark"/><label for="ef-glow">🌙 Glow in the dark</label></div>
+        <div class="check-chip"><input type="checkbox" id="ef-none" value="None"/><label for="ef-none">None needed</label></div>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Quantity needed</label>
+        <input type="number" id="quantity" min="1" placeholder="How many?"/>
+      </div>
+      <div class="form-group">
+        <label>Date needed by</label>
+        <input type="date" id="date-needed"/>
+        <div class="hint">Allow 3–5 working days for delivery</div>
+      </div>
+    </div>
+
+    <!-- EXTRA DETAILS -->
+    <div class="form-group">
+      <label>Any other details, ideas or inspiration</label>
+      <textarea id="extra-details" placeholder="Tell me anything else — fonts you like, images you want, reference photos, specific wording, size requirements…"></textarea>
+    </div>
+
+    <!-- YOUR DETAILS -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your name <span style="color:#c0392b;">*</span></label>
+        <input type="text" id="your-name" placeholder="Your full name"/>
+      </div>
+      <div class="form-group">
+        <label>Your email <span style="color:#c0392b;">*</span></label>
+        <input type="email" id="your-email" placeholder="you@example.com"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Phone number (optional)</label>
+      <input type="tel" id="your-phone" placeholder="In case I need to reach you quickly"/>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitRequest()">Send My Request ✦</button>
+
+    <div class="success-msg" id="successMsg">
+      <p>Thank you! Your request has been received. ✦<br/>I'll be in touch within 24 hours to confirm the details and get started.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p style="margin-bottom:8px;">
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/order.html">Digital Scratchcards</a> &nbsp;·&nbsp;
+    <a href="/invitation.html">Invitations</a> &nbsp;·&nbsp;
+    <a href="/shop.html">Shop</a> &nbsp;·&nbsp;
+    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
+  </p>
+  <p>© 2026 Moments by Shanaz · <a href="/privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+// Pre-select product type from card buttons
+function preSelect(type) {
+  const map = { clothing:'pt-clothing', glassware:'pt-glass', mug:'pt-mug', scratchcard:'pt-scratch', other:'pt-other' };
+  const id = map[type];
+  if (id) {
+    const el = document.getElementById(id);
+    if (el) { el.checked = true; showConditional(); }
+  }
+  setTimeout(() => document.getElementById('request-form').scrollIntoView({ behavior:'smooth' }), 100);
+}
+
+// Show/hide conditional panels
+function showConditional() {
+  const val = document.querySelector('input[name="product_type"]:checked')?.value || '';
+  document.getElementById('cond-clothing').classList.toggle('show', val === 'Heat Transfer Clothing');
+  document.getElementById('cond-glassware').classList.toggle('show', val === 'Personalised Glassware');
+  document.getElementById('cond-scratchcard').classList.toggle('show', val === 'Printed Scratchcard');
+}
+
+// Collect checked checkboxes
+function getChecked(name) {
+  return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(e=>e.value).join(', ') || 'none';
+}
+function getCheckboxes(ids) {
+  return ids.filter(id => document.getElementById(id)?.checked).map(id => document.getElementById(id).value).join(', ') || 'none';
+}
+
+// Submit
+async function submitRequest() {
+  const name   = document.getElementById('your-name').value.trim();
+  const email  = document.getElementById('your-email').value.trim();
+  const pType  = document.querySelector('input[name="product_type"]:checked')?.value || '';
+  const pText  = document.getElementById('personalisation-text').value.trim();
+
+  if (!name)  { alert('Please add your name.'); return; }
+  if (!email) { alert('Please add your email.'); return; }
+  if (!pType) { alert('Please select a product type.'); return; }
+  if (!pText) { alert('Please add the text or names for personalisation.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending…'; btn.disabled = true;
+
+  const colours  = getCheckboxes(['col-gold','col-silver','col-rose','col-black','col-white','col-pink','col-blue','col-other']);
+  const effects  = getCheckboxes(['ef-glitter','ef-holo','ef-heat','ef-glow','ef-none']);
+  const finishes = getCheckboxes(['fin-standard','fin-glitter','fin-holographic','fin-heat','fin-glow']);
+
+  const body = [
+    '=== PHYSICAL PRODUCT REQUEST ===',
+    '',
+    'Product type: '   + pType,
+    'Occasion: '       + (document.getElementById('occasion').value || '—'),
+    '',
+    '--- PRODUCT DETAILS ---',
+    'Clothing type: '  + (getChecked('clothing_type') || '—'),
+    'Clothing finish: ' + (finishes || '—'),
+    'Clothing qty: '   + (document.getElementById('clothing-qty')?.value || '—'),
+    'Glassware type: ' + (getChecked('glass_type') || '—'),
+    'Glassware qty: '  + (document.getElementById('glass-qty')?.value || '—'),
+    'Scratchcard qty: ' + (getChecked('sc_qty') || '—'),
+    'Scratchcard occasion: ' + (document.getElementById('sc-occasion')?.value || '—'),
+    '',
+    '--- PERSONALISATION ---',
+    'Text/names: '     + pText,
+    'Colours: '        + colours,
+    'Effects: '        + effects,
+    'Quantity: '       + (document.getElementById('quantity').value || '—'),
+    'Date needed: '    + (document.getElementById('date-needed').value || '—'),
+    '',
+    'Extra details: '  + (document.getElementById('extra-details').value || 'none'),
+    '',
+    '--- CUSTOMER ---',
+    'Name: '    + name,
+    'Email: '   + email,
+    'Phone: '   + (document.getElementById('your-phone').value || '—'),
+    'Submitted: ' + new Date().toLocaleString('en-GB'),
+  ].join('\n');
+
+  try {
+    await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
+      order_type: 'Physical Product Request',
+      subject:    '🛍 Physical Request — ' + pType + ' for ' + name,
+      from_name:  name,
+      from_email: email,
+      reply_to:   email,
+      message:    body,
+    });
+
+    // WhatsApp ping
+    try {
+      const waMsg = encodeURIComponent('New physical product request! ' + pType + ' for ' + name + ' (' + email + ')');
+      fetch('https://api.callmebot.com/whatsapp.php?phone=447539209931&text=' + waMsg + '&apikey=3401368', {mode:'no-cors'});
+    } catch(e){}
+
+    document.getElementById('successMsg').style.display = 'block';
+    btn.textContent = 'Request sent ✓';
+  } catch(e) {
+    console.error(e);
+    alert('Something went wrong — please email hello@momentsbyshanaz.co.uk directly.');
+    btn.textContent = 'Send My Request ✦';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
