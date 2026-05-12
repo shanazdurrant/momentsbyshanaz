@@ -1081,21 +1081,28 @@ async function submitOrder(redirectToEtsy = false){
 
   // Email notification to Shanaz via EmailJS
   try {
+    const scMsg = [
+      '=== SCRATCHCARD ORDER ===',
+      'Submitted: ' + new Date().toLocaleString('en-GB'),
+      '',
+      '--- ORDER DETAILS ---',
+      'Occasion:    ' + state.occasion,
+      'Layout:      ' + state.layout,
+      'Recipient:   ' + (state.recipient || 'not specified'),
+      'Headline:    ' + state.headline,
+      'Message:     ' + (state.message || 'none'),
+      'Signature:   ' + (state.signature || 'none'),
+      'Confetti:    ' + (state.confetti ? 'yes' : 'no'),
+      '',
+      '--- CUSTOMER ---',
+      'Name:        ' + state.yourName,
+      'Email:       ' + state.yourEmail,
+      'Etsy Ref:    ' + (state.orderNumber || 'none'),
+    ].join('\n');
+
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      order_type: 'Scratchcard Order',
-      timestamp:  new Date().toLocaleString('en-GB'),
-      name:       state.yourName,
-      email:      state.yourEmail,
-      etsy_ref:   state.orderNumber || 'none',
-      occasion:   state.occasion,
-      layout:     state.layout,
-      style:      state.layout,
-      headline:   state.headline,
-      message:    state.message || 'none',
-      names:      state.recipient || 'not specified',
-      date:       'n/a',
-      venue:      'n/a',
-      extras:     'Signed: ' + (state.signature||'none') + ' | Confetti: ' + (state.confetti?'yes':'no'),
+      subject:    'New Scratchcard Order — ' + state.occasion + ' for ' + (state.recipient || state.yourName),
+      message:    scMsg,
       from_name:  state.yourName,
       from_email: state.yourEmail,
       reply_to:   state.yourEmail,
