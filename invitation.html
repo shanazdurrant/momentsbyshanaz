@@ -1093,21 +1093,27 @@ async function submitPreset(e, style, btn){
   btn.textContent = 'Sending…'; btn.disabled = true;
   const bgTheme = btn.closest('.order-panel')?.dataset?.theme || 'preset default';
   try {
+    const presetMsg = [
+      '=== INVITATION ORDER (PRESET) ===',
+      'Submitted: ' + new Date().toLocaleString('en-GB'),
+      '',
+      '--- INVITATION DETAILS ---',
+      'Style:       ' + style + (bgTheme !== 'preset default' ? ' + ' + bgTheme : ''),
+      'Occasion:    ' + (f.occasion || 'not specified'),
+      'Names:       ' + f.names,
+      'Date:        ' + (f.date || 'not specified'),
+      'Venue:       ' + (f.venue || 'not specified'),
+      'Extra notes: ' + (f.extras || 'none'),
+      '',
+      '--- CUSTOMER ---',
+      'Name:        ' + f.yourName,
+      'Email:       ' + f.email,
+      'Etsy Ref:    ' + (f.etsy || 'none'),
+    ].join('\n');
+
     await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
-      order_type: 'Invitation Order',
-      timestamp:  new Date().toLocaleString('en-GB'),
-      name:       f.yourName,
-      email:      f.email,
-      etsy_ref:   f.etsy || 'none',
-      occasion:   f.occasion || 'not specified',
-      layout:     style,
-      style:      style + (bgTheme !== 'preset default' ? ' + ' + bgTheme : ''),
-      headline:   f.names,
-      message:    f.extras || 'none',
-      names:      f.names,
-      date:       f.date || 'not specified',
-      venue:      f.venue || 'not specified',
-      extras:     f.extras || 'none',
+      subject:    'New Invitation Order — ' + style + ' — ' + (f.occasion || 'invitation') + ' for ' + f.names,
+      message:    presetMsg,
       from_name:  f.yourName,
       from_email: f.email,
       reply_to:   f.email,
@@ -1152,21 +1158,27 @@ async function submitBespoke(btn){
     'Submitted: '+ new Date().toLocaleString('en-GB')
   ].join('\n');
   try {
+    const bespokeMsg = [
+      '=== BESPOKE INVITATION ORDER ===',
+      'Submitted: ' + new Date().toLocaleString('en-GB'),
+      '',
+      '--- INVITATION DETAILS ---',
+      'Style:       Bespoke / Custom',
+      'Occasion:    ' + (occasion || 'not specified'),
+      'Names:       ' + (names || 'not specified'),
+      'Date:        ' + (date || 'not specified'),
+      'Venue:       ' + (venue || 'not specified'),
+      'Vision:      ' + vision,
+      '',
+      '--- CUSTOMER ---',
+      'Name:        ' + name,
+      'Email:       ' + email,
+      'Etsy Ref:    ' + (etsy || 'none'),
+    ].join('\n');
+
     await emailjs.send('service_q7cy9mq','template_lhsm3kw',{
-      order_type: 'Bespoke Invitation Order',
-      timestamp:  new Date().toLocaleString('en-GB'),
-      name:       name,
-      email:      email,
-      etsy_ref:   etsy || 'none',
-      occasion:   occasion || 'not specified',
-      layout:     'Bespoke / Custom',
-      style:      'Bespoke / Custom',
-      headline:   names || 'not specified',
-      message:    vision,
-      names:      names || 'not specified',
-      date:       date || 'not specified',
-      venue:      venue || 'not specified',
-      extras:     vision,
+      subject:    'BESPOKE Invitation — ' + (occasion || 'custom') + (names ? ' for ' + names : ''),
+      message:    bespokeMsg,
       from_name:  name,
       from_email: email,
       reply_to:   email,
