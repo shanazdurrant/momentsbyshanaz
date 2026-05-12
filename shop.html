@@ -406,7 +406,6 @@ async function submitRequest() {
 
   try {
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      order_type: 'Physical Product Request',
       subject:    '🛍 Physical Request — ' + pType + ' for ' + name,
       from_name:  name,
       from_email: email,
