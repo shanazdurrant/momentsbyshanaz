@@ -285,33 +285,39 @@ function setupSingleCanvas(){
 
 function setupTripleCanvases(){
   document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
-    const canvas=panel.querySelector('canvas'); if(!canvas) return;
+    const old=panel.querySelector('canvas'); if(!old) return;
+    // Clone to strip all stale listeners
+    const canvas=old.cloneNode(false);
+    old.parentNode.replaceChild(canvas,old);
     const ctx=canvas.getContext('2d');
     const rect=panel.getBoundingClientRect();
+    const size=rect.width||panel.offsetWidth||90;
     const dpr=window.devicePixelRatio||1;
-    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
-    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+    if(size===0){ setTimeout(setupTripleCanvases,200); return; }
+    canvas.width=size*dpr; canvas.height=size*dpr;
+    canvas.style.width=size+'px'; canvas.style.height=size+'px';
+    canvas.style.opacity='1'; canvas.style.display='block';
     ctx.scale(dpr,dpr);
-    // Ensure we're in normal drawing mode then clip+paint gold
     ctx.globalCompositeOperation='source-over';
-    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
-    paintGoldOverlay(ctx,rect.width,rect.height);
+    ctx.beginPath(); ctx.arc(size/2,size/2,size/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,size,size);
 
     let isDrawing=false,lastX,lastY,revealed=false;
     const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
     const scratch=e=>{
       if(!isDrawing) return; e.preventDefault();
       const {x,y}=getPos(e);
-      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
+      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=28;
       ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
       lastX=x; lastY=y;
       if(!revealed){
         const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
         for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-        if(transparent/(img.data.length/40)>0.5){
-          revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
+        if(transparent/(img.data.length/40)>0.45){
+          revealed=true;
+          canvas.style.transition='opacity 0.5s ease'; canvas.style.opacity='0';
           panel.classList.add('just-revealed');
-          const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
+          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
           panelsRevealed[idx]=true; checkWinner();
         }
       }
@@ -422,7 +428,6 @@ function buildCard(d){
       <div class="scratch-single" id="scratchSingle" style="${isTriple?'display:none':''}">
         <canvas id="singleCanvas"></canvas>
         <div class="scratch-single-hint" id="singleHint">
-          <div class="icon-big">${icon}</div>
           <div class="title">Scratch to Reveal</div>
           <div class="sub">Use your finger or mouse</div>
         </div>
@@ -439,7 +444,9 @@ function buildCard(d){
       <div class="winner-message" id="winnerMessage">
         ${d.recipient?`<div class="reveal-greeting">For ${d.recipient}</div>`:''}
         <div class="reveal-headline">${d.headline||''}</div>
+        <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
         <div class="reveal-text">${d.message||''}</div>
+        ${d.signature?`<div class="reveal-signoff"><div class="reveal-signoff-prefix">with love,</div><div class="reveal-signoff-name">${d.signature}</div></div>`:''}
       </div>
       <div class="confetti-layer" id="confettiLayer"></div>
       <div class="card-flash" id="cardFlash"></div>
@@ -452,10 +459,11 @@ function buildCard(d){
       <svg class="frame-seal" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#faf6f0" opacity="0.85"/><circle cx="20" cy="20" r="18" fill="none" stroke="#1f4538" stroke-width="1"/><text x="20" y="28" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#c9a961" font-weight="500">M</text></svg>
     </div>`;
   document.getElementById('resetRow').style.display='block';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    if(isTriple){setupTripleCanvases();updateTripleStatus();}
-    else{setupSingleCanvas();}
-  }));
+  // Wait for DOM to paint before measuring canvas dimensions
+  requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>{
+    if(isTriple){ setupTripleCanvases(); }
+    else{ setupSingleCanvas(); }
+  },100)));
 }
 
 (function(){
