@@ -142,6 +142,200 @@
 
 
 
+
+  <!-- PORTFOLIO CAROUSEL -->
+  <div style="padding:56px 0 48px;background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:48px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Made by hand, made for you</p>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;font-weight:400;color:var(--dark);margin:0;">A few things I've made</h2>
+    </div>
+
+    <div style="position:relative;overflow:hidden;">
+      <div id="carousel-track" style="display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform;">
+
+        <!-- Slide 1: Glasses -->
+        <div class="c-slide">
+          <div class="c-img-wrap">
+            <img src="glasses.jpg" alt="Personalised glitter wine glass and champagne flute" loading="lazy"/>
+          </div>
+          <p class="c-label">Personalised glassware</p>
+          <p class="c-sub">Birthdays, weddings &amp; every celebration</p>
+        </div>
+
+        <!-- Slide 2: Sunglasses -->
+        <div class="c-slide">
+          <div class="c-img-wrap">
+            <img src="sunglasses.jpg" alt="Personalised sunglasses with custom initials" loading="lazy"/>
+          </div>
+          <p class="c-label">Personalised sunglasses</p>
+          <p class="c-sub">Custom initials for weddings &amp; hen dos</p>
+        </div>
+
+        <!-- Slide 2: Hoodie -->
+        <div class="c-slide">
+          <div class="c-img-wrap">
+            <img src="hoodie.jpg" alt="Custom heat transfer hoodie — Lucy Spraggan tour" loading="lazy"/>
+          </div>
+          <p class="c-label">Personalised clothing design</p>
+          <p class="c-sub">Commemorating a special occasion</p>
+        </div>
+
+        <!-- Slide 3: Champagne flutes -->
+        <div class="c-slide">
+          <div class="c-img-wrap">
+            <img src="flutes.jpg" alt="Personalised champagne flutes for bridal party" loading="lazy"/>
+          </div>
+          <p class="c-label">Personalised champagne flutes</p>
+          <p class="c-sub">Made for bridesmaids &amp; maid of honour</p>
+        </div>
+
+        <!-- Slide 4: Gin glass -->
+        <div class="c-slide">
+          <div class="c-img-wrap">
+            <img src="gin.jpg" alt="Personalised gin glass in gift box" loading="lazy"/>
+          </div>
+          <p class="c-label">Personalised glassware, gift-ready</p>
+          <p class="c-sub">Presented in a luxury gift box</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:28px;">
+      <button onclick="moveCarousel(-1)" aria-label="Previous" style="background:none;border:1px solid var(--border);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">&#8592;</button>
+      <div id="carousel-dots" style="display:flex;gap:8px;"></div>
+      <button onclick="moveCarousel(1)" aria-label="Next" style="background:none;border:1px solid var(--border);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">&#8594;</button>
+    </div>
+  </div>
+
+  <style>
+    .c-slide {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding: 0 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    @media(min-width:640px){
+      .c-slide { flex: 0 0 50%; max-width: 50%; }
+    }
+    @media(min-width:960px){
+      .c-slide { flex: 0 0 33.333%; max-width: 33.333%; }
+    }
+    .c-img-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #eee;
+      margin-bottom: 16px;
+    }
+    .c-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .c-img-wrap:hover img { transform: scale(1.03); }
+    .c-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dark);
+      margin: 0 0 4px;
+      letter-spacing: .03em;
+    }
+    .c-sub {
+      font-size: 11px;
+      color: var(--mid);
+      margin: 0;
+      letter-spacing: .05em;
+    }
+    .c-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background .25s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+    .c-dot.active { background: var(--gold); }
+  </style>
+
+  <script>
+    (function(){
+      const track = document.getElementById('carousel-track');
+      const dotsWrap = document.getElementById('carousel-dots');
+      const slides = track.querySelectorAll('.c-slide');
+      let current = 0;
+      let perView = 1;
+
+      function getPerView(){
+        if(window.innerWidth >= 960) return 3;
+        if(window.innerWidth >= 640) return 2;
+        return 1;
+      }
+
+      function buildDots(){
+        dotsWrap.innerHTML = '';
+        const total = Math.ceil(slides.length / perView);
+        for(let i=0;i<total;i++){
+          const d = document.createElement('button');
+          d.className = 'c-dot' + (i===current/perView?' active':'');
+          d.setAttribute('aria-label','Slide '+(i+1));
+          d.onclick = () => goTo(i * perView);
+          dotsWrap.appendChild(d);
+        }
+      }
+
+      function updateDots(){
+        const dotIdx = Math.round(current / perView);
+        dotsWrap.querySelectorAll('.c-dot').forEach((d,i)=>{
+          d.classList.toggle('active', i===dotIdx);
+        });
+      }
+
+      function goTo(idx){
+        const max = slides.length - perView;
+        current = Math.max(0, Math.min(idx, max));
+        const slideW = track.parentElement.offsetWidth / perView;
+        track.style.transform = 'translateX(-' + (current * slideW) + 'px)';
+        updateDots();
+      }
+
+      window.moveCarousel = function(dir){
+        goTo(current + dir * perView);
+      };
+
+      function init(){
+        perView = getPerView();
+        slides.forEach(s => {
+          s.style.flex = '0 0 ' + (100/perView) + '%';
+          s.style.maxWidth = (100/perView) + '%';
+        });
+        current = 0;
+        track.style.transform = 'translateX(0)';
+        buildDots();
+      }
+
+      window.addEventListener('resize', init);
+      init();
+
+      // Touch/swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if(Math.abs(diff) > 40) moveCarousel(diff > 0 ? 1 : -1);
+      }, {passive:true});
+    })();
+  </script>
+
+
+
   <!-- REQUEST FORM -->
   <div class="form-section" id="request-form">
     <p class="sec-eyebrow">Place a request</p>
@@ -406,6 +600,7 @@ async function submitRequest() {
 
   try {
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
+      order_type: 'Physical Product Request',
       subject:    '🛍 Physical Request — ' + pType + ' for ' + name,
       from_name:  name,
       from_email: email,
