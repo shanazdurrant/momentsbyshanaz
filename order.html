@@ -486,6 +486,7 @@ body::after{
     <nav class="top-bar-nav">
       <a href="/order.html" class="active">Scratchcards</a>
       <a href="/invitation.html">Invitations</a>
+      <a href="/shop.html">Shop</a>
     </nav>
   </div>
 </header>
@@ -920,33 +921,39 @@ function setupSingleCanvas(){
 
 function setupTripleCanvases(){
   document.querySelectorAll('.tri-panel').forEach((panel,idx)=>{
-    const canvas=panel.querySelector('canvas'); if(!canvas) return;
+    const old=panel.querySelector('canvas'); if(!old) return;
+    // Clone to remove all stale event listeners
+    const canvas=old.cloneNode(false);
+    old.parentNode.replaceChild(canvas,old);
     const ctx=canvas.getContext('2d');
     const rect=panel.getBoundingClientRect();
+    const size=rect.width||panel.offsetWidth||80;
     const dpr=window.devicePixelRatio||1;
-    if(rect.width===0||rect.height===0){ setTimeout(setupTripleCanvases,150); return; }
-    canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+    if(size===0){ setTimeout(setupTripleCanvases,200); return; }
+    canvas.width=size*dpr; canvas.height=size*dpr;
+    canvas.style.width=size+'px'; canvas.style.height=size+'px';
+    canvas.style.opacity='1'; canvas.style.display='block';
     ctx.scale(dpr,dpr);
-    // Ensure we're in normal drawing mode then clip+paint gold
     ctx.globalCompositeOperation='source-over';
-    ctx.beginPath(); ctx.arc(rect.width/2,rect.height/2,rect.width/2,0,Math.PI*2); ctx.clip();
-    paintGoldOverlay(ctx,rect.width,rect.height);
+    ctx.beginPath(); ctx.arc(size/2,size/2,size/2,0,Math.PI*2); ctx.clip();
+    paintGoldOverlay(ctx,size,size);
 
     let isDrawing=false,lastX,lastY,revealed=false;
     const getPos=e=>{ const r=canvas.getBoundingClientRect(); return {x:(e.touches?e.touches[0].clientX:e.clientX)-r.left,y:(e.touches?e.touches[0].clientY:e.clientY)-r.top}; };
     const scratch=e=>{
       if(!isDrawing) return; e.preventDefault();
       const {x,y}=getPos(e);
-      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=22;
+      ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=28;
       ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
       lastX=x; lastY=y;
       if(!revealed){
         const img=ctx.getImageData(0,0,canvas.width,canvas.height); let transparent=0;
         for(let i=3;i<img.data.length;i+=40){ if(img.data[i]<64) transparent++; }
-        if(transparent/(img.data.length/40)>0.5){
-          revealed=true; canvas.style.transition='opacity 0.5s'; canvas.style.opacity='0';
+        if(transparent/(img.data.length/40)>0.45){
+          revealed=true;
+          canvas.style.transition='opacity 0.5s ease'; canvas.style.opacity='0';
           panel.classList.add('just-revealed');
-          const ping=panel.querySelector('.tri-ping'); ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active');
+          const ping=panel.querySelector('.tri-ping'); if(ping){ ping.classList.remove('active'); void ping.offsetWidth; ping.classList.add('active'); }
           panelsRevealed[idx]=true; checkWinner();
         }
       }
@@ -1081,28 +1088,21 @@ async function submitOrder(redirectToEtsy = false){
 
   // Email notification to Shanaz via EmailJS
   try {
-    const scMsg = [
-      '=== SCRATCHCARD ORDER ===',
-      'Submitted: ' + new Date().toLocaleString('en-GB'),
-      '',
-      '--- ORDER DETAILS ---',
-      'Occasion:    ' + state.occasion,
-      'Layout:      ' + state.layout,
-      'Recipient:   ' + (state.recipient || 'not specified'),
-      'Headline:    ' + state.headline,
-      'Message:     ' + (state.message || 'none'),
-      'Signature:   ' + (state.signature || 'none'),
-      'Confetti:    ' + (state.confetti ? 'yes' : 'no'),
-      '',
-      '--- CUSTOMER ---',
-      'Name:        ' + state.yourName,
-      'Email:       ' + state.yourEmail,
-      'Etsy Ref:    ' + (state.orderNumber || 'none'),
-    ].join('\n');
-
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      subject:    'New Scratchcard Order — ' + state.occasion + ' for ' + (state.recipient || state.yourName),
-      message:    scMsg,
+      order_type: 'Scratchcard Order',
+      timestamp:  new Date().toLocaleString('en-GB'),
+      name:       state.yourName,
+      email:      state.yourEmail,
+      etsy_ref:   state.orderNumber || 'none',
+      occasion:   state.occasion,
+      layout:     state.layout,
+      style:      state.layout,
+      headline:   state.headline,
+      message:    state.message || 'none',
+      names:      state.recipient || 'not specified',
+      date:       'n/a',
+      venue:      'n/a',
+      extras:     'Signed: ' + (state.signature||'none') + ' | Confetti: ' + (state.confetti?'yes':'no'),
       from_name:  state.yourName,
       from_email: state.yourEmail,
       reply_to:   state.yourEmail,
