@@ -225,7 +225,7 @@
     }
     .c-img-wrap {
       width: 100%;
-      max-width: 260px;
+      max-width: 340px;
       margin: 0 auto 16px;
       aspect-ratio: 4/5;
       overflow: hidden;
@@ -337,6 +337,20 @@
         const diff = startX - e.changedTouches[0].clientX;
         if(Math.abs(diff) > 40) moveCarousel(diff > 0 ? 1 : -1);
       }, {passive:true});
+
+      // Auto-scroll every 3.5 seconds, pause on hover or touch
+      let autoTimer = setInterval(autoAdvance, 3500);
+      function autoAdvance(){
+        const max = slides.length - perView;
+        goTo(current >= max ? 0 : current + perView);
+      }
+      function pauseAuto(){ clearInterval(autoTimer); }
+      function resumeAuto(){ clearInterval(autoTimer); autoTimer = setInterval(autoAdvance, 3500); }
+
+      track.parentElement.addEventListener('mouseenter', pauseAuto);
+      track.parentElement.addEventListener('mouseleave', resumeAuto);
+      track.addEventListener('touchstart', pauseAuto, {passive:true});
+      track.addEventListener('touchend', resumeAuto, {passive:true});
     })();
   </script>
 
