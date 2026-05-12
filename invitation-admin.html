@@ -6,15 +6,14 @@
   <title>Invitation Builder · Moments by Shanaz</title>
   <link rel="icon" href="favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;600&family=Great+Vibes&family=Sacramento&family=Dancing+Script:wght@600&family=Pacifico&family=Nunito:wght@700;900&family=Jost:wght@300;400;500&display=swap"/>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init('G-xIu-91hlxKB5cT_');</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;600&family=Great+Vibes&family=Sacramento&family=Dancing+Script:wght@600&family=Pacifico&family=Nunito:wght@400;700;800;900&family=Josefin+Sans:wght@300;400;600&family=Jost:wght@300;400;500&display=swap"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     :root{--cream:#faf8f4;--warm:#f5f0e8;--border:#e8e0d0;--char:#2c2825;--mid:#6b6460;--soft:#9c9490;--gold:#b8924a;--gold-l:rgba(184,146,74,.1);}
     body{background:var(--cream);font-family:'Jost',sans-serif;color:var(--char);min-height:100vh;}
 
-    /* TOP BAR */
     .top-bar{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;border-bottom:1px solid var(--border);background:var(--cream);position:sticky;top:0;z-index:10;}
     .brand{display:flex;align-items:center;gap:12px;}
     .brand img{height:36px;width:36px;object-fit:contain;border-radius:50%;}
@@ -22,79 +21,152 @@
     .top-bar a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);text-decoration:none;}
     .top-bar a:hover{color:var(--gold);}
 
-    /* LAYOUT */
-    .layout{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 56px);}
-    .panel{padding:32px;border-right:1px solid var(--border);overflow-y:auto;}
+    .layout{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 56px);}
+    .panel{padding:28px;border-right:1px solid var(--border);overflow-y:auto;}
     .preview-col{padding:32px;display:flex;flex-direction:column;align-items:center;gap:20px;background:var(--warm);}
 
-    /* SECTION */
-    .sec{margin-bottom:28px;}
-    .sec-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
-    .divider{height:1px;background:var(--border);margin:24px 0;}
+    .sec{margin-bottom:24px;}
+    .sec-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+    .divider{height:1px;background:var(--border);margin:20px 0;}
 
-    /* PRESET CHIPS */
-    .preset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-    .preset-chip{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:10px 12px;cursor:pointer;transition:all .18s;user-select:none;}
+    /* Preset chips */
+    .preset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;}
+    .preset-chip{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:9px 11px;cursor:pointer;transition:all .15s;user-select:none;}
     .preset-chip:hover{border-color:var(--gold);}
     .preset-chip.sel{border-color:var(--gold);background:var(--gold-l);}
-    .preset-chip .pc-name{font-size:12px;font-weight:500;margin-bottom:2px;}
-    .preset-chip .pc-vibe{font-size:10px;color:var(--soft);}
-    .preset-chip.sel .pc-name{color:var(--gold);}
+    .preset-chip .pn{font-size:11px;font-weight:500;margin-bottom:1px;}
+    .preset-chip .pv{font-size:9px;color:var(--soft);}
+    .preset-chip.sel .pn{color:var(--gold);}
 
-    /* FORM FIELDS */
-    .field{margin-bottom:14px;}
-    .field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
-    .field input,.field textarea,.field select{width:100%;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:10px 13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;}
-    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);}
-    .field textarea{min-height:72px;resize:vertical;}
-    .field .hint{font-size:10px;color:var(--soft);margin-top:4px;line-height:1.6;}
+    /* Fields */
+    .field{margin-bottom:12px;}
+    .field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:5px;}
+    .field input,.field textarea{width:100%;background:var(--warm);border:1px solid var(--border);border-radius:4px;padding:9px 12px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--char);outline:none;transition:border-color .2s;resize:vertical;}
+    .field input:focus,.field textarea:focus{border-color:var(--gold);}
+    .field textarea{min-height:68px;}
+    .field .hint{font-size:10px;color:var(--soft);margin-top:4px;line-height:1.5;}
 
-    /* GENERATE LINK */
-    .gen-btn{width:100%;background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:14px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-    .gen-btn:hover{background:var(--gold);}
-    .link-box{display:none;margin-top:14px;background:var(--warm);border:1px solid var(--gold);border-radius:5px;padding:16px;}
-    .link-box .lb-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
-    .lb-row{display:flex;gap:8px;}
-    .lb-row input{flex:1;background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:9px 11px;font-family:monospace;font-size:11px;color:var(--char);outline:none;}
-    .copy-btn{background:var(--char);color:var(--cream);border:none;border-radius:4px;padding:9px 16px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;white-space:nowrap;transition:background .2s;}
-    .copy-btn:hover{background:var(--gold);}
-    .confirm{font-size:10px;color:var(--gold);margin-top:6px;display:none;}
+    /* Buttons */
+    .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
+    .btn{border:none;border-radius:4px;padding:12px;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+    .btn-dark{background:var(--char);color:var(--cream);}
+    .btn-dark:hover{background:var(--gold);}
+    .btn-outline{background:none;color:var(--char);border:1px solid var(--border);}
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
 
-    /* CARD PREVIEW */
-    .card-wrap{position:relative;width:280px;}
-    .inv-card{width:280px;aspect-ratio:5/7;border-radius:6px;overflow:hidden;position:relative;background:#f0e8d8;box-shadow:0 12px 40px rgba(0,0,0,.2);}
-    .card-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
-    .card-overlay{position:absolute;inset:0;z-index:1;}
-    .card-text-block{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:0 18px 18px;text-align:center;}
-    .card-eyebrow{font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;opacity:.9;}
-    .card-name{font-size:1.3rem;line-height:1.2;margin-bottom:6px;}
-    .card-divider{height:1px;background:currentColor;opacity:.3;margin:6px auto;width:40px;}
-    .card-details{font-size:9px;letter-spacing:.08em;line-height:1.7;opacity:.85;}
-    .card-rsvp{font-size:8px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;opacity:.7;}
-    /* Frame corners */
-    .frame-tl,.frame-tr,.frame-bl,.frame-br{position:absolute;z-index:3;pointer-events:none;}
-    .frame-tl{top:10px;left:10px;}
-    .frame-tr{top:10px;right:10px;transform:scaleX(-1);}
-    .frame-bl{bottom:10px;left:10px;transform:scaleY(-1);}
-    .frame-br{bottom:10px;right:10px;transform:scale(-1);}
-
-    /* PREVIEW LABEL */
+    /* Preview label */
     .preview-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);}
-    .preview-note{font-size:10px;color:var(--soft);text-align:center;max-width:280px;line-height:1.7;}
+    .preview-note{font-size:10px;color:var(--soft);text-align:center;max-width:300px;line-height:1.7;margin-top:4px;}
 
-    /* Font helpers */
-    .f-cormorant{font-family:'Cormorant Garamond',serif;}
-    .f-cinzel{font-family:'Cinzel',serif;}
-    .f-greatvibes{font-family:'Great Vibes',cursive;}
-    .f-sacramento{font-family:'Sacramento',cursive;}
-    .f-dancing{font-family:'Dancing Script',cursive;}
-    .f-pacifico{font-family:'Pacifico',cursive;}
-    .f-nunito{font-family:'Nunito',sans-serif;font-weight:900;}
+    /* ═══════════════════════════════════════════════
+       INVITATION CARD — matches invitation.html exactly
+       ═══════════════════════════════════════════════ */
+    .inv-card{
+      width:300px; aspect-ratio:5/7;
+      position:relative; border-radius:6px; overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.25);
+    }
+    /* background image layer */
+    .card-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;}
+    /* overlay tint */
+    .card-tint{position:absolute;inset:0;z-index:1;}
+    /* ::before star field (starry night only) */
+    .card-stars{position:absolute;inset:0;z-index:2;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1px),radial-gradient(circle,rgba(255,255,255,.4) .6px,transparent .6px);
+      background-size:28px 28px,16px 16px;background-position:0 0,8px 8px;opacity:0;transition:opacity .3s;}
+
+    /* text block always at bottom left, matching mini-card */
+    .card-inner{
+      position:absolute;inset:0;z-index:3;
+      display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start;
+      padding:18px 16px 20px;
+    }
+    /* eyebrow */
+    .card-eyebrow{margin-bottom:5px;display:block;}
+    /* name */
+    .card-name{margin-bottom:4px;display:block;line-height:1.2;}
+    /* divider line */
+    .card-line{width:32px;height:1px;opacity:.35;margin:5px 0;display:block;}
+    /* detail lines */
+    .card-detail{display:block;line-height:1.75;}
+    /* rsvp */
+    .card-rsvp{display:block;margin-top:5px;opacity:.75;}
+
+    /* per-preset styles exactly matching invitation.html */
+
+    /* ELEGANT / RAINFOREST */
+    .p-elegant .card-eyebrow{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#ffd700;font-weight:800;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+    .p-elegant .card-name{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:#2c2825;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+    .p-elegant .card-line{background:#2c2825;}
+    .p-elegant .card-detail{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#e8f5e8;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.5);}
+    .p-elegant .card-rsvp{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#e8f5e8;font-weight:700;}
+
+    /* NOIR */
+    .p-noir .card-eyebrow{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,169,106,.9);}
+    .p-noir .card-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#e8d5a8;letter-spacing:.1em;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+    .p-noir .card-line{background:#c9a961;}
+    .p-noir .card-detail{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,169,106,1);}
+    .p-noir .card-rsvp{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,169,106,.7);}
+
+    /* WEDDING */
+    .p-wedding .card-eyebrow{font-family:'Great Vibes',cursive;font-size:1rem;color:rgba(140,50,90,.85);font-weight:400;}
+    .p-wedding .card-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;color:#5a2535;}
+    .p-wedding .card-line{background:#5a2535;}
+    .p-wedding .card-detail{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(90,37,53,.85);}
+    .p-wedding .card-rsvp{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(90,37,53,.65);}
+
+    /* ENGAGEMENT */
+    .p-engage .card-eyebrow{font-family:'Sacramento',cursive;font-size:1.2rem;color:#f5e8ff;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+    .p-engage .card-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:#ffffff;font-weight:500;text-shadow:0 2px 8px rgba(0,0,0,.7);}
+    .p-engage .card-line{background:#f0e4ff;}
+    .p-engage .card-detail{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#f0e0ff;text-shadow:0 1px 3px rgba(0,0,0,.5);}
+    .p-engage .card-rsvp{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#d4c0ff;}
+
+    /* GARDEN PARTY */
+    .p-garden .card-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#e8f5e8;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+    .p-garden .card-name{font-family:'Dancing Script',cursive;font-size:1.7rem;font-weight:600;color:#ffffff;text-shadow:0 2px 8px rgba(0,0,0,.7);}
+    .p-garden .card-line{background:#ffffff;}
+    .p-garden .card-detail{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#d4efd4;text-shadow:0 1px 3px rgba(0,0,0,.5);}
+    .p-garden .card-rsvp{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,239,212,.7);}
+
+    /* STARRY NIGHT */
+    .p-starry .card-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:rgba(200,220,255,.9);}
+    .p-starry .card-name{font-family:'Sacramento',cursive;font-size:2rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);}
+    .p-starry .card-line{background:rgba(200,215,255,.4);}
+    .p-starry .card-detail{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(220,235,255,1);}
+    .p-starry .card-rsvp{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(200,220,255,.65);}
+
+    /* LITTLE EXPLORER */
+    .p-explorer .card-eyebrow{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(100,60,0,.9);font-weight:700;}
+    .p-explorer .card-name{font-family:'Pacifico',cursive;font-size:1.25rem;color:#7a4a00;}
+    .p-explorer .card-line{background:#7a4a00;}
+    .p-explorer .card-detail{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.06em;color:rgba(80,50,0,.9);font-weight:700;}
+    .p-explorer .card-rsvp{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.08em;color:rgba(80,50,0,.7);font-weight:700;}
+
+    /* WILD BIRTHDAY / SAFARI */
+    .p-safari .card-eyebrow{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(30,80,20,.9);font-weight:800;}
+    .p-safari .card-name{font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:800;color:#1e5c10;}
+    .p-safari .card-line{background:#1e5c10;}
+    .p-safari .card-detail{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.06em;color:rgba(20,70,10,.9);font-weight:700;}
+    .p-safari .card-rsvp{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.08em;color:rgba(20,70,10,.7);font-weight:700;}
+
+    /* PRINCESS */
+    .p-princess .card-eyebrow{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(150,30,120,.9);font-weight:800;}
+    .p-princess .card-name{font-family:'Dancing Script',cursive;font-size:1.65rem;font-weight:600;color:#8c1a6a;}
+    .p-princess .card-line{background:#c050a0;}
+    .p-princess .card-detail{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.08em;color:rgba(110,10,90,.9);font-weight:700;}
+    .p-princess .card-rsvp{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.1em;color:rgba(110,10,90,.65);font-weight:700;}
+
+    /* BOLD & PLAYFUL */
+    .p-playful .card-eyebrow{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#fff;font-weight:800;}
+    .p-playful .card-name{font-family:'Nunito',sans-serif;font-size:1.8rem;font-weight:900;color:#fff;letter-spacing:.04em;text-shadow:0 2px 10px rgba(180,50,20,.25);}
+    .p-playful .card-line{background:rgba(255,255,255,.5);}
+    .p-playful .card-detail{font-family:'Nunito',sans-serif;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#fff;font-weight:700;}
+    .p-playful .card-rsvp{font-family:'Nunito',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:700;}
 
     @media(max-width:768px){
       .layout{grid-template-columns:1fr;}
       .panel{border-right:none;border-bottom:1px solid var(--border);}
-      .preview-col{padding:24px 16px;}
     }
   </style>
 </head>
@@ -110,94 +182,59 @@
 
 <div class="layout">
 
-  <!-- LEFT PANEL -->
+  <!-- PANEL -->
   <div class="panel">
 
-    <!-- PRESETS -->
     <div class="sec">
-      <span class="sec-label">1 · Choose a preset</span>
+      <span class="sec-label">1 · Choose preset</span>
       <div class="preset-grid">
-        <div class="preset-chip sel" onclick="loadPreset('elegant')">
-          <div class="pc-name">Rainforest Adventure</div>
-          <div class="pc-vibe">Jungle · Green · Kids</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('noir')">
-          <div class="pc-name">Noir &amp; Gold</div>
-          <div class="pc-vibe">Dark · Shimmer · Occasion</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('wedding')">
-          <div class="pc-name">Blush Wedding</div>
-          <div class="pc-vibe">Florals · Arch · Lace</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('engage')">
-          <div class="pc-name">Engagement</div>
-          <div class="pc-vibe">Velvet · Plum · Ring box</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('garden')">
-          <div class="pc-name">Garden Party</div>
-          <div class="pc-vibe">Sage · Botanical · Linen</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('starry')">
-          <div class="pc-name">Starry Night</div>
-          <div class="pc-vibe">Navy · Celestial · Stars</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('explorer')">
-          <div class="pc-name">Little Explorer</div>
-          <div class="pc-vibe">Balloons · Bright · Kids</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('safari')">
-          <div class="pc-name">Wild Birthday</div>
-          <div class="pc-vibe">Safari · Animals · Kids</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('princess')">
-          <div class="pc-name">Princess &amp; Fairy</div>
-          <div class="pc-vibe">Pink · Crown · Magical</div>
-        </div>
-        <div class="preset-chip" onclick="loadPreset('playful')">
-          <div class="pc-name">Bold &amp; Playful</div>
-          <div class="pc-vibe">Coral · Confetti · Energy</div>
-        </div>
+        <div class="preset-chip sel" onclick="pick(this,'elegant')"><div class="pn">Rainforest Adventure</div><div class="pv">Jungle · Green · Kids</div></div>
+        <div class="preset-chip"     onclick="pick(this,'noir')">   <div class="pn">Noir &amp; Gold</div>        <div class="pv">Dark · Shimmer · Occasion</div></div>
+        <div class="preset-chip"     onclick="pick(this,'wedding')"><div class="pn">Blush Wedding</div>          <div class="pv">Florals · Arch · Lace</div></div>
+        <div class="preset-chip"     onclick="pick(this,'engage')"> <div class="pn">Engagement</div>             <div class="pv">Velvet · Plum · Ring box</div></div>
+        <div class="preset-chip"     onclick="pick(this,'garden')"> <div class="pn">Garden Party</div>           <div class="pv">Sage · Botanical · Linen</div></div>
+        <div class="preset-chip"     onclick="pick(this,'starry')"> <div class="pn">Starry Night</div>           <div class="pv">Navy · Celestial · Stars</div></div>
+        <div class="preset-chip"     onclick="pick(this,'explorer')"><div class="pn">Little Explorer</div>        <div class="pv">Balloons · Bright · Kids</div></div>
+        <div class="preset-chip"     onclick="pick(this,'safari')"> <div class="pn">Wild Birthday</div>          <div class="pv">Safari · Animals · Kids</div></div>
+        <div class="preset-chip"     onclick="pick(this,'princess')"><div class="pn">Princess &amp; Fairy</div>   <div class="pv">Pink · Crown · Magical</div></div>
+        <div class="preset-chip"     onclick="pick(this,'playful')"><div class="pn">Bold &amp; Playful</div>      <div class="pv">Coral · Confetti · Energy</div></div>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- TEXT DETAILS -->
     <div class="sec">
-      <span class="sec-label">2 · Personalise the text</span>
+      <span class="sec-label">2 · Add the details</span>
       <div class="field">
-        <label>Eyebrow / tagline</label>
-        <input type="text" id="f-eyebrow" placeholder="e.g. You're Invited" oninput="updateCard()"/>
+        <label>Eyebrow line</label>
+        <input type="text" id="f-eyebrow" placeholder="e.g. You're Invited" oninput="render()"/>
+        <div class="hint">Small text above the name</div>
       </div>
       <div class="field">
-        <label>Name / title line</label>
-        <input type="text" id="f-name" placeholder="e.g. Zara Turns 30" oninput="updateCard()"/>
+        <label>Name / title</label>
+        <input type="text" id="f-name" placeholder="e.g. Zara Turns 30" oninput="render()"/>
       </div>
       <div class="field">
-        <label>Details (date · time · venue)</label>
-        <textarea id="f-details" placeholder="Saturday 14th June 2026&#10;7pm · The Grand Hotel&#10;Smart casual" oninput="updateCard()"></textarea>
+        <label>Details</label>
+        <textarea id="f-details" placeholder="Saturday 14th June 2026&#10;7pm · The Grand Hotel&#10;Smart casual" oninput="render()"></textarea>
+        <div class="hint">One line per detail — date, time, venue, dress code etc.</div>
       </div>
       <div class="field">
-        <label>RSVP line (optional)</label>
-        <input type="text" id="f-rsvp" placeholder="e.g. RSVP by 1st June to sarah@email.com" oninput="updateCard()"/>
+        <label>RSVP line <span style="color:var(--soft);font-size:9px;">(optional)</span></label>
+        <input type="text" id="f-rsvp" placeholder="e.g. RSVP by 1st June" oninput="render()"/>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- GENERATE LINK -->
     <div class="sec">
-      <span class="sec-label">3 · Generate preview link</span>
-      <p style="font-size:11px;color:var(--mid);margin-bottom:14px;line-height:1.8;">Generate a link to share with the client — this shows the card with their details. The final design is made in Canva and sent by email.</p>
-      <button class="gen-btn" onclick="generateLink()">Generate Preview Link ✦</button>
-      <div class="link-box" id="linkBox">
-        <div class="lb-label">Copy and send to client</div>
-        <div class="lb-row">
-          <input type="text" id="linkField" readonly/>
-          <button class="copy-btn" onclick="copyLink()">Copy</button>
-        </div>
-        <div class="confirm" id="copyConfirm">✓ Copied!</div>
+      <span class="sec-label">3 · Export</span>
+      <p style="font-size:11px;color:var(--mid);margin-bottom:12px;line-height:1.8;">Download as a high-quality PDF to send directly to your client or use as a reference for Canva.</p>
+      <div class="btn-row">
+        <button class="btn btn-dark" onclick="exportPDF()">Download PDF</button>
+        <button class="btn btn-outline" onclick="exportPNG()">Download PNG</button>
       </div>
+      <p style="font-size:10px;color:var(--soft);margin-top:10px;line-height:1.6;" id="exportNote"></p>
     </div>
 
   </div>
@@ -206,150 +243,133 @@
   <div class="preview-col">
     <span class="preview-label">✦ Live Preview ✦</span>
 
-    <div class="card-wrap">
-      <div class="inv-card" id="invCard">
-        <div class="card-bg" id="cardBg"></div>
-        <div class="card-overlay" id="cardOverlay"></div>
-
-        <!-- Frame corners -->
-        <svg class="frame-tl" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M2 16 L2 3 Q2 2 3 2 L16 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-        <svg class="frame-tr" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M2 16 L2 3 Q2 2 3 2 L16 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-        <svg class="frame-bl" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M2 16 L2 3 Q2 2 3 2 L16 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-        <svg class="frame-br" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M2 16 L2 3 Q2 2 3 2 L16 2" stroke="#c9a961" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-
-        <!-- Text always at bottom -->
-        <div class="card-text-block" id="cardTextBlock">
-          <div class="card-eyebrow f-cormorant" id="cardEyebrow">You're Invited</div>
-          <div class="card-name f-cormorant" id="cardName">Name or Title</div>
-          <div class="card-divider" id="cardDivider"></div>
-          <div class="card-details f-cormorant" id="cardDetails">Date · Time · Venue</div>
-          <div class="card-rsvp" id="cardRsvp"></div>
-        </div>
+    <div id="invCard" class="inv-card p-elegant">
+      <div class="card-bg" id="cardBg" style="background-image:url('rainforest.jpg');"></div>
+      <div class="card-tint" id="cardTint" style="background:rgba(0,20,0,.35);"></div>
+      <div class="card-stars" id="cardStars"></div>
+      <div class="card-inner">
+        <span class="card-eyebrow" id="cardEyebrow">Welcome to the Jungle!</span>
+        <span class="card-name" id="cardName">Name or Title</span>
+        <span class="card-line" id="cardLine"></span>
+        <span class="card-detail" id="cardDetail">Date · Time · Venue</span>
+        <span class="card-rsvp" id="cardRsvp" style="display:none;"></span>
       </div>
     </div>
 
-    <p class="preview-note">Text is always positioned at the bottom of the card, matching the preset style shown to clients. The final design is made in Canva.</p>
+    <p class="preview-note">Text is positioned at the bottom matching the preview cards your clients see. Fonts and colours update automatically per preset.</p>
   </div>
 
 </div>
 
 <script>
-// ── Preset definitions ──
+const { jsPDF } = window.jspdf;
+
 const PRESETS = {
-  elegant:  { image:'rainforest.jpg',  overlay:'rgba(0,20,0,.35)',       textColor:'#ffffff', fontClass:'f-nunito',    eyebrow:"Welcome to the Jungle!" },
-  noir:     { image:'Engaged.jpg',     overlay:'rgba(10,8,6,.5)',         textColor:'#e8d5a8', fontClass:'f-cinzel',    eyebrow:'Cordially Invited'       },
-  wedding:  { image:'wedding2.jpg',    overlay:'rgba(253,240,244,.25)',   textColor:'#5a2535', fontClass:'f-greatvibes',eyebrow:'Together With Their Families' },
-  engage:   { image:'engagement.jpg',  overlay:'rgba(40,30,55,.45)',      textColor:'#f0e4ff', fontClass:'f-sacramento',eyebrow:'She Said Yes'             },
-  garden:   { image:'Flowers.jpg',     overlay:'rgba(0,30,10,.4)',        textColor:'#ffffff', fontClass:'f-dancing',   eyebrow:'You Are Invited'          },
-  starry:   { image:'minimalistic.jpg',overlay:'rgba(10,20,55,.55)',      textColor:'#eaf0ff', fontClass:'f-sacramento',eyebrow:'An Evening to Remember'   },
-  explorer: { image:'party.jpg',       overlay:'rgba(255,249,230,.2)',    textColor:'#7a4a00', fontClass:'f-pacifico',  eyebrow:"It's Party Time!"         },
-  safari:   { image:'Safari.jpg',      overlay:'rgba(20,10,0,.3)',        textColor:'#ffffff', fontClass:'f-nunito',    eyebrow:'Party Time!'              },
-  princess: { image:'pink-watercolour.jpg', overlay:'rgba(255,240,248,.2)', textColor:'#8c1a6a', fontClass:'f-dancing', eyebrow:"You're Invited"          },
-  playful:  { image:'bday.jpg',        overlay:'rgba(200,60,20,.3)',      textColor:'#ffffff', fontClass:'f-nunito',    eyebrow:'Come Celebrate!'          },
+  elegant:  { image:'rainforest.jpg',  tint:'rgba(0,20,0,.35)',         stars:false, defaultEyebrow:'Welcome to the Jungle!',      defaultName:'Name · Age'           },
+  noir:     { image:'Engaged.jpg',     tint:'rgba(10,8,6,.55)',          stars:false, defaultEyebrow:'Cordially Invited',            defaultName:'Name or Title'        },
+  wedding:  { image:'wedding2.jpg',    tint:'rgba(253,240,244,.2)',      stars:false, defaultEyebrow:'Together With Their Families', defaultName:'Charlotte & Oliver'   },
+  engage:   { image:'engagement.jpg',  tint:'rgba(40,30,55,.45)',        stars:false, defaultEyebrow:'She Said Yes',                 defaultName:'Name & Name'          },
+  garden:   { image:'Flowers.jpg',     tint:'rgba(0,30,10,.4)',          stars:false, defaultEyebrow:'You Are Invited',              defaultName:'Name or Title'        },
+  starry:   { image:'minimalistic.jpg',tint:'rgba(10,20,55,.6)',         stars:true,  defaultEyebrow:'An Evening to Remember',       defaultName:'Name or Title'        },
+  explorer: { image:'party.jpg',       tint:'rgba(255,249,230,.15)',     stars:false, defaultEyebrow:"It's Party Time!",             defaultName:"Leo Turns 5!"         },
+  safari:   { image:'Safari.jpg',      tint:'rgba(20,10,0,.25)',         stars:false, defaultEyebrow:'Party Time!',                  defaultName:'Wild Birthday'        },
+  princess: { image:'pink-watercolour.jpg', tint:'rgba(255,240,248,.15)', stars:false, defaultEyebrow:"You're Invited",             defaultName:'Princess Party'       },
+  playful:  { image:'bday.jpg',        tint:'rgba(200,60,20,.3)',        stars:false, defaultEyebrow:'Come Celebrate!',              defaultName:'PARTY TIME'           },
 };
 
-let current = PRESETS.elegant;
+let currentKey = 'elegant';
 
-function loadPreset(key) {
-  const p = PRESETS[key];
-  if (!p) return;
-  current = p;
-
-  // Highlight selected chip
+function pick(el, key) {
   document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('sel'));
-  event.currentTarget.classList.add('sel');
+  el.classList.add('sel');
+  currentKey = key;
 
-  // Set eyebrow if field is empty or still default
-  const eyebrowInput = document.getElementById('f-eyebrow');
-  eyebrowInput.value = p.eyebrow;
-
-  updateCard();
-}
-
-function updateCard() {
-  const p = current;
-
-  // Background image
-  document.getElementById('cardBg').style.backgroundImage = "url('" + p.image + "')";
-
-  // Overlay
-  document.getElementById('cardOverlay').style.background = p.overlay;
-
-  // Text colour on all elements
-  document.getElementById('cardTextBlock').style.color = p.textColor;
-
-  // Font class
-  const textEls = ['cardEyebrow','cardName','cardDetails'];
-  textEls.forEach(id => {
-    const el = document.getElementById(id);
-    el.className = el.id === 'cardRsvp' ? '' :
-      id === 'cardEyebrow' ? 'card-eyebrow ' + p.fontClass :
-      id === 'cardName'    ? 'card-name '    + p.fontClass :
-                             'card-details '  + 'f-cormorant';
-  });
-  document.getElementById('cardDivider').style.background = p.textColor;
-  document.getElementById('cardRsvp').style.color = p.textColor;
-
-  // Text content
-  document.getElementById('cardEyebrow').textContent = document.getElementById('f-eyebrow').value || p.eyebrow;
-  document.getElementById('cardName').textContent    = document.getElementById('f-name').value    || 'Name or Title';
-
-  const details = document.getElementById('f-details').value;
-  document.getElementById('cardDetails').innerHTML = details
-    ? details.split('\n').join('<br>')
-    : 'Date · Time · Venue';
-
-  const rsvp = document.getElementById('f-rsvp').value;
-  document.getElementById('cardRsvp').textContent = rsvp;
-  document.getElementById('cardRsvp').style.display = rsvp ? 'block' : 'none';
-}
-
-function generateLink() {
-  const data = {
-    preset:  Object.keys(PRESETS).find(k => PRESETS[k] === current) || 'elegant',
-    eyebrow: document.getElementById('f-eyebrow').value.trim(),
-    name:    document.getElementById('f-name').value.trim(),
-    details: document.getElementById('f-details').value.trim(),
-    rsvp:    document.getElementById('f-rsvp').value.trim(),
-  };
-
-  if (!data.name && !data.eyebrow) {
-    alert('Please add at least a name or title before generating.');
-    return;
+  const p = PRESETS[key];
+  // Set default eyebrow
+  document.getElementById('f-eyebrow').value = p.defaultEyebrow;
+  // Don't overwrite name if already filled
+  if (!document.getElementById('f-name').value.trim()) {
+    document.getElementById('f-name').placeholder = p.defaultName;
   }
 
-  const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
-  const url = window.location.origin + '/invitation-preview.html?d=' + encoded;
+  // Update card class
+  const card = document.getElementById('invCard');
+  card.className = 'inv-card p-' + key;
 
-  document.getElementById('linkBox').style.display = 'block';
-  document.getElementById('linkField').value = url;
-  document.getElementById('copyConfirm').style.display = 'none';
-  document.getElementById('linkField').select();
-  document.getElementById('linkBox').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  // Update background and tint
+  document.getElementById('cardBg').style.backgroundImage = "url('" + p.image + "')";
+  document.getElementById('cardTint').style.background = p.tint;
+
+  // Stars
+  document.getElementById('cardStars').style.opacity = p.stars ? '0.28' : '0';
+
+  render();
 }
 
-function copyLink() {
-  const val = document.getElementById('linkField').value;
-  navigator.clipboard.writeText(val).then(() => {
-    document.getElementById('copyConfirm').style.display = 'block';
-    setTimeout(() => document.getElementById('copyConfirm').style.display = 'none', 3000);
-  }).catch(() => {
-    document.getElementById('linkField').select();
-    document.execCommand('copy');
-    document.getElementById('copyConfirm').style.display = 'block';
-  });
+function render() {
+  const key = currentKey;
+  const p   = PRESETS[key];
+
+  const eyebrow = document.getElementById('f-eyebrow').value || p.defaultEyebrow;
+  const name    = document.getElementById('f-name').value    || p.defaultName;
+  const details = document.getElementById('f-details').value;
+  const rsvp    = document.getElementById('f-rsvp').value;
+
+  document.getElementById('cardEyebrow').textContent = eyebrow;
+  document.getElementById('cardName').textContent    = name;
+
+  const detailEl = document.getElementById('cardDetail');
+  if (details) {
+    detailEl.innerHTML = details.split('\n').map(l => l.trim()).filter(Boolean).join('<br>');
+  } else {
+    detailEl.textContent = 'Date · Time · Venue';
+  }
+
+  const rsvpEl = document.getElementById('cardRsvp');
+  rsvpEl.textContent    = rsvp;
+  rsvpEl.style.display  = rsvp ? 'block' : 'none';
 }
 
-// Init with first preset
-loadPreset('elegant');
+async function exportPDF() {
+  const note = document.getElementById('exportNote');
+  note.textContent = 'Generating PDF…';
+  try {
+    const card = document.getElementById('invCard');
+    const canvas = await html2canvas(card, { scale: 3, useCORS: true, allowTaint: true });
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+    const pdf = new jsPDF({ orientation:'portrait', unit:'mm', format:'a5' });
+    const w = pdf.internal.pageSize.getWidth();
+    const h = pdf.internal.pageSize.getHeight();
+    pdf.addImage(imgData, 'JPEG', 0, 0, w, h);
+    const name = (document.getElementById('f-name').value || 'invitation').replace(/[^a-zA-Z0-9]/g,'_');
+    pdf.save(name + '_MBS.pdf');
+    note.textContent = '✓ PDF downloaded.';
+  } catch(e) {
+    console.error(e);
+    note.textContent = 'PDF failed — try PNG instead.';
+  }
+}
+
+async function exportPNG() {
+  const note = document.getElementById('exportNote');
+  note.textContent = 'Generating PNG…';
+  try {
+    const card = document.getElementById('invCard');
+    const canvas = await html2canvas(card, { scale: 3, useCORS: true, allowTaint: true });
+    const link = document.createElement('a');
+    const name = (document.getElementById('f-name').value || 'invitation').replace(/[^a-zA-Z0-9]/g,'_');
+    link.download = name + '_MBS.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    note.textContent = '✓ PNG downloaded.';
+  } catch(e) {
+    console.error(e);
+    note.textContent = 'PNG failed — please try again.';
+  }
+}
+
+// Init
+pick(document.querySelector('.preset-chip'), 'elegant');
 </script>
 </body>
 </html>
