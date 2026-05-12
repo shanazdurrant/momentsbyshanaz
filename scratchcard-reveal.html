@@ -54,22 +54,7 @@
 .theme-bg-layer{position:absolute;inset:0;background:rgba(250,246,240,0.15);z-index:0;}
 .theme-bg-tint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(253,251,246,0.25) 0%,rgba(250,246,240,0.10) 40%,rgba(242,236,223,0.25) 100%);transition:background 0.8s ease;}
 
-/* ══ WATERMARK ══ */
-.preview-card::after{
-  content:'PREVIEW';
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(44px,10vw,72px);font-weight:500;letter-spacing:14px;
-  color:rgba(168,136,67,0.28);transform:rotate(-22deg);
-  pointer-events:none;z-index:10;
-  text-shadow:0 2px 4px rgba(255,255,255,0.5);
-}
-.preview-card::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(-22deg,transparent 0,transparent 50px,rgba(168,136,67,0.05) 50px,rgba(168,136,67,0.05) 52px);
-  pointer-events:none;z-index:9;
-}
+/* No watermark on client reveal page */
 
 /* ══ M STAMP ══ */
 .m-stamp{
@@ -80,7 +65,7 @@
 .m-stamp img{width:100%;height:100%;object-fit:contain;}
 
 /* ══ REVEAL LAYER ══ */
-.reveal-layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;color:var(--theme-text,var(--ink));z-index:2;gap:0;}
+.reveal-layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;text-align:center;color:var(--theme-text,var(--ink));z-index:1;gap:0;opacity:0;transition:opacity 0.6s ease;}
 .reveal-greeting{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:10px;opacity:0.9;}
 .reveal-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,30px);font-weight:500;line-height:1.2;margin-bottom:14px;letter-spacing:-0.3px;color:var(--theme-text,var(--ink));}
 .reveal-divider-wrap{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 12px;}
@@ -153,7 +138,7 @@
 .scratch-single-hint.faded{opacity:0;transition:opacity .4s;}
 
 /* ══ TRIPLE LAYOUT ══ */
-.triple-wrap{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:30px 24px 24px;}
+.triple-wrap{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:30px 24px 24px;}
 .triple-header{text-align:center;margin-bottom:auto;padding-bottom:16px;}
 .triple-header .title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
 .triple-header .sub{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--ink-soft);font-style:italic;letter-spacing:1px;}
@@ -349,7 +334,11 @@ function updateTripleStatus(){
 function triggerFullReveal(){
   const card=document.getElementById('previewCard');
   card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed');
-  const flash=document.getElementById('cardFlash'); flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active');
+  const flash=document.getElementById('cardFlash'); if(flash){ flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active'); }
+  // Fade in the reveal layer (the actual card content)
+  const rl=document.getElementById('revealLayer'); if(rl){ rl.style.opacity='1'; }
+  // Hide the triple wrap so reveal-layer shows cleanly
+  setTimeout(()=>{ const tw=document.getElementById('tripleWrap'); if(tw) tw.style.opacity='0'; }, 400);
   fireConfetti(); startAmbientMotes();
 }
 
@@ -441,13 +430,7 @@ function buildCard(d){
         </div>
         <div class="triple-footer"><div class="triple-status" id="tripleStatus">0 of 3 matched</div></div>
       </div>
-      <div class="winner-message" id="winnerMessage">
-        ${d.recipient?`<div class="reveal-greeting">For ${d.recipient}</div>`:''}
-        <div class="reveal-headline">${d.headline||''}</div>
-        <div class="reveal-divider-wrap"><span class="line"></span><svg width="14" height="6" viewBox="0 0 14 6"><ellipse cx="5" cy="3" rx="3" ry="1.2" fill="#a8b89f" transform="rotate(-20 5 3)"/><ellipse cx="9" cy="3" rx="3" ry="1.2" fill="#c8d2c3" transform="rotate(20 9 3)"/></svg><span class="line"></span></div>
-        <div class="reveal-text">${d.message||''}</div>
-        ${d.signature?`<div class="reveal-signoff"><div class="reveal-signoff-prefix">with love,</div><div class="reveal-signoff-name">${d.signature}</div></div>`:''}
-      </div>
+<!-- winner-message removed — reveal-layer fades in on completion -->
       <div class="confetti-layer" id="confettiLayer"></div>
       <div class="card-flash" id="cardFlash"></div>
       <div class="ambient-motes" id="ambientMotes"></div>
