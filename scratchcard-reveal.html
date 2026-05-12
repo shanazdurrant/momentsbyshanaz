@@ -348,8 +348,31 @@ function triggerFullReveal(){
   fireConfetti(); startAmbientMotes();
 }
 
+const CONFETTI_SHAPES={proposal:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="11" cy="6" r="2" fill="#e8d4a0"/><path d="M11 6 L9 10 L13 10 Z" fill="#f0dca8"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],gender:[`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="#e8c4cc" stroke="#a88843" stroke-width="1"/><rect x="10" y="16" width="4" height="6" rx="2" fill="#c9a961"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5" fill="#a8b89f"/><rect x="11" y="12" width="2" height="8" fill="#a88843"/><circle cx="12" cy="21" r="2" fill="#a88843"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],holiday:[`<svg viewBox="0 0 24 24"><path d="M2 12 L22 4 L18 22 L14 14 L6 12 Z" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/><g stroke="#c9a961" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></g></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 22 Q12 14 8 6 Q10 10 12 10 Q14 10 16 6 Q12 14 12 22" fill="#7d8f74"/></svg>`],pregnancy:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="5" ry="7" fill="#e8c4cc"/><circle cx="8" cy="5" r="1.5" fill="#e8c4cc"/><circle cx="16" cy="5" r="1.5" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#c9a961"/></svg>`],wedding:[`<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6" fill="none" stroke="#c9a961" stroke-width="2"/><circle cx="15" cy="12" r="6" fill="none" stroke="#a88843" stroke-width="2"/></svg>`,`<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5" fill="#e8c4cc"/><circle cx="12" cy="10" r="3" fill="#d4a0ac"/><path d="M12 15 L10 22 M12 15 L14 22" stroke="#7d8f74" stroke-width="1" fill="none"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M8 4 L16 4 L14 12 Q14 14 12 14 Q10 14 10 12 Z" fill="#f0dca8" stroke="#a88843" stroke-width="0.8"/><line x1="12" y1="14" x2="12" y2="20" stroke="#a88843" stroke-width="0.8"/></svg>`],birthday:[`<svg viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="6" ry="7" fill="#e8c4cc" stroke="#a88843" stroke-width="0.5"/><line x1="12" y1="17" x2="10" y2="24" stroke="#a88843" stroke-width="0.8"/></svg>`,`<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="12" rx="1" fill="#c9a961" stroke="#a88843" stroke-width="0.5"/><rect x="4" y="8" width="16" height="3" fill="#a88843"/><rect x="11" y="8" width="2" height="14" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#f0dca8" stroke="#c9a961" stroke-width="0.5"/></svg>`],christmas:[`<svg viewBox="0 0 24 24"><g stroke="#a88843" stroke-width="1.2" fill="none" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></g><circle cx="12" cy="12" r="1.5" fill="#e8d4a0"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L7 9 L9 9 L5 14 L8 14 L3 20 L21 20 L16 14 L19 14 L15 9 L17 9 Z" fill="#7d8f74"/><rect x="10" y="20" width="4" height="3" fill="#5c3e30"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`],custom:[`<svg viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#e8d4a0" stroke="#c9a961" stroke-width="0.5"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-3 4 4 0 0 1 7 3c0 5.5-7 10-7 10z" fill="#e8c4cc"/></svg>`,`<svg viewBox="0 0 24 24"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="#a8b89f"/></svg>`]};
+
+let motesInterval=null;
+function startAmbientMotes(){
+  const container=document.getElementById('ambientMotes'); if(!container) return;
+  container.innerHTML=''; if(motesInterval) clearInterval(motesInterval);
+  const spawn=()=>{
+    const card=document.getElementById('previewCard'); if(!card||!card.classList.contains('just-revealed')) return;
+    const mote=document.createElement('div'); mote.className='mote';
+    const driftX=(Math.random()-0.5)*80,duration=5+Math.random()*4,size=2+Math.random()*3;
+    mote.style.left=Math.random()*100+'%'; mote.style.bottom='0'; mote.style.width=size+'px'; mote.style.height=size+'px';
+    mote.style.setProperty('--mx',driftX+'px'); mote.style.animationDuration=duration+'s';
+    container.appendChild(mote); setTimeout(()=>mote.remove(),duration*1000+100);
+  };
+  setTimeout(()=>{ spawn();spawn();spawn(); motesInterval=setInterval(spawn,450); },2000);
+}
+
+function stopAmbientMotes(){
+  if(motesInterval){ clearInterval(motesInterval); motesInterval=null; }
+  const container=document.getElementById('ambientMotes'); if(container) container.innerHTML='';
+}
+
+
 function fireConfetti(){
-  if(!document.getElementById('confettiToggle').classList.contains('on')) return;
+  if(S && S.confetti === false) return; // respect confetti preference from link
   const container=document.getElementById('confettiLayer'); if(!container) return;
   const shapes=CONFETTI_SHAPES[(S&&S.occasion)||'custom']||CONFETTI_SHAPES.custom;
   container.innerHTML='';
