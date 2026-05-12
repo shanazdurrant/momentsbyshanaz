@@ -319,7 +319,10 @@ function checkWinner(){
   updateTripleStatus();
   if(panelsRevealed.filter(Boolean).length===3&&!winnerShown){
     winnerShown=true;
-    setTimeout(()=>{ document.getElementById('tripleWrap').classList.add('winner'); setTimeout(()=>{ document.getElementById('winnerMessage').classList.add('show'); triggerFullReveal(); },400); },300);
+    setTimeout(()=>{
+      const tw=document.getElementById('tripleWrap'); if(tw) tw.classList.add('winner');
+      setTimeout(()=>{ triggerFullReveal(); }, 400);
+    }, 300);
   }
 }
 
@@ -333,19 +336,22 @@ function updateTripleStatus(){
 
 function triggerFullReveal(){
   const card=document.getElementById('previewCard');
-  card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed');
-  const flash=document.getElementById('cardFlash'); if(flash){ flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active'); }
-  // Fade in the reveal layer (the actual card content)
-  const rl=document.getElementById('revealLayer'); if(rl){ rl.style.opacity='1'; }
-  // Hide the triple wrap so reveal-layer shows cleanly
-  setTimeout(()=>{ const tw=document.getElementById('tripleWrap'); if(tw) tw.style.opacity='0'; }, 400);
+  if(card){ card.classList.remove('just-revealed'); void card.offsetWidth; card.classList.add('just-revealed'); }
+  const flash=document.getElementById('cardFlash');
+  if(flash){ flash.classList.remove('active'); void flash.offsetWidth; flash.classList.add('active'); }
+  // Hide triple wrap first, then fade in reveal layer
+  const tw=document.getElementById('tripleWrap'); if(tw){ tw.style.transition='opacity 0.4s'; tw.style.opacity='0'; }
+  setTimeout(()=>{
+    if(tw) tw.style.display='none';
+    const rl=document.getElementById('revealLayer'); if(rl){ rl.style.opacity='1'; }
+  }, 450);
   fireConfetti(); startAmbientMotes();
 }
 
 function fireConfetti(){
   if(!document.getElementById('confettiToggle').classList.contains('on')) return;
   const container=document.getElementById('confettiLayer'); if(!container) return;
-  const shapes=CONFETTI_SHAPES[state.occasion]||CONFETTI_SHAPES.custom;
+  const shapes=CONFETTI_SHAPES[(S&&S.occasion)||'custom']||CONFETTI_SHAPES.custom;
   container.innerHTML='';
   for(let i=0;i<40;i++){
     const piece=document.createElement('div'); piece.className='confetti-piece'; piece.innerHTML=shapes[Math.floor(Math.random()*shapes.length)];
@@ -382,11 +388,13 @@ function resetScratch(){
   document.getElementById('previewCard').classList.remove('just-revealed');
   stopAmbientMotes();
   document.getElementById('tripleWrap').classList.remove('winner');
-  document.getElementById('winnerMessage').classList.remove('show');
+  const wm=document.getElementById('winnerMessage'); if(wm) wm.classList.remove('show');
+  const rl=document.getElementById('revealLayer'); if(rl){ rl.style.opacity='0'; rl.style.transition='none'; }
+  const tw2=document.getElementById('tripleWrap'); if(tw2){ tw2.style.display='flex'; tw2.style.opacity='1'; tw2.style.transition='none'; tw2.classList.remove('winner'); }
   document.querySelectorAll('.tri-panel').forEach(p=>{ p.classList.remove('just-revealed'); const c=p.querySelector('canvas'); if(c){ c.style.opacity='1'; c.style.transition='none'; } });
   document.querySelectorAll('.tri-ping').forEach(p=>p.classList.remove('active'));
-  document.getElementById('cardFlash').classList.remove('active');
-  document.getElementById('confettiLayer').innerHTML='';
+  const cf=document.getElementById('cardFlash'); if(cf) cf.classList.remove('active');
+  const cl=document.getElementById('confettiLayer'); if(cl) cl.innerHTML='';
   const single=document.getElementById('singleCanvas');
   if(single){ single.style.opacity='1'; single.style.transition='none'; single.style.display='block'; }
   document.getElementById('singleHint').classList.remove('faded');
