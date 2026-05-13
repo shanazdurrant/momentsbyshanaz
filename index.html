@@ -312,7 +312,7 @@
       padding: 56px 40px;
       text-align: center;
     }
-    footer .footer-logo img { height: 36px; margin-bottom: 24px; }
+    footer .footer-logo img { height: 72px; margin-bottom: 24px; }
     footer p { font-size: 12px; color: var(--soft); letter-spacing: 0.1em; }
 
     @media (max-width: 768px) {
@@ -527,12 +527,29 @@
 
   <!-- FOOTER -->
   </main>
-  <!-- PHYSICAL BY REQUEST — soft mention -->
-  <section style="padding:48px 40px;text-align:center;border-top:1px solid var(--border);">
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--mid);margin-bottom:12px;">Looking for something physical?</p>
-    <p style="font-size:12px;color:var(--soft);max-width:480px;margin:0 auto 20px;line-height:1.9;">I also create personalised physical keepsakes by request — heat transfer clothing designs, printed scratchcards, personalised glassware, mugs and more. Just get in touch and tell me what you have in mind.</p>
-    <a href="/shop.html" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,146,74,.3);padding-bottom:2px;">Make a request →</a>
+  <!-- PHYSICAL BY REQUEST — split layout -->
+  <section style="border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;min-height:380px;">
+    <!-- Text side -->
+    <div style="padding:64px 56px;display:flex;flex-direction:column;justify-content:center;">
+      <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Physical keepsakes</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:2rem;font-weight:400;color:var(--dark);line-height:1.25;margin:0 0 20px;">Looking for something physical?</p>
+      <p style="font-size:12px;color:var(--soft);max-width:380px;line-height:1.9;margin:0 0 28px;">I also create personalised physical keepsakes by request — heat transfer clothing designs, printed scratchcards, personalised glassware, mugs and more. Just get in touch and tell me what you have in mind.</p>
+      <a href="/shop.html" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,146,74,.3);padding-bottom:2px;align-self:flex-start;">Make a request →</a>
+    </div>
+    <!-- Image side -->
+    <div style="overflow:hidden;background:var(--warm);">
+      <img src="glasses.jpg" alt="Personalised glassware by Moments by Shanaz"
+           style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .6s ease;"
+           onmouseover="this.style.transform='scale(1.04)'"
+           onmouseout="this.style.transform='scale(1)'"/>
+    </div>
   </section>
+  <style>
+    @media(max-width:680px){
+      section[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+      section[style*="grid-template-columns:1fr 1fr"] > div:last-child{height:260px;}
+    }
+  </style>
 
   <footer>
     <div class="footer-logo"><img src="logo-main.png" alt="Moments by Shanaz" /></div>
