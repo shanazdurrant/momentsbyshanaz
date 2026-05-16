@@ -153,8 +153,8 @@ body::after{
 
 /* ══ PROGRESSIVE REVEAL ══ */
 .form-section{margin-bottom:36px;position:relative;z-index:1;opacity:1;transition:opacity 0.6s ease;}
-.form-section.locked{opacity:0.35;pointer-events:none;filter:blur(0.5px);}
-.form-section.newly-unlocked{animation:sectionReveal 0.8s cubic-bezier(.16,1,.3,1) both;}
+.form-section.locked{opacity:1;pointer-events:auto;filter:none;}
+
 @keyframes sectionReveal{0%{opacity:0;transform:translateY(15px);}100%{opacity:1;transform:translateY(0);}}
 .form-section:last-of-type{margin-bottom:24px;}
 
@@ -528,7 +528,7 @@ body::after{
         </div>
       </div>
 
-      <div class="form-section locked" id="section-2">
+      <div class="form-section" id="section-2">
         <div class="section-label"><span class="section-num">— Two —</span><span class="section-line"></span></div>
         <div class="section-title">Choose your <em>layout</em></div>
         <div class="section-hint">One grand reveal, or a little lottery-style mini-game?</div>
@@ -538,7 +538,7 @@ body::after{
         </div>
       </div>
 
-      <div class="form-section locked" id="section-3">
+      <div class="form-section" id="section-3">
         <div class="section-label"><span class="section-num">— Three —</span><span class="section-line"></span></div>
         <div class="section-title">Write <em>the message</em></div>
         <div class="section-hint">The details that make it theirs.</div>
@@ -549,14 +549,14 @@ body::after{
         <div class="form-row"><label>Signed from (optional)</label><input type="text" id="signature" placeholder="e.g. James" maxlength="30"></div>
       </div>
 
-      <div class="form-section locked" id="section-4">
+      <div class="form-section" id="section-4">
         <div class="section-label"><span class="section-num">— Four —</span><span class="section-line"></span></div>
         <div class="section-title">Finishing <em>touches</em></div>
         <div class="section-hint">A little magic when they reveal.</div>
         <div class="toggle-row"><div class="toggle-label">Confetti on reveal<em>Gold, sage &amp; themed colours</em></div><div class="toggle on" id="confettiToggle" onclick="this.classList.toggle('on');"></div></div>
       </div>
 
-      <div class="form-section locked" id="section-5">
+      <div class="form-section" id="section-5">
         <div class="section-label"><span class="section-num">— Five —</span><span class="section-line"></span></div>
         <div class="section-title">Your <em>contact</em></div>
         <div class="section-hint">So I can send your final card back to you.</div>
@@ -1088,25 +1088,69 @@ async function submitOrder(redirectToEtsy = false){
 
   // Email notification to Shanaz via EmailJS
   try {
+    const orderRef = 'MBS-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+    const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxqqh4FeY0KrlnCxDWORbh9Ucag1iyAtApmzlUKW6rZVwIhNRHxPbyMlCA518ej32CQ/exec'; // replace after deploying Google Apps Script
+
+  const scMsg = [
+      '=== SCRATCHCARD ORDER [' + orderRef + '] ===',
+      'Submitted: ' + new Date().toLocaleString('en-GB'),
+      '',
+      '--- ORDER DETAILS ---',
+      'Occasion:    ' + state.occasion,
+      'Layout:      ' + state.layout,
+      'Recipient:   ' + (state.recipient || 'not specified'),
+      'Headline:    ' + state.headline,
+      'Message:     ' + (state.message || 'none'),
+      'Signature:   ' + (state.signature || 'none'),
+      'Confetti:    ' + (state.confetti ? 'yes' : 'no'),
+      '',
+      '--- CUSTOMER ---',
+      'Name:        ' + state.yourName,
+      'Email:       ' + state.yourEmail,
+      'Etsy Ref:    ' + (state.orderNumber || 'none'),
+    ].join('\n');
+
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      order_type: 'Scratchcard Order',
-      timestamp:  new Date().toLocaleString('en-GB'),
-      name:       state.yourName,
-      email:      state.yourEmail,
-      etsy_ref:   state.orderNumber || 'none',
-      occasion:   state.occasion,
-      layout:     state.layout,
-      style:      state.layout,
-      headline:   state.headline,
-      message:    state.message || 'none',
-      names:      state.recipient || 'not specified',
-      date:       'n/a',
-      venue:      'n/a',
-      extras:     'Signed: ' + (state.signature||'none') + ' | Confetti: ' + (state.confetti?'yes':'no'),
+      subject:    'New Scratchcard Order [' + orderRef + '] — ' + state.occasion + ' for ' + (state.recipient || state.yourName),
+      message:    scMsg,
       from_name:  state.yourName,
       from_email: state.yourEmail,
       reply_to:   state.yourEmail,
     });
+
+    // Auto-confirmation to customer (separate template)
+    await emailjs.send('service_q7cy9mq', 'template_confirm', {
+      to_email:    state.yourEmail,
+      to_name:     state.yourName,
+      order_ref:   orderRef,
+      order_type:  'Digital Scratchcard',
+      price:       '£8',
+      etsy_ref:    state.orderNumber || 'n/a',
+      order_summary: [
+        'Occasion:  ' + state.occasion,
+        'Recipient: ' + (state.recipient || 'not specified'),
+        'Headline:  ' + state.headline,
+        'Layout:    ' + state.layout,
+      ].join('\n'),
+    });
+
+    // Log to Google Sheets
+    try {
+      await fetch(SHEETS_WEBHOOK, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          orderRef:   orderRef,
+          name:       state.yourName,
+          email:      state.yourEmail,
+          orderType:  'Digital Scratchcard',
+          price:      '£8',
+          etsyRef:    state.orderNumber || '',
+          timestamp:  new Date().toLocaleString('en-GB'),
+        })
+      });
+    } catch(e){ console.warn('Sheets log failed:', e); }
   } catch(e){ console.error('EmailJS notification failed:', e); }
 
   // WhatsApp notification via CallMeBot
