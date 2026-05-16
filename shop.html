@@ -424,9 +424,9 @@
       <div class="form-group">
         <label>How many scratchcards?</label>
         <div class="radio-group">
-          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-1" value="1 card — £5"/><label for="sc-1">1 card — £5</label></div>
-          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-3" value="3 cards — £12"/><label for="sc-3">3 cards — £12</label></div>
-          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-6" value="6 cards — £20"/><label for="sc-6">6 cards — £20</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-1" value="1 card — £8"/><label for="sc-1">1 card — £8</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-3" value="3 cards — £20"/><label for="sc-3">3 cards — £20</label></div>
+          <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-6" value="6 cards — £36"/><label for="sc-6">6 cards — £36</label></div>
           <div class="radio-chip"><input type="radio" name="sc_qty" id="sc-more" value="More than 6"/><label for="sc-more">More than 6</label></div>
         </div>
       </div>
@@ -487,8 +487,7 @@
     <!-- QUANTITY -->
     <div class="form-row">
       <div class="form-group">
-        <label>Quantity needed</label>
-        <input type="number" id="quantity" min="1" placeholder="How many?"/>
+
       </div>
       <div class="form-group">
         <label>Date needed by</label>
@@ -606,7 +605,6 @@ async function submitRequest() {
     'Text/names: '     + pText,
     'Colours: '        + colours,
     'Effects: '        + effects,
-    'Quantity: '       + (document.getElementById('quantity').value || '—'),
     'Date needed: '    + (document.getElementById('date-needed').value || '—'),
     '',
     'Extra details: '  + (document.getElementById('extra-details').value || 'none'),
@@ -618,15 +616,49 @@ async function submitRequest() {
     'Submitted: ' + new Date().toLocaleString('en-GB'),
   ].join('\n');
 
+  const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxqqh4FeY0KrlnCxDWORbh9Ucag1iyAtApmzlUKW6rZVwIhNRHxPbyMlCA518ej32CQ/exec'; // replace after deploying
+  const orderRef = 'MBS-' + Date.now().toString(36).toUpperCase().slice(-6);
+
   try {
     await emailjs.send('service_q7cy9mq', 'template_lhsm3kw', {
-      order_type: 'Physical Product Request',
-      subject:    '🛍 Physical Request — ' + pType + ' for ' + name,
+      subject:    'Physical Request [' + orderRef + '] — ' + pType + ' for ' + name,
       from_name:  name,
       from_email: email,
       reply_to:   email,
-      message:    body,
+      message:    body + '\n\nOrder Ref: ' + orderRef,
     });
+
+    // Auto-confirmation to customer (separate template)
+    await emailjs.send('service_q7cy9mq', 'template_confirm', {
+      to_email:    email,
+      to_name:     name,
+      order_ref:   orderRef,
+      order_type:  'Physical Item — ' + pType,
+      price:       'TBC — will be confirmed within 24hrs',
+      etsy_ref:    'n/a',
+      order_summary: [
+        'Product:    ' + pType,
+        'Text/Names: ' + pText,
+        'Quantity:   ' + (document.getElementById('clothing-qty')?.value || document.getElementById('glass-qty')?.value || getChecked('sc_qty') || '—'),
+      ].join('\n'),
+    });
+
+    // Log to Google Sheets
+    try {
+      await fetch(SHEETS_WEBHOOK, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          orderRef:   orderRef,
+          name:       name,
+          email:      email,
+          orderType:  'Physical Item — ' + pType,
+          price:      'TBC',
+          etsyRef:    '',
+          timestamp:  new Date().toLocaleString('en-GB'),
+        })
+      });
+    } catch(e){ console.warn('Sheets log failed:', e); }
 
     // WhatsApp ping
     try {
