@@ -1090,7 +1090,7 @@ async function submitOrder(redirectToEtsy = false){
   try {
     const orderRef = 'MBS-' + Date.now().toString(36).toUpperCase().slice(-6);
 
-    const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxqqh4FeY0KrlnCxDWORbh9Ucag1iyAtApmzlUKW6rZVwIhNRHxPbyMlCA518ej32CQ/exec'; // replace after deploying Google Apps Script
+    const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwiKA_SaFKkiJKGeB8BvzyMoGuBAco8mp8i-eKbwainpINBOdfmkpTQ8-RMKxh9s8ZV/exec'; // replace after deploying Google Apps Script
 
   const scMsg = [
       '=== SCRATCHCARD ORDER [' + orderRef + '] ===',
