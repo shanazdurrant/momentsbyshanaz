@@ -194,7 +194,7 @@
 <body>
 <div class="page">
   <div class="brand"><a href="/">Moments by Shanaz</a></div>
-  <div class="preview-wrap" id="previewWrap"></div>
+  <div class="preview-wrap" id="previewWrap" style="visibility:hidden;"></div>
   <div id="resetRow" style="display:none;text-align:center;">
     <button class="reset-btn" onclick="resetScratch()">&#8635; Scratch again</button>
   </div>
@@ -492,6 +492,13 @@ function buildCard(d){
     return;
   }
   S=d; buildCard(d);
+  // Small delay to let browser paint the correct layout before revealing
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      document.getElementById('previewWrap').style.visibility='visible';
+      initCanvases();
+    });
+  });
 })();
 </script>
 </body>
