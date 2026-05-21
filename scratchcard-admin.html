@@ -133,6 +133,30 @@
       <label>Wedding date</label>
       <input type="text" id="weddingDate" placeholder="e.g. Saturday 14th June 2026"/>
     </div>
+
+    <!-- Gender reveal sub-selection — shown only for gender -->
+    <div id="genderField" style="display:none;margin-top:14px;">
+      <div class="field">
+        <label>Is it a...</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div class="gender-chip sel" onclick="selectGender(this)" data-gender="boy" data-headline="It's a Boy! 💙" data-icon="💙"
+               style="background:var(--warm);border:1px solid var(--gold);border-radius:5px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;">
+            <div style="font-size:22px;margin-bottom:5px;">💙</div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);">Boy</div>
+          </div>
+          <div class="gender-chip" onclick="selectGender(this)" data-gender="girl" data-headline="It's a Girl! 💗" data-icon="💗"
+               style="background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;">
+            <div style="font-size:22px;margin-bottom:5px;">💗</div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);">Girl</div>
+          </div>
+          <div class="gender-chip" onclick="selectGender(this)" data-gender="other" data-headline="Our little surprise! 🌈" data-icon="🌈"
+               style="background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;">
+            <div style="font-size:22px;margin-bottom:5px;">🌈</div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);">Other</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- LAYOUT -->
@@ -199,18 +223,53 @@
 </div>
 
 <script>
-  const S = { occ:'proposal', icon:'💍', layout:'single' };
+  const S = { occ:'proposal', icon:'💍', layout:'single', headlineUserEdited:false, gender:'' };
+  // Track if user has manually edited the headline
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('headline').addEventListener('input', () => {
+      S.headlineUserEdited = true;
+    });
+  });
 
   function selectOcc(el) {
     document.querySelectorAll('.occ-chip').forEach(c=>c.classList.remove('sel'));
     el.classList.add('sel');
     S.occ = el.dataset.occ;
+
+    // For gender, icon and headline come from the gender sub-selection
+    if (S.occ === 'gender') {
+      const selGender = document.querySelector('.gender-chip.sel');
+      S.icon = selGender ? selGender.dataset.icon : '💙';
+      if (!S.headlineUserEdited) {
+        document.getElementById('headline').value = selGender ? selGender.dataset.headline : "It's a Boy! 💙";
+      }
+    } else {
+      S.icon = el.dataset.icon;
+      // Only pre-fill headline if user hasn't manually typed anything
+      const hl = document.getElementById('headline');
+      if (!S.headlineUserEdited && !hl.value.trim()) {
+        hl.value = el.dataset.headline;
+      }
+    }
+
+    // Show/hide conditional fields
+    document.getElementById('weddingDateField').style.display = S.occ === 'wedding' ? 'block' : 'none';
+    document.getElementById('genderField').style.display = S.occ === 'gender' ? 'block' : 'none';
+  }
+
+  function selectGender(el) {
+    document.querySelectorAll('.gender-chip').forEach(c => {
+      c.style.borderColor = 'var(--border)';
+      c.querySelector('div:last-child').style.color = 'var(--mid)';
+    });
+    el.style.borderColor = 'var(--gold)';
+    el.querySelector('div:last-child').style.color = 'var(--gold)';
     S.icon = el.dataset.icon;
-    // Pre-fill headline if empty
-    const hl = document.getElementById('headline');
-    if (!hl.value.trim()) hl.value = el.dataset.headline;
-    // Show wedding date field
-    document.getElementById('weddingDateField').style.display = S.occ==='wedding' ? 'block' : 'none';
+    S.gender = el.dataset.gender;
+    // Update headline unless user has manually edited it
+    if (!S.headlineUserEdited) {
+      document.getElementById('headline').value = el.dataset.headline;
+    }
   }
 
   function selectLayout(el) {
@@ -234,6 +293,7 @@
       occasion: S.occ,
       icon:     S.icon,
       layout:   S.layout,
+      gender:   S.gender || '',
       recipient, headline, message,
       signature, weddingDate, confetti
     };
