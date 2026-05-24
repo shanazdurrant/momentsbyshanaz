@@ -472,17 +472,6 @@ body::after{
   </style>
 </head>
 <body>
-<script>
-(function(){
-  var auth = sessionStorage.getItem('mbs_auth_scratchcard');
-  var ts   = sessionStorage.getItem('mbs_auth_ts');
-  var age  = ts ? (Date.now() - parseInt(ts)) / 1000 / 60 : 999; // minutes
-  if(!auth || age > 120){ // session expires after 2 hours
-    window.location.replace('/get-started.html');
-  }
-})();
-</script>
-
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
 
@@ -574,51 +563,18 @@ body::after{
         <div class="form-row"><label>Your name</label><input type="text" id="yourName" placeholder="What should I call you?" maxlength="50" required></div>
         <div class="form-row"><label>Your email</label><input type="email" id="yourEmail" placeholder="you@example.com" required></div>
 
-        <!-- Etsy yes/no -->
+        <!-- Etsy order number — always shown, customer has already paid -->
         <div class="form-row" style="margin-top:4px;">
-          <label style="margin-bottom:10px;display:block;">Have you already purchased on Etsy?</label>
-          <div style="display:flex;gap:10px;">
-            <button type="button" id="etsy-yes-btn" onclick="setEtsyAnswer(true)"
-              style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;background:var(--warm);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.06em;cursor:pointer;transition:all .2s;"
-              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(!window.etsyPaid)this.style.borderColor='var(--border)'">
-              Yes, I've paid on Etsy
-            </button>
-            <button type="button" id="etsy-no-btn" onclick="setEtsyAnswer(false)"
-              style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;background:var(--warm);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.06em;cursor:pointer;transition:all .2s;"
-              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(window.etsyPaid!==false)this.style.borderColor='var(--border)'">
-              No, not yet
-            </button>
-          </div>
-        </div>
-
-        <!-- If YES — show order number field -->
-        <div id="etsy-yes-panel" style="display:none;margin-top:2px;">
-          <div class="form-row">
-            <label>Your Etsy order number</label>
-            <input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50"/>
-            <span style="font-size:11px;color:var(--soft);margin-top:5px;display:block;line-height:1.6;">Found in your Etsy purchase confirmation email — helps me match your order instantly.</span>
-          </div>
-        </div>
-
-        <!-- If NO — explain what happens next -->
-        <div id="etsy-no-panel" style="display:none;margin-top:2px;">
-          <div style="background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.2);border-radius:4px;padding:14px 16px;">
-            <p style="font-size:12px;color:var(--mid);line-height:1.8;margin-bottom:0;">
-              No problem — click <strong>Submit &amp; Pay on Etsy</strong> below. Your order details will be sent to me straight away, then you'll be taken to my Etsy listing to complete payment securely. Once paid, I'll get started on your card.
-            </p>
-          </div>
-          <!-- order number not provided via Etsy -->
+          <label>Your Etsy order number</label>
+          <input type="text" id="orderNumber" placeholder="From your Etsy confirmation email" maxlength="50"/>
+          <span style="font-size:11px;color:var(--soft);margin-top:5px;display:block;line-height:1.6;">Found in your Etsy purchase confirmation email — helps me match your order instantly.</span>
         </div>
 
       </div>
 
-      <!-- Submit buttons — shown based on Etsy answer -->
-      <div id="submit-already-paid" style="display:none;">
+      <!-- Single submit button — customer has already paid on Etsy -->
+      <div>
         <button class="submit-btn" onclick="submitOrder(false)" id="submitBtn">Send my order to Shanaz ✦</button>
-      </div>
-      <div id="submit-pay-now" style="display:none;">
-        <button class="submit-btn" onclick="submitOrder(true)" id="submitBtnPay" style="background:var(--gold);">Submit &amp; Pay on Etsy ✦</button>
-        <p style="font-size:11px;color:var(--soft);text-align:center;margin-top:8px;line-height:1.6;">Your details are sent to me first, then you'll be redirected to Etsy to pay.</p>
       </div>
     </div>
 
@@ -1089,7 +1045,6 @@ async function submitOrder(redirectToEtsy = false){
   if(!state.yourName.trim()){ alert('Please add your name in section five so I know who to reply to.'); document.getElementById('yourName').focus(); return; }
   if(!state.yourEmail.trim()||!state.yourEmail.includes('@')){ alert('Please add a valid email in section five so I can send your final card.'); document.getElementById('yourEmail').focus(); return; }
   if(!state.headline.trim()){ alert('Please write a headline for the reveal in section three.'); document.getElementById('headline').focus(); return; }
-  if(window.etsyPaid === null){ alert('Please let me know whether you have already paid on Etsy.'); return; }
   const btn = redirectToEtsy ? document.getElementById('submitBtnPay') : document.getElementById('submitBtn');
   btn.textContent='Sending…'; btn.disabled=true;
   const payload={timestamp:new Date().toISOString(),occasion:state.occasion,layout:state.layout,recipient:state.recipient,headline:state.headline,message:state.message,signature:state.signature,confetti:state.confetti,yourName:state.yourName,yourEmail:state.yourEmail,orderNumber:state.orderNumber,status:'pending'};
