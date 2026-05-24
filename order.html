@@ -472,6 +472,17 @@ body::after{
   </style>
 </head>
 <body>
+<script>
+(function(){
+  var auth = sessionStorage.getItem('mbs_auth_scratchcard');
+  var ts   = sessionStorage.getItem('mbs_auth_ts');
+  var age  = ts ? (Date.now() - parseInt(ts)) / 1000 / 60 : 999; // minutes
+  if(!auth || age > 120){ // session expires after 2 hours
+    window.location.replace('/get-started.html');
+  }
+})();
+</script>
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
 
@@ -1176,7 +1187,7 @@ async function submitOrder(redirectToEtsy = false){
       document.getElementById('successModal').classList.add('active');
       document.getElementById('etsy-redirect-note').style.display = redirectToEtsy ? 'inline' : 'none';
       setTimeout(()=>{
-        window.location.href = 'https://www.etsy.com/uk/shop/MomentsbyShanaz';
+        window.location.href = 'https://www.etsy.com/shop/momentsbyshanaz';
       }, 3000);
       btn.textContent = 'Redirecting to Etsy…';
     } else {
