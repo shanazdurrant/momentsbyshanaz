@@ -104,6 +104,17 @@
   </style>
 </head>
 <body>
+<script>
+(function(){
+  var auth = sessionStorage.getItem('mbs_auth_physical');
+  var ts   = sessionStorage.getItem('mbs_auth_ts');
+  var age  = ts ? (Date.now() - parseInt(ts)) / 1000 / 60 : 999; // minutes
+  if(!auth || age > 120){ // session expires after 2 hours
+    window.location.replace('/get-started.html');
+  }
+})();
+</script>
+
 
 <a href="#main-content" class="skip-link" style="position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;text-decoration:none;z-index:9999;transition:top .2s;" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">Skip to main content</a>
 
@@ -534,8 +545,7 @@
     <a href="/order.html">Digital Scratchcards</a> &nbsp;·&nbsp;
     <a href="/invitation.html">Invitations</a> &nbsp;·&nbsp;
     <a href="/shop.html">Shop</a> &nbsp;·&nbsp;
-    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a> &nbsp;·&nbsp;
-    <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener">Etsy Shop</a>
+    <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
   </p>
   <p>© 2026 Moments by Shanaz · <a href="/privacy.html">Privacy Policy</a></p>
 </footer>
