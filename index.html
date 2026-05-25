@@ -321,6 +321,16 @@
       nav .nav-links { display: none; }
       section { padding: 48px 20px; }
       .how-wrap { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    /* PRICING GRID */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 32px;
     }
 
     /* ── MOBILE (≤520px) ── */
@@ -356,6 +366,7 @@
       }
 
       /* Pricing cards — stack vertically */
+      .pricing-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
       .tiles { flex-direction: column !important; gap: 16px !important; }
       .tiles > * { min-width: unset !important; max-width: 100% !important; }
 
@@ -480,7 +491,7 @@
     <h2 class="section-title">Simple, <em>honest pricing</em></h2>
     <p style="font-size:14px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is made with care and delivered within hours. No hidden fees — what you see is what you pay.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto 32px;">
+    <div class="pricing-grid">
 
       <!-- Scratchcard -->
       <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
