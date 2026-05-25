@@ -18,319 +18,111 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream: #faf8f4;
-      --warm-white: #fefcf8;
-      --gold: #b8924a;
-      --gold-light: #d4a96a;
-      --charcoal: #2c2825;
-      --mid: #6b6460;
-      --soft: #9c958f;
+      --cream: #faf8f4; --warm: #f5f0e8; --gold: #b8924a;
+      --char: #2c2825; --mid: #6b6460; --soft: #9c958f;
       --border: #e8e2d9;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Jost', sans-serif;
-      background: var(--cream);
-      color: var(--charcoal);
-      font-weight: 300;
-      line-height: 1.7;
-    }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--char); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,248,244,0.95);
-      backdrop-filter: blur(12px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 40px;
-      height: 56px;
-      transition: all 0.4s ease;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
-    }
-    nav.scrolled { height: 48px; }
-    nav .nav-links { display: flex; gap: 36px; align-items: center; }
-    nav .nav-links a {
-      font-family: 'Jost', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mid);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    nav .nav-links a:hover { color: var(--gold); }
-    nav .admin-link {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--soft);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    nav .admin-link:hover { color: var(--gold); }
-    nav .admin-link svg { width: 14px; height: 14px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,248,244,0.95); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; padding: 0 24px; height: 56px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+    .nav-links { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
 
     /* HERO */
-    .hero {
-      background-color: var(--cream);
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 80px 40px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(184,146,74,0.06), transparent);
-    }
-    .hero-logo {
-      width: 200px;
-      height: 200px;
-      margin-bottom: 40px;
-      position: relative;
-      z-index: 1;
-      background: transparent;
-    }
-    .hero-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      mix-blend-mode: multiply;
-      /* Multiply makes white pixels transparent against cream background */
-      /* This works best when hero background matches body exactly */
-    }
-    /* Ensure the hero background is identical to body so multiply works */
-    .hero { background: #faf8f4 !important; }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
-      font-weight: 300;
-      line-height: 1.2;
-      max-width: 680px;
-      margin-bottom: 28px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-    .hero p {
-      font-size: 15px;
-      color: var(--mid);
-      letter-spacing: 0.06em;
-      max-width: 400px;
-      margin-bottom: 60px;
-    }
-    .divider { color: var(--gold); font-size: 18px; margin: 8px 0; }
+    .hero { background: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 24px 80px; }
+    .hero-logo { width: 160px; height: 160px; margin-bottom: 32px; }
+    .hero-logo img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.2; max-width: 640px; margin-bottom: 20px; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero p { font-size: 14px; color: var(--mid); letter-spacing: .05em; max-width: 380px; margin-bottom: 40px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 40px; }
+    .btn-etsy { background: #f1641e; color: #fff; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 3px; display: inline-block; transition: background .2s; }
+    .btn-etsy:hover { background: #c9520a; }
+    .btn-ghost { background: transparent; color: var(--gold); font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 3px; border: 1px solid var(--gold); display: inline-block; transition: all .2s; }
+    .btn-ghost:hover { background: var(--gold); color: var(--cream); }
+    .scroll-cue { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
-    /* SECTION */
-    section {
-      padding: 100px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 300;
-      margin-bottom: 56px;
-      text-align: center;
-    }
+    /* SECTIONS */
+    .section { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+    .section-full { padding: 80px 24px; }
+    .section-label { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; text-align: center; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; margin-bottom: 48px; text-align: center; line-height: 1.25; }
     .section-title em { font-style: italic; color: var(--gold); }
 
-    /* TILES */
-    /* ── FLIP CARDS ── */
-    .tiles {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 0 40px;
-    }
-    .flip-card {
-      width: 300px;
-      height: 380px;
-      perspective: 1000px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .flip-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .flip-card:hover .flip-inner {
-      transform: rotateY(180deg);
-    }
-    .flip-front, .flip-back {
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      overflow: hidden;
-    }
-    /* FRONT — visual preview */
-    .flip-front {
-      border: 1px solid var(--border);
-      background: var(--warm);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(44,40,37,.08);
-    }
-    .flip-front-visual {
-      width: 100%;
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-    }
-    .flip-front-label {
-      padding: 18px 20px;
-      text-align: center;
-      border-top: 1px solid var(--border);
-      width: 100%;
-    }
-    .flip-front-label h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: var(--char);
-      margin-bottom: 4px;
-    }
-    .flip-front-label p {
-      font-size: 10px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--soft);
-    }
-    /* BACK — description + CTA */
-    .flip-back {
-      transform: rotateY(180deg);
-      background: #2c2825 !important;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 36px 28px;
-      text-align: center;
-      position: relative;
-      isolation: isolate;
-    }
-    .flip-back * { position: relative; z-index: 2; }
-    .flip-back-eyebrow {
-      font-size: 9px !important;
-      letter-spacing: .32em;
-      text-transform: uppercase;
-      color: #b8924a !important;
-      margin-bottom: 16px;
-    }
-    .flip-back h3 {
-      font-family: 'Cormorant Garamond', serif !important;
-      font-size: 1.55rem !important;
-      font-weight: 300 !important;
-      color: #ffffff !important;
-      line-height: 1.25;
-      margin-bottom: 16px;
-    }
-    .flip-back p {
-      font-size: 12px !important;
-      color: rgba(255,255,255,.88) !important;
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-    .flip-back-btn {
-      display: inline-block;
-      padding: 11px 28px;
-      border: 1px solid #b8924a;
-      border-radius: 3px;
-      font-family: 'Jost', sans-serif;
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: #b8924a !important;
-      text-decoration: none;
-      transition: background .2s, color .2s;
-      background: transparent;
-    }
-    .flip-back-btn:hover {
-      background: #b8924a !important;
-      color: #faf8f4 !important;
-    }
-    .flip-hint {
-      font-size: 9px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4) !important;
-      margin-top: 10px;
-      opacity: .7;
-    }
+    /* PRODUCT TILES */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 700px; margin: 0 auto; }
+    .product-tile { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--warm); }
+    .product-tile-img { height: 220px; overflow: hidden; position: relative; }
+    .product-tile-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform .5s ease; }
+    .product-tile:hover .product-tile-img img { transform: scale(1.04); }
+    .product-tile-img .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(44,40,37,0) 50%, rgba(44,40,37,.4) 100%); pointer-events: none; }
+    .product-tile-body { padding: 24px; }
+    .product-tile-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .product-tile-body p { font-size: 12px; color: var(--mid); line-height: 1.9; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto 20px; }
+    .price-card { background: var(--cream); border: 1px solid var(--border); border-radius: 8px; padding: 32px 24px; text-align: center; position: relative; }
+    .price-card.featured { border-color: var(--gold); box-shadow: 0 8px 32px rgba(184,146,74,.12); }
+    .price-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; padding: 4px 14px; border-radius: 10px; white-space: nowrap; }
+    .price-label { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--char); line-height: 1; margin-bottom: 4px; }
+    .price-unit { font-size: 11px; color: var(--soft); margin-bottom: 20px; }
+    .price-features { border-top: 1px solid var(--border); padding-top: 18px; text-align: left; }
+    .price-features p { font-size: 12px; color: var(--mid); line-height: 1.9; margin-bottom: 6px; }
 
     /* HOW IT WORKS */
-    .how-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    .step { border-top: 1px solid var(--gold); padding-top: 32px; }
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: rgba(184,146,74,0.25);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-    .step h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-    .step p { font-size: 14px; color: var(--mid); line-height: 1.7; }
+    .how-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; }
+    .step { border-top: 1px solid var(--gold); padding-top: 28px; }
+    .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(184,146,74,.25); line-height: 1; margin-bottom: 16px; }
+    .step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 12px; }
+    .step p { font-size: 13px; color: var(--mid); line-height: 1.7; }
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 56px 40px;
-      text-align: center;
-    }
-    footer .footer-logo img { height: 36px; margin-bottom: 24px; }
-    footer p { font-size: 12px; color: var(--soft); letter-spacing: 0.1em; }
+    footer { border-top: 1px solid var(--border); padding: 56px 24px; text-align: center; }
+    footer .footer-logo img { height: 72px; margin-bottom: 24px; }
+    footer p { font-size: 12px; color: var(--soft); letter-spacing: .08em; }
 
+    /* ACCESSIBILITY */
+    .skip-link { position: absolute; top: -100px; left: 16px; background: var(--char); color: var(--cream); padding: 10px 18px; border-radius: 0 0 4px 4px; font-size: 13px; text-decoration: none; z-index: 9999; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    *:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+    /* TABLET */
     @media (max-width: 768px) {
-      nav { padding: 0 20px; height: 48px; }
-      nav .nav-links { display: none; }
-      section { padding: 60px 20px; }
-      .how-wrap { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 16px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 10px; }
+      .section { padding: 60px 20px; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+      .how-wrap { grid-template-columns: 1fr 1fr; gap: 24px; }
     }
-      /* Accessibility */
-    .skip-link{position:absolute;top:-100px;left:16px;background:var(--char);color:var(--cream);padding:10px 18px;border-radius:0 0 4px 4px;font-size:13px;letter-spacing:.06em;text-decoration:none;z-index:9999;transition:top .2s;}
-    .skip-link:focus{top:0;}
-    *:focus-visible{outline:2px solid #b8924a;outline-offset:3px;border-radius:2px;}
-    button:focus-visible,a:focus-visible{outline:2px solid #b8924a;outline-offset:3px;}
+
+    /* MOBILE */
+    @media (max-width: 520px) {
+      nav { height: 48px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 9px; letter-spacing: .08em; }
+      .hero { padding: 80px 20px 60px; }
+      .hero-logo { width: 120px; height: 120px; }
+      .hero-ctas { flex-direction: column; align-items: stretch; padding: 0 8px; }
+      .btn-etsy, .btn-ghost { text-align: center; }
+      .section { padding: 48px 16px; }
+      .section-full { padding: 48px 16px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .how-wrap { grid-template-columns: 1fr; }
+      footer { padding: 40px 16px; }
+      .etsy-btns { flex-direction: column; align-items: stretch; padding: 0 16px; }
+    }
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-
 
   <!-- NAV -->
   <nav>
@@ -340,241 +132,149 @@
       <a href="/get-started.html">Shop</a>
       <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
     </div>
-    <!-- admin-link removed from nav --><!-- style="position:absolute;right:40px;" aria-label="Admin">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </a>
   </nav>
 
-  <!-- HERO -->
   <main id="main-content">
-  <div class="hero">
-    <div class="hero-logo">
-      <img src="logo-main.png" alt="Moments by Shanaz — Digital Keepsakes, Made With Care" />
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-logo">
+        <img src="logo-main.png" alt="Moments by Shanaz" />
+      </div>
+      <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
+      <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
+      <div class="hero-ctas">
+        <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener" class="btn-etsy">Browse on Etsy</a>
+        <a href="/get-started.html" class="btn-ghost">Already purchased? Make my moment →</a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Explore</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
     </div>
-    <h1>Turn life's biggest moments into <em>something unforgettable</em></h1>
-    <p>Luxury digital experiences for announcements, celebrations, and memories that matter.</p>
-    <div class="hero-divider-line"></div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px;">
-      <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener"
-         style="display:inline-block;background:#f1641e;color:#fff;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:3px;"
-         onmouseover="this.style.background='#c9520a'" onmouseout="this.style.background='#f1641e'">Browse on Etsy</a>
-      <a href="/get-started.html"
-         style="display:inline-block;background:transparent;color:var(--gold);font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:3px;border:1px solid var(--gold);"
-         onmouseover="this.style.background='var(--gold)';this.style.color='var(--cream)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Already purchased? Make my moment →</a>
+
+    <!-- QUOTE BAND -->
+    <div style="background:var(--char);padding:32px 24px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;font-style:italic;color:#f9f7f4;letter-spacing:.04em;">"Every moment deserves to be remembered beautifully."</p>
     </div>
-    <div class="scroll-cue" aria-hidden="true">
-      <span>Explore</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    </div>
-  </div>
 
-  <!-- DECORATIVE QUOTE BAND -->
-  <div style="background:var(--char);padding:40px 40px;text-align:center;">
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;font-weight:300;
-              color:rgba(250,248,244,.75);letter-spacing:.04em;max-width:560px;margin:0 auto;line-height:1.7;">
-      "Every moment deserves to be remembered beautifully."
-    </p>
-    <div style="width:32px;height:1px;background:var(--gold);opacity:.5;margin:18px auto 0;"></div>
-  </div>
-
-  <!-- SERVICES TILES — Flip Cards -->
-  <section style="padding:72px 40px;text-align:center;">
-    <p class="section-label">What We Offer</p>
-    <h2 class="section-title">Designed for every <em>special moment</em></h2>
-    <p style="font-size:13px;color:var(--mid);max-width:440px;margin:0 auto 48px;line-height:1.9;">Hover a card to find out more — then click through to start your order.</p>
-    <div class="tiles">
-
-      <!-- SCRATCHCARD FLIP CARD -->
-      <div class="flip-card" role="article" aria-label="Scratchcard Reveals — hover to learn more">
-        <div class="flip-inner">
-
-          <!-- Front: Proposal.jpg image -->
-          <div class="flip-front">
-            <div class="flip-front-visual" style="background-image:url('Proposal.jpg');background-size:cover;background-position:center;background-color:#f0e8d8;">
-              <!-- Fallback gradient shown if Proposal.jpg not yet in repo -->
-              <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(253,248,240,0) 0%,rgba(240,230,200,0) 100%);"></div>
-              <!-- Gold scratch badge -->
-              <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(44,40,37,.55);backdrop-filter:blur(4px);padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:2;">
-                <span style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85);">Scratch to reveal</span>
-              </div>
-            </div>
-            <div class="flip-front-label">
-              <h3>Scratchcard Reveals</h3>
-              <p>Tap or hover to discover more</p>
-            </div>
+    <!-- WHAT WE OFFER -->
+    <div class="section">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Designed for every <em>special moment</em></h2>
+      <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">From personalised digital scratchcards to beautifully crafted invitations — every design is made with care, made to order, and made with you in mind.</p>
+      <div class="product-grid">
+        <div class="product-tile">
+          <div class="product-tile-img">
+            <img src="scratchcardexample.png" alt="Digital scratchcard example" loading="lazy"/>
+            <div class="overlay"></div>
           </div>
-
-          <!-- Back: description -->
-          <div class="flip-back">
-            <div class="flip-back-eyebrow">Scratchcard Reveals</div>
-            <h3>A reveal they'll never forget</h3>
-            <p>Personalised digital scratchcards for proposals, gender reveals, holiday surprises and more. Designed and personalised just for them — they scratch on their phone to discover your message.</p>
-            <a href="/order.html" class="flip-back-btn">Create yours →</a>
-            <div class="flip-hint">Click to order</div>
+          <div class="product-tile-body">
+            <div class="product-tile-label">Digital Scratchcard</div>
+            <p>Proposals, gender reveals, holiday surprises and more. They scratch on their phone to reveal your hidden message — a moment they'll never forget.</p>
           </div>
-
+        </div>
+        <div class="product-tile">
+          <div class="product-tile-img">
+            <img src="invitationexample.png" alt="Digital invitation example" loading="lazy"/>
+            <div class="overlay"></div>
+          </div>
+          <div class="product-tile-body">
+            <div class="product-tile-label">Digital Invitation</div>
+            <p>Choose from 10 signature styles or go fully bespoke. Weddings, birthdays, kids parties — every occasion, crafted with care and delivered within hours.</p>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- INVITATIONS FLIP CARD -->
-      <div class="flip-card" role="article" aria-label="Digital Invitations — hover to learn more">
-        <div class="flip-inner">
-
-          <!-- Front: real invitation image -->
-          <div class="flip-front">
-            <div class="flip-front-visual" style="background:#f5eaec;">
-              <img src="Wedding_invitation.png" alt="Blush Wedding invitation example"
-                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"/>
-            </div>
-            <div class="flip-front-label">
-              <h3>Digital Invitations</h3>
-              <p>Tap or hover to discover more</p>
+    <!-- PRICING -->
+    <div style="background:var(--warm);padding:80px 24px;">
+      <div style="max-width:1000px;margin:0 auto;text-align:center;">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">Simple, <em>honest pricing</em></h2>
+        <p style="font-size:13px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is made with care and delivered within hours. No hidden fees — what you see is what you pay.</p>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div class="price-label">Scratchcard Reveal</div>
+            <div class="price-amount">£8</div>
+            <div class="price-unit">per card</div>
+            <div class="price-features">
+              <p>✦ Fully personalised message</p>
+              <p>✦ One Big Reveal or Three Match</p>
+              <p>✦ Shareable link — works on any device</p>
+              <p>✦ Delivered within hours</p>
             </div>
           </div>
-
-          <!-- Back: description -->
-          <div class="flip-back">
-            <div class="flip-back-eyebrow">Digital Invitations</div>
-            <h3>Invitations as beautiful as the moment</h3>
-            <p>Choose from 10 signature styles or go fully bespoke. Weddings, birthdays, Eid, gender reveals — every occasion, made with care and delivered within hours.</p>
-            <a href="/invitation.html" class="flip-back-btn">Browse styles →</a>
-            <div class="flip-hint">Click to order</div>
+          <div class="price-card featured">
+            <div class="price-badge">Most Popular</div>
+            <div class="price-label">Digital Invitation</div>
+            <div class="price-amount">£8</div>
+            <div class="price-unit">per invitation</div>
+            <div class="price-features">
+              <p>✦ Choose from 10 signature styles</p>
+              <p>✦ Personalised with your details</p>
+              <p>✦ Shareable preview link</p>
+              <p>✦ Delivered within hours</p>
+            </div>
           </div>
-
+          <div class="price-card">
+            <div class="price-label">Bespoke Invitation</div>
+            <div class="price-amount">£20</div>
+            <div class="price-unit">from</div>
+            <div class="price-features">
+              <p>✦ Fully custom design from scratch</p>
+              <p>✦ Your theme, characters &amp; photos</p>
+              <p>✦ Unlimited revisions until perfect</p>
+              <p>✦ Delivered within 24 hours</p>
+            </div>
+          </div>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section style="padding:72px 40px;text-align:center;background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <p class="section-label">Pricing</p>
-    <h2 class="section-title">Simple, <em>honest pricing</em></h2>
-    <p style="font-size:14px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is made with care and delivered within hours. No hidden fees — what you see is what you pay.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto 32px;">
-
-      <!-- Scratchcard -->
-      <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
-        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Scratchcard Reveal</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£8</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">per card</div>
-        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Fully personalised message</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ One Big Reveal or Three Match</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Shareable link — works on most smartphones and browsers</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within hours</p>
-        </div>
-      </div>
-
-      <!-- Invitation Preset -->
-      <div style="background:var(--cream);border:1px solid var(--gold);border-radius:8px;padding:32px 24px;text-align:center;position:relative;box-shadow:0 8px 32px rgba(184,146,74,.12);">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:4px 14px;border-radius:10px;white-space:nowrap;">Most Popular</div>
-        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Digital Invitation</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£8</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">per invitation</div>
-        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Choose from 10 signature styles</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Personalised with your details</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Shareable preview link for client</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within hours</p>
-        </div>
-      </div>
-
-      <!-- Bespoke -->
-      <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:32px 24px;text-align:center;position:relative;">
-        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Bespoke Invitation</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--char);line-height:1;margin-bottom:4px;">£20</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:20px;">from</div>
-        <div style="border-top:1px solid var(--border);padding-top:18px;text-align:left;">
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Fully custom design from scratch</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Your theme, characters &amp; photos</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;margin-bottom:6px;">✦ Unlimited revisions until perfect</p>
-          <p style="font-size:12px;color:var(--mid);line-height:1.9;">✦ Delivered within 24 hours</p>
-        </div>
-      </div>
-
-    </div>
-    <p style="font-size:11px;color:var(--soft);margin-top:8px;line-height:1.8;">Also available on <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Etsy</a> · Pay securely through the platform you trust most</p>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section>
-    <p class="section-label">The Process</p>
-    <h2 class="section-title">How it <em>works</em></h2>
-    <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">Browse and purchase on Etsy first — then use the link and password in your confirmation PDF to personalise your order directly with me.</p>
-    <div class="how-wrap" style="grid-template-columns:repeat(4,1fr);">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Choose &amp; personalise</h3>
-        <p>Pick your product, fill in all the details — names, message, occasion — using the form on this site.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Pay securely</h3>
-        <p>You'll be directed to Etsy to complete payment — fast, safe and familiar. Or find me directly on Etsy to browse and pay there.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>I create your design</h3>
-        <p>Once payment is confirmed I get to work — your design is made just for you.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Delivered to you</h3>
-        <p>Your finished, watermark-free digital item arrives in your inbox — ready to share within hours.</p>
+        <p style="font-size:11px;color:var(--soft);margin-top:8px;line-height:1.8;">Also available on <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Etsy</a> · Pay securely through the platform you trust most</p>
       </div>
     </div>
 
-    <!-- How it works - simplified -->
-    <section style="background:#f9f7f4;padding:60px 30px;text-align:center;margin:-40px -40px 0;">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8955a;margin-bottom:12px;">How it works</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:#1a1a1a;margin:0 0 12px;">Simple from start to finish</h2>
-      <p style="font-size:13px;color:#666;max-width:480px;margin:0 auto 48px;line-height:1.9;">Fill in your details here, pay securely through Etsy, and I'll have your personalised design with you within hours.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:640px;margin:0 auto;">
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#c9a96e;margin-bottom:10px;">01</div>
-          <h3 style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#1a1a1a;margin:0 0 8px;">Choose &amp; personalise</h3>
-          <p style="font-size:12px;color:#888;line-height:1.7;margin:0;">Fill in your names, message and occasion using the order form.</p>
+    <!-- HOW IT WORKS -->
+    <div class="section">
+      <p class="section-label">The Process</p>
+      <h2 class="section-title">How it <em>works</em></h2>
+      <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">Browse and purchase on Etsy first — then use the link and password in your confirmation PDF to personalise your order directly with me.</p>
+      <div class="how-wrap">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Browse &amp; buy on Etsy</h3>
+          <p>Find your product on my Etsy shop and complete your purchase securely through Etsy's trusted platform.</p>
         </div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#c9a96e;margin-bottom:10px;">02</div>
-          <h3 style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#1a1a1a;margin:0 0 8px;">Pay via Etsy</h3>
-          <p style="font-size:12px;color:#888;line-height:1.7;margin:0;">You'll be taken to our Etsy shop to pay securely — fast and trusted.</p>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Receive your PDF</h3>
+          <p>Instantly after purchase, Etsy delivers a PDF with your unique password and a link to my personalisation form.</p>
         </div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#c9a96e;margin-bottom:10px;">03</div>
-          <h3 style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#1a1a1a;margin:0 0 8px;">Delivered within hours</h3>
-          <p style="font-size:12px;color:#888;line-height:1.7;margin:0;">I'll create your personalised design and send the link straight to your email.</p>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Personalise your order</h3>
+          <p>Use your password to access the form — fill in your names, message and occasion. I'll get to work straight away.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Delivered to you</h3>
+          <p>Your finished design arrives in your inbox within hours — watermark-free, ready to share and cherish.</p>
         </div>
       </div>
-    </section>
+    </div>
 
-  </section>
+    <!-- ETSY BANNER -->
+    <div style="background:#2c2825;padding:72px 24px;text-align:center;">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:300;color:#f9f7f4;margin-bottom:16px;">Find us on <em style="color:#b8924a;font-style:italic;">Etsy</em></h2>
+      <p style="font-size:13px;color:#9c958f;max-width:440px;margin:0 auto 32px;line-height:1.9;">Browse and purchase directly through Etsy — fast, secure, and trusted by millions. All the same personalised designs, with Etsy's buyer protection.</p>
+      <div class="etsy-btns" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+        <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener" class="btn-etsy">Visit our Etsy Shop →</a>
+        <a href="/get-started.html" class="btn-ghost">Already purchased? Make my moment →</a>
+      </div>
+    </div>
 
-  <!-- FOOTER -->
   </main>
-  <!-- PHYSICAL BY REQUEST — soft mention -->
-  <section style="padding:48px 40px;text-align:center;border-top:1px solid var(--border);">
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--mid);margin-bottom:12px;">Looking for something physical?</p>
-    <p style="font-size:12px;color:var(--soft);max-width:480px;margin:0 auto 20px;line-height:1.9;">I also create personalised physical keepsakes by request — heat transfer clothing designs, printed scratchcards, personalised glassware, mugs and more. Just get in touch and tell me what you have in mind.</p>
-    <a href="/shop.html" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,146,74,.3);padding-bottom:2px;">Make a request →</a>
-  </section>
 
-  <section style="background:#2c2825;padding:56px 40px;text-align:center;">
-    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:300;color:#f9f7f4;letter-spacing:.05em;margin-bottom:16px;">Find us on <em style="color:#b8924a;font-style:italic;">Etsy</em></h2>
-    <p style="font-size:12px;color:#9c9490;max-width:440px;margin:0 auto 28px;line-height:1.9;">Browse and purchase directly through Etsy — fast, secure, and trusted by millions.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-      <a href="https://www.etsy.com/uk/shop/MomentsbyShanaz" target="_blank" rel="noopener"
-         style="display:inline-block;background:#f1641e;color:#fff;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:3px;"
-         onmouseover="this.style.background='#c9520a'" onmouseout="this.style.background='#f1641e'">Visit our Etsy Shop →</a>
-      <a href="/get-started.html"
-         style="display:inline-block;background:transparent;color:#b8924a;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:3px;border:1px solid #b8924a;"
-         onmouseover="this.style.background='#b8924a';this.style.color='#2c2825'" onmouseout="this.style.background='transparent';this.style.color='#b8924a'">Already purchased? Make my moment →</a>
-    </div>
-  </section>
-  <footer>
+<footer>
     <div class="footer-logo"><img src="logo-main.png" alt="Moments by Shanaz" /></div>
     <p>Designed with care · Made to be shared · Created for unforgettable moments</p>
 
