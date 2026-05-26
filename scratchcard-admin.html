@@ -223,13 +223,21 @@
 </div>
 
 <script>
-  const S = { occ:'proposal', icon:'💍', layout:'single', headlineUserEdited:false, gender:'' };
-  // Track if user has manually edited the headline
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('headline').addEventListener('input', () => {
-      S.headlineUserEdited = true;
-    });
-  });
+  const S = { occ:'proposal', icon:'💍', layout:'single', gender:'' };
+
+  // All auto-suggested headlines — if current value matches any of these, it's safe to overwrite
+  const SUGGESTED_HEADLINES = [
+    'Will you marry me?', "It's a Boy! 💙", "It's a Girl! 💗",
+    'Our little surprise! 🌈', "Boy or Girl?", 'We\'re going on holiday!',
+    'A baby is on the way!', 'We\'re getting married!', 'Happy Birthday!',
+    'Happy Christmas!', 'A special surprise awaits...'
+  ];
+
+  function headlineIsUserEdited() {
+    const val = document.getElementById('headline').value.trim();
+    if (!val) return false; // empty = not edited
+    return !SUGGESTED_HEADLINES.includes(val); // edited only if not a suggestion
+  }
 
   function selectOcc(el) {
     document.querySelectorAll('.occ-chip').forEach(c=>c.classList.remove('sel'));
@@ -240,14 +248,14 @@
     if (S.occ === 'gender') {
       const selGender = document.querySelector('.gender-chip.sel');
       S.icon = selGender ? selGender.dataset.icon : '💙';
-      if (!S.headlineUserEdited) {
+      if (!headlineIsUserEdited()) {
         document.getElementById('headline').value = selGender ? selGender.dataset.headline : "It's a Boy! 💙";
       }
     } else {
       S.icon = el.dataset.icon;
       // Only pre-fill headline if user hasn't manually typed anything
       const hl = document.getElementById('headline');
-      if (!S.headlineUserEdited && !hl.value.trim()) {
+      if (!headlineIsUserEdited() && !hl.value.trim()) {
         hl.value = el.dataset.headline;
       }
     }
@@ -267,7 +275,7 @@
     S.icon = el.dataset.icon;
     S.gender = el.dataset.gender;
     // Update headline unless user has manually edited it
-    if (!S.headlineUserEdited) {
+    if (!headlineIsUserEdited()) {
       document.getElementById('headline').value = el.dataset.headline;
     }
   }
