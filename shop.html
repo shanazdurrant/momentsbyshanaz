@@ -107,11 +107,9 @@
 <script>
 (function(){
   var auth = sessionStorage.getItem('mbs_auth_physical');
-  var ts   = sessionStorage.getItem('mbs_auth_ts');
-  var age  = ts ? (Date.now() - parseInt(ts)) / 1000 / 60 : 999; // minutes
-  if(!auth || age > 120){ // session expires after 2 hours
-    window.location.replace('/get-started.html');
-  }
+  var ts = sessionStorage.getItem('mbs_auth_ts');
+  var age = ts ? (Date.now() - parseInt(ts)) / 1000 / 60 : 999;
+  if(!auth || age > 120){ window.location.replace('/get-started.html'); }
 })();
 </script>
 
@@ -627,7 +625,7 @@ async function submitRequest() {
     'Submitted: ' + new Date().toLocaleString('en-GB'),
   ].join('\n');
 
-  const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxqqh4FeY0KrlnCxDWORbh9Ucag1iyAtApmzlUKW6rZVwIhNRHxPbyMlCA518ej32CQ/exec'; // replace after deploying
+  const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwiKA_SaFKkiJKGeB8BvzyMoGuBAco8mp8i-eKbwainpINBOdfmkpTQ8-RMKxh9s8ZV/exec'; // replace after deploying
   const orderRef = 'MBS-' + Date.now().toString(36).toUpperCase().slice(-6);
 
   try {
