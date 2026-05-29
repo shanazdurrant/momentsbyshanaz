@@ -141,19 +141,15 @@ async function submitPreset(e, styleName, btn){
     });
 
     try {
-      await fetch(SHEETS_WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
+      await fetch(SHEETS_WEBHOOK + '?payload=' + encodeURIComponent(JSON.stringify({
           orderRef:  orderRef,
           name:      f.yourName,
           email:     f.email,
-          orderType: 'Digital Invitation \u2014 ' + styleName,
-          price:     '\u00a38',
+          orderType: 'Digital Invitation — ' + styleName,
+          price:     '£8',
           etsyRef:   f.etsy || '',
           timestamp: new Date().toLocaleString('en-GB'),
-        })
-      });
+        })), {mode:'no-cors'});
     } catch(e){ console.warn('Sheets log failed:', e); }
 
     showToast('Order sent! Check your email for confirmation \u2736');
@@ -229,19 +225,15 @@ async function submitBespoke(btn){
     });
 
     try {
-      await fetch(SHEETS_WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
+      await fetch(SHEETS_WEBHOOK + '?payload=' + encodeURIComponent(JSON.stringify({
           orderRef:  orderRef,
           name:      name,
           email:     email,
           orderType: 'Bespoke Invitation',
-          price:     'from \u00a320',
+          price:     'from £20',
           etsyRef:   etsy || '',
           timestamp: new Date().toLocaleString('en-GB'),
-        })
-      });
+        })), {mode:'no-cors'});
     } catch(e){ console.warn('Sheets log failed:', e); }
 
     showToast('Vision received! Check your email for confirmation \u2736');
