@@ -1146,19 +1146,15 @@ async function submitOrder(redirectToEtsy = false){
 
     // Log to Google Sheets
     try {
-      await fetch(SHEETS_WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          orderRef:   orderRef,
-          name:       state.yourName,
-          email:      state.yourEmail,
-          orderType:  'Digital Scratchcard',
-          price:      '£8',
-          etsyRef:    state.orderNumber || '',
-          timestamp:  new Date().toLocaleString('en-GB'),
-        })
-      });
+      await fetch(SHEETS_WEBHOOK + '?payload=' + encodeURIComponent(JSON.stringify({
+          orderRef:  orderRef,
+          name:      state.yourName,
+          email:     state.yourEmail,
+          orderType: 'Digital Scratchcard',
+          price:     '£8',
+          etsyRef:   state.orderNumber || '',
+          timestamp: new Date().toLocaleString('en-GB'),
+        })), {mode:'no-cors'});
     } catch(e){ console.warn('Sheets log failed:', e); }
   } catch(e){ console.error('EmailJS notification failed:', e); }
 
