@@ -654,19 +654,15 @@ async function submitRequest() {
 
     // Log to Google Sheets
     try {
-      await fetch(SHEETS_WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          orderRef:   orderRef,
-          name:       name,
-          email:      email,
-          orderType:  'Physical Item — ' + pType,
-          price:      'TBC',
-          etsyRef:    '',
-          timestamp:  new Date().toLocaleString('en-GB'),
-        })
-      });
+      await fetch(SHEETS_WEBHOOK + '?payload=' + encodeURIComponent(JSON.stringify({
+          orderRef:  orderRef,
+          name:      name,
+          email:     email,
+          orderType: 'Physical Item — ' + pType,
+          price:     'TBC',
+          etsyRef:   '',
+          timestamp: new Date().toLocaleString('en-GB'),
+        })), {mode:'no-cors'});
     } catch(e){ console.warn('Sheets log failed:', e); }
 
     // WhatsApp ping
