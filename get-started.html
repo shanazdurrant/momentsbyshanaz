@@ -104,10 +104,10 @@
     <div class="step-header">
       <p class="step-eyebrow">Already purchased on Etsy?</p>
       <h1 class="step-title">Let's make your <em>moment</em></h1>
-      <p class="step-sub">Select what you purchased, then enter the password from your Etsy confirmation PDF to access your personalisation form.</p>
+      <p class="step-sub">Enter the password from your Etsy confirmation PDF to access your personalisation form.</p>
     </div>
 
-    <!-- PRODUCT SELECTOR -->
+    <!-- PRODUCT SELECTOR — scratchcard only for now -->
     <div class="product-grid">
 
       <div class="product-card" onclick="selectProduct(this,'scratchcard')" data-product="scratchcard">
@@ -123,31 +123,11 @@
         </div>
       </div>
 
-      <div class="product-card" onclick="selectProduct(this,'invitation')" data-product="invitation">
-        <div class="pc-icon">💌</div>
-        <div class="pc-text">
-          <div class="pc-name">Digital Invitation</div>
-          <div class="pc-desc">Preset styles or fully bespoke — weddings, birthdays, kids parties &amp; more</div>
-        </div>
-        <div class="pc-check">
-          <svg class="pc-check-svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-
-      <div class="product-card" onclick="selectProduct(this,'physical')" data-product="physical">
-        <div class="pc-icon">🎁</div>
-        <div class="pc-text">
-          <div class="pc-name">Physical Keepsake</div>
-          <div class="pc-desc">Personalised glassware, clothing, sunglasses &amp; more</div>
-        </div>
-        <div class="pc-check">
-          <svg class="pc-check-svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
+      <!-- Invitation and Physical hidden — available later -->
+      <!-- 
+      <div class="product-card" onclick="selectProduct(this,'invitation')" data-product="invitation">...</div>
+      <div class="product-card" onclick="selectProduct(this,'physical')" data-product="physical">...</div>
+      -->
 
     </div>
 
