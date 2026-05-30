@@ -35,7 +35,7 @@
     /* HERO */
     .hero { background: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 24px 80px; }
     .hero-logo { width: 160px; height: 160px; margin-bottom: 32px; }
-    .hero-logo img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
+    .hero-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.2; max-width: 640px; margin-bottom: 20px; }
     .hero h1 em { font-style: italic; color: var(--gold); }
     .hero p { font-size: 14px; color: var(--mid); letter-spacing: .05em; max-width: 380px; margin-bottom: 40px; }
@@ -128,8 +128,6 @@
   <nav>
     <div class="nav-links">
       <a href="/get-started.html">Scratchcards</a>
-      <a href="/get-started.html">Invitations</a>
-      <a href="/get-started.html">Shop</a>
       <a href="mailto:hello@momentsbyshanaz.co.uk">Contact</a>
     </div>
   </nav>
@@ -162,8 +160,8 @@
     <div class="section">
       <p class="section-label">What We Offer</p>
       <h2 class="section-title">Designed for every <em>special moment</em></h2>
-      <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">From personalised digital scratchcards to beautifully crafted invitations — every design is made with care, made to order, and made with you in mind.</p>
-      <div class="product-grid">
+      <p style="font-size:13px;color:var(--mid);max-width:520px;margin:0 auto 40px;line-height:1.9;text-align:center;">Personalised digital scratchcards for every occasion — proposals, gender reveals, holiday surprises, birthdays and more. Made with care, made to order, and delivered within hours.</p>
+      <div style="max-width:500px;margin:0 auto;">
         <div class="product-tile">
           <div class="product-tile-img">
             <img src="scratchcardexample.png" alt="Digital scratchcard example" loading="lazy"/>
@@ -171,17 +169,7 @@
           </div>
           <div class="product-tile-body">
             <div class="product-tile-label">Digital Scratchcard</div>
-            <p>Proposals, gender reveals, holiday surprises and more. They scratch on their phone to reveal your hidden message — a moment they'll never forget.</p>
-          </div>
-        </div>
-        <div class="product-tile">
-          <div class="product-tile-img">
-            <img src="invitationexample.png" alt="Digital invitation example" loading="lazy"/>
-            <div class="overlay"></div>
-          </div>
-          <div class="product-tile-body">
-            <div class="product-tile-label">Digital Invitation</div>
-            <p>Choose from 10 signature styles or go fully bespoke. Weddings, birthdays, kids parties — every occasion, crafted with care and delivered within hours.</p>
+            <p>Proposals, gender reveals, holiday surprises, birthdays and more. They scratch on their phone to reveal your hidden message — a moment they'll never forget.</p>
           </div>
         </div>
       </div>
@@ -193,38 +181,17 @@
         <p class="section-label">Pricing</p>
         <h2 class="section-title">Simple, <em>honest pricing</em></h2>
         <p style="font-size:13px;color:var(--mid);max-width:480px;margin:0 auto 48px;line-height:1.9;">Every order is made with care and delivered within hours. No hidden fees — what you see is what you pay.</p>
-        <div class="pricing-grid">
-          <div class="price-card">
-            <div class="price-label">Scratchcard Reveal</div>
-            <div class="price-amount">£8</div>
+        <div style="max-width:400px;margin:0 auto 20px;">
+          <div class="price-card featured">
+            <div class="price-badge">Available on Etsy</div>
+            <div class="price-label">Digital Scratchcard</div>
+            <div class="price-amount">from £4.99</div>
             <div class="price-unit">per card</div>
             <div class="price-features">
               <p>✦ Fully personalised message</p>
-              <p>✦ One Big Reveal or Three Match</p>
+              <p>✦ One Big Reveal or Three Match layout</p>
+              <p>✦ Proposals, gender reveals, birthdays &amp; more</p>
               <p>✦ Shareable link — works on any device</p>
-              <p>✦ Delivered within hours</p>
-            </div>
-          </div>
-          <div class="price-card featured">
-            <div class="price-badge">Most Popular</div>
-            <div class="price-label">Digital Invitation</div>
-            <div class="price-amount">£8</div>
-            <div class="price-unit">per invitation</div>
-            <div class="price-features">
-              <p>✦ Choose from 10 signature styles</p>
-              <p>✦ Personalised with your details</p>
-              <p>✦ Shareable preview link</p>
-              <p>✦ Delivered within hours</p>
-            </div>
-          </div>
-          <div class="price-card">
-            <div class="price-label">Bespoke Invitation</div>
-            <div class="price-amount">£20</div>
-            <div class="price-unit">from</div>
-            <div class="price-features">
-              <p>✦ Fully custom design from scratch</p>
-              <p>✦ Your theme, characters &amp; photos</p>
-              <p>✦ Unlimited revisions until perfect</p>
               <p>✦ Delivered within 24 hours</p>
             </div>
           </div>
